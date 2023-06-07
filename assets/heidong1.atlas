@@ -1,0 +1,20 @@
+
+heidong1.png
+size: 137,70
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blac_ hole
+  rotate: false
+  xy: 2, 2
+  size: 66, 66
+  orig: 66, 66
+  offset: 0, 0
+  index: -1
+qiuz
+  rotate: true
+  xy: 70, 2
+  size: 66, 65
+  orig: 66, 65
+  offset: 0, 0
+  index: -1
