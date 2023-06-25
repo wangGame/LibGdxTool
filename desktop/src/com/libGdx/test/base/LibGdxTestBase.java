@@ -25,7 +25,7 @@ import kw.test.file.ReadFileConfig;
  * @Date 2023/6/21 14:18
  */
 public class LibGdxTestBase extends BaseGame {
-    public void start(EffectTest test) {
+    public void start(LibGdxTestMain test) {
         ReadFileConfig readFileConfig = new ReadFileConfig();
         Bean value = readFileConfig.getValue();
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
