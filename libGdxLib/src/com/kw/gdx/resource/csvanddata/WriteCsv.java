@@ -33,7 +33,7 @@ public class WriteCsv {
             Field[] declaredFields1 = data.getClass().getDeclaredFields();
             for (Field field : declaredFields1) {
                 try {
-                    // 设置可访问性
+
                     ClassUtils.mathodGetValue(data,field);
                 } catch (Exception e) {
                     e.printStackTrace();
