@@ -19,6 +19,10 @@ public class SpineTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
+//        SpineActor spineActor = new SpineActor("dog_xuanguan");
+//        stage.addActor(spineActor);
+//        spineActor.setAnimation("animation", true);
+//        spineActor.setPosition(400, 400);
         {
             SpineActor spineActor = new SpineActor("spine/0_loading");
             stage.addActor(spineActor);
