@@ -1,0 +1,688 @@
+{
+  "ID": "2532c444-90ee-4221-aab8-d2c6d89fa4e2",
+  "Version": "3.10.0.0",
+  "Name": "levelBottomView",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 66,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 17,
+            "ActionTag": 591738178,
+            "Size": {
+              "X": 720.0,
+              "Y": 1280.0
+            },
+            "Name": "empty_click",
+            "ctype": "PanelObjectData"
+          },
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 210.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.1641
+            },
+            "PreSize": {
+              "X": 0.9444,
+              "Y": 0.3281
+            },
+            "LeftMargin": 20.0,
+            "RightMargin": 20.0,
+            "TopMargin": 860.0,
+            "Tag": 74,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/popups_bg.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 85,
+                "Scale9OriginY": 93,
+                "Scale9Width": 34,
+                "Scale9Height": 18,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 341.0,
+                  "Y": 204.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5015,
+                  "Y": 0.4857
+                },
+                "PreSize": {
+                  "X": 1.1324,
+                  "Y": 1.2476
+                },
+                "LeftMargin": -44.0,
+                "RightMargin": -46.0,
+                "TopMargin": -46.0,
+                "BottomMargin": -58.0,
+                "Tag": 70,
+                "ActionTag": 261714128,
+                "Size": {
+                  "X": 770.0,
+                  "Y": 524.0
+                },
+                "Name": "lbv_bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 336.0,
+                  "Y": 288.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4941,
+                  "Y": 0.6857
+                },
+                "PreSize": {
+                  "X": 0.7647,
+                  "Y": 0.2095
+                },
+                "LeftMargin": 76.0,
+                "RightMargin": 84.0,
+                "TopMargin": 44.0,
+                "BottomMargin": 288.0,
+                "Tag": 18,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/button.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 40,
+                    "Scale9OriginY": 10,
+                    "Scale9Width": 60,
+                    "Scale9Height": 62,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 193,
+                      "G": 224,
+                      "B": 193
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 307,
+                    "ActionTag": 265401295,
+                    "Size": {
+                      "X": 520.0,
+                      "Y": 88.0
+                    },
+                    "Name": "lbv_view_kuang",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/1_2_view.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9OriginX": 13,
+                    "Scale9OriginY": 9,
+                    "Scale9Width": 28,
+                    "Scale9Height": 36,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 179.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3442,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1038,
+                      "Y": 0.6136
+                    },
+                    "LeftMargin": 179.0,
+                    "RightMargin": 287.0,
+                    "TopMargin": 17.0,
+                    "BottomMargin": 17.0,
+                    "Tag": 308,
+                    "ActionTag": -1222406360,
+                    "Size": {
+                      "X": 54.0,
+                      "Y": 54.0
+                    },
+                    "Name": "lbv_view_icon",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/View.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9OriginX": 25,
+                    "Scale9OriginY": 8,
+                    "Scale9Width": 26,
+                    "Scale9Height": 9,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 250.0,
+                      "Y": 31.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4808,
+                      "Y": 0.3523
+                    },
+                    "PreSize": {
+                      "X": 0.1462,
+                      "Y": 0.2841
+                    },
+                    "LeftMargin": 250.0,
+                    "RightMargin": 194.0,
+                    "TopMargin": 32.0,
+                    "BottomMargin": 31.0,
+                    "Tag": 112,
+                    "ActionTag": -617216275,
+                    "Size": {
+                      "X": 76.0,
+                      "Y": 25.0
+                    },
+                    "Name": "lbv_view_font",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": -1422202905,
+                "Size": {
+                  "X": 520.0,
+                  "Y": 88.0
+                },
+                "Name": "lbv_view_click",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 336.0,
+                  "Y": 168.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4941,
+                  "Y": 0.4
+                },
+                "PreSize": {
+                  "X": 0.7647,
+                  "Y": 0.2095
+                },
+                "LeftMargin": 76.0,
+                "RightMargin": 84.0,
+                "TopMargin": 164.0,
+                "BottomMargin": 168.0,
+                "Tag": 19,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/button.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 40,
+                    "Scale9OriginY": 13,
+                    "Scale9Width": 60,
+                    "Scale9Height": 62,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 250,
+                      "G": 208,
+                      "B": 192
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 311,
+                    "ActionTag": -490277575,
+                    "Size": {
+                      "X": 520.0,
+                      "Y": 88.0
+                    },
+                    "Name": "lbv_view_kuang",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/1_2_restart.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9OriginX": 12,
+                    "Scale9OriginY": 11,
+                    "Scale9Width": 30,
+                    "Scale9Height": 32,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 165.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3173,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1038,
+                      "Y": 0.6136
+                    },
+                    "LeftMargin": 165.0,
+                    "RightMargin": 301.0,
+                    "TopMargin": 17.0,
+                    "BottomMargin": 17.0,
+                    "Tag": 312,
+                    "ActionTag": -718543713,
+                    "Size": {
+                      "X": 54.0,
+                      "Y": 54.0
+                    },
+                    "Name": "lbv_view_icon",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/Restart.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9OriginX": 35,
+                    "Scale9OriginY": 8,
+                    "Scale9Width": 39,
+                    "Scale9Height": 9,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 231.0,
+                      "Y": 31.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4442,
+                      "Y": 0.3523
+                    },
+                    "PreSize": {
+                      "X": 0.2096,
+                      "Y": 0.2841
+                    },
+                    "LeftMargin": 231.0,
+                    "RightMargin": 180.0,
+                    "TopMargin": 32.0,
+                    "BottomMargin": 31.0,
+                    "Tag": 113,
+                    "ActionTag": 2088787951,
+                    "Size": {
+                      "X": 109.0,
+                      "Y": 25.0
+                    },
+                    "Name": "lbv_restart_font",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": 1348362094,
+                "Size": {
+                  "X": 520.0,
+                  "Y": 88.0
+                },
+                "Name": "lbv_restart_click",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 81.0,
+                  "Y": 48.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.1191,
+                  "Y": 0.1143
+                },
+                "PreSize": {
+                  "X": 0.7647,
+                  "Y": 0.2095
+                },
+                "LeftMargin": 81.0,
+                "RightMargin": 79.0,
+                "TopMargin": 284.0,
+                "BottomMargin": 48.0,
+                "Tag": 20,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/button.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 40,
+                    "Scale9OriginY": 13,
+                    "Scale9Width": 60,
+                    "Scale9Height": 62,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 23,
+                      "G": 22,
+                      "B": 19
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 313,
+                    "ActionTag": -756375245,
+                    "Size": {
+                      "X": 520.0,
+                      "Y": 88.0
+                    },
+                    "Name": "lbv_view_kuang",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/Cancel.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9OriginX": 34,
+                    "Scale9OriginY": 8,
+                    "Scale9Width": 36,
+                    "Scale9Height": 9,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 206.0,
+                      "Y": 31.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3962,
+                      "Y": 0.3523
+                    },
+                    "PreSize": {
+                      "X": 0.2,
+                      "Y": 0.2841
+                    },
+                    "LeftMargin": 206.0,
+                    "RightMargin": 210.0,
+                    "TopMargin": 32.0,
+                    "BottomMargin": 31.0,
+                    "Tag": 268,
+                    "ActionTag": -802153037,
+                    "Size": {
+                      "X": 104.0,
+                      "Y": 25.0
+                    },
+                    "Name": "lbv_cancel_font",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": 1578159467,
+                "Size": {
+                  "X": 520.0,
+                  "Y": 88.0
+                },
+                "Name": "lbv_restart_cancel",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": 32070589,
+            "Size": {
+              "X": 680.0,
+              "Y": 420.0
+            },
+            "Name": "panel",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "gameplist.plist",
+        "gameplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

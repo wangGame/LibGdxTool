@@ -1,0 +1,264 @@
+
+levelAtlas.png
+size: 2040,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1caodi
+  rotate: false
+  xy: 700, 39
+  size: 682, 203
+  orig: 682, 203
+  offset: 0, 0
+  index: -1
+1fangzi1
+  rotate: false
+  xy: 1895, 799
+  size: 139, 584
+  orig: 139, 584
+  offset: 0, 0
+  index: -1
+1fangzi2
+  rotate: false
+  xy: 1794, 24
+  size: 157, 572
+  orig: 157, 572
+  offset: 0, 0
+  index: -1
+2chuanghu1
+  rotate: false
+  xy: 1963, 279
+  size: 53, 92
+  orig: 53, 92
+  offset: 0, 0
+  index: -1
+2chuanghu2
+  rotate: false
+  xy: 1545, 1302
+  size: 30, 81
+  orig: 30, 81
+  offset: 0, 0
+  index: -1
+2chuanghu3
+  rotate: false
+  xy: 1963, 182
+  size: 47, 85
+  orig: 47, 85
+  offset: 0, 0
+  index: -1
+2chuanghu4
+  rotate: false
+  xy: 2002, 1965
+  size: 27, 77
+  orig: 27, 77
+  offset: 0, 0
+  index: -1
+2fangzi4
+  rotate: false
+  xy: 1590, 182
+  size: 192, 414
+  orig: 192, 414
+  offset: 0, 0
+  index: -1
+2men1
+  rotate: false
+  xy: 1895, 630
+  size: 138, 157
+  orig: 138, 157
+  offset: 0, 0
+  index: -1
+2yancong
+  rotate: false
+  xy: 1935, 1659
+  size: 55, 383
+  orig: 55, 383
+  offset: 0, 0
+  index: -1
+3caodui1
+  rotate: false
+  xy: 1394, 1128
+  size: 126, 60
+  orig: 126, 60
+  offset: 0, 0
+  index: -1
+3caodui3
+  rotate: false
+  xy: 1394, 1200
+  size: 139, 183
+  orig: 139, 183
+  offset: 0, 0
+  index: -1
+3caodui4
+  rotate: false
+  xy: 1394, 135
+  size: 135, 145
+  orig: 135, 145
+  offset: 0, 0
+  index: -1
+3chuanghu5
+  rotate: false
+  xy: 1665, 64
+  size: 97, 106
+  orig: 97, 106
+  offset: 0, 0
+  index: -1
+3chuanghu6
+  rotate: false
+  xy: 1963, 102
+  size: 60, 68
+  orig: 60, 68
+  offset: 0, 0
+  index: -1
+3shu3
+  rotate: false
+  xy: 1590, 608
+  size: 293, 775
+  orig: 293, 775
+  offset: 0, 0
+  index: -1
+3shu4
+  rotate: false
+  xy: 1307, 292
+  size: 271, 820
+  orig: 271, 820
+  offset: 0, 0
+  index: -1
+3xue1
+  rotate: false
+  xy: 1394, 6
+  size: 136, 117
+  orig: 136, 117
+  offset: 0, 0
+  index: -1
+3xue2
+  rotate: false
+  xy: 6, 9
+  size: 682, 173
+  orig: 682, 173
+  offset: 0, 0
+  index: -1
+4chuanghu
+  rotate: false
+  xy: 6, 1124
+  size: 682, 918
+  orig: 682, 918
+  offset: 0, 0
+  index: -1
+4chuangliandai1
+  rotate: false
+  xy: 1963, 383
+  size: 64, 235
+  orig: 64, 235
+  offset: 0, 0
+  index: -1
+4chuangliandai2
+  rotate: false
+  xy: 1935, 1411
+  size: 62, 236
+  orig: 62, 236
+  offset: 0, 0
+  index: -1
+4dachuanghu
+  rotate: false
+  xy: 6, 194
+  size: 682, 918
+  orig: 682, 918
+  offset: 0, 0
+  index: -1
+4niao
+  rotate: false
+  xy: 1542, 62
+  size: 111, 108
+  orig: 111, 108
+  offset: 0, 0
+  index: -1
+chg
+  rotate: false
+  xy: 1394, 1395
+  size: 529, 647
+  orig: 529, 647
+  offset: 0, 0
+  index: -1
+ditu
+  rotate: false
+  xy: 700, 1124
+  size: 682, 918
+  orig: 682, 918
+  offset: 0, 0
+  index: -1
+xd
+  rotate: false
+  xy: 700, 254
+  size: 595, 858
+  orig: 595, 858
+  offset: 0, 0
+  index: -1
+
+levelAtlas2.png
+size: 897,790
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1shu1
+  rotate: false
+  xy: 344, 168
+  size: 116, 408
+  orig: 116, 408
+  offset: 0, 0
+  index: -1
+1shu2
+  rotate: false
+  xy: 6, 171
+  size: 326, 613
+  orig: 326, 613
+  offset: 0, 0
+  index: -1
+2fangzi3
+  rotate: false
+  xy: 655, 225
+  size: 135, 351
+  orig: 135, 351
+  offset: 0, 0
+  index: -1
+2fangzi5
+  rotate: false
+  xy: 472, 229
+  size: 171, 347
+  orig: 171, 347
+  offset: 0, 0
+  index: -1
+2shizhuan
+  rotate: false
+  xy: 6, 6
+  size: 682, 150
+  orig: 682, 150
+  offset: 0, 0
+  index: -1
+2zhuzi
+  rotate: false
+  xy: 700, 16
+  size: 191, 197
+  orig: 191, 197
+  offset: 0, 0
+  index: -1
+3caodui2
+  rotate: false
+  xy: 727, 725
+  size: 126, 59
+  orig: 126, 59
+  offset: 0, 0
+  index: -1
+3langan
+  rotate: false
+  xy: 727, 644
+  size: 114, 69
+  orig: 114, 69
+  offset: 0, 0
+  index: -1
+3lu
+  rotate: false
+  xy: 344, 588
+  size: 371, 196
+  orig: 371, 196
+  offset: 0, 0
+  index: -1

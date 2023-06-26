@@ -1,0 +1,27 @@
+
+hint.png
+size: 209,90
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hint
+  rotate: false
+  xy: 167, 32
+  size: 40, 56
+  orig: 40, 56
+  offset: 0, 0
+  index: -1
+hint_1
+  rotate: true
+  xy: 2, 2
+  size: 86, 89
+  orig: 90, 93
+  offset: 2, 2
+  index: -1
+hintbg
+  rotate: false
+  xy: 93, 16
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1

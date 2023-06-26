@@ -1,0 +1,27 @@
+
+dianjishengyin.png
+size: 72,48
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+iconsound
+  rotate: true
+  xy: 2, 14
+  size: 32, 48
+  orig: 34, 50
+  offset: 1, 1
+  index: -1
+iconsound1
+  rotate: true
+  xy: 2, 2
+  size: 10, 20
+  orig: 12, 22
+  offset: 1, 1
+  index: -1
+iconsound2
+  rotate: false
+  xy: 52, 6
+  size: 18, 40
+  orig: 20, 42
+  offset: 1, 1
+  index: -1

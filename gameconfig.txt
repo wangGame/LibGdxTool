@@ -1,0 +1,4 @@
+width : 360
+height : 640
+version : v1.0
+appName : libGdxLib

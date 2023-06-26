@@ -1,0 +1,1 @@
+apply plugin: "java"[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'sourceSets.main.java.srcDirs = [ "src/" ]sourceCompatibility = 1.8dependencies {    implementation 'org.json:json:20210307'    implementation 'commons-io:commons-io:2.11.0'    implementation project(":libGdxLib")    implementation project(":libGdx")}

@@ -1,0 +1,353 @@
+{
+  "ID": "15886ccd-a03d-48e3-b21f-31f3500af7e0",
+  "Version": "3.10.0.0",
+  "Name": "rate03",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 548,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 365.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.2852
+            },
+            "PreSize": {
+              "X": 0.925,
+              "Y": 0.4641
+            },
+            "LeftMargin": 27.0,
+            "RightMargin": 27.0,
+            "TopMargin": 321.0,
+            "BottomMargin": 365.0,
+            "Tag": 556,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "rate/popups_bg.png",
+                  "Plist": "otherplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 95,
+                "Scale9OriginY": 95,
+                "Scale9Width": 14,
+                "Scale9Height": 14,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 0.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0
+                },
+                "Tag": 557,
+                "ActionTag": 1441871644,
+                "Size": {
+                  "X": 666.0,
+                  "Y": 594.0
+                },
+                "Name": "setting_bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "setting/title_line.png",
+                  "Plist": "otherplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 3,
+                "Scale9Width": 5,
+                "Scale9Height": 1,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 451.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {
+                  "R": 23,
+                  "G": 22,
+                  "B": 19
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.7593
+                },
+                "PreSize": {
+                  "X": 0.7207,
+                  "Y": 0.0017
+                },
+                "LeftMargin": 93.0,
+                "RightMargin": 93.0,
+                "TopMargin": 142.0,
+                "BottomMargin": 451.0,
+                "Tag": 558,
+                "ActionTag": 1244140017,
+                "Size": {
+                  "X": 480.0,
+                  "Y": 1.0
+                },
+                "Alpha": 76,
+                "Name": "setting_border",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "rate/rateTitle.png",
+                  "Plist": "otherplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 486.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.8182
+                },
+                "PreSize": {
+                  "X": 0.3904,
+                  "Y": 0.0438
+                },
+                "LeftMargin": 203.0,
+                "RightMargin": 203.0,
+                "TopMargin": 82.0,
+                "BottomMargin": 486.0,
+                "Tag": 559,
+                "ActionTag": -164134443,
+                "Size": {
+                  "X": 260.0,
+                  "Y": 26.0
+                },
+                "Name": "setting_title",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "rate/rate3_info.png",
+                  "Plist": "otherplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 334.1321,
+                  "Y": 337.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5017,
+                  "Y": 0.5673
+                },
+                "PreSize": {
+                  "X": 0.6622,
+                  "Y": 0.1128
+                },
+                "LeftMargin": 113.6321,
+                "RightMargin": 111.3679,
+                "TopMargin": 190.0,
+                "BottomMargin": 337.0,
+                "Tag": 560,
+                "ActionTag": 1960328262,
+                "Size": {
+                  "X": 441.0,
+                  "Y": 67.0
+                },
+                "Name": "rateInfo_85",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "rate/Submit.png",
+                  "Plist": "otherplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 107.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.1801
+                },
+                "PreSize": {
+                  "X": 0.6306,
+                  "Y": 0.1481
+                },
+                "LeftMargin": 123.0,
+                "RightMargin": 123.0,
+                "TopMargin": 399.0,
+                "BottomMargin": 107.0,
+                "Tag": 561,
+                "ActionTag": -1345572469,
+                "Size": {
+                  "X": 420.0,
+                  "Y": 88.0
+                },
+                "Name": "submit",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "rate/icon6.png",
+                  "Plist": "otherplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 331.9538,
+                  "Y": 235.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4984,
+                  "Y": 0.3956
+                },
+                "PreSize": {
+                  "X": 0.6051,
+                  "Y": 0.1212
+                },
+                "LeftMargin": 130.4538,
+                "RightMargin": 132.5462,
+                "TopMargin": 287.0,
+                "BottomMargin": 235.0,
+                "Tag": 565,
+                "ActionTag": 965219277,
+                "Size": {
+                  "X": 403.0,
+                  "Y": 72.0
+                },
+                "Name": "icon6_5",
+                "ctype": "SpriteObjectData"
+              }
+            ],
+            "ActionTag": 1543164389,
+            "Size": {
+              "X": 666.0,
+              "Y": 594.0
+            },
+            "Name": "Panel",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "otherplist.plist",
+        "otherplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

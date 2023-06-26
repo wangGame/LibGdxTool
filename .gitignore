@@ -1,0 +1,14 @@
+.gradle/
+.idea/
+android/build/
+core/build/
+desktop/build/
+libGdxLib/build/
+libGdxLib/libGdxLib.iml
+artpuzzle.iml
+local.properties
+desktop/desktop.iml
+core/core.iml
+android/ic_launcher-web.png
+*.iml
+data/

@@ -1,0 +1,13 @@
+
+szdj.png
+size: 224,216
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hand1
+  rotate: false
+  xy: 2, 2
+  size: 220, 212
+  orig: 220, 212
+  offset: 0, 0
+  index: -1

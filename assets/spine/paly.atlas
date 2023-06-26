@@ -1,0 +1,20 @@
+
+paly.png
+size: 310,52
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Playzi
+  rotate: false
+  xy: 239, 18
+  size: 69, 32
+  orig: 69, 32
+  offset: 0, 0
+  index: -1
+play_bg
+  rotate: false
+  xy: 2, 2
+  size: 235, 48
+  orig: 239, 48
+  offset: 2, 0
+  index: -1

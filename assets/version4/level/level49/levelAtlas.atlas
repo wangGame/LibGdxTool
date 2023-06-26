@@ -1,0 +1,265 @@
+
+levelAtlas.png
+size: 1358,1545
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1lou1
+  rotate: false
+  xy: 1081, 960
+  size: 134, 579
+  orig: 134, 579
+  offset: 0, 0
+  index: -1
+1lou2
+  rotate: false
+  xy: 929, 450
+  size: 185, 498
+  orig: 185, 498
+  offset: 0, 0
+  index: -1
+1lou3
+  rotate: false
+  xy: 700, 949
+  size: 203, 590
+  orig: 203, 590
+  offset: 0, 0
+  index: -1
+1lou4
+  rotate: false
+  xy: 700, 523
+  size: 217, 414
+  orig: 217, 414
+  offset: 0, 0
+  index: -1
+1lou4ding
+  rotate: false
+  xy: 676, 351
+  size: 196, 160
+  orig: 196, 160
+  offset: 0, 0
+  index: -1
+1lou5
+  rotate: false
+  xy: 915, 978
+  size: 154, 561
+  orig: 154, 561
+  offset: 0, 0
+  index: -1
+1lou5ding
+  rotate: false
+  xy: 1166, 169
+  size: 127, 108
+  orig: 127, 108
+  offset: 0, 0
+  index: -1
+1lu
+  rotate: false
+  xy: 6, 114
+  size: 682, 113
+  orig: 682, 113
+  offset: 0, 0
+  index: -1
+1taijie
+  rotate: false
+  xy: 6, 21
+  size: 682, 81
+  orig: 682, 81
+  offset: 0, 0
+  index: -1
+2lou1chuangshang
+  rotate: false
+  xy: 1292, 1207
+  size: 35, 100
+  orig: 35, 100
+  offset: 0, 0
+  index: -1
+2lou1chuangxia
+  rotate: false
+  xy: 1286, 680
+  size: 32, 88
+  orig: 32, 88
+  offset: 0, 0
+  index: -1
+2lou2chuang
+  rotate: false
+  xy: 1227, 1023
+  size: 125, 134
+  orig: 125, 134
+  offset: 0, 0
+  index: -1
+2lou2chuangshang
+  rotate: false
+  xy: 1252, 66
+  size: 73, 91
+  orig: 73, 91
+  offset: 0, 0
+  index: -1
+2lou2chuangxia
+  rotate: false
+  xy: 1019, 54
+  size: 134, 100
+  orig: 134, 100
+  offset: 0, 0
+  index: -1
+2lou3chuangshang
+  rotate: false
+  xy: 868, 163
+  size: 139, 114
+  orig: 139, 114
+  offset: 0, 0
+  index: -1
+2lou3chuangxia
+  rotate: false
+  xy: 1019, 166
+  size: 135, 111
+  orig: 135, 111
+  offset: 0, 0
+  index: -1
+2lou3chuangzhong
+  rotate: false
+  xy: 863, 44
+  size: 138, 107
+  orig: 138, 107
+  offset: 0, 0
+  index: -1
+2lou3gongchuang
+  rotate: false
+  xy: 1296, 344
+  size: 43, 61
+  orig: 43, 61
+  offset: 0, 0
+  index: -1
+2lou4chuang
+  rotate: false
+  xy: 700, 57
+  size: 151, 175
+  orig: 151, 175
+  offset: 0, 0
+  index: -1
+2lou4dachuang
+  rotate: false
+  xy: 1232, 901
+  size: 88, 110
+  orig: 88, 110
+  offset: 0, 0
+  index: -1
+2lou5chuang
+  rotate: false
+  xy: 1292, 505
+  size: 59, 74
+  orig: 59, 74
+  offset: 0, 0
+  index: -1
+2lou5chuang2
+  rotate: false
+  xy: 1296, 591
+  size: 56, 77
+  orig: 56, 77
+  offset: 0, 0
+  index: -1
+2lou5chuang3
+  rotate: false
+  xy: 1296, 417
+  size: 55, 76
+  orig: 55, 76
+  offset: 0, 0
+  index: -1
+3langan
+  rotate: false
+  xy: 676, 244
+  size: 180, 95
+  orig: 180, 95
+  offset: 0, 0
+  index: -1
+3lou2men
+  rotate: false
+  xy: 1165, 57
+  size: 75, 97
+  orig: 75, 97
+  offset: 0, 0
+  index: -1
+3lou2xiaochuang
+  rotate: false
+  xy: 700, 6
+  size: 68, 39
+  orig: 68, 39
+  offset: 0, 0
+  index: -1
+3lou3men
+  rotate: false
+  xy: 1126, 488
+  size: 154, 124
+  orig: 154, 124
+  offset: 0, 0
+  index: -1
+3lou4men
+  rotate: false
+  xy: 1126, 773
+  size: 94, 175
+  orig: 94, 175
+  offset: 0, 0
+  index: -1
+3ludeng
+  rotate: false
+  xy: 1227, 1169
+  size: 53, 370
+  orig: 53, 370
+  offset: 0, 0
+  index: -1
+3luren
+  rotate: false
+  xy: 1232, 780
+  size: 81, 109
+  orig: 81, 109
+  offset: 0, 0
+  index: -1
+3yantong
+  rotate: false
+  xy: 1305, 260
+  size: 32, 72
+  orig: 32, 72
+  offset: 0, 0
+  index: -1
+d
+  rotate: false
+  xy: 1126, 624
+  size: 148, 137
+  orig: 148, 137
+  offset: 0, 0
+  index: -1
+ditu
+  rotate: false
+  xy: 6, 621
+  size: 682, 918
+  orig: 682, 918
+  offset: 0, 0
+  index: -1
+txyu1
+  rotate: false
+  xy: 1292, 1319
+  size: 42, 220
+  orig: 42, 220
+  offset: 0, 0
+  index: -1
+txyu1_1
+  rotate: false
+  xy: 780, 14
+  size: 43, 31
+  orig: 43, 31
+  offset: 0, 0
+  index: -1
+ty2
+  rotate: false
+  xy: 6, 239
+  size: 658, 370
+  orig: 658, 370
+  offset: 0, 0
+  index: -1
+ty3
+  rotate: false
+  xy: 884, 289
+  size: 400, 149
+  orig: 400, 149
+  offset: 0, 0
+  index: -1

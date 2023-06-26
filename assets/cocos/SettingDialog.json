@@ -1,0 +1,1270 @@
+{
+  "ID": "77b00400-4dc0-43da-98b5-6dfbc2b34d59",
+  "Version": "3.10.0.0",
+  "Name": "SettingDialog",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 71,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 329.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.257
+            },
+            "PreSize": {
+              "X": 0.925,
+              "Y": 0.4766
+            },
+            "LeftMargin": 27.0,
+            "RightMargin": 27.0,
+            "TopMargin": 341.0,
+            "BottomMargin": 329.0,
+            "Tag": 73,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/popups_bg.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 95,
+                "Scale9OriginY": 95,
+                "Scale9Width": 14,
+                "Scale9Height": 14,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0
+                },
+                "Tag": 75,
+                "ActionTag": 351089328,
+                "Size": {
+                  "X": 666.0,
+                  "Y": 610.0
+                },
+                "Name": "setting_bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/title_line.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 3,
+                "Scale9Width": 5,
+                "Scale9Height": 1,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 467.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {
+                  "R": 23,
+                  "G": 22,
+                  "B": 19
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.7656
+                },
+                "PreSize": {
+                  "X": 0.7222,
+                  "Y": 0.0016
+                },
+                "LeftMargin": 92.5,
+                "RightMargin": 92.5,
+                "TopMargin": 142.0,
+                "BottomMargin": 467.0,
+                "Tag": 80,
+                "ActionTag": 1228614834,
+                "Size": {
+                  "X": 481.0,
+                  "Y": 1.0
+                },
+                "Alpha": 75,
+                "Name": "setting_border",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/Settings.png",
+                  "Plist": "gameplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 516.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.8459
+                },
+                "PreSize": {
+                  "X": 0.2177,
+                  "Y": 0.059
+                },
+                "LeftMargin": 260.5,
+                "RightMargin": 260.5,
+                "TopMargin": 76.0,
+                "BottomMargin": 498.0,
+                "Tag": 129,
+                "ActionTag": 1796058880,
+                "Size": {
+                  "X": 145.0,
+                  "Y": 36.0
+                },
+                "Name": "setting_title",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 512.0,
+                  "Y": 486.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.7688,
+                  "Y": 0.7967
+                },
+                "PreSize": {
+                  "X": 0.0901,
+                  "Y": 0.0984
+                },
+                "LeftMargin": 512.0,
+                "RightMargin": 94.0,
+                "TopMargin": 64.0,
+                "BottomMargin": 486.0,
+                "Tag": 98,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/Close.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 30.0,
+                      "Y": 30.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 85,
+                    "ActionTag": 1844697697,
+                    "Size": {
+                      "X": 60.0,
+                      "Y": 60.0
+                    },
+                    "Name": "setting_close",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 1719288410,
+                "Size": {
+                  "X": 60.0,
+                  "Y": 60.0
+                },
+                "Name": "setting_close",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 335.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5492
+                },
+                "PreSize": {
+                  "X": 0.7177,
+                  "Y": 0.1574
+                },
+                "LeftMargin": 94.0,
+                "RightMargin": 94.0,
+                "TopMargin": 179.0,
+                "BottomMargin": 335.0,
+                "Tag": 97,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/iconbg.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9OriginX": 33,
+                    "Scale9OriginY": 33,
+                    "Scale9Width": 34,
+                    "Scale9Height": 34,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 48.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 250,
+                      "G": 208,
+                      "B": 192
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1004,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.2092,
+                      "Y": 1.0417
+                    },
+                    "LeftMargin": -2.0,
+                    "RightMargin": 380.0,
+                    "TopMargin": -2.0,
+                    "BottomMargin": -2.0,
+                    "Tag": 138,
+                    "ActionTag": -1577876466,
+                    "Size": {
+                      "X": 100.0,
+                      "Y": 100.0
+                    },
+                    "Name": "switch_huang",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/1_3_sound.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 48.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1004,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1674,
+                      "Y": 0.8333
+                    },
+                    "LeftMargin": 8.0,
+                    "RightMargin": 390.0,
+                    "TopMargin": 8.0,
+                    "BottomMargin": 8.0,
+                    "Tag": 95,
+                    "ActionTag": -764944318,
+                    "Size": {
+                      "X": 80.0,
+                      "Y": 80.0
+                    },
+                    "Name": "switch_lv",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/Sound.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 127.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.2657,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1778,
+                      "Y": 0.2292
+                    },
+                    "LeftMargin": 127.0,
+                    "RightMargin": 266.0,
+                    "TopMargin": 37.0,
+                    "BottomMargin": 37.0,
+                    "Tag": 152,
+                    "ActionTag": 196168682,
+                    "Size": {
+                      "X": 85.0,
+                      "Y": 22.0
+                    },
+                    "Name": "setting_sound_label",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 382.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.7992,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.2008,
+                      "Y": 0.5833
+                    },
+                    "LeftMargin": 382.0,
+                    "TopMargin": 20.0,
+                    "BottomMargin": 20.0,
+                    "Tag": 150,
+                    "Children": [
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "gameasset/switch_bg.png",
+                          "Plist": "gameplist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {},
+                        "Position": {
+                          "X": 0.0,
+                          "Y": 0.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 216,
+                          "G": 210,
+                          "B": 181
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.0,
+                          "Y": 0.0
+                        },
+                        "PreSize": {
+                          "X": 1.0,
+                          "Y": 1.0
+                        },
+                        "Tag": 134,
+                        "ActionTag": -200868656,
+                        "Size": {
+                          "X": 96.0,
+                          "Y": 56.0
+                        },
+                        "Name": "switch_bg",
+                        "ctype": "SpriteObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "gameasset/switch_circle.png",
+                          "Plist": "gameplist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 30.0,
+                          "Y": 28.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "G": 251,
+                          "B": 230
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.3125,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 0.5,
+                          "Y": 0.8571
+                        },
+                        "LeftMargin": 6.0,
+                        "RightMargin": 42.0,
+                        "TopMargin": 4.0,
+                        "BottomMargin": 4.0,
+                        "Tag": 135,
+                        "ActionTag": -763877277,
+                        "Size": {
+                          "X": 48.0,
+                          "Y": 48.0
+                        },
+                        "Name": "switch_circle_8",
+                        "ctype": "SpriteObjectData"
+                      }
+                    ],
+                    "ActionTag": -619206351,
+                    "Size": {
+                      "X": 96.0,
+                      "Y": 56.0
+                    },
+                    "Name": "openclose",
+                    "ctype": "PanelObjectData"
+                  }
+                ],
+                "ActionTag": 398535228,
+                "Size": {
+                  "X": 478.0,
+                  "Y": 96.0
+                },
+                "Name": "setting_soundSwitch",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 95.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.1557
+                },
+                "PreSize": {
+                  "X": 0.7177,
+                  "Y": 0.1574
+                },
+                "LeftMargin": 94.0,
+                "RightMargin": 94.0,
+                "TopMargin": 419.0,
+                "BottomMargin": 95.0,
+                "Tag": 100,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/iconbg.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9OriginX": 33,
+                    "Scale9OriginY": 33,
+                    "Scale9Width": 34,
+                    "Scale9Height": 34,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 193,
+                      "G": 224,
+                      "B": 193
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.2092,
+                      "Y": 1.0417
+                    },
+                    "RightMargin": 378.0,
+                    "TopMargin": -2.0,
+                    "BottomMargin": -2.0,
+                    "Tag": 142,
+                    "ActionTag": 461557144,
+                    "Size": {
+                      "X": 100.0,
+                      "Y": 100.0
+                    },
+                    "Name": "switch_huang",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/1_3_rate.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 48.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1004,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1674,
+                      "Y": 0.8333
+                    },
+                    "LeftMargin": 8.0,
+                    "RightMargin": 390.0,
+                    "TopMargin": 8.0,
+                    "BottomMargin": 8.0,
+                    "Tag": 101,
+                    "ActionTag": -318073835,
+                    "Size": {
+                      "X": 80.0,
+                      "Y": 80.0
+                    },
+                    "Name": "switch_lv",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 450.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.9414,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1381,
+                      "Y": 0.7604
+                    },
+                    "LeftMargin": 417.0,
+                    "RightMargin": -5.0,
+                    "TopMargin": 11.5,
+                    "BottomMargin": 11.5,
+                    "Tag": 835,
+                    "Children": [
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "gameasset/arrow.png",
+                          "Plist": "gameplist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 33.0,
+                          "Y": 36.5
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 0.303,
+                          "Y": 0.4932
+                        },
+                        "LeftMargin": 23.0,
+                        "RightMargin": 23.0,
+                        "TopMargin": 18.5,
+                        "BottomMargin": 18.5,
+                        "Tag": 145,
+                        "ActionTag": 200531908,
+                        "Size": {
+                          "X": 20.0,
+                          "Y": 36.0
+                        },
+                        "Name": "arrow_13",
+                        "ctype": "SpriteObjectData"
+                      }
+                    ],
+                    "ActionTag": 287449403,
+                    "Size": {
+                      "X": 66.0,
+                      "Y": 73.0
+                    },
+                    "Name": "arrow_13",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/Rate.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 127.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.2657,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1234,
+                      "Y": 0.2292
+                    },
+                    "LeftMargin": 127.0,
+                    "RightMargin": 292.0,
+                    "TopMargin": 37.0,
+                    "BottomMargin": 37.0,
+                    "Tag": 154,
+                    "ActionTag": 67718764,
+                    "Size": {
+                      "X": 59.0,
+                      "Y": 22.0
+                    },
+                    "Name": "Rate_16",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": -1471871052,
+                "Size": {
+                  "X": 478.0,
+                  "Y": 96.0
+                },
+                "Name": "setting_rateSwitch",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 215.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.3525
+                },
+                "PreSize": {
+                  "X": 0.7177,
+                  "Y": 0.1574
+                },
+                "LeftMargin": 94.0,
+                "RightMargin": 94.0,
+                "TopMargin": 299.0,
+                "BottomMargin": 215.0,
+                "Tag": 104,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/iconbg.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "Scale9OriginX": 33,
+                    "Scale9OriginY": 33,
+                    "Scale9Width": 34,
+                    "Scale9Height": 34,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 240,
+                      "G": 217,
+                      "B": 177
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 0.2092,
+                      "Y": 1.0417
+                    },
+                    "RightMargin": 378.0,
+                    "TopMargin": -4.0,
+                    "Tag": 143,
+                    "ActionTag": -725109568,
+                    "Size": {
+                      "X": 100.0,
+                      "Y": 100.0
+                    },
+                    "Name": "switch_huang",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/Haptic.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 127.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.2657,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.182,
+                      "Y": 0.2812
+                    },
+                    "LeftMargin": 127.0,
+                    "RightMargin": 264.0,
+                    "TopMargin": 34.5,
+                    "BottomMargin": 34.5,
+                    "Tag": 153,
+                    "ActionTag": 1449080427,
+                    "Size": {
+                      "X": 87.0,
+                      "Y": 27.0
+                    },
+                    "Name": "Haptic_15",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/1_3_haptic.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 48.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1004,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1674,
+                      "Y": 0.8333
+                    },
+                    "LeftMargin": 8.0,
+                    "RightMargin": 390.0,
+                    "TopMargin": 8.0,
+                    "BottomMargin": 8.0,
+                    "Tag": 105,
+                    "ActionTag": -822933590,
+                    "Size": {
+                      "X": 80.0,
+                      "Y": 80.0
+                    },
+                    "Name": "switch_lv",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 382.0,
+                      "Y": 48.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.7992,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.2008,
+                      "Y": 0.5833
+                    },
+                    "LeftMargin": 382.0,
+                    "TopMargin": 20.0,
+                    "BottomMargin": 20.0,
+                    "Tag": 149,
+                    "Children": [
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "gameasset/switch_bg.png",
+                          "Plist": "gameplist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 0.0,
+                          "Y": 28.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 80,
+                          "G": 158,
+                          "B": 106
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.0,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 1.0,
+                          "Y": 1.0
+                        },
+                        "Tag": 136,
+                        "ActionTag": 1919753198,
+                        "Size": {
+                          "X": 96.0,
+                          "Y": 56.0
+                        },
+                        "Name": "switch_bg",
+                        "ctype": "SpriteObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "gameasset/switch_circle.png",
+                          "Plist": "gameplist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 67.0,
+                          "Y": 28.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "G": 251,
+                          "B": 230
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.6979,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 0.5,
+                          "Y": 0.8571
+                        },
+                        "LeftMargin": 43.0,
+                        "RightMargin": 5.0,
+                        "TopMargin": 4.0,
+                        "BottomMargin": 4.0,
+                        "Tag": 137,
+                        "ActionTag": 771794983,
+                        "Size": {
+                          "X": 48.0,
+                          "Y": 48.0
+                        },
+                        "Name": "switch_circle_8",
+                        "ctype": "SpriteObjectData"
+                      }
+                    ],
+                    "ActionTag": 470435671,
+                    "Size": {
+                      "X": 96.0,
+                      "Y": 56.0
+                    },
+                    "Name": "openclose",
+                    "ctype": "PanelObjectData"
+                  }
+                ],
+                "ActionTag": -1117487487,
+                "Size": {
+                  "X": 478.0,
+                  "Y": 96.0
+                },
+                "Name": "setting_hapticSwitch",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": -1413485221,
+            "Size": {
+              "X": 666.0,
+              "Y": 610.0
+            },
+            "Name": "Panel",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "gameplist.plist",
+        "gameplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}
