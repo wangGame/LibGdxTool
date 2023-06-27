@@ -8,6 +8,7 @@ public class NLog {
     private static final Vector<Printer> sPrinters = new Vector<>();
     private static int sStackDepth = -1;
     public static boolean isLog = true;
+
     public interface Printer {
         void print(int level, String tag, String message);
     }
@@ -37,9 +38,6 @@ public class NLog {
                 long timeSpent = System.currentTimeMillis() ;
                 System.err.printf("%s - %s - %s - %s\n", StringUtils.formatRaceTime(timeSpent), levelString, tag, message);
             }
-//            long timeSpent = System.currentTimeMillis() - mStartTime;
-//            long timeSpent = System.currentTimeMillis() ;
-//            System.err.printf("%s - %s - %s - %s\n", StringUtils.formatRaceTime(timeSpent), levelString, tag, message);
         }
     }
 
@@ -114,7 +112,6 @@ public class NLog {
         return className + "." + method;
     }
 
-
     public static void check(Object obj, Object... args) {
         printCheck(Application.LOG_INFO, obj, args);
     }
@@ -138,6 +135,4 @@ public class NLog {
             printer.print(level, tag, message);
         }
     }
-
 }
-

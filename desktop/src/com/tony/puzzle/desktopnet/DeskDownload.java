@@ -17,15 +17,17 @@ import kw.artpuzzle.downLoad.BaseDownLoadUtils;
 import kw.artpuzzle.net.DownLoad;
 
 public class DeskDownload extends DownLoad {
-    com.tony.puzzle.net.NetJavaImpl3 downloadnet;
+    com.tony.puzzle.net.NetJavaImpl2 downloadnet;
     @Override
     public void downloadOneFile(String siteusing, String fromPath,
-                                String toPath, BaseDownLoadUtils.DownLoadListener onComplete,
+                                String toPath,
+                                BaseDownLoadUtils.DownLoadListener onComplete,
                                 BaseDownLoadUtils.DownLoadListener onFail) {
-        downloadnet = new com.tony.puzzle.net.NetJavaImpl3(4);
+        downloadnet = new com.tony.puzzle.net.NetJavaImpl2(4);
         System.out.println(siteusing+fromPath);
         startDownload(siteusing + fromPath, toPath, onComplete,onFail);
     }
+
 //    http://gaoshanren.cdn-doodlemobile.com/Art_Puzzle/level_resource/verion1/level0.zip
     private void startDownload(String url, String path,
                                BaseDownLoadUtils.DownLoadListener runnable,
@@ -80,8 +82,11 @@ public class DeskDownload extends DownLoad {
                             }
                         }
                     }else {
+                        byte[] result = httpResponse.getResult();
                         NLog.i(httpResponse.getStatus().getStatusCode());
                         onFail.downLoadCallBack(-1);
+                        FileHandle local = Gdx.files.local("403.zip");
+                        local.writeBytes(result,false);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -112,14 +117,14 @@ public class DeskDownload extends DownLoad {
         new LwjglApplication(new Game() {
             @Override
             public void create() {
-
+//                request.setUrl("http://gaoshanren.cdn-doodlemobile.com/Art_Puzzle/level_resource/version7/level/level160.zip");
                 DeskDownload deskDownload = new DeskDownload();
-                for (int i = 0; i < 100; i++) {
-                    String pa = Gdx.files.getLocalStoragePath()+"level/level"+i+".zip";
-//                https://cloudflare-content.easybrain.com/com.easybrain.art.puzzle/Android/v3/remotepreview_assets_00001.bundle
+    //                for (int i = 0; i < 100; i++) {
+                    String pa = Gdx.files.getLocalStoragePath()+"level/level"+1+".zip";
+    //                https://cloudflare-content.easybrain.com/com.easybrain.art.puzzle/Android/v3/remotepreview_assets_00001.bundle
                     deskDownload.downloadOneFile(
-                            LevelConfig.desktopOrLowVersionUrl,
-                            "version1/level/level"+i+".zip",
+                            "https://gaoshanren.cdn-doodlemobile.com/Art_Puzzle/level_resource/",
+                            "version7/level/level160.zip",
                             pa,
                             new BaseDownLoadUtils.DownLoadListener(){},
                             new BaseDownLoadUtils.DownLoadListener(){}
@@ -133,9 +138,8 @@ public class DeskDownload extends DownLoad {
                     }
 
                 }
-            }
+//            }
         }, config);
 
     }
-//    }
 }

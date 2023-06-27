@@ -54,7 +54,8 @@ public class NetJavaImpl2 implements Net2 {
 	}
 
 	@Override
-	public void sendHttpRequest(final HttpRequest httpRequest, final HttpResponseListener httpResponseListener) {
+	public void sendHttpRequest(final HttpRequest httpRequest,
+								final HttpResponseListener httpResponseListener) {
 		if (httpRequest.getUrl() == null) {
 			httpResponseListener.failed(new GdxRuntimeException("can't process a HTTP request without URL set"));
 			return;
@@ -63,7 +64,6 @@ public class NetJavaImpl2 implements Net2 {
 		try {
 			final String method = httpRequest.getMethod();
 			final URL url;
-
 			if (method.equalsIgnoreCase(HttpMethods.GET)) {
 				String queryString = "";
 				String value = httpRequest.getContent();
