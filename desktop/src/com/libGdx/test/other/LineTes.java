@@ -1,8 +1,7 @@
-package com.libGdx.test;
+package com.libGdx.test.other;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.esotericsoftware.spine.loader.SpineActor;
 import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
 

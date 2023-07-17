@@ -22,6 +22,7 @@ import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 /** Immediate mode rendering class for GLES 2.0. The renderer will allow you to specify vertices on the fly and provides a default
@@ -46,6 +47,14 @@ public class ImmediateModeRenderer20 implements ImmediateModeRenderer {
 	private final Matrix4 projModelView = new Matrix4();
 	private final float[] vertices;
 	private final String[] shaderUniformNames;
+
+	public int getVertexIdx() {
+		return vertexIdx;
+	}
+
+	public float[] getVertices() {
+		return vertices;
+	}
 
 	public ImmediateModeRenderer20 (boolean hasNormals, boolean hasColors, int numTexCoords) {
 		this(5000, hasNormals, hasColors, numTexCoords, createDefaultShader(hasNormals, hasColors, numTexCoords));
@@ -135,6 +144,8 @@ public class ImmediateModeRenderer20 implements ImmediateModeRenderer {
 		vertices[idx] = x;
 		vertices[idx + 1] = y;
 		vertices[idx + 2] = z;
+
+		texCoord(x,y);
 
 		numSetTexCoords = 0;
 		vertexIdx += vertexSize;
@@ -232,5 +243,54 @@ public class ImmediateModeRenderer20 implements ImmediateModeRenderer {
 		String fragmentShader = createFragmentShader(hasNormals, hasColors, numTexCoords);
 		ShaderProgram program = new ShaderProgram(vertexShader, fragmentShader);
 		return program;
+	}
+
+	private Array<Vector2> array = new Array<>();
+	/** Draws a curve using {@link ShapeRenderer.ShapeType#Line}. */
+	public Array<Vector2> curve (float x1, float y1,
+					   float cx1, float cy1,
+					   float cx2, float cy2,
+					   float x2, float y2, int segments) {
+
+		// Algorithm from: http://www.antigrain.com/research/bezier_interpolation/index.html#PAGE_BEZIER_INTERPOLATION
+		float subdiv_step = 1f / segments;
+		float subdiv_step2 = subdiv_step * subdiv_step;
+		float subdiv_step3 = subdiv_step * subdiv_step * subdiv_step;
+
+		float pre1 = 3 * subdiv_step;
+		float pre2 = 3 * subdiv_step2;
+		float pre4 = 6 * subdiv_step2;
+		float pre5 = 6 * subdiv_step3;
+
+		float tmp1x = x1 - cx1 * 2 + cx2;
+		float tmp1y = y1 - cy1 * 2 + cy2;
+
+		float tmp2x = (cx1 - cx2) * 3 - x1 + x2;
+		float tmp2y = (cy1 - cy2) * 3 - y1 + y2;
+
+		float fx = x1;
+		float fy = y1;
+
+		float dfx = (cx1 - x1) * pre1 + tmp1x * pre2 + tmp2x * subdiv_step3;
+		float dfy = (cy1 - y1) * pre1 + tmp1y * pre2 + tmp2y * subdiv_step3;
+
+		float ddfx = tmp1x * pre4 + tmp2x * pre5;
+		float ddfy = tmp1y * pre4 + tmp2y * pre5;
+
+		float dddfx = tmp2x * pre5;
+		float dddfy = tmp2y * pre5;
+
+		while (segments-- > 0) {
+			fx += dfx;
+			fy += dfy;
+			dfx += ddfx;
+			dfy += ddfy;
+			ddfx += dddfx;
+			ddfy += dddfy;
+			array.add(new Vector2(fx,fy));
+		}
+		array.add(new Vector2(fx,fy));
+		array.add(new Vector2(x2, y2));
+		return array;
 	}
 }

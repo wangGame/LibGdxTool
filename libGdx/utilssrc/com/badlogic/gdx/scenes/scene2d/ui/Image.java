@@ -238,9 +238,15 @@ public class Image extends Widget {
         super.setName(name);
         return this;
     }
-
+    private Vector2 position = new Vector2();
     @Override
     public void setColor(Color color) {
         super.setColor(color);
+    }
+
+    public Vector2 getPosition() {
+        position.x = getX(Align.center);
+        position.y = getY(Align.center);
+        return position;
     }
 }

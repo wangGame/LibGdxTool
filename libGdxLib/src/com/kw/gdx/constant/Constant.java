@@ -29,7 +29,7 @@ public class Constant {
     public static final float STDWIDTH = 1080;
     public static final float STDHIGHT = 1920;
 
-    public static Color viewColor = new Color(1,1,1,1);
+    public static Color viewColor = new Color(0,0,0,1);
     /**
      * 0 : cpubatch
      *
@@ -58,5 +58,4 @@ public class Constant {
 
     public static BaseScreen currentScreen;
 
-    public static int jishu = 0;
 }

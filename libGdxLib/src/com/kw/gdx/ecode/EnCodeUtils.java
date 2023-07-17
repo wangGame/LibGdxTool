@@ -9,12 +9,21 @@ import java.io.FileOutputStream;
  * @Date 2023/6/6 19:46
  */
 public class EnCodeUtils {
-    public void andOperation(
+    public void ecodeBytes(
             byte[] bytes,
             byte code
     ){
         for (int r = 0; r < bytes.length; r++) {
             bytes[r] = (byte) (bytes[r] ^ code);
+        }
+    }
+
+    public void dcodeBytes(
+            byte[] bytes,
+            byte dcode
+    ){
+        for (int r = 0; r < bytes.length; r++) {
+            bytes[r] = (byte) (bytes[r] ^ dcode);
         }
     }
 

@@ -277,8 +277,11 @@ public class ShapeRenderer implements Disposable {
 	}
 
 	/** Draws a curve using {@link ShapeType#Line}. */
-	public void curve (float x1, float y1, float cx1, float cy1, float cx2, float cy2, float x2, float y2, int segments) {
-		check(ShapeType.Line, null, segments * 2 + 2);
+	public void curve (float x1, float y1,
+					   float cx1, float cy1,
+					   float cx2, float cy2,
+					   float x2, float y2, int segments) {
+		check(ShapeType.Filled, null, segments * 2 + 2);
 		float colorBits = color.toFloatBits();
 
 		// Algorithm from: http://www.antigrain.com/research/bezier_interpolation/index.html#PAGE_BEZIER_INTERPOLATION
@@ -813,6 +816,8 @@ public class ShapeRenderer implements Disposable {
 		}
 
 	}
+
+
 
 	/** Draws two crossed lines using {@link ShapeType#Line} or {@link ShapeType#Filled}. */
 	public void x (float x, float y, float size) {

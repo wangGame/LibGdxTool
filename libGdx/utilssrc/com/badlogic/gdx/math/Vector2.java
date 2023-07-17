@@ -301,6 +301,14 @@ public class Vector2 implements Serializable, Vector<Vector2> {
 		return this;
 	}
 
+	public Vector2 mul (float mat) {
+		float x = this.x * mat;
+		float y = this.x * mat;
+		this.x = x;
+		this.y = y;
+		return this;
+	}
+
 	/** Calculates the 2D cross product between this and the given vector.
 	 * @param v the other vector
 	 * @return the cross product */
