@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
 
 /** Class offering various static methods for intersection testing between different geometric objects.
+ *  相交测试通过静态方法
  * 
  * @author badlogicgames@gmail.com
  * @author jan.stria

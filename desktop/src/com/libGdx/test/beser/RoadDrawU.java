@@ -26,7 +26,7 @@ public class RoadDrawU {
     /** 轨道描边宽度 */
     public static int roadBorder = 5;
     /** 轨道描边颜色 */
-    public static Color roadBorderColor = Color.WHITE;
+    public static Color roadBorderColor = Color.RED;
     /// ** 纹理ID */
     // public static int texId;
     /** 轨道点平滑插值个数 */
@@ -228,9 +228,9 @@ public class RoadDrawU {
                 if (len < roadWidth) {
                     c.set(roadColor);
                 } else if (len < widthP1) {
-//                    RoadDrawCommonU.setColorLinear(c, roadBorderColor, roadColor, widthP1 - len);
-//                    RoadDrawCommonU.setColorLinear(c, c, Color.BLACK, (widthP1 - len) * 0.2f);
-                    c.set(Color.RED);
+                    setColorLinear(c, roadBorderColor, roadColor, widthP1 - len);
+                    setColorLinear(c, c, Color.BLACK, (widthP1 - len) * 0.2f);
+
                     isInShadowArea = false;
                 } else if (len < widthP2) {
                     c.set(roadBorderColor);
@@ -247,8 +247,8 @@ public class RoadDrawU {
                 float alpha = c.a;
                 if (isInShadowArea) {
                     if (shadowAlpha[p] > 0) {
-                        c.set(Color.WHITE);
-//                        RoadDrawCommonU.setColorLinear(c, c, Color.BLACK, Interpolation.sineOut.apply(shadowAlpha[p]));
+//                        c.set(Color.WHITE);
+                        setColorLinear(c, c, Color.RED, Interpolation.sineOut.apply(shadowAlpha[p]));
                     }
                 }
 //                RoadDrawCommonU.setDataColor(pixmapData, dIndex, c, alpha);
@@ -262,6 +262,13 @@ public class RoadDrawU {
         data[index + 1] = (byte) (c.g * 255);
         data[index + 2] = (byte) (c.b * 255);
         data[index + 3] = (byte) (alpha * 255);
+    }
+
+    public static void setColorLinear(Color ct, Color ca, Color cb, float p) {
+        ct.r = ca.r + (cb.r - ca.r) * p;
+        ct.g = ca.g + (cb.g - ca.g) * p;
+        ct.b = ca.b + (cb.b - ca.b) * p;
+        ct.a = ca.a + (cb.a - ca.a) * p;
     }
 
 
