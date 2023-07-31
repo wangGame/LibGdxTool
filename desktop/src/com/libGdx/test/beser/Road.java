@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
  * @Date 2023/7/17 14:00
  */
 public class Road {
-    private final int STEP = 2;
+    private final int STEP = 5;
     Array<float[]> pos = new Array<float[]>();
     public Road(){
 
@@ -105,12 +105,13 @@ public class Road {
         }
     }
 
-    public Array<float[]> getDrawPos() {
-        Array<float[]> drawPos = new Array<float[]>(pos.size);
-        for (int i = 0; i < pos.size; i += 3) {
+    public Array<float[]> getDrawPos(int sizeP) {
+        int size = (int) (pos.size * sizeP/100.0f);
+        Array<float[]> drawPos = new Array<float[]>(size);
+        for (int i = 0; i < size; i += 3) {
             drawPos.add(cpy(pos.get(i)));
         }
-        if (pos.size % 3 != 1) {
+        if (size % 3 != 1) {
             drawPos.add(cpy(pos.peek()));
         }
         return drawPos;

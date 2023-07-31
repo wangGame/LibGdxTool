@@ -38,11 +38,15 @@ public class RoadPic extends Group implements Disposable {
     }
 
     public void update(){
+        update(100);
+    }
+
+    public void update(int v){
         ThreadU.exec(new AsyncTask<Void>() {
             @Override
             public Void call() throws Exception {
                 try {
-                    Array<float[]> drawPos = RoadPic.this.road.getDrawPos();
+                    Array<float[]> drawPos = RoadPic.this.road.getDrawPos(v);
                     if (xOff != 0 || yOff != 0) {
                         for (float[] pos : drawPos) {
                             pos[0] += xOff;

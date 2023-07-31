@@ -25,7 +25,6 @@ public class PolyActor extends Actor {
                 rwidth/2,rheight/2,
                 rwidth/2,rheight,
                 rwidth,rheight,
-
         };
         EarClippingTriangulator triangulator = new EarClippingTriangulator();
         ShortArray shortArray = triangulator.computeTriangles(fv);

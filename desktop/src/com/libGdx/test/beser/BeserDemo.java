@@ -2,9 +2,11 @@ package com.libGdx.test.beser;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -36,14 +38,21 @@ public class BeserDemo extends LibGdxTestMain {
 
 
 
-        Vector2 vector2[] = new Vector2[3];
+        Vector2 vector2[] = new Vector2[5];
         vector2[0] = new Vector2(600,600);
         vector2[1] = new Vector2(390,830);
-        vector2[2] = new Vector2(310,230);
+        vector2[2] = new Vector2(110,230);
+        vector2[3] = new Vector2(10,230);
+        vector2[4] = new Vector2(50,230);
+
 
         controlPoint.add(vector2[0]); //起点
         controlPoint.add(vector2[1]);
         controlPoint.add(vector2[2]);
+        controlPoint.add(vector2[3]);
+        controlPoint.add(vector2[4]);
+
+
 
         for (Vector2 vector11 : controlPoint) {
             Image image = new Image(new Texture("white_cir.png"));
@@ -53,9 +62,6 @@ public class BeserDemo extends LibGdxTestMain {
             array.add(image);
 
         }
-
-
-
 
         road.initPoint(vector2);
         pic = new RoadPic(road,720,720,0,0);
@@ -87,6 +93,20 @@ public class BeserDemo extends LibGdxTestMain {
                 }
             }
         });
+
+        IntAction intAction = new IntAction(){
+            @Override
+            public boolean act(float delta) {
+                int value = getValue();
+                System.out.println(value);
+//                pic.update(value);
+                return super.act(delta);
+            }
+        };
+        intAction.setStart(0);
+        intAction.setEnd(100);
+        intAction.setDuration(5);
+        stage.addAction(intAction);
     }
 
 

@@ -9,7 +9,7 @@ dependencies {
     implementation files('libs/gdx-backend-lwjgl-natives.jar')
     implementation files('libs/gdx-natives.jar')
     implementation files('libs/gdx-tools.jar')
-    implementation files('libs/pinyin4j-2.5.0.jar')
+
     implementation project (':libGdxLib')
     implementation project (':libGdx')
     implementation 'junit:junit:4.12'
