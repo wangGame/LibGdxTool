@@ -1,5 +1,6 @@
 package com.libGdx.test.base;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.resource.annotation.ScreenResource;
@@ -31,5 +32,8 @@ public class LibGdxTestMain extends LibGdxTestBase {
 
     public void useShow(Stage stage){
 
+    }
+
+    public void addActor(Actor actor){
     }
 }
