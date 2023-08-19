@@ -908,6 +908,10 @@ public class ScrollPane extends WidgetGroup {
       return MathUtils.clamp(amountY / maxY, 0, 1);
    }
 
+   public float getScrollMiunsY(){
+      return MathUtils.clamp(amountY , 0, maxY);
+   }
+
    public void setScrollPercentY (float percentY) {
       scrollY(maxY * MathUtils.clamp(percentY, 0, 1));
    }
