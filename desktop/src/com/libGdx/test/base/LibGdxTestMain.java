@@ -12,6 +12,7 @@ import com.kw.gdx.screen.BaseScreen;
  */
 public class LibGdxTestMain extends LibGdxTestBase {
 
+    private Stage stageMain;
     @Override
     protected void loadingView() {
         super.loadingView();
@@ -21,6 +22,7 @@ public class LibGdxTestMain extends LibGdxTestBase {
     class TestScreen extends BaseScreen {
         public TestScreen(BaseGame game) {
             super(game);
+            stageMain = stage;
         }
 
         @Override
@@ -35,5 +37,6 @@ public class LibGdxTestMain extends LibGdxTestBase {
     }
 
     public void addActor(Actor actor){
+        stageMain.addActor(actor);
     }
 }
