@@ -71,16 +71,13 @@ public class LevelItemGroup extends Group {
         setName("levelItem"+levlNum);
         this.itemListener = listener;
         this.index = levelScrollPanelIndex;
-//        this.index = levlNum;
         this.version = InitCsvData.preOrderHashMap.get(levlNum).getVersion();
-
         this.levelNum = levlNum;
         cocosGroup = CocosResource.loadFile("cocos/mainBottomItem.json");
         setSize(cocosGroup.getWidth(),cocosGroup.getHeight());
         addActor(cocosGroup);
         setOrigin(Align.center);
         FileHandle local;
-
         if (LevelConfig.useInocal) {
             local = Gdx.files.internal(version + "/levelpre/level" + index);
         }else {
@@ -92,7 +89,6 @@ public class LevelItemGroup extends Group {
         }
         setLevelMsg();
         if (status!=LevelConfig.NOLOCK) {
-
             LevelItemListener levelItemListener = new LevelItemListener(0.946f) {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
@@ -153,8 +149,6 @@ public class LevelItemGroup extends Group {
         loadingSpine.setPosition(getWidth()/2,getHeight()/2,Align.center);
         loadingSpine.setAnimation("1",true);
         loadingSpine.setScale(12.0f);
-
-
     }
 
     private boolean needBorderAnimation;
