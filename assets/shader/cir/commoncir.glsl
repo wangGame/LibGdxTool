@@ -6,13 +6,7 @@
 varying vec4 v_color;
 varying vec2 v_textCoords;
 uniform sampler2D u_texture;
-//uniform float bigR1;
-//uniform float bigR2;
-//uniform float bigR3;
 
-//uniform float smallR1;
-//uniform float smallR2;
-//uniform float smallR3;
 
 void draw(float bigR,float smallR,float xxyy,vec4 textureColor){
     if(xxyy < bigR){

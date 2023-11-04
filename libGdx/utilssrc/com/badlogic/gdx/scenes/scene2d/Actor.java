@@ -1096,5 +1096,6 @@ public class Actor {
     public void setBaseY(float baseY) {
         this.baseY = baseY;
     }
+
 }
 
