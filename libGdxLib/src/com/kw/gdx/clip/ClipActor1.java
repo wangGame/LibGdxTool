@@ -179,7 +179,7 @@ public class ClipActor1 extends Actor {
         vertices[17] = batch.getPackedColor();
         vertices[18] = region.getU2();
         vertices[19] = region.getV();
-        batch.draw(region.getTexture(), vertices, 0, 20);
+        batch.draw(region.getTexture(), vertices, 0, 25);
     }
 
     public void setClipHeight(float clipHeight) {
