@@ -15,10 +15,23 @@ public class ShaderTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
+        Image image = new Image(Asset.getAsset().getTexture("common/white_bg.png"));
+        image.setSize(1000,1000);
+//        demo01(stage,image);
+        demo02(stage,image);
+    }
+
+    public void demo02(Stage stage,Image image){
+        ColorCirGroup shaderGroup = new ColorCirGroup();
+        stage.addActor(shaderGroup);
+        shaderGroup.addActor(image);
+        shaderGroup.setSize(image.getWidth(),image.getHeight());
+    }
+
+    public void demo01(Stage stage,Image image){
         ShaderGroup shaderGroup = new ShaderGroup();
         stage.addActor(shaderGroup);
-        Image image = new Image(Asset.getAsset().getTexture("common/white_bg.png"));
         shaderGroup.addActor(image);
-        image.setSize(1000,1000);
+        shaderGroup.setSize(image.getWidth(),image.getHeight());
     }
 }
