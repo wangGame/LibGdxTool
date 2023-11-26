@@ -56,6 +56,7 @@ public class LibGdxTestMain extends BaseGame {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.title=value.getName();
         config.x = 1000;
+        config.stencil=8;
         config.y = 0;
         config.height = (int) (1920 * 0.25f);
         config.width = (int) (1080 * 0.3f);
