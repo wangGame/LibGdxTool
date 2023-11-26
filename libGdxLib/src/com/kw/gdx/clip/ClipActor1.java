@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class ClipActor extends Actor {
+public class ClipActor1 extends Actor {
     private TextureRegion region;
     private ShapeRenderer sr;
     private float clipHeight;      //裁剪的高度
@@ -32,7 +32,7 @@ public class ClipActor extends Actor {
 
     private float speed;
 
-    public ClipActor(TextureRegion region,boolean clipY,float sLength,float eLength){
+    public ClipActor1(TextureRegion region, boolean clipY, float sLength, float eLength){
         this.clipY=clipY;
         this.region=region;
         this.sLength=sLength;
@@ -54,7 +54,7 @@ public class ClipActor extends Actor {
         parallelogram = false;
     }
 
-    public ClipActor(TextureRegion region, float offset, float regionheight){
+    public ClipActor1(TextureRegion region, float offset, float regionheight){
         this.region=region;
         this.offset=offset;
         this.regionheight=regionheight;

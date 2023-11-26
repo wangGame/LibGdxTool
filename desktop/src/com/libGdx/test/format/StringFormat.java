@@ -13,20 +13,22 @@ import java.util.Date;
  */
 public class StringFormat extends LibGdxTestMain {
     public static void main(String[] args) {
-        Date date = new Date();
-        date.setTime(System.currentTimeMillis());
-        int year = date.getYear();
-        int month = date.getMonth();
-        int day = date.getDay();
-        date.setHours(3);
-        date.setMinutes(4);
-        date.setSeconds(3);
-//        String format1 = String.format("%tb:%2d :%2d", year, month, day);
-//        System.out.println(format1);
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        String dateString = sdf.format(date);
-        System.out.println(dateString);
 
+//        date.setTime(System.currentTimeMillis());
+//        int year = date.getYear();
+//        int month = date.getMonth();
+//        int day = date.getDay();
+//
+////        String format1 = String.format("%tb:%2d :%2d", year, month, day);
+////        System.out.println(format1);
+//        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+//        String dateString = sdf.format(date);
+//        System.out.println(dateString);
+        Date date = new Date();
+
+        date.setHours(3);
+        date.setMinutes(14);
+        date.setSeconds(3);
         System.out.println(String.format("%tT", date));
 
     }

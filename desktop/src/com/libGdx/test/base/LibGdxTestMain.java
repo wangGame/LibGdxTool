@@ -1,16 +1,22 @@
 package com.libGdx.test.base;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.resource.annotation.ScreenResource;
 import com.kw.gdx.screen.BaseScreen;
 
+import kw.test.file.Bean;
+import kw.test.file.ReadFileConfig;
+
 /**
  * @Auther jian xian si qi
  * @Date 2023/6/21 15:51
  */
-public class LibGdxTestMain extends LibGdxTestBase {
+public class LibGdxTestMain extends BaseGame {
 
     private Stage stageMain;
     @Override
@@ -38,5 +44,22 @@ public class LibGdxTestMain extends LibGdxTestBase {
 
     public void addActor(Actor actor){
         stageMain.addActor(actor);
+    }
+
+    public void start() {
+        start(this);
+    }
+
+    public void start(LibGdxTestMain test) {
+        ReadFileConfig readFileConfig = new ReadFileConfig();
+        Bean value = readFileConfig.getValue();
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.title=value.getName();
+        config.x = 1000;
+        config.y = 0;
+        config.height = (int) (1920 * 0.25f);
+        config.width = (int) (1080 * 0.3f);
+        Gdx.isJiami = true;
+        new LwjglApplication(test, config);
     }
 }

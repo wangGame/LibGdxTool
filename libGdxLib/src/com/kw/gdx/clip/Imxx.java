@@ -15,12 +15,6 @@ public class Imxx extends Image {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.flush();
-        if (clipBegin(0,0,150,299)) {
-            super.draw(batch, parentAlpha);
-            batch.flush();
-            clipEnd();
-        }
-        batch.flush();
+
     }
 }

@@ -2,7 +2,6 @@ package com.libGdx.test.spine;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.esotericsoftware.spine.loader.SpineActor;
-import com.libGdx.test.base.LibGdxTestBase;
 import com.libGdx.test.base.LibGdxTestMain;
 import com.libGdx.test.effect.EffectTest;
 
