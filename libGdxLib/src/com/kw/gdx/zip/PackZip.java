@@ -74,21 +74,7 @@ public class PackZip {
         }
     }
     public static void main(String[] args){
-//        for (int i = 1; i <= 2; i++) {
-//            copyOutToTemp("../data/level/level"+i,"../data/md5/level"+i);
-//        }
-//        for (int i = 1; i <= 2; i++) {
-//            genMd5("../data/md5/","../data/md5out/level"+i);
-//        }
-//
-//
-//            step3("../data/md5/","../data/outzip/");
-//
-//        unpackZip("../data/outzip/","../data/outPath/");
-
-        for (int i = 1; i <= 2; i++) {
-//            check("../data/outPath/level"+i,"");
-        }
+        PackZip.unpackZip("level","levelout");
     }
 
     /**
@@ -291,27 +277,4 @@ public class PackZip {
         }
         return true;
     }
-
-//    public static void deleteDir(File directory){
-//        //获取目录下所有文件和目录
-//        File files[] = directory.listFiles();
-//        for (File file : files) {
-//            if(file.isDirectory()){
-//                deleteDir(file);
-//            }else {
-//                if (file.delete()) {
-////                    System.out.println(file.getName()+"        delete");
-//                }else {
-//                    System.out.println(file.getPath() +" error");
-//                }
-//            }
-//        }
-//        //最终把该目录也删除
-//        boolean delete = directory.delete();
-//        if (delete) {
-////            System.out.println(directory.getName() + "  delete");
-//        }else {
-//            System.out.println(directory.getPath() +" error");
-//        }
-//    }
 }

@@ -9,6 +9,10 @@ import com.kw.gdx.BaseGame;
 import com.kw.gdx.resource.annotation.ScreenResource;
 import com.kw.gdx.screen.BaseScreen;
 
+
+
+import java.io.IOException;
+
 import kw.test.file.Bean;
 import kw.test.file.ReadFileConfig;
 
@@ -38,7 +42,7 @@ public class LibGdxTestMain extends BaseGame {
         }
     }
 
-    public void useShow(Stage stage){
+    public void useShow(Stage stage) {
 
     }
 

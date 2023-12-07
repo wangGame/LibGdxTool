@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.kw.gdx.utils.log.NLog;
+import com.kw.gdx.zip.PackZip;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -117,20 +118,21 @@ public class DeskDownload extends DownLoad {
         new LwjglApplication(new Game() {
             @Override
             public void create() {
+                String pic = "https://s3-ca-puzzles.easybrain.com/feature/medium/flipped_y/";
 //                request.setUrl("http://gaoshanren.cdn-doodlemobile.com/Art_Puzzle/level_resource/version7/level/level160.zip");
                 DeskDownload deskDownload = new DeskDownload();
     //                for (int i = 0; i < 100; i++) {
-                    String pa = Gdx.files.getLocalStoragePath()+"level/level"+1+".zip";
+                    String pa = Gdx.files.getLocalStoragePath()+"level/level"+1;
     //                https://cloudflare-content.easybrain.com/com.easybrain.art.puzzle/Android/v3/remotepreview_assets_00001.bundle
                     deskDownload.downloadOneFile(
-                            "https://gaoshanren.cdn-doodlemobile.com/Art_Puzzle/level_resource/",
-                            "version7/level/level160.zip",
+                            pic,
+                            "p656791a301ff9",
                             pa,
-                            new BaseDownLoadUtils.DownLoadListener(){},
+                            new BaseDownLoadUtils.DownLoadListener(){
+
+                            },
                             new BaseDownLoadUtils.DownLoadListener(){}
                             );
-
-
                     try {
                         int read = System.in.read();
                     } catch (IOException e) {
@@ -140,6 +142,5 @@ public class DeskDownload extends DownLoad {
                 }
 //            }
         }, config);
-
     }
 }

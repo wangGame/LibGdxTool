@@ -9,7 +9,7 @@ dependencies {
     implementation files('libs/gdx-backend-lwjgl-natives.jar')
     implementation files('libs/gdx-natives.jar')
     implementation files('libs/gdx-tools.jar')
-
+    implementation files('libs/gdx-PVR-0.2.1-b34.jar')
     implementation project (':libGdxLib')
     implementation project (':libGdx')
     implementation 'junit:junit:4.12'
@@ -30,14 +30,3 @@ task dist(type: Jar) {
     }
     with jar
 }
-
-
-
-//task dist(type: Jar) {
-//    from files(sourceSets.main.output.classesDirs)
-//    from files(sourceSets.main.output.resourcesDir)
-//    from {configurations.someConfiguration.project(":core")}
-//    manifest {
-//        attributes 'Main-Class': project.mainClassName
-//    }
-//}
