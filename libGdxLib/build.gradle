@@ -14,26 +14,15 @@ dependencies {
 
 afterEvaluate {
     publishing {
-        def versionName = "1.0.2"
+        def versionName = "1.0.0"
         publications {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 // Applies the component for the release build variant.
-
-
                 // You can then customize attributes of the publication as shown below.
-                groupId = 'com.kw.gdx'
-                artifactId = 'hellolib'
+//                groupId = 'com.kw.gdx'
+//                artifactId = 'hellolib'
                 version = versionName
-            }
-        }
-        repositories {
-            maven {
-                // change URLs to point to your repos, e.g. http://my.org/repo
-                def baseUrl = buildDir.getParent()
-                def releasesRepoUrl = "$baseUrl/repos/releases"
-                def snapshotsRepoUrl = "$baseUrl/repos/snapshots"
-                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             }
         }
     }
