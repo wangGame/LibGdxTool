@@ -21,8 +21,8 @@ public class CsvRead {
             String s = codeString(internal);
             readCvs.readMethodMethod(array, new BufferedReader(
                     Gdx.files.internal(fileHandle.path()+"/config.csv").reader(s)) , CongfigBean.class);
-            WriteCsv writeCsv = new WriteCsv(Gdx.files.internal(out.path()+"/"+fileHandle.name()));
-            writeCsv.write(array);
+//            WriteCsv writeCsv = new WriteCsv(Gdx.files.internal(out.path()+"/"+fileHandle.name()));
+//            writeCsv.write(array);
         }
     }
 
