@@ -1,4 +1,8 @@
-# 添加忽略
+# LibGdxTool
+
+[![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool)
+
+## 添加忽略
 
 ```
 .gradle/
