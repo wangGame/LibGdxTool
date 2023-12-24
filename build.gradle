@@ -17,6 +17,7 @@ buildscript {
         gradlePluginPortal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         google()
+        maven { url 'https://jitpack.io' }
     }
 
     dependencies {
@@ -43,6 +44,7 @@ allprojects {
             url 'https://maven.aliyun.com/repository/google'
             name 'Google'
         }
+        maven { url 'https://jitpack.io' }
         mavenLocal()
         mavenCentral()
         google()
