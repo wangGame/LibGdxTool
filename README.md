@@ -25,14 +25,12 @@ git commit -m "xx"
 maven { url 'https://jitpack.io' }
    
 //如果全都要
-
-implementation 'com.github.wangGame:libGdx:v1.4'
-
+implementation 'com.github.wangGame:LibGdxTool:pre-release1.0.0'
 //只是要部分
 // libGdx源码   
-implementation 'com.github.wangGame.LibGdxTool:libGdx:v1.4'
+implementation 'com.github.wangGame.LibGdxTool:libGdx:pre-release1.0.0'
 //自己的工具包
-implementation 'com.github.wangGame.LibGdxTool:libGdxLib:v1.4'
+implementation 'com.github.wangGame.LibGdxTool:libGdxLib:pre-release1.0.0'
 ```
 
 ## group tranfrom
