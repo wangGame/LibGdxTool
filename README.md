@@ -19,9 +19,21 @@ git add .
 
 git commit -m "xx"
 
-## 动态加载关卡
+## 仓库使用方法
 
-根据使用需要加载关卡
+```
+maven { url 'https://jitpack.io' }
+   
+//如果全都要
+
+implementation 'com.github.wangGame:libGdx:v1.4'
+
+//只是要部分
+// libGdx源码   
+implementation 'com.github.wangGame.LibGdxTool:libGdx:v1.4'
+//自己的工具包
+implementation 'com.github.wangGame.LibGdxTool:libGdxLib:v1.4'
+```
 
 ## group tranfrom
 
