@@ -5,8 +5,6 @@ import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.resource.csvanddata.demo.CsvUtils;
 import com.libGdx.test.base.LibGdxTestMain;
 
-import kw.artpuzzle.csv.LevelOrder;
-
 /**
  * @Auther jian xian si qi
  * @Date 2023/6/26 18:21

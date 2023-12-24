@@ -28,8 +28,7 @@ allprojects {
     apply plugin: "idea"
     version = '1.0'
     ext {
-        appName = "artPuzzle"
-        gdxVersion = '1.9.8'
+        appName = "LibGdxTool"
     }
     repositories {
         maven {

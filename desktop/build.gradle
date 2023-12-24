@@ -4,7 +4,6 @@ sourceSets.main.resources.srcDirs = ["../android/assets"]
 sourceCompatibility = 1.8
 
 dependencies {
-    implementation project(":core")
     implementation files('libs/gdx-backend-lwjgl.jar')
     implementation files('libs/gdx-backend-lwjgl-natives.jar')
     implementation files('libs/gdx-natives.jar')

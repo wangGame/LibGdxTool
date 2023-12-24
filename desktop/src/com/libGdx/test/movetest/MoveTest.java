@@ -10,8 +10,6 @@ import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
 import com.libGdx.test.base.LibGdxTestMain;
 
-import kw.artpuzzle.screen.MainScreen;
-
 /**
  * @Auther jian xian si qi
  * @Date 2023/9/15 19:37

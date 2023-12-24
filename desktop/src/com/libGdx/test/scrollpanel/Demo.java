@@ -4,11 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.kw.gdx.constant.Constant;
 import com.libGdx.test.base.LibGdxTestMain;
-
-import kw.artpuzzle.scroll.ScrollPane;
 
 /**
  * @Auther jian xian si qi

@@ -1,1 +1,1 @@
-include 'desktop', 'core','libGdxLib','libGdx',"desktopUtil"
+include 'desktop','libGdxLib','libGdx',"desktopUtil"

@@ -2,7 +2,6 @@ package com.tony.puzzle;
 
 import com.kw.gdx.zip.PackZip;
 
-import kw.artpuzzle.constant.LevelConfig;
 
 /**
  * origin  原始数据
