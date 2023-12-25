@@ -120,6 +120,7 @@ public class TextureAtlas implements Disposable {
 							height = Integer.parseInt(tuple[1]);
 							readTuple(reader);
 						}
+
 						Format format = Format.valueOf(tuple[0]);
 
 						readTuple(reader);

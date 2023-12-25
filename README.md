@@ -37,6 +37,8 @@ implementation 'com.github.wangGame:LibGdxTool:pre-release1.0.0'
 implementation 'com.github.wangGame.LibGdxTool:libGdx:pre-release1.0.0'
 //自己的工具包
 implementation 'com.github.wangGame.LibGdxTool:libGdxLib:pre-release1.0.0'
+//desktop快速启动
+implementation 'com.github.wangGame.LibGdxTool:desktop:pre-release1.0.0'
 ```
 
 ## group tranfrom

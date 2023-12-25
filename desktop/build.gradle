@@ -12,8 +12,6 @@ dependencies {
     implementation project (':libGdxLib')
     implementation project (':libGdx')
     implementation 'junit:junit:4.12'
-
-
 }
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");

@@ -9,6 +9,10 @@ import java.lang.reflect.Field;
 /**
  * 有点翻车，初衷是使用泛型，让数字在一段时间内变化到目标值。
  *
+ * 不过基本功能是存在的
+ *
+ * 1.s
+ *
  * @Auther jian xian si qi
  * @Date 2023/12/25 9:53
  */
@@ -20,7 +24,7 @@ public class NumAction extends TemporalAction {
     public NumAction (Number start, Number end) {
 
         this.start = Double.valueOf(start.toString());
-        this.end = Double.valueOf(start.toString());
+        this.end = Double.valueOf(end.toString());
     }
 
     protected void begin () {

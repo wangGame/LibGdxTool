@@ -19,18 +19,12 @@ public class NumActionTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
+
         NumAction numAction = new NumAction(0, 100);
         numAction.setDuration(10);
         numAction.setReverse(true);
-        Image i = new Image(){
-            @Override
-            public void act(float delta) {
-                super.act(delta);
-                System.out.println(numAction.getValue());
-            }
-        };
+        Image i = new Image();
         i.addAction(numAction);
         stage.addActor(i);
-
     }
 }

@@ -23,6 +23,7 @@ import kw.test.file.ReadFileConfig;
 public class LibGdxTestMain extends BaseGame {
 
     private Stage stageMain;
+
     @Override
     protected void loadingView() {
         super.loadingView();
