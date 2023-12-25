@@ -12,5 +12,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ShaderResource {
-    String value() default "null";
+    String vertexValue() default "null";
+    String fragmentValue() default "null";
 }

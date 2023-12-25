@@ -3,6 +3,7 @@ package com.kw.gdx.asset;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.assets.loaders.resolvers.LocalFileHandleResolver;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.esotericsoftware.spine.SkeletonRenderer;
@@ -45,7 +46,14 @@ public class Asset implements Disposable {
     public static AssetManager localAssetManager;
     private int i=0;
 
-    public void loadAsset(Object ob) {
+    private SkeletonRenderer renderer;
+
+    private FrameBuffer frameBuffer;
+    public void loadAsset(Object ob){
+        loadAsset(ob,Asset.assetManager);
+    }
+
+    public void loadAsset(Object ob,AssetManager assetManager) {
         Field[] declaredFields = ob.getClass().getDeclaredFields();
         for (Field declaredField : declaredFields) {
             Annotation[] annotations = declaredField.getAnnotations();
@@ -75,7 +83,6 @@ public class Asset implements Disposable {
                         }
                     }
                 }else if(annotation instanceof FtResource){
-//                    FtResource annotation = AnnotationInfo.checkFeildAnnotation(field, FtResource.class);
                     FtResource annotation1 = (FtResource) annotation;
                     try {
                         BitmapFontLoader.BitmapFontParameter parameter = null;
@@ -113,6 +120,10 @@ public class Asset implements Disposable {
     }
 
     public void getResource(Object ob){
+        getResource(ob,Asset.assetManager);
+    }
+
+    public void getResource(Object ob,AssetManager assetManager){
         Field[] declaredFields = ob.getClass().getDeclaredFields();
         for (Field declaredField : declaredFields) {
             Annotation[] annotations = declaredField.getAnnotations();
@@ -145,12 +156,22 @@ public class Asset implements Disposable {
     }
 
     public PlistAtlas getPlist(String path){
-        assetManager.load(path,PlistAtlas.class);
-        assetManager.finishLoading();
+        return getPlist(path,Asset.assetManager);
+    }
+
+    public PlistAtlas getPlist(String path,AssetManager assetManager){
+        if (assetManager.isLoaded(path)) {
+            assetManager.load(path, PlistAtlas.class);
+            assetManager.finishLoading();
+        }
         return assetManager.get(path,PlistAtlas.class);
     }
 
     public TextureAtlas getAtlas(String path){
+        return getAtlas(path,Asset.assetManager);
+    }
+
+    public TextureAtlas getAtlas(String path,AssetManager assetManager){
         if (!assetManager.isLoaded(path)) {
             assetManager.load(path, TextureAtlas.class);
             assetManager.finishLoading();
@@ -162,7 +183,12 @@ public class Asset implements Disposable {
         return atlas;
     }
 //Gdx.files.local("levelpre/level" + levlNum+"/pre.png")
-    public Texture getTexture(String path){
+
+    public Texture getTexture(String path) {
+        return getTexture(path,Asset.assetManager);
+    }
+
+    public Texture getTexture(String path,AssetManager assetManager){
         if (!Gdx.files.internal(path).exists()){
             NLog.e("%s resouce not exist",path);
             return null;
@@ -179,32 +205,22 @@ public class Asset implements Disposable {
         return assetManager.get(path,Texture.class);
     }
 
-    public Texture getLocalTexture(String path){
-//        System.out.println(Gdx.files.local(path).file().getAbsolutePath());
-        if (!Gdx.files.local(path).exists()){
-            NLog.e("%s resouce not exist",path);
-            return null;
-        }
-        if (!localAssetManager.isLoaded(path)) {
-            TextureLoader.TextureParameter parameter = new TextureLoader.TextureParameter();
-            parameter.magFilter = Texture.TextureFilter.Linear;
-            parameter.minFilter = Texture.TextureFilter.Linear;
-            localAssetManager.load(path, Texture.class,parameter);
-            localAssetManager.finishLoading();
-        }
-        Texture texture = localAssetManager.get(path, Texture.class);
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        return localAssetManager.get(path,Texture.class);
+    public Sprite getSprite(String path){
+        return getSprite(path,Asset.assetManager);
     }
 
-    public Sprite getSprite(String path){
-        Texture texture = getTexture(path);
+    public Sprite getSprite(String path,AssetManager assetManager){
+        Texture texture = getTexture(path,assetManager);
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Sprite sprite = new Sprite(texture);
         return sprite;
     }
 
     public void disposeTexture(String path){
+        disposeTexture(path,Asset.assetManager);
+    }
+
+    public void disposeTexture(String path,AssetManager assetManager){
         if (assetManager.isLoaded(path)) {
             NLog.i("%s dispose ",path);
             assetManager.unload(path);
@@ -284,16 +300,6 @@ public class Asset implements Disposable {
         return asset;
     }
 
-    @Override
-    public void dispose() {
-        assetManager.dispose();
-        assetManager = null;
-        asset = null;
-        frameBuffer.dispose();
-        frameBuffer = null;
-    }
-
-    private SkeletonRenderer renderer;
 
     public SkeletonRenderer getRenderer() {
         if (renderer == null){
@@ -302,19 +308,11 @@ public class Asset implements Disposable {
         return renderer;
     }
 
-    public TextureAtlas getLocalAtlas(String path) {
-        if (!localAssetManager.isLoaded(path)) {
-            localAssetManager.load(path, TextureAtlas.class);
-            localAssetManager.finishLoading();
-        }
-        TextureAtlas atlas = localAssetManager.get(path, TextureAtlas.class);
-        for (Texture texture : atlas.getTextures()) {
-            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        }
-        return atlas;
+    public BitmapFont loadBitFont(String path){
+        return loadBitFont(path,Asset.assetManager);
     }
 
-    public BitmapFont loadBitFont(String path) {
+    public BitmapFont loadBitFont(String path,AssetManager assetManager) {
         if (!assetManager.isLoaded(path)) {
             assetManager.load(path, BitmapFont.class);
             assetManager.finishLoading();
@@ -324,18 +322,26 @@ public class Asset implements Disposable {
         return assetManager.get(path);
     }
 
+    public float getProcess(AssetManager assetManager){
+        return assetManager.getProgress();
+    }
+
     public float getProcess(){
-        return Asset.assetManager.getProgress();
+        return getProcess(Asset.assetManager);
+    }
+
+    public boolean update(AssetManager assetManager){
+        return assetManager.update();
     }
 
     public boolean update(){
-        return Asset.assetManager.update();
+        return update(Asset.assetManager);
     }
 
-    private FrameBuffer frameBuffer;
+
     public FrameBuffer buffer(){
         if (frameBuffer == null) {
-            Graphics.BufferFormat bufferFormat = Gdx.graphics.getBufferFormat();
+//            Graphics.BufferFormat bufferFormat = Gdx.graphics.getBufferFormat();
 //            Alpha, Intensity, LuminanceAlpha, RGB565, RGBA4444, RGB888, RGBA8888;
             Graphics.BufferFormat format = Gdx.graphics.getBufferFormat();
             if(format.r < 8){
@@ -359,12 +365,35 @@ public class Asset implements Disposable {
                             false);
                 }
             }
-//            buffer = new FrameBuffer();
         }
         return frameBuffer;
     }
 
     public void unloadResource(String path) {
-//        if (assetManager.isLoaded())
+        unloadResource(path,Asset.assetManager);
+    }
+
+    public void unloadResource(String path,AssetManager assetManager) {
+        if (assetManager.isLoaded(path)){
+            assetManager.unload(path);
+        }
+    }
+
+
+    @Override
+    public void dispose() {
+        if (assetManager!=null) {
+            assetManager.dispose();
+        }
+        if (localAssetManager!=null){
+            localAssetManager.dispose();
+        }
+        assetManager = null;
+        localAssetManager = null;
+        asset = null;
+        if (frameBuffer!=null) {
+            frameBuffer.dispose();
+        }
+        frameBuffer = null;
     }
 }

@@ -3,29 +3,25 @@ package com.kw.gdx.actor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Align;
-import com.kw.gdx.constant.Constant;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.kw.gdx.resource.annotation.AnnotationInfo;
-import com.kw.gdx.resource.annotation.ScreenResource;
 import com.kw.gdx.resource.annotation.ShaderResource;
-import com.kw.gdx.resource.cocosload.CocosResource;
-
-import java.lang.annotation.Annotation;
 
 /**
  * @Auther jian xian si qi
  * @Date 2023/7/26 19:09
  *
- * 注解ShaderActor
+ * 注解ShaderGroup
  */
-public class ShaderActor extends Actor {
+@ShaderResource()
+public class ShaderGroup extends Group {
     protected ShaderProgram program;
-    public ShaderActor(){
+    public ShaderGroup(){
         ShaderResource annotation = AnnotationInfo.checkClassAnnotation(this,ShaderResource.class);
         if (annotation!=null){
-            String value = annotation.value();
-            program = new ShaderProgram(Gdx.files.internal(value),Gdx.files.internal(value));
+            String vertexValue = annotation.vertexValue();
+            String fragmentValue = annotation.fragmentValue();
+            program = new ShaderProgram(Gdx.files.internal(vertexValue),Gdx.files.internal(fragmentValue));
         }
     }
 
