@@ -1,4 +1,7 @@
 apply plugin: "java"
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.wangGame'
+
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../android/assets"]
 sourceCompatibility = 1.8
