@@ -1,6 +1,7 @@
 package com.kw.gdx.resource.csvanddata;
 
 import com.badlogic.gdx.utils.Array;
+import com.kw.gdx.utils.ClassType;
 
 import java.io.Reader;
 import java.lang.reflect.Field;
@@ -10,16 +11,6 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 
 public class ReadCvs {
-    Array<Class<?>> arry = new Array<>();
-    public ReadCvs(){
-        arry.add(byte.class);
-        arry.add(int.class);
-        arry.add(float.class);
-        arry.add(double.class);
-        arry.add(long.class);
-        arry.add(boolean.class);
-    }
-
 //    public static void main(String[] args) throws Exception {
 //    }
     /**
@@ -99,17 +90,17 @@ public class ReadCvs {
     }
 
     private void fieldSetValue(Field declaredField, String value, Object o) throws IllegalAccessException {
-        if (feildBoolean(declaredField,"byte")) {
+        if (ClassType.feildBoolean(declaredField,"byte")) {
             declaredField.set(o, ConvertUtil.convertToByte(value,(byte) 0));
-        }else if (feildBoolean(declaredField,"int")){
+        }else if (ClassType.feildBoolean(declaredField,"int")){
             declaredField.set(o,ConvertUtil.convertToInt(value,0));
-        }else if (feildBoolean(declaredField,"float")){
+        }else if (ClassType.feildBoolean(declaredField,"float")){
             declaredField.set(o,ConvertUtil.convertToFloat(value,0F));
-        }else if (feildBoolean(declaredField,"double")){
+        }else if (ClassType.feildBoolean(declaredField,"double")){
             declaredField.set(o,ConvertUtil.convertToFloat(value,0));
-        }else if (feildBoolean(declaredField,"long")){
+        }else if (ClassType.feildBoolean(declaredField,"long")){
             declaredField.set(o,ConvertUtil.convertToLong(value,0L));
-        }else if (feildBoolean(declaredField,"boolean")){
+        }else if (ClassType.feildBoolean(declaredField,"boolean")){
             declaredField.set(o,ConvertUtil.convertToBoolean(value,false));
         }else {
             declaredField.set(o,value);
@@ -118,29 +109,27 @@ public class ReadCvs {
 
     //只是一个校验
     private Class<?>  checkType(Class<?> type){
-        if (arry.contains(type,true)) {
-            return type;
-        }
-        return String.class;
+        return ClassType.containsType(type);
     }
 
     private void mathodSetValue(Method declaredMethod, String value, Object o,Field declaredField) throws IllegalAccessException, InvocationTargetException {
-        if (feildBoolean(declaredField,"byte")) {
+        if (ClassType.feildBoolean(declaredField,"byte")) {
             declaredMethod.invoke(o,ConvertUtil.convertToByte(value,(byte) 0));
-        }else if (feildBoolean(declaredField,"int")){
+        }else if (ClassType.feildBoolean(declaredField,"int")){
             declaredMethod.invoke(o,ConvertUtil.convertToInt(value,0));
-        }else if (feildBoolean(declaredField,"float")){
+        }else if (ClassType.feildBoolean(declaredField,"float")){
             declaredMethod.invoke(o,ConvertUtil.convertToFloat(value,0F));
-        }else if (feildBoolean(declaredField,"double")){
+        }else if (ClassType.feildBoolean(declaredField,"double")){
             declaredMethod.invoke(o,ConvertUtil.convertToFloat(value,0));
-        }else if (feildBoolean(declaredField,"long")){
+        }else if (ClassType.feildBoolean(declaredField,"long")){
             declaredMethod.invoke(o,ConvertUtil.convertToLong(value,0L));
-        }else if (feildBoolean(declaredField,"boolean")){
+        }else if (ClassType.feildBoolean(declaredField,"boolean")){
             declaredMethod.invoke(o,ConvertUtil.convertToBoolean(value,false));
         }else {
             declaredMethod.invoke(o,value);
         }
     }
+
     public String parSetName(String fieldName) {
         if (null == fieldName || "".equals(fieldName)) {
             return null;
@@ -148,16 +137,8 @@ public class ReadCvs {
         int startIndex = 0;
         if (fieldName.charAt(0) == '_')
             startIndex = 1;
-//        return "set"+ fieldName.substring(startIndex, startIndex + 1).toUpperCase()
-//                + fieldName.substring(startIndex + 1);
-
-
-
         return "set"+ fieldName.substring(startIndex, startIndex + 1).toUpperCase(Locale.US)
                 + fieldName.substring(startIndex + 1);
     }
 
-    private boolean feildBoolean(Field field, String type){
-        return field.getGenericType().toString().equals(type);
-    }
 }

@@ -16,9 +16,11 @@ import java.lang.annotation.Annotation;
 /**
  * @Auther jian xian si qi
  * @Date 2023/7/26 19:09
+ *
+ * 注解ShaderActor
  */
 public class ShaderActor extends Actor {
-    private ShaderProgram program;
+    protected ShaderProgram program;
     public ShaderActor(){
         ShaderResource annotation = AnnotationInfo.checkClassAnnotation(this,ShaderResource.class);
         if (annotation!=null){

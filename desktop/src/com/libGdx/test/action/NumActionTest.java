@@ -1,12 +1,9 @@
-package com.libGdx.test.ani;
+package com.libGdx.test.action;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.kw.gdx.asset.Asset;
-import com.libGdx.test.asset.AssetLoadingTest;
-import com.libGdx.test.asset.EffectResResourceTest;
-import com.libGdx.test.asset.SpineResResourceTest;
+import com.kw.gdx.action.NumAction;
 import com.libGdx.test.base.LibGdxTestMain;
 
 /**
@@ -22,17 +19,17 @@ public class NumActionTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        IntAction intAction = new IntAction(0, 100);
-        intAction.setDuration(10);
-        intAction.setReverse(true);
+        NumAction numAction = new NumAction(0, 100);
+        numAction.setDuration(10);
+        numAction.setReverse(true);
         Image i = new Image(){
             @Override
             public void act(float delta) {
                 super.act(delta);
-                System.out.println(intAction.getValue());
+                System.out.println(numAction.getValue());
             }
         };
-        i.addAction(intAction);
+        i.addAction(numAction);
         stage.addActor(i);
 
     }

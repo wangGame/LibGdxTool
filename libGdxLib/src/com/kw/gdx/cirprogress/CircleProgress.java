@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ShortArray;
 
 public class CircleProgress extends Actor {
-    private TextureRegion texture;//裁剪画的纹理
+    private TextureRegion textureRegion;//裁剪画的纹理
     private TextureRegion point;
     private Vector2 center;
     private Vector2 centerTop;//从上面中间开始
@@ -23,7 +23,7 @@ public class CircleProgress extends Actor {
     private Vector2 leftBottom;
     private Vector2 rightBottom;
     private Vector2 rightTop;
-    private Vector2 progressPoint;
+//    private Vector2 progressPoint;
     private float[] fv;//裁剪画图使用的点阵{point1.x,point1.y,point2.x,point2.y  ......}
     private Vector2 intersectPoint;//当前切割在边上的点
     private float percent = 0;
@@ -45,7 +45,7 @@ public class CircleProgress extends Actor {
     public CircleProgress(TextureRegion ground, TextureRegion point, float radius) {
         setName("circle");
         setSize(ground.getRegionWidth(), ground.getRegionHeight());
-        this.texture = ground;
+        this.textureRegion = ground;
         this.point = point;
         this.radius = radius;
 
@@ -56,10 +56,13 @@ public class CircleProgress extends Actor {
         leftBottom = new Vector2(0, 0);
         rightBottom = new Vector2(this.getWidth(), 0);
         rightTop = new Vector2(this.getWidth(), this.getHeight());
-        progressPoint = new Vector2(this.getWidth() / 2, this.getHeight() / 2);
-
+//        progressPoint = new Vector2(this.getWidth() / 2, this.getHeight() / 2);
     }
 
+    /**
+     * 反转
+     * @param revert
+     */
     public void setRevert(boolean revert) {
         this.revert = revert;
     }
@@ -245,7 +248,7 @@ public class CircleProgress extends Actor {
         }
         EarClippingTriangulator e = new EarClippingTriangulator();
         ShortArray sv = e.computeTriangles(fv);
-        PolygonRegion polyReg = new PolygonRegion(texture, fv, sv.toArray());
+        PolygonRegion polyReg = new PolygonRegion(textureRegion, fv, sv.toArray());
         //创建 polySprite.
         if (poly == null) {
             poly = new PolygonSprite(polyReg);
@@ -277,7 +280,7 @@ public class CircleProgress extends Actor {
         } else if (percent >= 99.9F) {
             Color batchColor = batch.getColor();
             batch.setColor(getColor());
-            batch.draw(texture, getX(), getY());
+            batch.draw(textureRegion, getX(), getY());
             batch.setColor(batchColor);
         } else if (poly != null) {
             poly.setOrigin(this.getOriginX(), this.getOriginY());

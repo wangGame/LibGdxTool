@@ -42,8 +42,8 @@ public class EffectTest extends LibGdxTestMain {
             stage.addActor(tool);
             tool.setPosition(600,900);
             tool.setClip(true);
-            tool.setW(1400);
-            tool.setH(1400);
+            tool.setClipW(1400);
+            tool.setClipH(1400);
         }
     }
 }

@@ -11,31 +11,25 @@ import com.kw.gdx.utils.log.NLog;
 
 public class EffectTool extends Actor {
     private ParticleEffect effect;
-    private String path;
+    private String effectResourcePath;
     private AssetManager assetamnagerinstance;
-    private float h;
-    private float w;
+    private float clipH;
+    private float clipW;
+    private boolean loop;
+    private boolean isClip = false;
 
-    public EffectTool(String path){
-        this.path = path;
+    public EffectTool(String effectResourcePath){
+        this.effectResourcePath = effectResourcePath;
         assetamnagerinstance = Asset.assetManager;
-        if (!assetamnagerinstance.isLoaded(path)){
-            assetamnagerinstance.load(path, ParticleEffect.class);
+        if (!assetamnagerinstance.isLoaded(effectResourcePath)){
+            assetamnagerinstance.load(effectResourcePath, ParticleEffect.class);
             assetamnagerinstance.finishLoading();
         }
         init();
     }
 
-    public void setW(float w) {
-        this.w = w;
-    }
-
-    public void setH(float h) {
-        this.h = h;
-    }
-
     public EffectTool(String path, String atlasFile){
-        this.path = path;
+        this.effectResourcePath = path;
         assetamnagerinstance = Asset.assetManager;
         if (!assetamnagerinstance.isLoaded(path)){
             ParticleEffectLoader.ParticleEffectParameter
@@ -55,7 +49,7 @@ public class EffectTool extends Actor {
     }
 
     public void init(){
-        effect = assetamnagerinstance.get(path);
+        effect = assetamnagerinstance.get(effectResourcePath);
         effect = new ParticleEffect(effect);
         play();
     }
@@ -64,6 +58,15 @@ public class EffectTool extends Actor {
         effect.reset();
         effect.start();
     }
+
+    public void setClipW(float clipW) {
+        this.clipW = clipW;
+    }
+
+    public void setClipH(float clipH) {
+        this.clipH = clipH;
+    }
+
 
     public ParticleEffect getEffect() {
         return effect;
@@ -90,8 +93,6 @@ public class EffectTool extends Actor {
         }
     }
 
-    private boolean isClip = false;
-
     public void setClip(boolean flag) {
         this.isClip= flag;
     }
@@ -103,7 +104,7 @@ public class EffectTool extends Actor {
         int blendDstFunc = batch.getBlendDstFunc();
         if (isClip) {
             batch.flush();
-            if (clipBegin(0, 0, w, h)) {
+            if (clipBegin(0, 0, clipW, clipH)) {
                 effect.draw(batch, Gdx.graphics.getDeltaTime());
                 batch.flush();
                 clipEnd();
@@ -117,7 +118,7 @@ public class EffectTool extends Actor {
 
     public void dispose(){
         try {
-            assetamnagerinstance.unload(path);
+            assetamnagerinstance.unload(effectResourcePath);
         }catch (Exception e){
             NLog.e("dispose error !");
         }
@@ -128,16 +129,20 @@ public class EffectTool extends Actor {
         super.setRotation(degrees);
     }
 
-    private boolean loop;
-
     public void setLoop(boolean loop) {
         this.loop = loop;
     }
 
+    /**
+     * 水平反转
+     */
     public void setFlipX(){
         effect.flipX();
     }
 
+    /**
+     * 竖直反转
+     */
     public void setFlipY(){
         effect.flipY();
     }

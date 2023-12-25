@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kw.gdx.asset.Asset;
-import com.kw.gdx.besier.AA.BezierMoveAction;
 import com.kw.gdx.picturetail.PictureTrail;
 import com.libGdx.test.base.LibGdxTestMain;
 
