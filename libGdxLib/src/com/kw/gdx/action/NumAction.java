@@ -22,7 +22,6 @@ public class NumAction extends TemporalAction {
 
     /** Creates an IntAction that transitions from start to end. */
     public NumAction (Number start, Number end) {
-
         this.start = Double.valueOf(start.toString());
         this.end = Double.valueOf(end.toString());
     }
@@ -32,7 +31,7 @@ public class NumAction extends TemporalAction {
     }
 
     protected void update (float percent) {
-        value = (start + (end -start) * percent);
+        value = start + (end -start) * percent;
     }
 
     /** Gets the current int value. */

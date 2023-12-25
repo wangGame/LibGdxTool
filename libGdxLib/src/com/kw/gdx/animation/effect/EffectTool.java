@@ -9,6 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.utils.log.NLog;
 
+/**
+ * default use internal file,
+ */
 public class EffectTool extends Actor {
     private ParticleEffect effect;
     private String effectResourcePath;
@@ -19,8 +22,12 @@ public class EffectTool extends Actor {
     private boolean isClip = false;
 
     public EffectTool(String effectResourcePath){
+        this(effectResourcePath,Asset.assetManager);
+    }
+
+    public EffectTool(String effectResourcePath,AssetManager assetManager){
         this.effectResourcePath = effectResourcePath;
-        assetamnagerinstance = Asset.assetManager;
+        assetamnagerinstance = assetManager;
         if (!assetamnagerinstance.isLoaded(effectResourcePath)){
             assetamnagerinstance.load(effectResourcePath, ParticleEffect.class);
             assetamnagerinstance.finishLoading();
@@ -28,9 +35,9 @@ public class EffectTool extends Actor {
         init();
     }
 
-    public EffectTool(String path, String atlasFile){
+    public EffectTool(String path, String atlasFile,AssetManager assetManager){
         this.effectResourcePath = path;
-        assetamnagerinstance = Asset.assetManager;
+        assetamnagerinstance = assetManager;
         if (!assetamnagerinstance.isLoaded(path)){
             ParticleEffectLoader.ParticleEffectParameter
                     particleEffectParameter =
@@ -40,6 +47,10 @@ public class EffectTool extends Actor {
             assetamnagerinstance.finishLoading();
         }
         init();
+    }
+
+    public EffectTool(String path, String atlasFile){
+        this(path,atlasFile,Asset.assetManager);
     }
 
     public void setEffectScale(float scaleX, float scaleY) {
