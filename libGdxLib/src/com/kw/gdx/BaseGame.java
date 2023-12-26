@@ -36,6 +36,9 @@ public class BaseGame extends Game {
         initInstance();
         initViewport();
         initExtends();
+        if (Constant.watchDog){
+            initAnrWatchDog();
+        }
         Gdx.app.postRunnable(()->{
             loadingView();
         });
@@ -59,9 +62,8 @@ public class BaseGame extends Game {
     }
 
     public void initAnrWatchDog(){
-        anrWatchDog = new ANRWatchDog(118);
-        anrWatchDog
-                .setANRListener(new ANRWatchDog.ANRListener() {
+        anrWatchDog = new ANRWatchDog(Constant.watchDogTime);
+        anrWatchDog.setANRListener(new ANRWatchDog.ANRListener() {
                     @Override
                     public void onAppNotResponding(ANRError error) {
                         NLog.e("ANR-Watchdog-Demo", "Detected Application Not Responding!");

@@ -13,7 +13,6 @@ public class DialogManager {
     private Stage stage;
     private Image shadow;
     private Array<BaseDialog> array = new Array<>();
-    private boolean novalue;
 
     public DialogManager(Stage stage) {
         this.stage = stage;

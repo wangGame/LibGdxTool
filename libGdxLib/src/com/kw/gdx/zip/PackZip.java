@@ -181,18 +181,20 @@ public class PackZip {
      * 解压
      */
     public static boolean unpackZip(String from, String to){
-        NLog.i("unpackZip start from %s to %s",from,to);
         File file = new File(from);
-        for (File listFile : file.listFiles()){
-            NLog.i("deal path %s",listFile.getPath());
+        if (file.isFile()){
             UnPackZip z = new UnPackZip();
-            String[] split = listFile.getName().split("\\.");
+            String[] split = file.getName().split("\\.");
             try {
-                z.unZipFiles(listFile.getPath(),to+split[0]+File.separator);
-                listFile.delete();
+                z.unZipFiles(file.getPath(), to + split[0] + File.separator);
+                file.delete();
             } catch (IOException e) {
                 e.printStackTrace();
                 return false;
+            }
+        }else {
+            for (File listFile : file.listFiles()) {
+                unpackZip(listFile.getPath(),to);
             }
         }
         NLog.i("unpackZip end from %from to %to");
@@ -236,12 +238,12 @@ public class PackZip {
         NLog.i("source %s",source);
         File file = new File(source+"/md5apkold.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(file));){
-            String s = null;
-            while ((s = reader.readLine())!=null) {
-                String[] s1 = s.split("\\t");
-                String md5ByFile = TestMD5.getMd5ByFile(new File(source+"/"+s1[0]));
-                if (!md5ByFile.equals(s1[1])) {
-                    NLog.i("%s check error!",s1[0]);
+            String lineContent = null;
+            while ((lineContent = reader.readLine())!=null) {
+                String[] contentSplit = lineContent.split("\\t");
+                String md5ByFile = TestMD5.getMd5ByFile(new File(source+"/"+contentSplit[0]));
+                if (!md5ByFile.equals(contentSplit[1])) {
+                    NLog.i("%s check error!",contentSplit[0]);
                     return false;
                 }
             }
@@ -255,20 +257,46 @@ public class PackZip {
     public void delete(String path){
         deleteDir(new File(path));
     }
-    public static boolean deleteDir(File dir) {
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i = 0; i < children.length; i++) {
-                boolean success = deleteDir
-                        (new File(dir, children[i]));
-                NLog.i("delate %s is %s",children[i],success);
+
+    public static boolean deleteDir(FileHandle inputFile) {
+        if (inputFile.type() == Files.FileType.Internal){
+            NLog.i("brain error !!!");
+            return false;
+        }
+        if (inputFile.isDirectory()) {
+            for (FileHandle fileHandle : inputFile.list()) {
+                if (fileHandle == null)continue;
+                boolean success = deleteDir(fileHandle);
+                NLog.i("delate %s is %s",fileHandle.name(),success);
                 if (!success){
-                    NLog.i(children[i]+"delele error!");
+                    NLog.i(fileHandle.name()+"delele error!");
                 }
             }
         }
-        if (dir.exists()) {
-            if (dir.delete()) {
+        if (inputFile.exists()) {
+            if (inputFile.delete()) {
+                return true;
+            } else {
+                NLog.e("dir delete error!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean deleteDir(File inputFile) {
+        if (inputFile.isDirectory()) {
+            String[] childrenFilePath = inputFile.list();
+            for (int i = 0; i < childrenFilePath.length; i++) {
+                boolean success = deleteDir(new File(inputFile, childrenFilePath[i]));
+                NLog.i("delate %s is %s",childrenFilePath[i],success);
+                if (!success){
+                    NLog.i(childrenFilePath[i]+"delele error!");
+                }
+            }
+        }
+        if (inputFile.exists()) {
+            if (inputFile.delete()) {
                 return true;
             } else {
                 NLog.e("dir delete error!");

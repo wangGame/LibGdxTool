@@ -40,6 +40,9 @@ public class Constant {
     public static float soundV = 1;
     public static boolean isMusic = true;
     public static BaseScreen currentActiveScreen;
+    //watch dog
+    public static boolean watchDog = false;
+    public static int watchDogTime = 5000;
 
     public static void updateInfo(GameInfo info){
         if (info == null)return;
