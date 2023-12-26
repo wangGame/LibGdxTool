@@ -1,10 +1,8 @@
 package com.libGdx.test.clip;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
-import com.kw.gdx.clip.Imxx;
 import com.libGdx.test.base.LibGdxTestMain;
 
 /**
@@ -16,7 +14,6 @@ public class Test2 extends LibGdxTestMain {
         Test2 test2 = new Test2();
         test2.start(test2);
     }
-
 
     @Override
     public void useShow(Stage stage) {

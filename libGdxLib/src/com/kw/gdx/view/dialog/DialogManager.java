@@ -112,13 +112,13 @@ public class DialogManager {
         }
     }
 
-
     public void closeDialog(BaseDialog dialog,boolean flag) {
         if (shadow!=null){
             shadow.toFront();
         }
         closeDialog(dialog);
     }
+
     public void closeDialog(BaseDialog dialog){
         int shadowCloseType = dialog.getShadowCloseType();
         dialog.close();
