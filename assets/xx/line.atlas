@@ -1,0 +1,55 @@
+
+line.png
+size: 1993,965
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+xg1
+  rotate: false
+  xy: 6, 7
+  size: 680, 271
+  orig: 680, 271
+  offset: 0, 0
+  index: -1
+xg2
+  rotate: false
+  xy: 6, 290
+  size: 652, 669
+  orig: 652, 669
+  offset: 0, 0
+  index: -1
+xg3
+  rotate: false
+  xy: 698, 6
+  size: 680, 350
+  orig: 680, 350
+  offset: 0, 0
+  index: -1
+xg4
+  rotate: false
+  xy: 1321, 582
+  size: 666, 377
+  orig: 666, 377
+  offset: 0, 0
+  index: -1
+xg5
+  rotate: false
+  xy: 670, 368
+  size: 639, 591
+  orig: 639, 591
+  offset: 0, 0
+  index: -1
+xg6
+  rotate: false
+  xy: 1713, 283
+  size: 240, 287
+  orig: 240, 287
+  offset: 0, 0
+  index: -1
+xg7
+  rotate: false
+  xy: 1390, 254
+  size: 311, 316
+  orig: 311, 316
+  offset: 0, 0
+  index: -1
