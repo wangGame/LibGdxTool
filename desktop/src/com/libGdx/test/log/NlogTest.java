@@ -23,7 +23,6 @@ public class NlogTest extends LibGdxTestMain {
         NLog.d("tag d %s","log info ------");
         NLog.i("tag i %s","log info ------");
         NLog.e("tag e %s","log info ------");
-
         NLog.addPrinter(new LogFilePrinter("log",1024));
         NLog.d("tag d %s","log info ------");
         NLog.i("tag i %s","log info ------");

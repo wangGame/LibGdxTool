@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.CpuPolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -29,15 +28,9 @@ public class BaseGame extends Game {
     private Batch batch;
     private Viewport stageViewport;
     private ANRWatchDog anrWatchDog;
-//    public static Label extendInfo;
-
-    public static void setText(String start_) {
-//        extendInfo.setText(start_);
-    }
 
     @Override
     public void create() {
-//        initAnrWatchDog();
         printInfo();
         gameInfoConfig();
         initInstance();
@@ -46,6 +39,10 @@ public class BaseGame extends Game {
         Gdx.app.postRunnable(()->{
             loadingView();
         });
+    }
+
+    public static void setText(String start) {
+
     }
 
     private void printInfo() {
@@ -133,24 +130,15 @@ public class BaseGame extends Game {
     public void render() {
         Gdx.gl.glClearColor(Constant.viewColor.r,Constant.viewColor.g,Constant.viewColor.b,Constant.viewColor.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-//        extendInfo.setText(Gdx.app.getGraphics().getFramesPerSecond());
-        super.render();
-        try {
-            if (Constant.DEBUG) {
-                if (batch != null) {
-                    batch.begin();
-//                    extendInfo.draw(batch, 1);
-                    batch.end();
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
+        if (Constant.SHOWFRAMESPERSECOND){
+            NLog.i("FramesPerSecond",Gdx.app.getGraphics().getFramesPerSecond());
         }
-//
-//        if (batch instanceof CpuPolygonSpriteBatch){
-//            System.out.println(((CpuPolygonSpriteBatch) (batch)).renderCalls);
-//        }
-
+        super.render();
+        if (Constant.SHOWRENDERCALL) {
+            if (batch instanceof CpuPolygonSpriteBatch){
+                System.out.println(((CpuPolygonSpriteBatch) (batch)).renderCalls);
+            }
+        }
     }
 
     public Viewport getStageViewport() {
@@ -173,6 +161,7 @@ public class BaseGame extends Game {
     @Override
     public void dispose() {
         super.dispose();
+        preDiapose();
         if (batch!=null) {
             batch.dispose();
             batch = null;
@@ -183,7 +172,7 @@ public class BaseGame extends Game {
     @Override
     public void setScreen(Screen screen) {
         if (screen instanceof BaseScreen) {
-            Constant.currentScreen = (BaseScreen) screen;
+            Constant.currentActiveScreen = (BaseScreen) screen;
             Gdx.app.postRunnable(new Runnable() {
                 @Override
                 public void run() {
@@ -195,7 +184,11 @@ public class BaseGame extends Game {
         }
     }
 
-    public void otherDispose(){
+    protected void preDiapose(){
+
+    }
+
+    protected void otherDispose(){
 
     }
 }

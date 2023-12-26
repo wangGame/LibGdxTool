@@ -10,19 +10,18 @@ import com.badlogic.gdx.utils.Align;
 import com.esotericsoftware.spine.loader.SpineActor;
 
 /**
+ * 模板测试
  * @Auther jian xian si qi
  * @Date 2023/12/26 7:26
  */
 public class SeneTest extends Group {
-    private Image image1;
+    private Image image;
     private SpineActor spineActor;
     private Cir cir;
-    public SeneTest(){
-        image1 = new Image(new Texture("assets/3_34_24.png"));
-        addActor(image1);
-//
-//        addActor(image2);
 
+    public SeneTest(){
+        image = new Image(new Texture("assets/3_34_24.png"));
+        addActor(image);
         cir = new Cir(300,300,200);
         addActor(cir);
         spineActor = new SpineActor("assets/xx/finish");

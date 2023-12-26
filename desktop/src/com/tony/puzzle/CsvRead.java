@@ -46,7 +46,6 @@ public class CsvRead {
 
     public static String codeString(FileHandle handle) {
         try {
-
             InputStream bin = handle.read();
             int p = (bin.read() << 8) + bin.read();
             bin.close();
@@ -68,9 +67,8 @@ public class CsvRead {
 
             return code;
         }catch (Exception e){
-            NLog.e("csv read error  --");
+            NLog.e("csv file read error  --");
         }
         return "UTF-8";
     }
-
 }

@@ -27,8 +27,8 @@ public class BannerView extends Group {
         float min = Math.max(
                 Constant.WIDTH/ Gdx.graphics.getWidth()
                 ,Constant.HIGHT/Gdx.graphics.getHeight());
-        Constant.vvv = Gdx.graphics.getDensity()*min;
-        float value = (float) (dp* Constant.vvv + 0.5F);
+        Constant.gameDensity = Gdx.graphics.getDensity()*min;
+        float value = (float) (dp* Constant.gameDensity + 0.5F);
         NLog.i("banner size : %s",value);
         return value;
     }

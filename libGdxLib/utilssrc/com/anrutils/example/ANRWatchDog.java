@@ -29,6 +29,8 @@ import com.kw.gdx.utils.log.NLog;
 
 /**
  * A watchdog timer thread that detects when the UI thread has frozen.
+ *
+ * 从https://github.com/SalomonBrys/ANR-WatchDog改写来的
  */
 @SuppressWarnings("UnusedReturnValue")
 public class ANRWatchDog extends Thread {
@@ -219,8 +221,9 @@ public class ANRWatchDog extends Thread {
      * @param ignoreDebugger Whether to ignore the debugger.
      * @return itself for chaining.
      */
-  
+    private boolean _ignoreDebugger = false;
     public ANRWatchDog setIgnoreDebugger(boolean ignoreDebugger) {
+        _ignoreDebugger = ignoreDebugger;
         return this;
     }
 
@@ -248,18 +251,14 @@ public class ANRWatchDog extends Thread {
                 _interruptionListener.onInterrupted(e);
                 return ;
             }
-
-//            StackTraceElement[] stackTrace = targetThread.getStackTrace();
-//            System.out.println("---------- split ---------");
-//            for (int i = 0; i < stackTrace.length; i++) {
-//                StackTraceElement stackTraceElement = stackTrace[i];
-//                final String fullClassName = stackTraceElement.getClassName();
-//                final String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
-//                final String method = stackTraceElement.getMethodName();
-//                System.out.println(className + "." + method);
-//            }
             // If the main thread has not handled _ticker, it is blocked. ANR.
             if (_tick != 0 && !_reported) {
+
+                if (_ignoreDebugger){
+                    NLog.i("_ignoreDebugger -------------------");
+                    _reported = true;
+                    return;
+                }
                 //noinspection ConstantConditions
                 interval = _anrInterceptor.intercept(_tick);
                 if (interval > 0) {

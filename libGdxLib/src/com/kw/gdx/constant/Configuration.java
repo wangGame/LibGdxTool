@@ -8,8 +8,8 @@ public class Configuration {
     public static int APILevel = 9;
     public static float scale = 0.8F;
     public static DeviceState device_state = DeviceState.good;
-    public static int screen_width = (int)Constant.STDWIDTH;
-    public static int screen_height = (int)Constant.STDHIGHT;
+    public static int screen_width = (int)Constant.WIDTH;
+    public static int screen_height = (int)Constant.HIGHT;
     public static int bannerHeight = 90;
 
     public enum DeviceState{
@@ -33,7 +33,7 @@ public class Configuration {
             device_state = DeviceState.poor;
             scale = 0.5F;
         }
-        bannerHeight = (int)(50 * Constant.vvv);
+        bannerHeight = (int)(50 * Constant.gameDensity);
     }
 
     public static boolean isPoor(){

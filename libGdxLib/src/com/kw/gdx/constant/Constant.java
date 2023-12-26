@@ -6,6 +6,8 @@ import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
 
 public class Constant {
+    public static boolean SHOWRENDERCALL = false;
+    public static boolean SHOWFRAMESPERSECOND = false;
     public static boolean DEBUG = false;
     public static boolean realseDebug = true;
 //    viewport
@@ -16,31 +18,28 @@ public class Constant {
     public static final int SPRITEBATCH = 1;
 //  assetManager Type
     public static int ASSETMANAGERTYPE = 0;
-    public static final int INTERNAL = 0;
-    public static final int LOCAL = 1;
-    public static final int BOTHASSET = 2;
+    public static final int INTERNALASSETMANAGER = 0;
+    public static final int LOCALASSETMANAGER = 1;
+    public static final int BOTHASASSETMANAGER = 2;
     //
-    public static double vvv = 2;
-//
+    public static double gameDensity = 2;
+    //设计尺寸
     public static float WIDTH = 1080;
     public static float HIGHT = 1920;
-    public static float GAMEWIDTH = 1080;
-    public static float GAMEHIGHT = 1920;
+    //标准尺寸
     public static final float STDWIDTH = 1080;
     public static final float STDHIGHT = 1920;
+    //实际使用
+    public static float GAMEWIDTH = 1080;
+    public static float GAMEHIGHT = 1920;
 
     public static Color viewColor = new Color(0,0,0,1);
-    /**
-     * 0 : cpubatch
-     *
-     */
     public static int batchType = 0;
     public static int viewportType = 0;
     public static boolean isSound = true;
-    public static boolean isHaptic = true;
     public static float soundV = 1;
     public static boolean isMusic = true;
-    public static boolean showInterstitial;
+    public static BaseScreen currentActiveScreen;
 
     public static void updateInfo(GameInfo info){
         if (info == null)return;
@@ -55,7 +54,5 @@ public class Constant {
         Constant.GAMEWIDTH = stageViewport.getWorldWidth();
         Constant.GAMEHIGHT = stageViewport.getWorldHeight();
     }
-
-    public static BaseScreen currentScreen;
 
 }
