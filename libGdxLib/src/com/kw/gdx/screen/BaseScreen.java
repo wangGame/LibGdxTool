@@ -122,6 +122,11 @@ public class BaseScreen implements Screen {
             rootView = CocosResource.loadFile(viewpath);
             stage.addActor(rootView);
             rootView.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
+        }else {
+            rootView = new Group();
+            stage.addActor(rootView);
+            rootView.setSize(Constant.WIDTH,Constant.HIGHT);
+            rootView.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
         }
     }
 
