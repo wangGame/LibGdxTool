@@ -200,9 +200,11 @@ public class ScrollPane extends WidgetGroup {
 
 		flickScrollListener = new ActorGestureListener() {
 			public void pan (InputEvent event, float x, float y, float deltaX, float deltaY) {
-				if (!rectangle.contains(x,y)){
-					isClamp = false;
-					return;
+				if (openTouchSize) {
+					if (!rectangle.contains(x, y)) {
+						isClamp = false;
+						return;
+					}
 				}
 				isClamp = true;
 				resetFade();
@@ -288,10 +290,19 @@ public class ScrollPane extends WidgetGroup {
 
 	private boolean isClamp;
 
-	private Rectangle rectangle = new Rectangle(0,0,1000,140);
+	private boolean openTouchSize  = false;
+	private Rectangle rectangle = new Rectangle(0,0,0,0);
 
-	public void setRectangle(float startX,float startY) {
+	public void setOpenTouchSize(boolean openTouchSize) {
+		this.openTouchSize = openTouchSize;
+	}
+
+	public void setRectangle(float startX, float startY) {
 		rectangle.set(startX,startY,startX+1000,startY+30);
+	}
+
+	public void setRectangle(float startX,float startY,float width,float height) {
+		rectangle.set(startX,startY,width,height);
 	}
 
 	public int getIsTouch() {
