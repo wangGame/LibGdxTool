@@ -8,12 +8,15 @@ import com.badlogic.gdx.utils.Array;
  * @Date 2023/7/17 14:00
  */
 public class Road {
-    private final int STEP = 5;
-    Array<float[]> pos = new Array<float[]>();
+    private final int step = 33;
+    private Array<float[]> pos;
+    public Road(){
+        pos = new Array<>();
+    }
 
     public void initPoint(Vector2[] points){
         pos.clear();
-        getBezierPoints(pos, points, STEP,false);
+        getBezierPoints(pos, points, step,false);
     }
 
     public static void getBossLinePoints(Array<float[]> pos, Vector2[] points, int step) {
@@ -67,6 +70,7 @@ public class Road {
         Vector2 p2 = new Vector2(0, 0);
 
         for (int j = 0; j < rp.length - 2; ++j) {
+
             if (j == 0) {
                 p0.x = rp[0].x;
                 p0.y = rp[0].y;
@@ -88,9 +92,7 @@ public class Road {
                 p1.y++;
             }
             int steps = RBBezierUtil.init(p0, p1, p2, pointSize);
-            if (steps == 0) {
-//                LogU.log("steps:" + steps + " " + p0 + p1 + p2);
-            }
+
             for (int m = 1; m <= steps; ++m) {
                 float[] data = RBBezierUtil.getAnchorPointRB(m,isVertical);
                 if (data != null) {
@@ -100,10 +102,10 @@ public class Road {
         }
     }
 
-    public Array<float[]> getDrawPos(int sizeP) {
-        int size = (int) (pos.size * sizeP/100.0f);
+    public Array<float[]> getDrawPos() {
+        int size = (int) pos.size;
         Array<float[]> drawPos = new Array<float[]>(size);
-        for (int i = 0; i < size; i += 3) {
+        for (int i = 0; i < size; i += 1) {
             drawPos.add(cpy(pos.get(i)));
         }
         if (size % 3 != 1) {

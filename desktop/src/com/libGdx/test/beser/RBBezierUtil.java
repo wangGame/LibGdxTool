@@ -18,13 +18,13 @@ public class RBBezierUtil {
     static float ax, ay, bx, by, A, B, C, totalLength;
     static int step;
 
-    public static int init(Vector2 $p0, Vector2 $p1, Vector2 $p2, float $speed) {
-        bezierP0.x = $p0.x;
-        bezierP0.y = $p0.y;
-        bezierP1.x = $p1.x;
-        bezierP1.y = $p1.y;
-        bezierP2.x = $p2.x;
-        bezierP2.y = $p2.y;
+    public static int init(Vector2 p0, Vector2 p1, Vector2 p2, float speed) {
+        bezierP0.x = p0.x;
+        bezierP0.y = p0.y;
+        bezierP1.x = p1.x;
+        bezierP1.y = p1.y;
+        bezierP2.x = p2.x;
+        bezierP2.y = p2.y;
         // step = 30;
 
         ax = bezierP0.x - 2 * bezierP1.x + bezierP2.x;
@@ -38,11 +38,8 @@ public class RBBezierUtil {
 
         totalLength = L(1);
 
-        //LogU.log("ax:"+ax+" ay:"+ay+" A:"+A);
-        //LogU.log("total_length:"+total_length);
-
-        step = MathUtils.floorPositive((float) (totalLength / $speed));
-        if (totalLength % $speed > $speed / 2)
+        step = MathUtils.floorPositive((float) (totalLength / speed));
+        if (totalLength % speed > speed / 2)
             step++;
         return step;
     }
@@ -94,7 +91,6 @@ public class RBBezierUtil {
         float temp4 = (float) Math.log(B + 2 * A * t + 2 * Math.sqrt(A) * temp1);
         float temp5 = (float) (2 * Math.sqrt(A) * temp2);
         float temp6 = (B * B - 4 * A * C) * (temp3 - temp4);
-
         return (float) ((temp5 + temp6) / (8 * Math.pow(A, 1.5)));
     }
 

@@ -54,7 +54,6 @@ public class BeserDemo extends LibGdxTestMain {
             image.setPosition(vector11.x,vector11.y);
             image.addListener(imgaeListener);
             array.add(image);
-
         }
 
         road.initPoint(vector2);
