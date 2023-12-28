@@ -8,7 +8,8 @@ import com.badlogic.gdx.utils.Array;
  * @Date 2023/7/17 14:00
  */
 public class Road {
-    private final int step = 33;
+    //
+    private final int step =  123;
     private Array<float[]> pos;
     public Road(){
         pos = new Array<>();

@@ -15,10 +15,6 @@ import com.badlogic.gdx.utils.Array;
  * @Date 2023/7/17 14:16
  */
 public class RoadDrawU {
-    /**
-     * 轨道绘制
-     */
-
     /** 轨道宽度 */
     public static int roadWidth = 8;
     /** 轨道颜色 */
@@ -37,16 +33,14 @@ public class RoadDrawU {
     public static int bridgeShadowLen = 10;
     public static String roadPicPath = "";
 
-    int canvasWidth;
-    int canvasHeight;
-    float[] pointLenToRoad;// 点到轨道的距离
-    float[] shadowAlpha;// 阴影alpha值
-    int[] pointPosOnRoadPointIndex;
-    boolean[] pointBridge;
-    boolean isHasBridge;
-    int maxLen;
-
-    // Pixmap texPix;
+    public int canvasWidth;
+    public int canvasHeight;
+    public float[] pointLenToRoad;// 点到轨道的距离
+    public float[] shadowAlpha;// 阴影alpha值
+    public int[] pointPosOnRoadPointIndex;
+    public boolean[] pointBridge;
+    public boolean isHasBridge;
+    public int maxLen;
 
     public RoadDrawU(int w, int h) {
         canvasWidth = w;
@@ -54,21 +48,13 @@ public class RoadDrawU {
     }
 
     public Pixmap drawPath(Array<float[]> points) {
-        // long time = System.currentTimeMillis();
-        // LogU.log("Start drawPath:" + time);
-
-        // texPix = new Pixmap(TextureMgr.getFileHandle("images/balls/guidao-lianxutu" +
-        // texId + ".jpg"));
-
-        // LogU.log("getPoints done:" + time);
-
-        // cc = new Color(roadCenterColor);
-
+        //宽  高
         int pointCount = canvasWidth * canvasHeight;
         pointLenToRoad = new float[pointCount];
         pointPosOnRoadPointIndex = new int[pointCount];
         pointBridge = new boolean[pointCount];
         shadowAlpha = new float[pointCount];
+        //rgb a
         byte[] pixmapData = new byte[pointCount * 4];
 
         ///////////////// 初始化数组
@@ -236,7 +222,8 @@ public class RoadDrawU {
                     c.set(roadBorderColor);
                     c.a = (widthP2 - len) / roadBorder;
                     isInShadowArea = false;
-                } else {
+                }
+                else{
                     pixmapData[dIndex] = 0;
                     pixmapData[dIndex + 1] = 0;
                     pixmapData[dIndex + 2] = 0;
