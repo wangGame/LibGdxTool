@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.libGdx.test.base.LibGdxTestMain;
-import com.sun.org.apache.bcel.internal.generic.PUSH;
 
 /**
  * @Auther jian xian si qi
