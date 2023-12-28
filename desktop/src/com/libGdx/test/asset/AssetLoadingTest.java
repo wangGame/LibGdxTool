@@ -7,6 +7,8 @@ import com.libGdx.test.base.LibGdxTestMain;
 /**
  * @Auther jian xian si qi
  * @Date 2023/6/26 19:22
+ *
+ *
  */
 public class AssetLoadingTest extends LibGdxTestMain {
     public static void main(String[] args) {

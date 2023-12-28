@@ -22,37 +22,31 @@ import com.libGdx.test.base.LibGdxTestMain;
  */
 @GameInfo(width = 720,height = 1280,batch = Constant.COUPOLYGONBATCH,viewportType = Constant.EXTENDVIEWPORT)
 public class BeserDemo extends LibGdxTestMain {
-    private long lastTime ;
-    public static void main(String[] args) {
-        BeserDemo test = new BeserDemo();
-        test.start(test);
-    }
     private Array<Vector2> controlPoint = new Array<Vector2>();
     private Array<Image> array = new com.badlogic.gdx.utils.Array<>();
     private Road road;
     private RoadPic pic;
+    private long lastTime;
+    public static void main(String[] args) {
+        BeserDemo test = new BeserDemo();
+        test.start(test);
+    }
+
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
         road = new Road();
-
-
-
         Vector2 vector2[] = new Vector2[5];
         vector2[0] = new Vector2(600,600);
         vector2[1] = new Vector2(390,830);
         vector2[2] = new Vector2(110,230);
         vector2[3] = new Vector2(10,230);
         vector2[4] = new Vector2(50,230);
-
-
         controlPoint.add(vector2[0]); //起点
         controlPoint.add(vector2[1]);
         controlPoint.add(vector2[2]);
         controlPoint.add(vector2[3]);
         controlPoint.add(vector2[4]);
-
-
 
         for (Vector2 vector11 : controlPoint) {
             Image image = new Image(new Texture("white_cir.png"));
@@ -68,47 +62,7 @@ public class BeserDemo extends LibGdxTestMain {
         stage.addActor(pic);
         pic.update();
         pic.setTouchable(Touchable.disabled);
-
-        stage.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                super.clicked(event, x, y);
-                long l = System.currentTimeMillis() - lastTime;
-                if (l<1000){
-                    Image image = new Image(new Texture("white_cir.png"));
-                    stage.addActor(image);
-                    image.setPosition(x,y);
-                    image.addListener(imgaeListener);
-                    Image image1 = array.removeIndex(array.size - 1);
-                    array.add(image);
-                    array.add(image1);
-                    controlPoint.clear();
-                    for (int i = 0; i < array.size; i++) {
-                        controlPoint.add(array.get(i).getPosition());
-                    }
-
-                    Vector2[] vector2s = controlPoint.toArray();
-                    road.initPoint(vector2s);
-                    pic.update();
-                }
-            }
-        });
-
-        IntAction intAction = new IntAction(){
-            @Override
-            public boolean act(float delta) {
-                int value = getValue();
-                System.out.println(value);
-//                pic.update(value);
-                return super.act(delta);
-            }
-        };
-        intAction.setStart(0);
-        intAction.setEnd(100);
-        intAction.setDuration(5);
-        stage.addAction(intAction);
     }
-
 
     private ClickListener imgaeListener = new ClickListener(){
         @Override
@@ -142,5 +96,4 @@ public class BeserDemo extends LibGdxTestMain {
             pic.update();
         }
     };
-
 }

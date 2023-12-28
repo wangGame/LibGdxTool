@@ -22,7 +22,7 @@ public class RoadDrawU {
     /** 轨道宽度 */
     public static int roadWidth = 8;
     /** 轨道颜色 */
-    public static Color roadColor = Color.BLACK;
+    public static Color roadColor = Color.BLUE;
     /** 轨道描边宽度 */
     public static int roadBorder = 5;
     /** 轨道描边颜色 */

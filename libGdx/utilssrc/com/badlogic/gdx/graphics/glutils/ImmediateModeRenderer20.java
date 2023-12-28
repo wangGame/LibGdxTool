@@ -247,7 +247,8 @@ public class ImmediateModeRenderer20 implements ImmediateModeRenderer {
 
 	private Array<Vector2> array = new Array<>();
 	/** Draws a curve using {@link ShapeRenderer.ShapeType#Line}. */
-	public Array<Vector2> curve (float x1, float y1,
+	public Array<Vector2> curve (
+			float x1, float y1,
 					   float cx1, float cy1,
 					   float cx2, float cy2,
 					   float x2, float y2, int segments) {

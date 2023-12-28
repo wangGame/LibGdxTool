@@ -60,9 +60,9 @@ public class RBBezierUtil {
             float yy = (1 - t) * (1 - t) * bezierP0.y + 2 * (1 - t) * t * bezierP1.y + t
                     * t * bezierP2.y;
 
-            Point Q0 = new Point((int) ((1 - t) * bezierP0.x + t * bezierP1.x),
+            PointVector Q0 = new PointVector((int) ((1 - t) * bezierP0.x + t * bezierP1.x),
                     (int) ((1 - t) * bezierP0.y + t * bezierP1.y));
-            Point Q1 = new Point((int) ((1 - t) * bezierP1.x + t * bezierP2.x),
+            PointVector Q1 = new PointVector((int) ((1 - t) * bezierP1.x + t * bezierP2.x),
                     (int) ((1 - t) * bezierP1.y + t * bezierP2.y));
 
             float dx = Q1.x - Q0.x;

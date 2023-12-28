@@ -10,11 +10,6 @@ import com.badlogic.gdx.utils.Array;
 public class Road {
     private final int STEP = 5;
     Array<float[]> pos = new Array<float[]>();
-    public Road(){
-
-//        getBezierPoints(verticalScreenPos, points, STEP,true);
-//        getBezierPoints(horizontalScreenPos, points, STEP,false);
-    }
 
     public void initPoint(Vector2[] points){
         pos.clear();
