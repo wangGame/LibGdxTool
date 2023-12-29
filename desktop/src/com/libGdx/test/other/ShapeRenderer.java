@@ -28,15 +28,13 @@ public class ShapeRenderer implements Disposable {
     }
 
     private final ImmediateModeRenderer renderer;
-    private boolean matrixDirty = false;
+    private boolean matrixDirty;
     private final Matrix4 projectionMatrix = new Matrix4();
     private final Matrix4 transformMatrix = new Matrix4();
     private final Matrix4 combinedMatrix = new Matrix4();
     private final Vector2 tmp = new Vector2();
     private final Color color = new Color(1, 1, 1, 1);
     private ShapeRenderer.ShapeType shapeType;
-    private boolean autoShapeType;
-    private float defaultRectLineWidth = 0.75f;
 
     public ShapeRenderer () {
         this(5000);
@@ -104,10 +102,7 @@ public class ShapeRenderer implements Disposable {
         matrixDirty = true;
     }
 
-    /** Begins a new batch without specifying a shape type.
-     * @throws IllegalStateException if {@link #autoShapeType} is false. */
     public void begin () {
-        if (!autoShapeType) throw new IllegalStateException("autoShapeType must be true to use this method.");
         begin(ShapeRenderer.ShapeType.Line);
     }
 
@@ -125,7 +120,6 @@ public class ShapeRenderer implements Disposable {
     public void set (ShapeRenderer.ShapeType type) {
         if (shapeType == type) return;
         if (shapeType == null) throw new IllegalStateException("begin must be called first.");
-        if (!autoShapeType) throw new IllegalStateException("autoShapeType must be enabled.");
         end();
         begin(type);
     }
@@ -178,12 +172,6 @@ public class ShapeRenderer implements Disposable {
 
         if (shapeType != preferred && shapeType != other) {
             // Shape type is not valid.
-            if (!autoShapeType) {
-                if (other == null)
-                    throw new IllegalStateException("Must call begin(ShapeType." + preferred + ").");
-                else
-                    throw new IllegalStateException("Must call begin(ShapeType." + preferred + ") or begin(ShapeType." + other + ").");
-            }
             end();
             begin(preferred);
         } else if (matrixDirty) {
