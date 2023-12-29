@@ -1,4 +1,4 @@
-package com.libGdx.test;
+package com.kw.gdx.trail;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,16 +9,30 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 
+/**
+ * @Auther jian xian si qi
+ * @Date 2023/12/29 12:20
+ */
 public class PictureTrail extends Actor implements Pool.Poolable {
-    private TextureRegion region;
-    private boolean overlay = false;
+    /**
+     *
+     */
+    private static final int MAX_POSITIONS = 30;
+    private static final float THRESHOLD = 5 * 5;
+
+
     private final FloatQueue positions = new FloatQueue(MAX_POSITIONS * 2);
     private final float[] vertices = new float[MAX_POSITIONS * 5 * 2]; //every point: x,y,color,u,v; every position: two points.
     private final float[] tmpDist = new float[MAX_POSITIONS];
     private final short[] indices = new short[MAX_POSITIONS * 6];
-    private static final int MAX_POSITIONS = 150;
-    private static final float THRESHOLD = 5 * 5;
-    private float maxLength;
+    private TextureRegion region;
+
+
+    private boolean overlay = false;
+
+    public void setOverlay(boolean overlay) {
+        this.overlay = overlay;
+    }
 
     public PictureTrail() {
         for (short i = 0; i < MAX_POSITIONS; ++i) {
@@ -34,8 +48,6 @@ public class PictureTrail extends Actor implements Pool.Poolable {
 
     public void setRegion(TextureRegion region) {
         this.region = region;
-        this.maxLength = region.getRegionHeight() * region.getRegionHeight();
-        System.out.println("-");
     }
 
     @Override
@@ -46,27 +58,12 @@ public class PictureTrail extends Actor implements Pool.Poolable {
             float lastY = this.positions.get(1);
             float dx = lastX - x;
             float dy = lastY - y;
-
             if (dx * dx + dy * dy < THRESHOLD) {
                 return;
             }
         }
-        removePos();
         this.positions.unshift(x);
         this.positions.unshift(y);
-    }
-
-    public void removePos(){
-        if (this.positions.size < 2) return;
-        float lastX = this.positions.get(0);
-        float lastY = this.positions.get(1);
-        float dx = lastX - x;
-        float dy = lastY - y;
-        if (dx * dx + dy * dy > maxLength) {
-            this.positions.pop();
-            this.positions.pop();
-            removePos();
-        }
     }
 
     @Override
@@ -145,7 +142,6 @@ public class PictureTrail extends Actor implements Pool.Poolable {
         float u2 = region.getU2();
         float v2 = region.getV2(); // bottom
         float vDist = Math.abs(v - v2);
-
         for (int i = 0; i < totalPositions; i++) {
             float bottom = (currentLength + tmpDist[i]) / totalLength;
             int start = i * 5 * 2;
@@ -170,10 +166,13 @@ public class PictureTrail extends Actor implements Pool.Poolable {
                 0,
                 totalPositions * 6 - 6);
         batch.setBlendFunction(src, dst);
-        region.setRegionWidth((int) (region.getRegionWidth()));
-        region.setRegionHeight((int) (region.getRegionHeight()));
+        region.setRegionWidth((int) (region.getRegionWidth() * getScaleX()));
+        region.setRegionHeight((int) (region.getRegionHeight() * getScaleY()));
     }
 
+    public void resetTrail() {
+        this.positions.clear();
+    }
 
     @Override
     public void reset() {

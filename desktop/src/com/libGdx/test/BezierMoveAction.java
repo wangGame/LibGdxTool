@@ -10,10 +10,6 @@ public class BezierMoveAction extends TemporalAction {
     private int align;
     private Bezier<Vector2> vector2Bezier;
     Vector2 tempPosition = new Vector2();
-    PictureTrail pictureTrail;
-    private boolean changeAngle = true;//是否改变角度
-
-
 
     public void setBezier(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
         setBezier(new Vector2(x1, y1), new Vector2(x2, y2), new Vector2(x3, y3), new Vector2(x4, y4));
@@ -33,44 +29,9 @@ public class BezierMoveAction extends TemporalAction {
         this.align = align;
     }
 
-    float angele = 0;//变换的角度
-    float delayTime;
-
-    public void setDelayTime(float delayTime) {
-        this.delayTime = delayTime;
-    }
-
-    public void setPictureTrail(PictureTrail pictureTrail) {
-        this.pictureTrail = pictureTrail;
-    }
-
-    public void setChangeAngle(boolean changeAngle) {
-        this.changeAngle = changeAngle;
-    }
-
-
-
-    float time = 0;
-
     @Override
     protected void update(float percent) {
         tempPosition = vector2Bezier.valueAt(tempPosition, percent);
-
-
-            if (pictureTrail != null) {
-                if (delayTime > time) {
-                    time += percent;
-                    pictureTrail.setVisible(false);
-                } else {
-                    pictureTrail.setVisible(true);
-                }
-                if (pictureTrail != null) {
-//                    pictureTrail.x = tempPosition.y;
-//                    pictureTrail.y = tempPosition.x;
-                }
-            }
-
         actor.setPosition(tempPosition.x, tempPosition.y, align);
     }
-
 }
