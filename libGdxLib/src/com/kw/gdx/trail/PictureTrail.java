@@ -19,20 +19,12 @@ public class PictureTrail extends Actor implements Pool.Poolable {
      */
     private static final int MAX_POSITIONS = 30;
     private static final float THRESHOLD = 5 * 5;
-
-
     private final FloatQueue positions = new FloatQueue(MAX_POSITIONS * 2);
     private final float[] vertices = new float[MAX_POSITIONS * 5 * 2]; //every point: x,y,color,u,v; every position: two points.
     private final float[] tmpDist = new float[MAX_POSITIONS];
     private final short[] indices = new short[MAX_POSITIONS * 6];
     private TextureRegion region;
-
-
     private boolean overlay = false;
-
-    public void setOverlay(boolean overlay) {
-        this.overlay = overlay;
-    }
 
     public PictureTrail() {
         for (short i = 0; i < MAX_POSITIONS; ++i) {

@@ -33,8 +33,8 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
     private final Matrix4 projModelView = new Matrix4();
     private final float[] vertices;
 
-    public ImmediateModeRenderer2001 (int maxVertices, boolean hasNormals, boolean hasColors, int numTexCoords) {
-        this(maxVertices,createDefaultShader(hasNormals, hasColors, numTexCoords));
+    public ImmediateModeRenderer2001 (int maxVertices) {
+        this(maxVertices,createDefaultShader());
         ownsShader = true;
     }
 
@@ -80,7 +80,6 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
 
     }
 
-
     @Override
     public void normal(float x, float y, float z) {
 
@@ -91,7 +90,6 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
         vertices[idx] = x;
         vertices[idx + 1] = y;
         vertices[idx + 2] = z;
-
         texCoord(x,y);
         vertexIdx += vertexSize;
         numVertices++;
@@ -126,7 +124,7 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
         mesh.dispose();
     }
 
-    static private String createVertexShader (boolean hasNormals, boolean hasColors, int numTexCoords) {
+    static private String createVertexShader () {
         String shader = "attribute vec4 " + ShaderProgram.POSITION_ATTRIBUTE+";";
         shader += "uniform mat4 u_projModelView;\n";
         shader += "void main() {\n" + "   gl_Position = u_projModelView * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n";
@@ -143,8 +141,8 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
     }
 
     /** Returns a new instance of the default shader used by SpriteBatch for GL2 when no shader is specified. */
-    static public ShaderProgram createDefaultShader (boolean hasNormals, boolean hasColors, int numTexCoords) {
-        String vertexShader = createVertexShader(hasNormals, hasColors, numTexCoords);
+    static public ShaderProgram createDefaultShader () {
+        String vertexShader = createVertexShader();
         String fragmentShader = createFragmentShader();
         ShaderProgram program = new ShaderProgram(vertexShader, fragmentShader);
         return program;
