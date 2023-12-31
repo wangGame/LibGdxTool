@@ -1,4 +1,4 @@
-package com.kw.gdx.picturetail;
+package com.kw.gdx.trail;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,13 +9,17 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 
+/**
+ * @Auther jian xian si qi
+ * @Date 2023/12/29 12:20
+ */
 public class PictureTrail extends Actor implements Pool.Poolable {
-
-    private static final int MAX_POSITIONS = 150;
+    /**
+     *
+     */
+    private static final int MAX_POSITIONS = 30;
     private static final float THRESHOLD = 5 * 5;
 
-    public float x;
-    public float y;
 
     private final FloatQueue positions = new FloatQueue(MAX_POSITIONS * 2);
     private final float[] vertices = new float[MAX_POSITIONS * 5 * 2]; //every point: x,y,color,u,v; every position: two points.
@@ -54,7 +58,6 @@ public class PictureTrail extends Actor implements Pool.Poolable {
             float lastY = this.positions.get(1);
             float dx = lastX - x;
             float dy = lastY - y;
-
             if (dx * dx + dy * dy < THRESHOLD) {
                 return;
             }

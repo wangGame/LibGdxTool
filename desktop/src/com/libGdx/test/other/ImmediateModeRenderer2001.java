@@ -14,32 +14,24 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 /**
+ *
+ * 移动到Gdx-test
+ *
  * @Auther jian xian si qi
  * @Date 2023/6/28 15:19
  */
 public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
     private int primitiveType;
     private int vertexIdx;
-    private int numSetTexCoords;
     private final int maxVertices;
     private int numVertices;
-
     private final Mesh mesh;
     private ShaderProgram shader;
     private boolean ownsShader;
     private final int vertexSize;
-    private final int normalOffset;
     private final int colorOffset;
-    private final int texCoordOffset;
     private final Matrix4 projModelView = new Matrix4();
     private final float[] vertices;
-    public int getVertexIdx() {
-        return vertexIdx;
-    }
-
-    public float[] getVertices() {
-        return vertices;
-    }
 
     public ImmediateModeRenderer2001 (int maxVertices, boolean hasNormals, boolean hasColors, int numTexCoords) {
         this(maxVertices,createDefaultShader(hasNormals, hasColors, numTexCoords));
@@ -49,17 +41,11 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
     public ImmediateModeRenderer2001 (int maxVertices, ShaderProgram shader) {
         this.maxVertices = maxVertices;
         this.shader = shader;
-
         VertexAttribute[] attribs = buildVertexAttributes();
         mesh = new Mesh(false, maxVertices, 0, attribs);
-
         vertices = new float[maxVertices * (mesh.getVertexAttributes().vertexSize / 4)];
         vertexSize = mesh.getVertexAttributes().vertexSize / 4;
-        normalOffset = mesh.getVertexAttribute(VertexAttributes.Usage.Normal) != null ? mesh.getVertexAttribute(VertexAttributes.Usage.Normal).offset / 4 : 0;
-        colorOffset = mesh.getVertexAttribute(VertexAttributes.Usage.ColorPacked) != null ? mesh.getVertexAttribute(VertexAttributes.Usage.ColorPacked).offset / 4
-                : 0;
-        texCoordOffset = mesh.getVertexAttribute(VertexAttributes.Usage.TextureCoordinates) != null ? mesh
-                .getVertexAttribute(VertexAttributes.Usage.TextureCoordinates).offset / 4 : 0;
+        colorOffset = mesh.getVertexAttribute(VertexAttributes.Usage.ColorPacked) != null ? mesh.getVertexAttribute(VertexAttributes.Usage.ColorPacked).offset / 4 : 0;
     }
 
     private VertexAttribute[] buildVertexAttributes () {
@@ -70,12 +56,6 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
             array[i] = attribs.get(i);
         }
         return array;
-    }
-
-    public void setShader (ShaderProgram shader) {
-        if (ownsShader) this.shader.dispose();
-        this.shader = shader;
-        ownsShader = false;
     }
 
     public void begin (Matrix4 projModelView, int primitiveType) {
@@ -100,6 +80,7 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
 
     }
 
+
     @Override
     public void normal(float x, float y, float z) {
 
@@ -112,8 +93,6 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
         vertices[idx + 2] = z;
 
         texCoord(x,y);
-
-        numSetTexCoords = 0;
         vertexIdx += vertexSize;
         numVertices++;
     }
@@ -125,7 +104,6 @@ public class ImmediateModeRenderer2001 implements ImmediateModeRenderer {
         mesh.setVertices(vertices, 0, vertexIdx);
         mesh.render(shader, primitiveType);
         shader.end();
-        numSetTexCoords = 0;
         vertexIdx = 0;
         numVertices = 0;
     }

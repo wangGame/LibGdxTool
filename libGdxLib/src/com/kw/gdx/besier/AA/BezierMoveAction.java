@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 import com.badlogic.gdx.utils.Align;
-import com.kw.gdx.picturetail.PictureTrail;
+import com.kw.gdx.trail.PictureTrail;
 
 /**
  * @Auther jian xian si qi
@@ -49,21 +49,6 @@ public class BezierMoveAction extends TemporalAction {
     @Override
     protected void update(float percent) {
         tempPosition = vector2Bezier.valueAt(tempPosition, percent);
-        if (pictureTrail != null) {
-            pictureTrail.x = tempPosition.y;
-            pictureTrail.y = tempPosition.x;
-        }
-        if (pictureTrail != null) {
-            if (delayTime > time) {
-                time += percent;
-                pictureTrail.setVisible(false);
-            } else {
-                pictureTrail.setVisible(true);
-            }
-            if (pictureTrail != null) {
-                pictureTrail.x = tempPosition.y;
-                pictureTrail.y = tempPosition.x;
-            }
-        }
+        actor.setPosition(tempPosition.x,tempPosition.y);
     }
 }
