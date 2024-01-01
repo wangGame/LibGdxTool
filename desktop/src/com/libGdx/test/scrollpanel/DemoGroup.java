@@ -12,7 +12,7 @@ import com.kw.gdx.asset.Asset;
 class DemoGroup extends Group {
     private Image image;
     public DemoGroup(){
-        image = new Image(Asset.getAsset().getTexture("ad_progress.png"));
+        image = new Image(Asset.getAsset().getTexture("white.png"));
         image.setDebug(true);
         addActor(image);
         setSize(image.getWidth(),image.getHeight());

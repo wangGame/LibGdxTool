@@ -6,8 +6,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 
 public class SoundAsset extends AAsset {
-
-    private boolean playing;
     public Sound sound;
     float v = 1f;
     boolean load = false;

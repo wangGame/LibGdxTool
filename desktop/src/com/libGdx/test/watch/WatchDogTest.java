@@ -28,6 +28,7 @@ class WatchDogTest extends LibGdxTestMain {
             public void onAppNotResponding(ANRError error) {
                 error.printStackTrace();
                 System.out.println("------------------");
+
             }
         });
         anrWatchDog.start();

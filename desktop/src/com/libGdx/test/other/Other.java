@@ -13,9 +13,6 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import kw.test.file.Bean;
-import kw.test.file.ReadFileConfig;
-
 /**
  * @Auther jian xian si qi
  * @Date 2023/6/28 15:18
@@ -23,10 +20,7 @@ import kw.test.file.ReadFileConfig;
 public class Other implements ApplicationListener {
 
     public static void main(String[] args) {
-        ReadFileConfig readFileConfig = new ReadFileConfig();
-        Bean value = readFileConfig.getValue();
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.title=value.getName();
         config.x = 1000;
         config.y = 0;
         config.height = (int) (900 );

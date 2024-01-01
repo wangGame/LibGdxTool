@@ -24,6 +24,5 @@ public class BaseGroup extends Group {
         batch.setShader(null);
     }
 
-
     public void setPar(){}
 }
