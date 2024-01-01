@@ -17,7 +17,6 @@ public class BannerManager {
     public void toFront() {
         if (currentVisible != isVisible){
             currentVisible = isVisible;
-
         }
 
     }
@@ -30,9 +29,7 @@ public class BannerManager {
 
     }
 
-
-
-
     public void showBanner(boolean visible){
+
     }
 }

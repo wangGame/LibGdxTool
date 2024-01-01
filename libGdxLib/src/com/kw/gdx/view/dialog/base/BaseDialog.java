@@ -9,7 +9,7 @@ import com.kw.gdx.resource.annotation.AnnotationInfo;
 import com.kw.gdx.resource.annotation.ScreenResource;
 import com.kw.gdx.sound.AudioProcess;
 import com.kw.gdx.sound.AudioType;
-import com.kw.gdx.utils.basier.BseInterpolation;
+import com.kw.gdx.besier.BseInterpolation;
 import com.kw.gdx.resource.cocosload.CocosResource;
 import com.kw.gdx.view.dialog.DialogManager;
 

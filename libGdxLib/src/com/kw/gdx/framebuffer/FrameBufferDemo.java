@@ -1,4 +1,4 @@
-package com.kw.gdx.utils.framebuffer;
+package com.kw.gdx.framebuffer;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;

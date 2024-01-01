@@ -1,4 +1,4 @@
-package com.kw.gdx.utils.basier;
+package com.kw.gdx.besier;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;

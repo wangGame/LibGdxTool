@@ -1,4 +1,4 @@
-package com.kw.gdx.besier.AA;
+package com.kw.gdx.besier;
 
 import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Vector2;
@@ -33,7 +33,6 @@ public class BezierMoveAction extends TemporalAction {
         vector2Bezier.set(v1, v2, v3, v4);
     }
 
-    float angele = 0;//变换的角度
     float delayTime;
 
     public void setDelayTime(float delayTime) {
