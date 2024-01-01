@@ -245,6 +245,9 @@ public class ImmediateModeRenderer20 implements ImmediateModeRenderer {
 		return program;
 	}
 
+	/**
+	 * 这是我的愿望 用来绘制线
+	 */
 	private Array<Vector2> array = new Array<>();
 	/** Draws a curve using {@link ShapeRenderer.ShapeType#Line}. */
 	public Array<Vector2> curve (
