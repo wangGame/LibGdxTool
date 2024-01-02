@@ -12,8 +12,19 @@ import java.util.Locale;
  */
 public class VBundle {
     private I18NBundle bundle;
-    public VBundle() {
-        bundle = I18NBundle.createBundle(Gdx.files.internal(""));
+    private FileHandle languagePath;
+    private Locale userLocal;
+    private Locale deviceLocal;
+
+    public VBundle(FileHandle languagePath) {
+        this.languagePath = languagePath;
+        deviceLocal = Locale.FRENCH;
+    }
+
+    public VBundle(FileHandle languagePath,Locale userLocal) {
+        this.languagePath = languagePath;
+        this.deviceLocal = GameLocale.getGameLocale().getDefault();
+        this.userLocal = userLocal;
     }
 
     public final String get(String key) {
@@ -36,9 +47,13 @@ public class VBundle {
         if (bundle == null) {
             try {
                 String language = GameLocale.getGameLocale().getLanguage();
-                bundle = I18NBundle.createBundle(Gdx.files.internal("bundle/Lang"), new Locale(language));
+                if (userLocal!=null){
+                    language = userLocal.getLanguage();
+                }
+                bundle = I18NBundle.createBundle(languagePath, new Locale(language));
                 out = bundle.get(key);
             } catch (Exception e) {
+                e.printStackTrace();
             }
         } else {
             try {
