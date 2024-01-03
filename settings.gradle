@@ -1,1 +1,2 @@
 include 'desktop','libGdxLib','libGdx'
+include ':libGdxRare'
