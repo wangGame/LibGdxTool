@@ -17,31 +17,26 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class BoardGroup extends Group {
     private int column_row_number;
-    private float cornerLengthY;
-    private float cornerLengthX;
-
+    private float cornerSize;
     private int state_number;
     private int obstacle_rate;
     private int[] obstacleStates;
-
     private int[][] R_matrisi;
     private double[][] Q_matrisi;
-    private double y;
+    private double factor;
     private int normal_reward;
     private int hole_reward;
     private int target_reward;
-
     private PathState start;
     private PathState target;
     private PathState playerPosition;
-
     private Color startColor;
     private Color targetColor;
     private Color playerColor;
@@ -52,17 +47,29 @@ public class BoardGroup extends Group {
     private ArrayList<Integer> steps_per_episode;
     private ArrayList<Integer> costs_per_episode;
     private Image playerImg;
+    private int cost = 0;
+    private int step = 0;
+    boolean isTarget = false;
+    private PathState pathState;
+    private int episode = 0;
+    /**
+     * @param column_row_number 棋盘大小
+     * @param obstacle_rate 障碍率
+     * @param start 开始位置
+     * @param target 结束位置
+     */
     public BoardGroup (int column_row_number, int obstacle_rate,PathState start,PathState target) {
-        this.normal_reward = 3;
-        this.hole_reward = -5;
-        this.target_reward = 100;
-        this.y =  0.9;
-        this.startColor = new Color(0,0,255,50);
-        this.targetColor = new Color(0,255,0,50);
-        this.obstacleColor = new Color(240,14,14,50);
+        this.normal_reward = 3; //普通奖励
+        this.hole_reward = -5; // 障碍扣分
+        this.target_reward = 100; //目标奖励
+        this.factor =  0.9; //折扣系数
+        this.startColor = new Color(0,0,255,255);
+        this.targetColor = new Color(0,255,0,255);
+        this.obstacleColor = new Color(240,14,14,255);
         this.playerColor = Color.BLUE;
         this.column_row_number = column_row_number;
         this.obstacle_rate = obstacle_rate;
+        //状态个数 [对特定棋盘的一个操作]
         this.state_number = column_row_number * column_row_number;
         this.start = start;
         this.target = target;
@@ -73,18 +80,32 @@ public class BoardGroup extends Group {
         } catch (IOException ex) {
             Logger.getLogger(BoardGroup.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         /**
          * 玩家图片
          */
-        playerImg = new Image(Asset.getAsset().getTexture("assets/white_cir.png"));
-        playerImg.setColor(Color.GREEN);
-        addActor(playerImg);
-//        初始化
+
+        //初始化
         createBoard();
         createR();
         createObstacles();
-        startQLearning(500);
+        initStart();
+        initPlayStatus();
+        startQLearning();
+    }
+
+    private void initStart() {
+        Image startFlag = new Image(Asset.getAsset().getTexture("assets/white_cir.png"));
+        startFlag.setColor(startColor);
+        addActor(startFlag);
+        startFlag.setSize(cornerSize,cornerSize);
+    }
+
+    private void initPlayStatus() {
+        playerImg = new Image(Asset.getAsset().getTexture("assets/white_cir.png"));
+        playerImg.setColor(playerColor);
+        addActor(playerImg);
+        playerImg.setSize(cornerSize,cornerSize);
+        playerImg.setPosition((start.getX()* cornerSize),(start.getY()*cornerSize));
     }
 
     private void createBoard(){
@@ -99,8 +120,8 @@ public class BoardGroup extends Group {
             cornerLength = maxCornerLength1;
         }
         //格子宽度
-        this.cornerLengthX = cornerLength;
-        this.cornerLengthY = cornerLength;
+
+        this.cornerSize = cornerLength;
         //划线
         Color lineColor = Color.WHITE;
         float tmpx=0;
@@ -113,7 +134,7 @@ public class BoardGroup extends Group {
             line.setColor(lineColor);
             addActor(line);
             line.setPosition(tmpx,tmpy);
-            tmpy= tmpy+cornerLengthY;
+            tmpy= tmpy+cornerSize;
         }
 
         tmpx=0;
@@ -127,13 +148,13 @@ public class BoardGroup extends Group {
             line.setColor(lineColor);
             addActor(line);
             line.setPosition(tmpx,tmpy);
-            tmpx= tmpx+cornerLengthX;
+            tmpx= tmpx+ cornerSize;
         }
 
-        playerImg.setPosition((start.getX()*cornerLengthX),(start.getY()*cornerLengthY));
+
         Image endImg = new Image(Asset.getAsset().getTexture("assets/white_cir.png"));
         endImg.setColor(targetColor);
-        endImg.setPosition((target.getX()*cornerLengthX)+1,(target.getY()*cornerLengthY)+1);
+        endImg.setPosition((target.getX()* cornerSize)+1,(target.getY()*cornerSize)+1);
         addActor(endImg);
     }
 
@@ -148,7 +169,6 @@ public class BoardGroup extends Group {
         }
         for(int i = 0; i<state_number; i++){
             for(int j = 0; j<state_number; j++){
-                //行为0
                 if(i%column_row_number == 0){
                     if((i+1 != j)
                             &&(i+column_row_number != j)
@@ -158,12 +178,9 @@ public class BoardGroup extends Group {
                         R_matrisi[i][j] = -1;
                 }
                 else if((i+1)%column_row_number == 0){
-                    //sağkenardaki blokların komşuları(sağ,sol,yukarı,aşağı,çaprazlar) haricindeki bloklar -1
                     if((i-1 != j)&&(i+column_row_number != j)&& (i+(column_row_number-1) != j)&&(i-(column_row_number+1) != j)&& (i-column_row_number != j))
                         R_matrisi[i][j] = -1;
-                }//orta
-                else{
-                    //ortadaki blokların komşuları(sağ,sol,yukarı,aşağı,çaprazlar) haricindeki bloklar -1
+                }else{
                     if((i-1 != j)
                             &&(i+1 != j)
                             &&(i+column_row_number != j)
@@ -171,10 +188,8 @@ public class BoardGroup extends Group {
                             &&(i+column_row_number+1 != j)&&(i-column_row_number+1 != j)&& (i-column_row_number != j)&&(i-column_row_number-1 != j))
                         R_matrisi[i][j] = -1;
                 }
-
             }
         }
-        //targeta 20 değeri verilir.
         for(int i = 0; i<state_number; i++){
             for(int j = 0; j<state_number; j++){
                 if((R_matrisi[i][j] != -1)&&(j == target.getState())){
@@ -189,8 +204,6 @@ public class BoardGroup extends Group {
         int obstacle_number = state_number * obstacle_rate / 100;
         this.obstacleStates = new int[obstacle_number];
         System.out.println(obstacle_number);
-
-
         int i = 0;
         while(i<obstacle_number){
             int random = randomGenerator.nextInt(state_number);
@@ -207,8 +220,6 @@ public class BoardGroup extends Group {
             if(isObstacleExists){
                 continue;
             }
-
-            //kazanç matrisinde eğer j state'inden gidilebilecek bir state ise değeri hole_reward yapılır.
             for(int j = 0;j<state_number;j++){
                 if(R_matrisi[j][random] == normal_reward){
                     R_matrisi[j][random]= hole_reward;
@@ -224,29 +235,24 @@ public class BoardGroup extends Group {
         } catch (IOException ex) {
             Logger.getLogger(BoardGroup.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }
 
     private void drawObstacle(PathState koordinat){
         Image obstacleImg = new Image(Asset.getAsset().getTexture("assets/white_cir.png"));
         obstacleImg.setColor(obstacleColor);
-        obstacleImg.setPosition((koordinat.getX()*cornerLengthX),(koordinat.getY()*cornerLengthY));
-        obstacleImg.setSize(cornerLengthX,cornerLengthX);
+        obstacleImg.setPosition((koordinat.getX()* cornerSize),(koordinat.getY()*cornerSize));
+        obstacleImg.setSize(cornerSize, cornerSize);
         addActor(obstacleImg);
-
-
         try {
             filewriter.write(koordinat.toString());
-
         } catch (IOException ex) {
             Logger.getLogger(BoardGroup.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    private int episode = 0;
 
-    private void startQLearning(int episode_length){
+
+    private void startQLearning(){
         this.Q_matrisi = new double[state_number][state_number];
         for(int i = 0; i<state_number;i++){
             for(int j = 0; j<state_number; j++){
@@ -293,7 +299,7 @@ public class BoardGroup extends Group {
 
     public void xxx(){
         step = 0;
-        if (episode>500){
+        if (episode> com.libGdx.test.ai.path.Constant.learnTimes){
             leaveTrace = true;
             drawPath();
 
@@ -301,9 +307,7 @@ public class BoardGroup extends Group {
         }
         leaveTrace = false;
 
-        //her episode'da rastgele bir state üzerinden başlanır.
-        //set_inital_state fonksiyonu playerPosition koordinatını rastgele bir state üzerine getirir.
-        //为true说明结束了，那么就进行下一局
+       //为true说明结束了，那么就进行下一局
         if(set_initial_state()){
             addAction(Actions.delay(0.05f,Actions.run(()->{
                 xxx();
@@ -315,70 +319,41 @@ public class BoardGroup extends Group {
 
 
     private void changePlayerPosition(PathState targetPosition){
-        /*
-        if(playerPosition.isEqual(targetPosition)){
-           return;
-        }
-        */
-        if(!leaveTrace){
-
-
-            playerImg.setPosition((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,(playerPosition.getY()*cornerLengthY)+cornerLengthY/3);
-
-//            graphics.clearRect((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,
-//            (playerPosition.getY()*cornerLengthY)+cornerLengthY/3,cornerLengthX/3,cornerLengthY/2);
-            boolean isFilled = false;
-            for(int obstacle: obstacleStates){
-                if(playerPosition.getState() == obstacle){
-//                    graphics.setColor(obstacleColor);
-//                    graphics.fillRect((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,(playerPosition.getY()*cornerLengthY)+cornerLengthY/3,cornerLengthX/3,cornerLengthY/2);
-
-
-
-                    playerImg.setPosition((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,(playerPosition.getY()*cornerLengthY)+cornerLengthY/3);
-
-                    isFilled = true;
-                    break;
-
-                }
-            }
-            if(isFilled == false){
-                if(playerPosition.getState() == start.getState()){
-
-                    playerImg.setPosition((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,(playerPosition.getY()*cornerLengthY)+cornerLengthY/3);
-
-//                    graphics.setColor(startColor);
-//                    graphics.fillRect((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,(playerPosition.getY()*cornerLengthY)+cornerLengthY/3,cornerLengthX/3,cornerLengthY/2);
-                }
-                else if(playerPosition.getState() == target.getState()){
-
-                    playerImg.setPosition((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,(playerPosition.getY()*cornerLengthY)+cornerLengthY/3);
-//                    graphics.setColor(targetColor);
-//                    graphics.fillRect((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,(playerPosition.getY()*cornerLengthY)+cornerLengthY/3,cornerLengthX/3,cornerLengthY/2);
-                }
-            }
-        }
-//        graphics.setColor(playerColor);
-//        graphics.fillRect((targetPosition.getX()*cornerLengthX)+cornerLengthX/3,(targetPosition.getY()*cornerLengthY)+cornerLengthY/3,cornerLengthX/3,cornerLengthY/2);
-
-        playerImg.setPosition((playerPosition.getX()*cornerLengthX)+cornerLengthX/3,(playerPosition.getY()*cornerLengthY)+cornerLengthY/3);
+//        if(!leaveTrace){
+////            playerImg.setPosition((playerPosition.getX()* cornerSize),
+////                    (playerPosition.getY()*cornerSize));
+//            boolean isFilled = false;
+//            for(int obstacle: obstacleStates){
+//                if(playerPosition.getState() == obstacle){
+//                    playerImg.setPosition(playerPosition.getX()* cornerSize,playerPosition.getY()*cornerSize);
+//                    isFilled = true;
+//                    break;
+//                }
+//            }
+//            if(isFilled == false){
+//                if(playerPosition.getState() == start.getState()){
+//                    playerImg.setColor(startColor);
+//                }
+//                else if(playerPosition.getState() == target.getState()){
+//                    playerImg.setColor(targetColor);
+//                }
+//            }
+//        }
+        playerImg.setPosition(playerPosition.getX()* cornerSize,playerPosition.getY()*cornerSize);
         playerPosition = targetPosition;
     }
 
-
-    private void changePlayerPosition1(PathState targetPosition){
+    private void drawtargetPosition(PathState targetPosition){
         System.out.println("position :"+ targetPosition.getX() +"  "+targetPosition.getY());
         Image playerImg = new Image(Asset.getAsset().getTexture("assets/white_cir.png"));
         playerImg.setColor(Color.RED);
         addActor(playerImg);
         playerImg.setSize(100,100);
-        playerImg.setPosition((targetPosition.getX()*cornerLengthX)+cornerLengthX/3,(targetPosition.getY()*cornerLengthY)+cornerLengthY/3);
-
+        playerImg.setPosition((targetPosition.getX()* cornerSize)+ cornerSize /3,(targetPosition.getY()*cornerSize)+cornerSize/3);
         pathState = targetPosition;
     }
 
     private double maksQ(int state){
-        //state üzerinden geçilebilecek state'ler bulunur.
         int[] playerR = R_matrisi[state];
         ArrayList<Integer> statesFromState = new ArrayList<>();
         for(int i = 0; i<playerR.length;i++){
@@ -410,8 +385,7 @@ public class BoardGroup extends Group {
         changePlayerPosition(new PathState(randomPosition%column_row_number,randomPosition/column_row_number));
         return false;
     }
-    int cost = 0;
-    int step = 0;
+
     private void initialize_episode(){
         int[] playerR = R_matrisi[playerPosition.getState()];
         ArrayList<Integer> statesFromPlayer = new ArrayList<>();
@@ -425,7 +399,7 @@ public class BoardGroup extends Group {
         //当前状态到下一个状态的奖励
         int current_reward = R_matrisi[playerPosition.getState()][nextState];
         double next_reward = maksQ(nextState);
-        double q_value = current_reward + (y * next_reward);
+        double q_value = current_reward + (factor * next_reward);
         Q_matrisi[playerPosition.getState()][nextState] = q_value;
         changePlayerPosition(new PathState(nextState%column_row_number,nextState/column_row_number));
         step++;
@@ -434,25 +408,19 @@ public class BoardGroup extends Group {
             cost += target_reward;
             costs_per_episode.add(cost);
             steps_per_episode.add(step);
-
-
             System.out.println(episode+"--------------------------"+step);
             episode++;
-
             addAction(Actions.delay(0.05f,Actions.run(()->{
                 xxx();
             })));
             return;
         }
-
-        //eğer bir obstacle'a çarparsa başa döner gidilen stateler listesi temizlenir.
         boolean isObstacle = false;
         for(int obstacle:obstacleStates){
             if(obstacle == nextState){
                 isObstacle = true;
             }
         }
-
         if(isObstacle){
             cost += hole_reward;
             costs_per_episode.add(cost);
@@ -466,36 +434,22 @@ public class BoardGroup extends Group {
         addAction(Actions.delay(0.05f,Actions.run(()->{
             initialize_episode();
         })));
-
-
     }
 
-    boolean isTarget = false;
-    private PathState pathState;
     /**
      * 从状态中获取到最大的Q
      */
     private void drawPath(){
-        //oyunca başa alınır.
         pathState = start;
-//        while(!isTarget){
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(BoardGroup.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-
-        c();
+        drawRoadPoint();
     }
 
-    public void c(){
+    public void drawRoadPoint(){
         if (!isTarget){
             addAction(Actions.delay(2,Actions.run(()->{
-                c();
+                drawRoadPoint();
             })));
         }
-        //oyuncunun gidebileceği stateler bulunur.
         //当前状态可以走的路
         int[] playerR = R_matrisi[pathState.getState()];
         ArrayList<Integer> statesFromPlayer = new ArrayList<>();
@@ -515,12 +469,10 @@ public class BoardGroup extends Group {
                 nextState = state;
             }
         }
-        //改变位置
-        changePlayerPosition1(new PathState(nextState%column_row_number,nextState/column_row_number));
-        //success
+        drawtargetPosition(new PathState(nextState%column_row_number,nextState/column_row_number));
         if(pathState.getState() == target.getState()){
             isTarget = true;
-            System.out.println("hedefe varıldı.");
+            System.out.println("path finish !");
         }
     }
 }
