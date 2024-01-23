@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,7 +24,6 @@ public class GameEnv extends Group {
     private PathState target;
     private ArrayList<Integer> steps_per_episode;
     private ArrayList<Integer> costs_per_episode;
-    private PathState start;
     private Random randomGenerator;
     private int episode = 0;
     private float factor;
@@ -36,7 +36,6 @@ public class GameEnv extends Group {
      * @param target 结束位置
      */
     public GameEnv (int column_row_number, int obstacle_rate,PathState start,PathState target) {
-        this.start = start;
         this.target = target;
         this.factor = 0.9f;
         this.column_row_number = column_row_number;
@@ -158,6 +157,11 @@ public class GameEnv extends Group {
         step = 0;
         if (episode> com.libGdx.test.ai.path.Constant.learnTimes){
             System.out.println("success~");
+            try {
+                save(new URL("migong.skl"));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
             return;
         }
         //为true说明结束了，那么就进行下一局
