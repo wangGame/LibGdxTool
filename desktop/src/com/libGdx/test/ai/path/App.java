@@ -13,12 +13,10 @@ public class App extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
         //25    30   00 2525
-
-        BoardGroup group = new BoardGroup(
-                Constant.size,
-                Constant.obstacleRate,
-                new PathState(0,0),
-                new PathState(Constant.size-1,Constant.size-1));
-        addActor(group);
+        GameEnv env = new GameEnv(Constant.size,
+                Constant.size,new PathState(0,0),new PathState(Constant.size-1,Constant.size-1));
+        env.startQLearning();
+        stage.addActor(env);
+        stage.addActor(env.getGroup());
     }
 }
