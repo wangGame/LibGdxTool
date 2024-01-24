@@ -224,22 +224,48 @@ public class BoardGroup extends Group {
     }
 
 
+    public boolean check(int v){
+        if (v >=0 && v<column_row_number){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     public int[] getLegalAction() {
         PathState playerPosition = getPlayerPosition();
         int x = playerPosition.getX();
         int y = playerPosition.getY();
         Array<Integer> temp = new Array<>();
-        if (x+1 >=0 && x+1<column_row_number){
-            temp.add(0);
+        //      5 1  4
+        //       \|/
+        //   2 -- m -- 0
+        //       /|\
+        //     6  3 7
+        //0
+        if (check(x+1)) {
+           temp.add(0);
         }
-        if (x-1 >=0 && x-1<column_row_number){
+        if (check(x-1)){
             temp.add(2);
         }
-        if (y+1 >=0 && y+1<column_row_number){
+        if (check(y+1)){
             temp.add(1);
         }
-        if (y-1 >=0 && y-1<column_row_number){
+        if (check(y-1)){
             temp.add(3);
+        }
+        if (check(y+1)&&check(x+1)){
+            temp.add(4);
+        }
+        if (check(y+1)&&check(x-1)){
+            temp.add(5);
+        }
+        if (check(y-1)&&check(x-1)){
+            temp.add(6);
+        }
+        if (check(y-1)&&check(x+1)){
+            temp.add(7);
         }
         int [] action = new int[temp.size];
         for (int i = 0; i < temp.size; i++) {

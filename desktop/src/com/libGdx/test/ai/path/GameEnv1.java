@@ -46,7 +46,7 @@ public class GameEnv1 extends Group {
         this.target_reward = 100; //目标奖励
         group = new BoardGroup(column_row_number,obstacle_rate,start,target,randomGenerator);
         group.createBoard();
-        createR();
+
         group.createObstacles();
         initObstacle();
         group.initStart();
@@ -100,10 +100,21 @@ public class GameEnv1 extends Group {
                 x = x - 1;
             }else if (i==3){
                 y = y - 1;
+            }else if (i==4){
+                x = x + 1;
+                y = y + 1;
+            }else if (i==5){
+                x = x - 1;
+                y = y + 1;
+            }else if (i==6){
+                x = x - 1;
+                y = y - 1;
+            }else if (i==7){
+                x = x + 1;
+                y = y - 1;
             }
             statesFromPlayer.add(PathState.calState(x,y));
         }
-
 
         //随机取一个状态
         int nextState = statesFromPlayer.get(randomGenerator.nextInt(statesFromPlayer.size()));
@@ -176,6 +187,7 @@ public class GameEnv1 extends Group {
         int[] legalAction = group.getLegalAction(new PathState(x1,y1));
         ArrayList<Integer> statesFromState = new ArrayList<>();
 
+
         for (int i : legalAction) {
             int x = state%column_row_number;
             int y = state/column_row_number;
@@ -187,9 +199,22 @@ public class GameEnv1 extends Group {
                 x = x - 1;
             }else if (i==3){
                 y = y - 1;
+            }else if (i==4){
+                x = x + 1;
+                y = y + 1;
+            }else if (i==5){
+                x = x - 1;
+                y = y + 1;
+            }else if (i==6){
+                x = x - 1;
+                y = y - 1;
+            }else if (i==7){
+                x = x + 1;
+                y = y - 1;
             }
             statesFromState.add(PathState.calState(x,y));
         }
+
 
         double q_maks = Q_matrisi[state][statesFromState.get(0)];
         for(int i = 0;i<statesFromState.size();i++){
@@ -259,28 +284,38 @@ public class GameEnv1 extends Group {
         }
     }
 
-
     private void evalStep(){
         PathState playerPosition = group.getPlayerPosition();
-
         int[] legalAction = group.getLegalAction();
         ArrayList<Integer> statesFromPlayer = new ArrayList<>();
-
         for (int i : legalAction) {
             int x = playerPosition.getX();
             int y = playerPosition.getY();
-            if (i == 0){
+            if (i == 0) {
                 x = x + 1;
-            }else if (i==1){
+            } else if (i == 1) {
                 y = y + 1;
-            }else if (i==2){
+            } else if (i == 2) {
                 x = x - 1;
-            }else if (i==3){
+            } else if (i == 3) {
+                y = y - 1;
+            } else if (i == 4) {
+                x = x + 1;
+                y = y + 1;
+            } else if (i == 5) {
+                x = x - 1;
+                y = y + 1;
+            } else if (i == 6) {
+                x = x - 1;
+                y = y - 1;
+            } else if (i == 7) {
+                x = x + 1;
                 y = y - 1;
             }
-            statesFromPlayer.add(PathState.calState(x,y));
-        }
+            int i1 = PathState.calState(x, y);
 
+            statesFromPlayer.add(i1);
+        }
 //        int[] playerR = R_matrisi[playerPosition.getState()];
 //        for(int i = 0; i<playerR.length;i++){
 //            if((playerR[i] != -1)&&(playerR[i] != hole_reward)){

@@ -53,7 +53,6 @@ public class DemoDQN extends DQN{
         int state = getBoardGroup().getPlayerPosition().getState();
         double[] doubles = {state};
         gameState.setState(doubles);
-        getBoardGroup().getLegalAction();
         gameState.setLegalActions(getBoardGroup().getLegalAction());
         return gameState;
     }
