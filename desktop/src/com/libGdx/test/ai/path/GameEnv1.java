@@ -15,7 +15,6 @@ import java.util.Random;
 public class GameEnv1 extends Group {
     private int state_number;
     private BoardGroup group;
-    private int[][]R_matrisi;
     private int column_row_number;
     private int normal_reward;
     private int hole_reward;
@@ -35,13 +34,13 @@ public class GameEnv1 extends Group {
      * @param start 开始位置
      * @param target 结束位置
      */
-    public GameEnv1(int column_row_number, int obstacle_rate, PathState start, PathState target) {
+    public GameEnv1 (int column_row_number, int obstacle_rate,PathState start,PathState target) {
         this.target = target;
         this.factor = 0.9f;
         this.column_row_number = column_row_number;
         //状态个数 [对特定棋盘的一个操作]
         this.state_number = column_row_number * column_row_number;
-        this.randomGenerator = new Random();
+        this.randomGenerator = new Random(1);
         this.normal_reward = 3; //普通奖励
         this.hole_reward = -5; // 障碍扣分
         this.target_reward = 100; //目标奖励
@@ -87,17 +86,45 @@ public class GameEnv1 extends Group {
 
     private void initialize_episode(){
         PathState playerPosition = group.getPlayerPosition();
-        int[] playerR = R_matrisi[playerPosition.getState()];
+        int[] legalAction = group.getLegalAction();
         ArrayList<Integer> statesFromPlayer = new ArrayList<>();
-        for(int i = 0; i<playerR.length;i++){
-            if(playerR[i] != -1){
-                statesFromPlayer.add(i);
+
+        for (int i : legalAction) {
+            int x = playerPosition.getX();
+            int y = playerPosition.getY();
+            if (i == 0){
+                x = x + 1;
+            }else if (i==1){
+                y = y + 1;
+            }else if (i==2){
+                x = x - 1;
+            }else if (i==3){
+                y = y - 1;
             }
+            statesFromPlayer.add(PathState.calState(x,y));
         }
+
+
         //随机取一个状态
         int nextState = statesFromPlayer.get(randomGenerator.nextInt(statesFromPlayer.size()));
         //当前状态到下一个状态的奖励
-        int current_reward = R_matrisi[playerPosition.getState()][nextState];
+
+        int x = nextState%column_row_number;
+        int y = nextState/column_row_number;
+
+        int current_reward = 3;
+        if (target.getX() == x && target.getY() == y) {
+            current_reward = 10;
+        }else {
+            int[] obstacleStates = group.getObstacleStates();
+            for (int obstacleState : obstacleStates) {
+                int tempX = obstacleState%column_row_number;
+                int tempY = obstacleState/column_row_number;
+                if (tempX == x && tempY == y){
+                    current_reward = -5;
+                }
+            }
+        }
         double next_reward = maksQ(nextState);
         double q_value = current_reward + (factor * next_reward);
         Q_matrisi[playerPosition.getState()][nextState] = q_value;
@@ -109,7 +136,8 @@ public class GameEnv1 extends Group {
             costs_per_episode.add(cost);
             steps_per_episode.add(step);
             episode++;
-            addAction(Actions.delay(Constant.baseSpeed,Actions.run(()->{
+            System.out.println(episode+"========episode times");
+            addAction(Actions.delay(com.libGdx.test.ai.path.Constant.baseSpeed,Actions.run(()->{
                 gameRound();
             })));
             return;
@@ -124,24 +152,43 @@ public class GameEnv1 extends Group {
             cost += hole_reward;
             costs_per_episode.add(cost);
             steps_per_episode.add(step);
-            addAction(Actions.delay(Constant.baseSpeed,Actions.run(()->{
+            addAction(Actions.delay(com.libGdx.test.ai.path.Constant.baseSpeed,Actions.run(()->{
                 gameRound();
             })));
             return;
         }
         cost += normal_reward;
-        addAction(Actions.delay(Constant.baseSpeed,Actions.run(()->{
+        addAction(Actions.delay(com.libGdx.test.ai.path.Constant.baseSpeed,Actions.run(()->{
             initialize_episode();
         })));
     }
 
     private double maksQ(int state){
-        int[] playerR = R_matrisi[state];
+//        int[] playerR = R_matrisi[state];
+//        ArrayList<Integer> statesFromState = new ArrayList<>();
+//        for(int i = 0; i<playerR.length;i++){
+//            if(playerR[i] != -1){
+//                statesFromState.add(i);
+//            }
+//        }
+        int x1 = state%column_row_number;
+        int y1 = state/column_row_number;
+        int[] legalAction = group.getLegalAction(new PathState(x1,y1));
         ArrayList<Integer> statesFromState = new ArrayList<>();
-        for(int i = 0; i<playerR.length;i++){
-            if(playerR[i] != -1){
-                statesFromState.add(i);
+
+        for (int i : legalAction) {
+            int x = state%column_row_number;
+            int y = state/column_row_number;
+            if (i == 0){
+                x = x + 1;
+            }else if (i==1){
+                y = y + 1;
+            }else if (i==2){
+                x = x - 1;
+            }else if (i==3){
+                y = y - 1;
             }
+            statesFromState.add(PathState.calState(x,y));
         }
 
         double q_maks = Q_matrisi[state][statesFromState.get(0)];
@@ -155,11 +202,11 @@ public class GameEnv1 extends Group {
 
     public void gameRound(){
         step = 0;
-        if (episode> Constant.learnTimes){
+        if (episode> com.libGdx.test.ai.path.Constant.learnTimes){
             System.out.println("success~");
             try {
-                save(new URL("migong.skl"));
-            } catch (MalformedURLException e) {
+                save("migong.skl");
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return;
@@ -177,68 +224,80 @@ public class GameEnv1 extends Group {
 
     private void initObstacle() {
         int[] obstacleStates = group.getObstacleStates();
-        for(int j = 0;j<state_number;j++){
-            for (int random : obstacleStates) {
-                if(R_matrisi[j][random] == normal_reward){
-                    R_matrisi[j][random]= hole_reward;
-                }
-            }
-        }
+
     }
 
     private void createR() {
         //初始化每一个各自的价值 3
-        R_matrisi = new int[state_number][state_number];
-        for(int i = 0; i<state_number; i++){
-            for(int j = 0; j<state_number; j++){
-                R_matrisi[i][j] = normal_reward;
-            }
-        }
-        for(int i = 0; i<state_number; i++){
-            for(int j = 0; j<state_number; j++){
-                if(i%column_row_number == 0){
-                    if((i+1 != j)
-                            &&(i+column_row_number != j)
-                            &&(i+(column_row_number+1) != j)
-                            &&(i-(column_row_number-1) != j)
-                            &&(i-column_row_number != j))
-                        R_matrisi[i][j] = -1;
-                }
-                else if((i+1)%column_row_number == 0){
-                    if((i-1 != j)&&(i+column_row_number != j)&& (i+(column_row_number-1) != j)&&(i-(column_row_number+1) != j)&& (i-column_row_number != j))
-                        R_matrisi[i][j] = -1;
-                }else{
-                    if((i-1 != j)
-                            &&(i+1 != j)
-                            &&(i+column_row_number != j)
-                            && (i+column_row_number-1 != j)
-                            &&(i+column_row_number+1 != j)&&(i-column_row_number+1 != j)&& (i-column_row_number != j)&&(i-column_row_number-1 != j))
-                        R_matrisi[i][j] = -1;
-                }
-            }
-        }
-        for(int i = 0; i<state_number; i++){
-            for(int j = 0; j<state_number; j++){
-                if((R_matrisi[i][j] != -1)&&(j == target.getState())){
-                    R_matrisi[i][j] = target_reward;
-                }
-            }
-        }
+
     }
 
-    public void save(URL fileName){
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName.getPath()))) {
+    public void save(String fileName){
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
             oos.writeObject(this.Q_matrisi); // FIXME: TreeMaps cannot be serialized.
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void loadModel (URL fileName){
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName.getPath()))) {
+    public void loadModel (String fileName){
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             this.Q_matrisi = (double[][]) ois.readObject(); // FIXME: TreeMaps cannot be serialized.
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void drawPath() {
+        if (getGroup().isFinish()) {
+            System.out.println("success~");
+        }else {
+            evalStep();
+            addAction(Actions.delay(2,Actions.run(()->{
+                drawPath();
+            })));
+        }
+    }
+
+
+    private void evalStep(){
+        PathState playerPosition = group.getPlayerPosition();
+
+        int[] legalAction = group.getLegalAction();
+        ArrayList<Integer> statesFromPlayer = new ArrayList<>();
+
+        for (int i : legalAction) {
+            int x = playerPosition.getX();
+            int y = playerPosition.getY();
+            if (i == 0){
+                x = x + 1;
+            }else if (i==1){
+                y = y + 1;
+            }else if (i==2){
+                x = x - 1;
+            }else if (i==3){
+                y = y - 1;
+            }
+            statesFromPlayer.add(PathState.calState(x,y));
+        }
+
+//        int[] playerR = R_matrisi[playerPosition.getState()];
+//        for(int i = 0; i<playerR.length;i++){
+//            if((playerR[i] != -1)&&(playerR[i] != hole_reward)){
+//                statesFromPlayer.add(i);
+//            }
+//        }
+
+        double[] playerQ = Q_matrisi[playerPosition.getState()];
+        double maks_q = playerQ[statesFromPlayer.get(0)];
+        int nextState = statesFromPlayer.get(0);
+        //随机取一个状态
+        for(Integer state : statesFromPlayer ){
+            if( playerQ[state] > maks_q){
+                maks_q = playerQ[state];
+                nextState = state;
+            }
+        }
+        group.changePlayerPosition(new PathState(nextState%column_row_number,nextState/column_row_number));
     }
 }

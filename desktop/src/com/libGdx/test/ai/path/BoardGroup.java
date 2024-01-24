@@ -188,8 +188,41 @@ public class BoardGroup extends Group {
     }
 
     public boolean isFinish() {
+        boolean isObstacle0 = false;
+        for(int obstacle: getObstacleStates()){
+            if(obstacle == playerPosition.getState()){
+                isObstacle0 = true;
+            }
+        }
+        if(isObstacle0 ||(playerPosition.getState() == target.getState())){
+            return true;
+        }
         return false;
     }
+
+    public int[] getLegalAction(PathState playerPosition) {
+        int x = playerPosition.getX();
+        int y = playerPosition.getY();
+        Array<Integer> temp = new Array<>();
+        if (x+1 >=0 && x+1<column_row_number){
+            temp.add(0);
+        }
+        if (x-1 >=0 && x-1<column_row_number){
+            temp.add(2);
+        }
+        if (y+1 >=0 && y+1<column_row_number){
+            temp.add(1);
+        }
+        if (y-1 >=0 && y-1<column_row_number){
+            temp.add(3);
+        }
+        int [] action = new int[temp.size];
+        for (int i = 0; i < temp.size; i++) {
+            action[i] = temp.get(i);
+        }
+        return action;
+    }
+
 
     public int[] getLegalAction() {
         PathState playerPosition = getPlayerPosition();

@@ -12,6 +12,10 @@ public class PathState {
         this.state = MATRIX_LENGTH*y+x;
     }
 
+    public static int calState(int x,int y){
+        return MATRIX_LENGTH*y+x;
+    }
+
     public boolean isEqual(PathState koordinat){
         if((this.x == koordinat.getX())&&(this.y == koordinat.getY())){
             return true;

@@ -142,16 +142,35 @@ public abstract class DQN implements Serializable {
 	}
 
 	public int eval_step(){
+//		GameState gameState = getGameState();
+//		double[] state = gameState.getState();
+//		double[] qValues = network.predict(state);
+////
+//		double[] playerQ = Q_matrisi[playerPosition.getState()];
+//		double maks_q = playerQ[statesFromPlayer.get(0)];
+//		int nextState = statesFromPlayer.get(0);
+//		//随机取一个状态
+//		for(Integer state : statesFromPlayer ){
+//			if( playerQ[state] > maks_q){
+//				maks_q = playerQ[state];
+//				nextState = state;
+//			}
+//		}
+//
 		GameState gameState = getGameState();
 		double[] state = gameState.getState();
 		double[] qValues = network.predict(state);
+
 		int[] legalActionsIndex = gameState.getLegalActions();
-		double[] legalActions = new double[legalActionsIndex.length];
-		for (int i = 0; i < legalActionsIndex.length; i++) {
-			legalActions[i] = qValues[legalActionsIndex[i]];
+
+		int xx = legalActionsIndex[0];
+		for (int actionsIndex : legalActionsIndex) {
+			double qValue = qValues[actionsIndex];
+			if (qValue>xx){
+				xx =  actionsIndex;
+			}
 		}
-		int actionIndex = legalActionsIndex[getMaxIndex(legalActions)];
-		return actionIndex;
+		return xx;
 	}
 	
 	private void replay() {

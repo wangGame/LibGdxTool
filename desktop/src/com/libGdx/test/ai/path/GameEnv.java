@@ -259,22 +259,22 @@ public class GameEnv extends Group {
         PathState playerPosition = group.getPlayerPosition();
         int[] playerR = R_matrisi[playerPosition.getState()];
         ArrayList<Integer> statesFromPlayer = new ArrayList<>();
-        int maxV =  playerR[0];
-        int max = 0;
         for(int i = 0; i<playerR.length;i++){
-            if(playerR[i] != -1){
-                if (playerR[i] > maxV){
-                    max = i;
-                    maxV = playerR[i];
-                }
+            if((playerR[i] != -1)&&(playerR[i] != hole_reward)){
                 statesFromPlayer.add(i);
             }
         }
 
-
+        double[] playerQ = Q_matrisi[playerPosition.getState()];
+        double maks_q = playerQ[statesFromPlayer.get(0)];
+        int nextState = statesFromPlayer.get(0);
         //随机取一个状态
-        int nextState = statesFromPlayer.get(max);
-
+        for(Integer state : statesFromPlayer ){
+            if( playerQ[state] > maks_q){
+                maks_q = playerQ[state];
+                nextState = state;
+            }
+        }
         group.changePlayerPosition(new PathState(nextState%column_row_number,nextState/column_row_number));
     }
 }

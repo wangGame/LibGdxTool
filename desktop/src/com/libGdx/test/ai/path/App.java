@@ -13,12 +13,12 @@ public class App extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
         //25    30   00 2525
-        GameEnv env = new GameEnv(Constant.size,
+        GameEnv1 env = new GameEnv1(Constant.size,
                 Constant.size,new PathState(0,0),new PathState(Constant.size-1,Constant.size-1));
-        env.startQLearning();
+//        env.startQLearning();
         stage.addActor(env);
         stage.addActor(env.getGroup());
         env.loadModel("migong.skl");
-//        env.drawPath();
+        env.drawPath();
     }
 }
