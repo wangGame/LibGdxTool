@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
 
@@ -172,6 +173,7 @@ public class BoardGroup extends Group {
         addActor(obstacleImg);
     }
 
+
     public void changePlayerPosition(PathState targetPosition){
         playerImg.addAction(Actions.moveTo(
                 playerPosition.getX() * cornerSize,
@@ -185,5 +187,42 @@ public class BoardGroup extends Group {
         addActor(playerImg);
         playerImg.setSize(cornerSize,cornerSize);
         playerImg.setPosition((targetPosition.getX()* cornerSize),(targetPosition.getY()*cornerSize));
+    }
+
+    public boolean isFinish() {
+        return false;
+    }
+
+    public int[] getLegalAction() {
+        PathState playerPosition = getPlayerPosition();
+        int x = playerPosition.getX();
+        int y = playerPosition.getY();
+        Array<Integer> temp = new Array<>();
+        if (x+1 >=0 && x+1<column_row_number){
+            temp.add(0);
+        }
+        if (x-1 >=0 && x-1<column_row_number){
+            temp.add(2);
+        }
+        if (y+1 >=0 && y+1<column_row_number){
+            temp.add(1);
+        }
+        if (y-1 >=0 && y-1<column_row_number){
+            temp.add(3);
+        }
+        int [] action = new int[temp.size];
+        for (int i = 0; i < temp.size; i++) {
+            action[i] = temp.get(i);
+        }
+        return action;
+    }
+
+    public void showPath(PathState target){
+        Image playerImg = new Image(Asset.getAsset().getTexture("assets/white_cir.png"));
+        playerImg.setColor(Color.RED);
+        addActor(playerImg);
+        playerImg.setSize(cornerSize,cornerSize);
+        playerImg.setPosition((target.getX()* cornerSize),(target.getY()*cornerSize));
+        playerPosition = target;
     }
 }
