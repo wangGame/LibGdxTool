@@ -74,8 +74,18 @@ public class BlackJackGame {
     }
 
 
-    public void getSatte(int playerId){
-
+    public void getState(int playerId){
+        BlackStatus status = new BlackStatus();
+        status.setLegalAction(new int[]{0,1});
+        Array<Card> hand = players.get(playerId).getHand();
+        int dealScore;
+        if (isOver()){
+            dealScore = judger.judge_round1(hand);
+        }else {
+            Array<Card> array = new Array<>(hand);
+            array.removeIndex(0);
+            dealScore = judger.judge_round1(array);
+        }
     }
 
     public boolean isOver(){

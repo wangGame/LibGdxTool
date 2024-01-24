@@ -1,12 +1,14 @@
 package com.libGdx.test.ai.bjack;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.libGdx.test.base.LibGdxTestMain;
 
 import org.junit.Test;
 
 import java.util.HashMap;
 
-public class App {
+public class App extends LibGdxTestMain {
     private HashMap<String,Integer> hashMap;
     public void setCardValue(){
         hashMap = new HashMap();
@@ -49,6 +51,14 @@ public class App {
         handCard.add("7");
         handCard.add("A");
         System.out.println(app.getScore(handCard));
+
+        app.start();
     }
 
+
+    @Override
+    public void useShow(Stage stage) {
+        super.useShow(stage);
+
+    }
 }

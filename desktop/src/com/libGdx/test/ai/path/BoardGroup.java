@@ -80,8 +80,6 @@ public class BoardGroup extends Group {
         startFlag.setColor(startColor);
         addActor(startFlag);
         startFlag.setSize(cornerSize,cornerSize);
-
-
     }
 
     public void initPlayStatus() {

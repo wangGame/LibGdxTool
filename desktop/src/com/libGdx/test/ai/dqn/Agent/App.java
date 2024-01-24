@@ -34,10 +34,12 @@ public class App extends LibGdxTestMain {
             return;
         }
         times ++;
-        System.out.println("-----start times--------" + times);
+        float successp = Constant.succesTimes*1.0f / Constant.learnTimes;
+        float failedP = 1.0f - successp;
+        System.out.println("-start times--" + times+"--success parent--"+Constant.succesTimes+"----failed--"+failedP);
         demoDQN.reset();
         if (demoDQN.isDone()){
-            stage.addAction(Actions.delay(0.1f,Actions.run(()->{
+            stage.addAction(Actions.delay(0.05f,Actions.run(()->{
                 updateExce(stage);
             })));
         }else {
@@ -59,7 +61,7 @@ public class App extends LibGdxTestMain {
     }
 
     public void re(Stage stage){
-        stage.addAction(Actions.delay(0.1f,Actions.run(()->{
+        stage.addAction(Actions.delay(0.05f,Actions.run(()->{
             demoDQN.step();
             if (!demoDQN.isDone()) {
                 re(stage);

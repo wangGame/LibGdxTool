@@ -97,14 +97,14 @@ public class DemoDQN extends DQN{
         int state = playerPosition.getState();
         for (int obstacleState : obstacleStates) {
             if (state == obstacleState) {
-                return -15;
+                return -5;
             }
         }
 
         if (playerPosition.isEqual(target)) {
-            return 10;
+            return 100;
         }
-        return 1;
+        return 3;
     }
 
     public void stepBest(){

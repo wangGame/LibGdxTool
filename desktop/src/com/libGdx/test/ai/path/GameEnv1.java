@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GameEnv extends Group {
+public class GameEnv1 extends Group {
     private int state_number;
     private BoardGroup group;
     private int[][]R_matrisi;
@@ -35,13 +35,13 @@ public class GameEnv extends Group {
      * @param start 开始位置
      * @param target 结束位置
      */
-    public GameEnv (int column_row_number, int obstacle_rate,PathState start,PathState target) {
+    public GameEnv1(int column_row_number, int obstacle_rate, PathState start, PathState target) {
         this.target = target;
         this.factor = 0.9f;
         this.column_row_number = column_row_number;
         //状态个数 [对特定棋盘的一个操作]
         this.state_number = column_row_number * column_row_number;
-        this.randomGenerator = new Random(1);
+        this.randomGenerator = new Random();
         this.normal_reward = 3; //普通奖励
         this.hole_reward = -5; // 障碍扣分
         this.target_reward = 100; //目标奖励
@@ -109,8 +109,7 @@ public class GameEnv extends Group {
             costs_per_episode.add(cost);
             steps_per_episode.add(step);
             episode++;
-            System.out.println(episode+"========episode times");
-            addAction(Actions.delay(com.libGdx.test.ai.path.Constant.baseSpeed,Actions.run(()->{
+            addAction(Actions.delay(Constant.baseSpeed,Actions.run(()->{
                 gameRound();
             })));
             return;
@@ -125,13 +124,13 @@ public class GameEnv extends Group {
             cost += hole_reward;
             costs_per_episode.add(cost);
             steps_per_episode.add(step);
-            addAction(Actions.delay(com.libGdx.test.ai.path.Constant.baseSpeed,Actions.run(()->{
+            addAction(Actions.delay(Constant.baseSpeed,Actions.run(()->{
                 gameRound();
             })));
             return;
         }
         cost += normal_reward;
-        addAction(Actions.delay(com.libGdx.test.ai.path.Constant.baseSpeed,Actions.run(()->{
+        addAction(Actions.delay(Constant.baseSpeed,Actions.run(()->{
             initialize_episode();
         })));
     }
@@ -156,11 +155,11 @@ public class GameEnv extends Group {
 
     public void gameRound(){
         step = 0;
-        if (episode> com.libGdx.test.ai.path.Constant.learnTimes){
+        if (episode> Constant.learnTimes){
             System.out.println("success~");
             try {
-                save("migong.skl");
-            } catch (Exception e) {
+                save(new URL("migong.skl"));
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
             return;
@@ -227,54 +226,19 @@ public class GameEnv extends Group {
         }
     }
 
-    public void save(String fileName){
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+    public void save(URL fileName){
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName.getPath()))) {
             oos.writeObject(this.Q_matrisi); // FIXME: TreeMaps cannot be serialized.
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void loadModel (String fileName){
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+    public void loadModel (URL fileName){
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName.getPath()))) {
             this.Q_matrisi = (double[][]) ois.readObject(); // FIXME: TreeMaps cannot be serialized.
         }catch (Exception e){
             e.printStackTrace();
         }
-    }
-
-    public void drawPath() {
-        if (getGroup().isFinish()) {
-            System.out.println("success~");
-        }else {
-            evalStep();
-            addAction(Actions.delay(2,Actions.run(()->{
-                drawPath();
-            })));
-        }
-    }
-
-
-    private void evalStep(){
-        PathState playerPosition = group.getPlayerPosition();
-        int[] playerR = R_matrisi[playerPosition.getState()];
-        ArrayList<Integer> statesFromPlayer = new ArrayList<>();
-        int maxV =  playerR[0];
-        int max = 0;
-        for(int i = 0; i<playerR.length;i++){
-            if(playerR[i] != -1){
-                if (playerR[i] > maxV){
-                    max = i;
-                    maxV = playerR[i];
-                }
-                statesFromPlayer.add(i);
-            }
-        }
-
-
-        //随机取一个状态
-        int nextState = statesFromPlayer.get(max);
-
-        group.changePlayerPosition(new PathState(nextState%column_row_number,nextState/column_row_number));
     }
 }

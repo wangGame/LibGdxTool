@@ -18,5 +18,7 @@ public class App extends LibGdxTestMain {
         env.startQLearning();
         stage.addActor(env);
         stage.addActor(env.getGroup());
+        env.loadModel("migong.skl");
+//        env.drawPath();
     }
 }
