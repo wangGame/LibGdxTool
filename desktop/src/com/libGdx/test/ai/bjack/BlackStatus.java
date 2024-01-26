@@ -15,7 +15,16 @@ public class BlackStatus {
     public String getHandCard() {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < handCard.length; i++) {
+            int i1 = handCard[i];
+            if (i == 0) {
+                if (i1 <= 3) {
+                    System.out.println("-----------------------");
+                }
+            }
             builder.append(handCard[i]);
+        }
+        if (builder.equals("025")) {
+            System.out.println("----------------------");
         }
         return builder.toString();
     }

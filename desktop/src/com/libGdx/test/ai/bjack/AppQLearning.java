@@ -1,8 +1,12 @@
 package com.libGdx.test.ai.bjack;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Array;
 import com.libGdx.test.ai.labyrinth.Constant;
+import com.libGdx.test.chat.ChatData;
+import com.libGdx.test.chat.ChatGroup;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,10 +29,15 @@ public class AppQLearning extends Group {
 
     public AppQLearning() {
         this.factor = 0.95f;
-        this.randomGenerator = new Random(1);
+        this.randomGenerator = new Random();
         game = new BlackJackGame(randomGenerator);
         try {
             writer = new FileWriter(new File("successP.csv"));
+            builder.setLength(0);
+            builder.append("id,");
+            builder.append("value");
+            builder.append("\r\n");
+            writer.write(builder.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,11 +68,10 @@ public class AppQLearning extends Group {
         BlackStatus state = game.getState(game.getGame_pointer());
         int[] legalAction = state.getLegalAction();
 
-        float v = allTimes * 1.0f / Constant.learnTimes;
-        double i = randomGenerator.nextDouble();
         int bestAction;
-        if (i>v){
+        if (Math.random() * episode/com.libGdx.test.ai.labyrinth.Constant.learnTimes<0.5) {
             bestAction = legalAction[randomGenerator.nextInt(legalAction.length)];
+
         }else {
             bestAction = best(state);
         }
@@ -77,8 +85,12 @@ public class AppQLearning extends Group {
         }
         BlackStatus newStatus = game.getState(game.getGame_pointer());
         double next_reward = maksQ(newStatus.getHandCard());
-        double q_value = current_reward + (factor * next_reward);
-        ArrayList<Double> doubles = Q_matrisi.get(state.getHandCard());
+
+        ArrayList<Double> doubles = Q_matrisi.get(newStatus.getHandCard());
+        Double aDouble = doubles.get(bestAction);
+        double q_value = aDouble + 0.0082* (current_reward+( factor * next_reward)-aDouble);
+//        double q_value = current_reward+factor * next_reward;
+
         doubles.set(bestAction, q_value);
         if (bestAction==1){
             bb++;
@@ -130,6 +142,7 @@ public class AppQLearning extends Group {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            loadModel("../blackj.skl",getStage());
             return;
         }
         //为true说明结束了，那么就进行下一局
@@ -138,31 +151,31 @@ public class AppQLearning extends Group {
         initialize_episode();
 
         playSuccessTimes = 0;
-        for (int i = 0; i < 10; i++) {
-            BlackJackGame game = new BlackJackGame(new Random());
-            game.initGame();
-            while (!game.isOver()){
-                userStep(game);
-            }
-            HashMap<String, Integer> winner = game.getWinner();
-            Integer integer = winner.get("player"+0);
-            if (integer>0) {
-                playSuccessTimes++;
-            }
-        }
-        float xx = playSuccessTimes*1.f/ 10;
-//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-//        System.out.println(xx);
-//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-        try {
-            builder.setLength(0);
-            builder.append(allTimes);
-            builder.append(","+xx);
-            builder.append("\r\n");
-            writer.write(builder.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        for (int i = 0; i < 500; i++) {
+//            BlackJackGame game = new BlackJackGame(new Random());
+//            game.initGame();
+//            while (!game.isOver()){
+//                userStep(game);
+//            }
+//            HashMap<String, Integer> winner = game.getWinner();
+//            Integer integer = winner.get("player"+0);
+//            if (integer>0) {
+//                playSuccessTimes++;
+//            }
+//        }
+//        float xx = playSuccessTimes*1.f/ 500;
+////        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+////        System.out.println(xx);
+////        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+//        try {
+//            builder.setLength(0);
+//            builder.append(allTimes);
+//            builder.append(","+xx);
+//            builder.append("\r\n");
+//            writer.write(builder.toString());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private StringBuilder builder = new StringBuilder();
@@ -176,21 +189,86 @@ public class AppQLearning extends Group {
         }
     }
 
-    public void loadModel(String fileName) {
+    public void loadModel(String fileName, Stage stage) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
             this.Q_matrisi = (HashMap<String, ArrayList<Double>>) ois.readObject(); // FIXME: TreeMaps cannot be serialized.
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (String s : Q_matrisi.keySet()) {
-            ArrayList<Double> doubles = Q_matrisi.get(s);
-            builder.setLength(0);
-            for (Double aDouble : doubles) {
-                builder.append(s+"==="+aDouble);
-            }
-            System.out.println(builder.toString());
-        }
+//        for (String s : Q_matrisi.keySet()) {
+//            ArrayList<Double> doubles = Q_matrisi.get(s);
+//            builder.setLength(0);
+//            for (Double aDouble : doubles) {
+//                builder.append(s+"==="+aDouble);
+//            }
+//            System.out.println(builder.toString());
+//        }
         System.out.println("-----------------------");
+
+
+        playTIme();
+
+
+        ChatGroup group = new ChatGroup(cc);
+        group.showView();
+        stage.addActor(group);
+
+    }
+
+    Array<ChatData> cc = new Array<>();
+
+    public void playTIme(){
+        int xxX = 0;
+
+        double ddd = 0;
+        for (int i1 = 0; i1 < 100; i1++) {
+            xxX ++;  playSuccessTimes = 0;
+            for (int i = 0; i < 10000; i++) {
+                BlackJackGame game = new BlackJackGame(new Random());
+                game.initGame();
+                while (!game.isOver()){
+                    userStep(game);
+                }
+                HashMap<String, Integer> winner = game.getWinner();
+                Integer integer = winner.get("player"+0);
+                if (integer>0) {
+                    playSuccessTimes++;
+                }
+            }
+            float xx = playSuccessTimes*1.f/ 10000;
+//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+//        System.out.println(xx);
+//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            try {
+                ddd += xx;
+                builder.setLength(0);
+                builder.append(xxX);
+                builder.append(","+xx);
+                builder.append("\r\n");
+                writer.write(builder.toString());
+                ChatData chatData = new ChatData();
+                chatData.setId(xxX);
+                chatData.setValue(xx);
+                cc.add(chatData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        double oo = ddd / 100.0;
+        try {
+            builder.setLength(0);
+            builder.append("alll");
+            builder.append(","+oo);
+            System.out.println("all "+oo);
+            builder.append("\r\n");
+            writer.write(builder.toString());
+            writer.flush();
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("finish");
     }
 
 
@@ -212,5 +290,9 @@ public class AppQLearning extends Group {
             }
         }
         return bestAction;
+
+
+//        int i = randomGenerator.nextInt(2);
+//        return i;
     }
 }

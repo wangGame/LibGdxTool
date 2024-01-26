@@ -159,6 +159,9 @@ public class BlackJackGame {
             array.removeIndex(0);
             dealScore = judger.judge_round1(array);
         }
+        if (userScore<=3){
+            System.out.println("0");
+        }
         status.setHandCard(new int[]{userScore,dealScore});
         return status;
     }
@@ -178,12 +181,12 @@ public class BlackJackGame {
     }
 
     public void showCard() {
-        System.out.println("------------info-start--------------");
-        showInfo("dealer",dealer.getHand());
-        BlackjackPlayer blackjackPlayer = getPlayers().get(game_pointer);
-        Array<Card> hand = blackjackPlayer.getHand();
-        showInfo("user"+game_pointer,hand);
-        System.out.println("-------------info-end---------------");
+//        System.out.println("------------info-start--------------");
+//        showInfo("dealer",dealer.getHand());
+//        BlackjackPlayer blackjackPlayer = getPlayers().get(game_pointer);
+//        Array<Card> hand = blackjackPlayer.getHand();
+//        showInfo("user"+game_pointer,hand);
+//        System.out.println("-------------info-end---------------");
     }
 
     public void showInfo(String name,Array<Card> hand){
@@ -203,16 +206,16 @@ public class BlackJackGame {
 
 
     public void winnerInfo() {
-        System.out.println("------------winnder-info-start--------------");
-        for (String s : winner.keySet()) {
-            System.out.println("user --> "+s+":");
-            Integer integer = winner.get(s);
-            System.out.println(integer);
-        }
-        System.out.println("------------winnder-info-end--------------");
-        System.out.println();
-        System.out.println();
-        System.out.println();
+//        System.out.println("------------winnder-info-start--------------");
+//        for (String s : winner.keySet()) {
+//            System.out.println("user --> "+s+":");
+//            Integer integer = winner.get(s);
+//            System.out.println(integer);
+//        }
+//        System.out.println("------------winnder-info-end--------------");
+//        System.out.println();
+//        System.out.println();
+//        System.out.println();
 
     }
 }

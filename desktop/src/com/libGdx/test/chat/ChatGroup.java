@@ -11,7 +11,11 @@ import com.kw.gdx.resource.csvanddata.demo.CsvUtils;
 public class ChatGroup extends Group {
     private Array<ChatData> common;
     public ChatGroup(){
-        common = CsvUtils.common("successP.csv", ChatData.class);
+        common = CsvUtils.common("../successP.csv", ChatData.class);
+        setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
+    }
+    public ChatGroup(Array<ChatData> cc){
+        common = cc;
         setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
     }
 
@@ -24,7 +28,7 @@ public class ChatGroup extends Group {
                             2,2,2,2
                     )
             );
-            image.setSize(v,(float) chatData.getValue()*Constant.GAMEHIGHT/10.0f);
+            image.setSize(v,(float) chatData.getValue()*Constant.GAMEHIGHT);
             addActor(image);
             image.setX(v*chatData.getId());
         }
