@@ -2,11 +2,14 @@ package com.libGdx.test.ai.bjack;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.libGdx.test.ai.labyrinth.Constant;
 import com.libGdx.test.base.LibGdxTestMain;
 
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Random;
+import java.util.Scanner;
 
 public class App extends LibGdxTestMain {
     private HashMap<String,Integer> hashMap;
@@ -44,15 +47,36 @@ public class App extends LibGdxTestMain {
     }
 
     public static void main(String[] args) {
-        App app = new App();
-        app.setCardValue();
-        Array<String> handCard = new Array<>();
-        handCard.add("6");
-        handCard.add("7");
-        handCard.add("A");
-        System.out.println(app.getScore(handCard));
-
-        app.start();
+//        App app = new App();
+//        app.setCardValue();
+//        Array<String> handCard = new Array<>();
+//        handCard.add("6");
+//        handCard.add("7");
+//        handCard.add("A");
+//        System.out.println(app.getScore(handCard));
+//        app.start();
+        Random random = new Random(1);
+        BlackJackGame game = new BlackJackGame(random);
+        game.initGame();
+        Scanner scanner = new Scanner(System.in);
+        while (true){
+            int userScore = game.userScore();
+            int dealScore = game.getJudger().judge_score(game.getDealer().getHand());
+            if (Constant.isBug) {
+                System.out.println("state: player " + userScore + "  dealer :" + dealScore);
+                System.out.println("current player " + game.getGame_pointer() + " :");
+            }
+            String next = scanner.next();
+            game.step(next);
+            if (game.isOver()) {
+                HashMap<String, Integer> winner = game.getWinner();
+                for (String s : winner.keySet()) {
+                    Integer integer = winner.get(s);
+                    System.out.println(s+"===>"+integer);
+                }
+                break;
+            }
+        }
     }
 
 

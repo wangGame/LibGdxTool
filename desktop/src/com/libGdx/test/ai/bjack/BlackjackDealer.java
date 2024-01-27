@@ -27,7 +27,23 @@ public class BlackjackDealer {
         hand.add(card);
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Array<Card> getHand() {
         return hand;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public int getScore() {
+        return score;
     }
 }

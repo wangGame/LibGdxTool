@@ -69,4 +69,23 @@ public class BlackjackJudger {
     public void setScore(int score) {
         this.score = score;
     }
+
+    public void judgeGame(BlackJackGame blackJackGame, int game_pointer) {
+        HashMap<String, Integer> winner = blackJackGame.getWinner();
+        BlackjackPlayer blackjackPlayer = blackJackGame.getPlayers().get(game_pointer);
+        BlackjackDealer dealer = blackJackGame.getDealer();
+        if (blackjackPlayer.getStatus().equals("bust")) {
+            winner.put("player"+game_pointer,-1);
+        }else if (dealer.getStatus().equals("bust")){
+            winner.put("player"+game_pointer,2);
+        }else {
+            if (blackjackPlayer.getScore() > dealer.getScore()){
+                winner.put("player"+game_pointer,2);
+            }else if (blackjackPlayer.getScore()<dealer.getScore()){
+                winner.put("player"+game_pointer,-1);
+            }else {
+                winner.put("player"+game_pointer,1);
+            }
+        }
+    }
 }

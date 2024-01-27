@@ -34,4 +34,12 @@ public class BlackjackPlayer {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public int getScore() {
+        return score;
+    }
 }
