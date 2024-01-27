@@ -28,7 +28,8 @@ public class AppQLearning extends Group {
     private BlackJackGame game;
 
     public AppQLearning() {
-        this.factor = 0.928f;
+//        this.factor = 0.928f;
+        this.factor = 0.9f;
         this.randomGenerator = new Random();
         game = new BlackJackGame(randomGenerator);
         try {
@@ -69,12 +70,14 @@ public class AppQLearning extends Group {
         int[] legalAction = state.getLegalAction();
 
         int bestAction;
-        if (Math.random() * episode/com.libGdx.test.ai.labyrinth.Constant.learnTimes<0.5) {
-            bestAction = legalAction[randomGenerator.nextInt(legalAction.length)];
-
-        }else {
-            bestAction = best(state);
-        }
+        int v = (int) (randomGenerator.nextInt(legalAction.length) * (1.0f / (episode + 1)));
+//        if (Math.random() * episode/com.libGdx.test.ai.labyrinth.Constant.learnTimes<0.5) {
+//            bestAction = legalAction[randomGenerator.nextInt(legalAction.length)];
+//
+//        }else {
+//            bestAction = best(state);
+//        }
+        bestAction = (int) ((best(state) + v)%legalAction.length);
         game.step(bestAction);
         HashMap<String, Integer> winner = game.getWinner();
         int current_reward = winner.get("player" + game.getGame_pointer());
