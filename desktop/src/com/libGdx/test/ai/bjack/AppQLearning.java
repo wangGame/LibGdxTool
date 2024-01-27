@@ -28,7 +28,7 @@ public class AppQLearning extends Group {
     private BlackJackGame game;
 
     public AppQLearning() {
-        this.factor = 0.95f;
+        this.factor = 0.94f;
         this.randomGenerator = new Random();
         game = new BlackJackGame(randomGenerator);
         try {
@@ -88,7 +88,7 @@ public class AppQLearning extends Group {
 
         ArrayList<Double> doubles = Q_matrisi.get(newStatus.getHandCard());
         Double aDouble = doubles.get(bestAction);
-        double q_value = aDouble + 0.0082* (current_reward+( factor * next_reward)-aDouble);
+        double q_value = aDouble + 0.0002* (current_reward+( factor * next_reward)-aDouble);
 //        double q_value = current_reward+factor * next_reward;
 
         doubles.set(bestAction, q_value);
