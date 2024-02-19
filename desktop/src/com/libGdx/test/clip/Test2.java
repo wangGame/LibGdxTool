@@ -1,10 +1,8 @@
 package com.libGdx.test.clip;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
-import com.kw.gdx.clip.Imxx;
 import com.libGdx.test.base.LibGdxTestMain;
 
 /**
@@ -18,15 +16,23 @@ public class Test2 extends LibGdxTestMain {
     }
 
 
+    private float widthx = 0;
+
+    private Test02 test02;
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
 
         Image image = new Image(Asset.getAsset().getTexture("7.png"));
-        Test02 test02 = new Test02(image);
+        test02 = new Test02(image){
+            @Override
+            public void act(float delta) {
+                super.act(delta);
+                widthx += delta*10;
+                test02.setClipWidth(widthx);
+            }
+        };
         addActor(test02);
-        test02.setClipWidth(130);
-
 //        ImageXT xt = new ImageXT();
 //        stage.addActor(xt);
 

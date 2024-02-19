@@ -1,13 +1,7 @@
 package com.libGdx.test.clip;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
-import com.kw.gdx.clip.ClipImage;
-import com.kw.gdx.clip.Imxx;
 import com.libGdx.test.base.LibGdxTestMain;
 
 /**
@@ -46,8 +40,6 @@ public class Test1 extends LibGdxTestMain {
 //        group.addActor(g);
 //        g.addActor(image1);
 
-        Imxx imxx = new Imxx(Asset.getAsset().getTexture("shuoming.png"));
-        stage.addActor(imxx);
 
     }
 }

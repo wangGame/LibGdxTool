@@ -11,14 +11,9 @@ import com.kw.gdx.resource.csvanddata.ReadCvs;
 import com.kw.gdx.resource.csvanddata.WriteCsv;
 import com.kw.gdx.utils.log.NLog;
 import com.tony.puzzle.bean.CongfigBean;
-import com.tony.puzzle.desktopnet.DeskDownload;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
-import java.nio.charset.Charset;
-
-import kw.artpuzzle.ArtPuzzle;
 
 public class CsvRead {
     public static void main(String[] args) {
