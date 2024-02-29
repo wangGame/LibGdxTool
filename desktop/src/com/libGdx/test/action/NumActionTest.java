@@ -25,6 +25,12 @@ public class NumActionTest extends LibGdxTestMain {
         NumAction numAction = new NumAction(0, 100);
         numAction.setDuration(10);
         numAction.setReverse(true); //逆向
+        numAction.setUpdateRunnable(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(numAction.getValue());
+            }
+        });
         Image i = new Image(){
             @Override
             public void act(float delta) {

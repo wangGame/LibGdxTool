@@ -1,2 +1,4 @@
 include 'desktop','libGdxLib','libGdx'
 include ':libGdxRare'
+include 'android'
+include ':mylibrary'

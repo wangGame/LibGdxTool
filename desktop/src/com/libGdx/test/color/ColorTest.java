@@ -61,6 +61,13 @@ class ColorTest extends LibGdxTestMain {
         return interpolateColor(topColor, bottomColor, y);
     }
 
+    /**
+     * r g b 分别算比例
+     * @param startColor
+     * @param endColor
+     * @param t
+     * @return
+     */
     public static Color interpolateColor(Color startColor, Color endColor, float t) {
         float interpolatedRed = (startColor.r + t * (endColor.r - startColor.r));
         float interpolatedGreen = (startColor.g + t * (endColor.g - startColor.g));

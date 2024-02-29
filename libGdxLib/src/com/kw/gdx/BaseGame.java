@@ -133,7 +133,9 @@ public class BaseGame extends Game {
     public void render() {
         Gdx.gl.glClearColor(1.0f,1.0f,1.0f,1.0f);
 //        Gdx.gl.glClearColor(Constant.viewColor.r,Constant.viewColor.g,Constant.viewColor.b,Constant.viewColor.a);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT
+                | GL20.GL_DEPTH_BUFFER_BIT
+                | GL20.GL_STENCIL_BUFFER_BIT);
         if (Constant.SHOWFRAMESPERSECOND){
             NLog.i("FramesPerSecond",Gdx.app.getGraphics().getFramesPerSecond());
         }

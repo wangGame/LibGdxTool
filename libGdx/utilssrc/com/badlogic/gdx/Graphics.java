@@ -323,4 +323,12 @@ public interface Graphics {
 	 * Sets one of the predefined {@link SystemCursor}s
 	 */
 	public void setSystemCursor(SystemCursor systemCursor);
+
+	public int getSafeInsetLeft ();
+
+	public int getSafeInsetTop ();
+
+	public int getSafeInsetBottom ();
+
+	public int getSafeInsetRight ();
 }
