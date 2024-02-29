@@ -82,7 +82,7 @@ public class BlackJackGame {
     }
 
     public void step(int action){
-        if(action == 1){
+        if(action == 0){
             step("hit");
         }else {
             step("stand");

@@ -30,7 +30,7 @@ public class AppQLearning extends Group {
     public AppQLearning() {
 //        this.factor = 0.928f;
         this.factor = 0.9f;
-        this.randomGenerator = new Random();
+        this.randomGenerator = new Random(1);
         game = new BlackJackGame(randomGenerator);
         try {
             writer = new FileWriter(new File("successP.csv"));
@@ -51,7 +51,7 @@ public class AppQLearning extends Group {
             for (int i1 = 0; i1 <= 31; i1++) {
                 ArrayList<Double> array = new ArrayList<>();
                 for (int i2 = 0; i2 < 2; i2++) {
-                    array.add(0.0);
+                    array.add(0.00000);
                 }
                 Q_matrisi.put(i + "" + i1, array);
             }
@@ -70,14 +70,15 @@ public class AppQLearning extends Group {
         int[] legalAction = state.getLegalAction();
 
         int bestAction;
-        int v = (int) (randomGenerator.nextInt(legalAction.length) * (1.0f / (episode + 1)));
+//        int v = (int) (randomGenerator.nextInt(legalAction.length) * (1.0f / (episode + 1)));
 //        if (Math.random() * episode/com.libGdx.test.ai.labyrinth.Constant.learnTimes<0.5) {
-//            bestAction = legalAction[randomGenerator.nextInt(legalAction.length)];
+            bestAction = legalAction[randomGenerator.nextInt(legalAction.length)];
+        bestAction = legalAction[(int) (Math.random()*legalAction.length)];
 //
 //        }else {
 //            bestAction = best(state);
 //        }
-        bestAction = (int) ((best(state) + v)%legalAction.length);
+
         game.step(bestAction);
         HashMap<String, Integer> winner = game.getWinner();
         int current_reward = winner.get("player" + game.getGame_pointer());
@@ -91,8 +92,8 @@ public class AppQLearning extends Group {
 
         ArrayList<Double> doubles = Q_matrisi.get(newStatus.getHandCard());
         Double aDouble = doubles.get(bestAction);
-        double q_value = aDouble + 0.0018* (current_reward+( factor * next_reward)-aDouble);
-//        double q_value = current_reward+factor * next_reward;
+//        double q_value = aDouble + 0.0018* (current_reward+( factor * next_reward)-aDouble);
+        double q_value = current_reward+factor * next_reward;
 
         doubles.set(bestAction, q_value);
         if (bestAction==1){
@@ -131,7 +132,7 @@ public class AppQLearning extends Group {
 
     public void gameRound() {
         allTimes++;
-
+        System.out.println("--------"+allTimes);
         if (episode > com.libGdx.test.ai.labyrinth.Constant.learnTimes) {
             System.out.println("fijish~"+episode*1.0f/allTimes);
             try {
@@ -145,7 +146,7 @@ public class AppQLearning extends Group {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            loadModel("../blackj.skl",getStage());
+            loadModel("blackj.skl",getStage());
             return;
         }
         //为true说明结束了，那么就进行下一局
@@ -154,31 +155,31 @@ public class AppQLearning extends Group {
         initialize_episode();
 
         playSuccessTimes = 0;
-//        for (int i = 0; i < 500; i++) {
-//            BlackJackGame game = new BlackJackGame(new Random());
-//            game.initGame();
-//            while (!game.isOver()){
-//                userStep(game);
-//            }
-//            HashMap<String, Integer> winner = game.getWinner();
-//            Integer integer = winner.get("player"+0);
-//            if (integer>0) {
-//                playSuccessTimes++;
-//            }
-//        }
-//        float xx = playSuccessTimes*1.f/ 500;
-////        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-////        System.out.println(xx);
-////        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-//        try {
-//            builder.setLength(0);
-//            builder.append(allTimes);
-//            builder.append(","+xx);
-//            builder.append("\r\n");
-//            writer.write(builder.toString());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        for (int i = 0; i < 500; i++) {
+            BlackJackGame game = new BlackJackGame(new Random());
+            game.initGame();
+            while (!game.isOver()){
+                userStep(game);
+            }
+            HashMap<String, Integer> winner = game.getWinner();
+            Integer integer = winner.get("player"+0);
+            if (integer>0) {
+                playSuccessTimes++;
+            }
+        }
+        float xx = playSuccessTimes*1.f/ 500;
+//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+//        System.out.println(xx);
+//        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        try {
+            builder.setLength(0);
+            builder.append(allTimes);
+            builder.append(","+xx);
+            builder.append("\r\n");
+            writer.write(builder.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private StringBuilder builder = new StringBuilder();
@@ -198,23 +199,24 @@ public class AppQLearning extends Group {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        for (String s : Q_matrisi.keySet()) {
-//            ArrayList<Double> doubles = Q_matrisi.get(s);
-//            builder.setLength(0);
-//            for (Double aDouble : doubles) {
-//                builder.append(s+"==="+aDouble);
-//            }
-//            System.out.println(builder.toString());
-//        }
+        for (String s : Q_matrisi.keySet()) {
+            ArrayList<Double> doubles = Q_matrisi.get(s);
+            builder.setLength(0);
+            for (Double aDouble : doubles) {
+                builder.append(s+"==="+aDouble+"  ");
+            }
+            System.out.println(builder.toString());
+        }
         System.out.println("-----------------------");
 
 
         playTIme();
+        System.exit(0);
 
-
-        ChatGroup group = new ChatGroup(cc);
-        group.showView();
-        stage.addActor(group);
+//
+//        ChatGroup group = new ChatGroup(cc);
+//        group.showView();
+//        stage.addActor(group);
 
     }
 
@@ -233,6 +235,7 @@ public class AppQLearning extends Group {
                     userStep(game);
                 }
                 HashMap<String, Integer> winner = game.getWinner();
+
                 Integer integer = winner.get("player"+0);
                 if (integer>0) {
                     playSuccessTimes++;

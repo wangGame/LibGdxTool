@@ -14,7 +14,7 @@ public class Train extends LibGdxTestMain {
         super.useShow(stage);
         AppQLearning appQLearning = new AppQLearning();
         appQLearning.startQLearning();
-//        appQLearning.loadModel("../blackj.skl",stage);
+//        appQLearning.loadModel("blackj.skl",stage);
         addActor(appQLearning);
     }
 }
