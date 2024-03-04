@@ -14,6 +14,9 @@ import com.kw.gdx.constant.Configuration;
 
 import java.util.List;
 
+/**
+ * call focurs method
+ */
 public class SafeAreaInsetsUtils {
     public static void getSafeAreaInsets(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
