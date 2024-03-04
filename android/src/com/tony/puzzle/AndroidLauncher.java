@@ -21,11 +21,14 @@ import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 
+import androidx.annotation.RequiresApi;
+
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
+import com.tony.SafeAreaInsetsUtils;
 import com.tony.TonyPermission;
 import com.tony.util.PackageUtils;
 
@@ -38,6 +41,7 @@ public class AndroidLauncher extends AndroidApplication {
     public static boolean isDebug = false;
     private boolean isNewUser;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +92,22 @@ public class AndroidLauncher extends AndroidApplication {
 //                        "-----" +getSafeInsetBottom()
 //        );
 
+
+
         PackageUtils utils = new PackageUtils(this);
         System.out.println("apkinfo --- apkname:"+utils.getApkName());
 
 
 
-    }
 
+//        getWindow().getDecorView().setOnApplyWindowInsetsListener((v, insets) -> {
+//            Log.i("TAG", "onTouch touch offsetX getStableInsetBottom = " +insets.getStableInsetBottom());
+//            Log.i("TAG", "onTouch touch offsetX getStableInsetTop = " +insets.getStableInsetTop());
+//            Log.i("TAG", "onTouch touch offsetX getStableInsetLeft = " +insets.getStableInsetLeft());
+//            Log.i("TAG", "onTouch touch offsetX getStableInsetRight = " +insets.getStableInsetRight());
+//            return insets;
+//        });
+    }
 
     private void initUser() {
         SharedPreferences artPuzzle = getSharedPreferences("ArtPuzzle", Context.MODE_PRIVATE);
@@ -235,6 +248,7 @@ public class AndroidLauncher extends AndroidApplication {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
+            SafeAreaInsetsUtils.getSafeAreaInsets(this);
         }
     }
     @Override

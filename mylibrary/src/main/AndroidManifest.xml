@@ -3,6 +3,6 @@
     package="com.example.mylibrary">
 
     <application
-        android:theme="@style/GdxTheme"></application>
+        android:theme="@style/FullContentGdxTheme"></application>
 
 </manifest>
