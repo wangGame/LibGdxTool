@@ -20,45 +20,45 @@ public class TimeApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        // ´´½¨¼ÆÊ±Æ÷
+        // åˆ›å»ºè®¡æ—¶å™¨
         l = converServerTime();
         startTime = startTime();
         showEnd(startTime - l);
 
-//        Ö´ĞĞ¶¨Ê±ÈÎÎñ£¨±ÈÈçÑÓ³Ù1ÃëºóÖ´ĞĞÈÎÎñ£©
+//        æ‰§è¡Œå®šæ—¶ä»»åŠ¡ï¼ˆæ¯”å¦‚å»¶è¿Ÿ1ç§’åæ‰§è¡Œä»»åŠ¡ï¼‰
 //        timer.scheduleTask(new Timer.Task() {
 //            @Override
 //            public void run() {
-//                // ÔÚÕâÀï±àĞ´ÄãµÄÈÎÎñ´úÂë
-//                System.out.println("ÈÎÎñÖ´ĞĞÁË£¡");
+//                // åœ¨è¿™é‡Œç¼–å†™ä½ çš„ä»»åŠ¡ä»£ç 
+//                System.out.println("ä»»åŠ¡æ‰§è¡Œäº†ï¼");
 //            }
-//        }, 1); // ÑÓ³Ù1ÃëºóÖ´ĞĞÈÎÎñ
+//        }, 1); // å»¶è¿Ÿ1ç§’åæ‰§è¡Œä»»åŠ¡
 
 
 //        String str = "Fri, 23 Feb 2024 08:14:55 GMT";
         Timer timer = new Timer();
-// ¿ÉÑ¡£ºÉèÖÃ¼ÆÊ±Æ÷ÎªÎŞÏŞÑ­»·Ö´ĞĞ
+// å¯é€‰ï¼šè®¾ç½®è®¡æ—¶å™¨ä¸ºæ— é™å¾ªç¯æ‰§è¡Œ
 //        timer.schedule();
 
-// ¿ÉÑ¡£ºÉèÖÃ¼ÆÊ±Æ÷µÄÖØ¸´´ÎÊıºÍ¼ä¸ôÊ±¼ä£¨±ÈÈçÃ¿¸ô0.5ÃëÖ´ĞĞÒ»´Î£¬×Ü¹²Ö´ĞĞ5´Î£©
+// å¯é€‰ï¼šè®¾ç½®è®¡æ—¶å™¨çš„é‡å¤æ¬¡æ•°å’Œé—´éš”æ—¶é—´ï¼ˆæ¯”å¦‚æ¯éš”0.5ç§’æ‰§è¡Œä¸€æ¬¡ï¼Œæ€»å…±æ‰§è¡Œ5æ¬¡ï¼‰
         timer.schedule(new TimerTask() {
             int count = 0;
 
             @Override
             public void run() {
-                // ÔÚÕâÀï±àĞ´ÄãµÄÈÎÎñ´úÂë
+                // åœ¨è¿™é‡Œç¼–å†™ä½ çš„ä»»åŠ¡ä»£ç 
                 l += 1000;
                 showEnd(startTime - l);
             }
-        }, 0, 1000); // ÑÓ³Ù1ÃëºóÖ´ĞĞµÚÒ»´ÎÈÎÎñ£¬Ö®ºóÃ¿¸ô0.5ÃëÖ´ĞĞÒ»´Î
+        }, 0, 1000); // å»¶è¿Ÿ1ç§’åæ‰§è¡Œç¬¬ä¸€æ¬¡ä»»åŠ¡ï¼Œä¹‹åæ¯éš”0.5ç§’æ‰§è¡Œä¸€æ¬¡
 
-        // ÔÚĞèÒªÍ£Ö¹¼ÆÊ±Æ÷Ê±£¬¿ÉÒÔµ÷ÓÃstop()·½·¨
+        // åœ¨éœ€è¦åœæ­¢è®¡æ—¶å™¨æ—¶ï¼Œå¯ä»¥è°ƒç”¨stop()æ–¹æ³•
         // timer.stop();
     }
 
     private void showEnd(long millis) {
         if (millis<=0){
-            //½áÊø  ·Ç·¨ÓÃ»§Ö±½Ó½áÊø
+            //ç»“æŸ  éæ³•ç”¨æˆ·ç›´æ¥ç»“æŸ
         }
         long seconds = millis / 1000;
         long minutes = seconds / 60;
@@ -69,7 +69,7 @@ public class TimeApp extends LibGdxTestMain {
     }
 
     public static long converServerTime(){
-        // ´´½¨ÓÃÓÚ½âÎöÈÕÆÚ×Ö·û´®µÄ¸ñÊ½»¯³ÌĞò
+        // åˆ›å»ºç”¨äºè§£ææ—¥æœŸå­—ç¬¦ä¸²çš„æ ¼å¼åŒ–ç¨‹åº
         try {
             String str = "Fri, 23 Feb 2024 08:14:55 GMT";
             SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);

@@ -15,20 +15,20 @@ dependencies {
     implementation project (':libGdxLib')
     implementation project (':libGdx')
     implementation 'junit:junit:4.12'
-    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-core
-    implementation 'org.deeplearning4j:rl4j-core:1.0.0-M1.1'
+//    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-core
+//    implementation 'org.deeplearning4j:rl4j-core:1.0.0-M1.1'
 
 //    implementation 'org.deeplearning4j:rl4j-api:1.0.0-beta3'
 //    implementation 'org.deeplearning4j:rl4j-ale:1.0.0-beta3'
 //    implementation 'org.deeplearning4j:rl4j-gym:1.0.0-beta3'
     // https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core
-    implementation 'org.deeplearning4j:deeplearning4j-core:1.0.0-M2.1'
+//    implementation 'org.deeplearning4j:deeplearning4j-core:1.0.0-M2.1'
     // https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform
-    implementation 'org.nd4j:nd4j-native-platform:1.0.0-M2.1'
+//    implementation 'org.nd4j:nd4j-native-platform:1.0.0-M2.1'
     // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-api
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-    implementation 'org.slf4j:slf4j-simple:2.1.0-alpha1'
+//    implementation 'org.slf4j:slf4j-simple:2.1.0-alpha1'
 
 
 }
