@@ -20,8 +20,9 @@ public class App extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        System.out.println(Locale.getDefault());
-        VBundle vBundle = new VBundle(Gdx.files.internal("bundle/Lang"));
+        System.out.println(Locale.US);
+        //用户指定  如果没有指定使用设备
+        VBundle vBundle = new VBundle(Gdx.files.internal("bundle/Lang"),Locale.US);
         System.out.println(vBundle.get("key"));
     }
 }

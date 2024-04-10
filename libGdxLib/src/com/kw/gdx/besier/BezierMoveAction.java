@@ -47,7 +47,7 @@ public class BezierMoveAction extends TemporalAction {
 
     @Override
     protected void update(float percent) {
-        tempPosition = vector2Bezier.valueAt(tempPosition, percent);
+        vector2Bezier.valueAt(tempPosition, percent);
         actor.setPosition(tempPosition.x,tempPosition.y);
     }
 }

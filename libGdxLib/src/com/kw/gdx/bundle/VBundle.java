@@ -14,16 +14,13 @@ public class VBundle {
     private I18NBundle bundle;
     private FileHandle languagePath;
     private Locale userLocal;
-    private Locale deviceLocal;
 
     public VBundle(FileHandle languagePath) {
         this.languagePath = languagePath;
-        deviceLocal = Locale.FRENCH;
     }
 
     public VBundle(FileHandle languagePath,Locale userLocal) {
         this.languagePath = languagePath;
-        this.deviceLocal = GameLocale.getGameLocale().getDefault();
         this.userLocal = userLocal;
     }
 

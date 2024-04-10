@@ -10,16 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class PolygonClipGroup extends Group {
     private Polygon polygon;
-    private ShapeRenderer shapeRenderer;
+    private ShaperRenerInteface shapeRenderer;
     private int blendSrcFunc = GL20.GL_SRC_ALPHA;
     private int blendDstFunc = GL20.GL_ONE_MINUS_SRC_ALPHA;
     private int blendSrcFuncAlpha = GL20.GL_SRC_ALPHA;
     private int blendDstFuncAlpha = GL20.GL_ONE_MINUS_SRC_ALPHA;
     private float value;
 
-    public PolygonClipGroup(ShapeRenderer shapeRenderer){
+    public PolygonClipGroup(ShaperRenerInteface shapeRenderer){
         this.shapeRenderer = shapeRenderer;
-        shapeRenderer.setAutoShapeType(true);
         polygon = new Polygon();
         polygon.setVertices(new float[]{0,0,0,100,100,100,100,0});
         setPosition(200,200);
@@ -48,7 +47,7 @@ public class PolygonClipGroup extends Group {
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
         System.out.println(Math.sin(value));
-        shapeRenderer.circle(getWidth()/2.0f,getHeight()/2.0f, (float) (200 + 100 * Math.sin(value)));
+        shapeRenderer.draw();
         shapeRenderer.end();
 
 

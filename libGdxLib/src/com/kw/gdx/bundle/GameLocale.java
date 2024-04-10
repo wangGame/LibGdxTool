@@ -9,7 +9,6 @@ import java.util.Locale;
  * @Date 2024/1/1 22:05
  */
 public class GameLocale {
-    private Locale currentLocale;
     private static GameLocale gameLocale;
 
     public static GameLocale getGameLocale() {
@@ -26,4 +25,5 @@ public class GameLocale {
     public Locale getDefault(){
         return Locale.getDefault();
     }
+
 }
