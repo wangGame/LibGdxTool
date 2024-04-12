@@ -1,5 +1,6 @@
 package com.kw.gdx.utils;
 
+import com.kw.gdx.bean.DateBean;
 import com.kw.gdx.utils.log.StringUtils;
 
 /**
@@ -44,5 +45,14 @@ public class TimeUtils {
         }
     }
 
-
+    public DateBean timeBean(int diff){
+        int sec = diff % 60;
+        int min = diff / 60 % 60;
+        int hour = diff / 3600;
+        DateBean bean = new DateBean();
+        bean.setHour(hour);
+        bean.setMinute(min);
+        bean.setSecond(sec);
+        return bean;
+    }
 }
