@@ -52,4 +52,7 @@ public class Constant {
         Constant.GAMEHIGHT = stageViewport.getWorldHeight();
     }
 
+    public static float maxScale(){
+        return Math.max(Constant.GAMEWIDTH/Constant.WIDTH,Constant.GAMEHIGHT/Constant.HIGHT);
+    }
 }

@@ -334,7 +334,6 @@ public class TextField extends Widget implements Disableable {
 					width - bgLeftWidth - bgRightWidth, textHAlign, false, "...");
 			}
 		} else {
-			System.out.println(font+"   font" + fontColor +"    fontColor");
 			font.setColor(fontColor.r, fontColor.g, fontColor.b, fontColor.a * color.a * parentAlpha);
 			drawText(batch, font, x + bgLeftWidth, y + textY + yOffset);
 		}
