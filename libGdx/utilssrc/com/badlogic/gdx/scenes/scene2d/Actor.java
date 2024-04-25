@@ -565,6 +565,16 @@ public class Actor {
         }
     }
 
+    public void setCenter(float width,float height){
+        setPosition(width/2.0f,height/2.0f,Align.center);
+    }
+
+    public void setCenter(){
+        if (parent!=null) {
+            setPosition(parent.getWidth()/2.0f,parent.getHeight()/2.0f,Align.center);
+        }
+    }
+
     /**
      * Sets the position using the specified {@link Align alignment}. Note this may set the position to non-integer
      * coordinates.
