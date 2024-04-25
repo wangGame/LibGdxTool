@@ -11,6 +11,11 @@ public class Configuration {
     public static int screen_width = (int)Constant.WIDTH;
     public static int screen_height = (int)Constant.HIGHT;
     public static int bannerHeight = 90;
+    //刘海
+    public static float left = 0;
+    public static float top = 0;
+    public static float right = 0;
+    public static float bottom = 0;
 
     public enum DeviceState{
         poor,good

@@ -1,0 +1,115 @@
+
+out.png
+size: 2024,2024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg_theme_canyon_1
+  rotate: false
+  xy: 1298, 135
+  size: 720, 1151
+  orig: 720, 1151
+  offset: 0, 0
+  index: -1
+bg_theme_plain_1
+  rotate: false
+  xy: 6, 738
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: -1
+bg_theme_sea_1
+  rotate: true
+  xy: 6, 6
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: -1
+bg_theme_wasteland_1
+  rotate: true
+  xy: 738, 1298
+  size: 720, 1280
+  orig: 720, 1280
+  offset: 0, 0
+  index: -1
+
+out2.png
+size: 1815,1895
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg_theme_canyon_2
+  rotate: false
+  xy: 6, 738
+  size: 720, 1151
+  orig: 720, 1151
+  offset: 0, 0
+  index: -1
+bg_theme_city_1
+  rotate: true
+  xy: 738, 1169
+  size: 720, 1070
+  orig: 720, 1070
+  offset: 0, 0
+  index: -1
+bg_theme_city_2
+  rotate: true
+  xy: 6, 6
+  size: 720, 1071
+  orig: 720, 1071
+  offset: 0, 0
+  index: -1
+bg_theme_city_3
+  rotate: false
+  xy: 1089, 87
+  size: 720, 1070
+  orig: 720, 1070
+  offset: 0, 0
+  index: -1
+
+out3.png
+size: 1464,2037
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg_theme_desert_1
+  rotate: false
+  xy: 6, 6
+  size: 720, 956
+  orig: 720, 956
+  offset: 0, 0
+  index: -1
+bg_theme_desert_3
+  rotate: false
+  xy: 738, 6
+  size: 720, 956
+  orig: 720, 956
+  offset: 0, 0
+  index: -1
+bg_theme_snowfield_1
+  rotate: false
+  xy: 6, 974
+  size: 720, 1057
+  orig: 720, 1057
+  offset: 0, 0
+  index: -1
+bg_theme_snowfield_2
+  rotate: false
+  xy: 738, 974
+  size: 720, 1057
+  orig: 720, 1057
+  offset: 0, 0
+  index: -1
+
+out4.png
+size: 732,967
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bg_theme_desert_2
+  rotate: false
+  xy: 6, 6
+  size: 720, 955
+  orig: 720, 955
+  offset: 0, 0
+  index: -1

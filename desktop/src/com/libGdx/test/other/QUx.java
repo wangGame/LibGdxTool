@@ -12,19 +12,13 @@ import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 
-import kw.test.file.Bean;
-import kw.test.file.ReadFileConfig;
-
 /**
  * @Auther jian xian si qi
  * @Date 2023/6/28 16:46
  */
 class QUx extends ApplicationAdapter {
     public static void main(String[] args) {
-        ReadFileConfig readFileConfig = new ReadFileConfig();
-        Bean value = readFileConfig.getValue();
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.title=value.getName();
         config.x = 1000;
         config.y = 0;
         config.height = (int) (900 );

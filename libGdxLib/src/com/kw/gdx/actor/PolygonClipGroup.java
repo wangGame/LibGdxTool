@@ -10,20 +10,25 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class PolygonClipGroup extends Group {
     private Polygon polygon;
-    private ShapeRenderer shapeRenderer;
-
-    public PolygonClipGroup(ShapeRenderer shapeRenderer){
-        this.shapeRenderer = shapeRenderer;
-        shapeRenderer.setAutoShapeType(true);
-        polygon = new Polygon();
-        polygon.setVertices(new float[]{0,0,0,100,100,100,100,0});
-        setPosition(200,200);
-    }
+    private ShaperRenerInteface shapeRenderer;
     private int blendSrcFunc = GL20.GL_SRC_ALPHA;
     private int blendDstFunc = GL20.GL_ONE_MINUS_SRC_ALPHA;
     private int blendSrcFuncAlpha = GL20.GL_SRC_ALPHA;
     private int blendDstFuncAlpha = GL20.GL_ONE_MINUS_SRC_ALPHA;
+    private float value;
 
+    public PolygonClipGroup(ShaperRenerInteface shapeRenderer){
+        this.shapeRenderer = shapeRenderer;
+        polygon = new Polygon();
+        polygon.setVertices(new float[]{0,0,0,100,100,100,100,0});
+        setPosition(200,200);
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        value += delta;
+    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -34,15 +39,16 @@ public class PolygonClipGroup extends Group {
         Gdx.gl.glEnable(GL20.GL_STENCIL_TEST);
         Gdx.gl.glStencilOp(GL20.GL_KEEP, GL20.GL_KEEP, GL20.GL_REPLACE);//第一次绘制的像素的模版值 0+1 = 1
         Gdx.gl.glStencilFunc(GL20.GL_ALWAYS, 1, 0xFF);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 //        shapeRenderer.polygon(polygon.getVertices());
         shapeRenderer.setColor(new Color(255f / 255f, 255f / 255f, 255.0f / 255f, 1f));
 
 
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
-
-        shapeRenderer.circle(0,0,200);
+        System.out.println(Math.sin(value));
+        shapeRenderer.draw();
+        shapeRenderer.end();
 
 
         Gdx.gl.glDisable(GL20.GL_BLEND);

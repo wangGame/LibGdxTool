@@ -6,8 +6,8 @@ import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
 
 public class Constant {
-    public static boolean SHOWRENDERCALL = false;
-    public static boolean SHOWFRAMESPERSECOND = false;
+    public static boolean SHOWRENDERCALL = false; //render call
+    public static boolean SHOWFRAMESPERSECOND = false; //展示fps
     public static boolean DEBUG = false;
     public static boolean realseDebug = true;
 //    viewport
@@ -18,9 +18,6 @@ public class Constant {
     public static final int SPRITEBATCH = 1;
 //  assetManager Type
     public static int ASSETMANAGERTYPE = 0;
-    public static final int INTERNALASSETMANAGER = 0;
-    public static final int LOCALASSETMANAGER = 1;
-    public static final int BOTHASASSETMANAGER = 2;
     //
     public static double gameDensity = 2;
     //设计尺寸
@@ -40,9 +37,6 @@ public class Constant {
     public static float soundV = 1;
     public static boolean isMusic = true;
     public static BaseScreen currentActiveScreen;
-    //watch dog
-    public static boolean watchDog = false;
-    public static int watchDogTime = 5000;
 
     public static void updateInfo(GameInfo info){
         if (info == null)return;
@@ -58,4 +52,7 @@ public class Constant {
         Constant.GAMEHIGHT = stageViewport.getWorldHeight();
     }
 
+    public static float maxScale(){
+        return Math.max(Constant.GAMEWIDTH/Constant.WIDTH,Constant.GAMEHIGHT/Constant.HIGHT);
+    }
 }

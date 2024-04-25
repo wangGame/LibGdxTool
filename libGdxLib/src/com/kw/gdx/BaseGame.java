@@ -1,7 +1,5 @@
 package com.kw.gdx;
 
-import com.anrutils.example.ANRError;
-import com.anrutils.example.ANRWatchDog;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -27,7 +25,7 @@ import java.io.ObjectOutputStream;
 public class BaseGame extends Game {
     private Batch batch;
     private Viewport stageViewport;
-    private ANRWatchDog anrWatchDog;
+
 
     @Override
     public void create() {
@@ -36,9 +34,7 @@ public class BaseGame extends Game {
         initInstance();
         initViewport();
         initExtends();
-        if (Constant.watchDog){
-            initAnrWatchDog();
-        }
+
         Gdx.app.postRunnable(()->{
             loadingView();
         });
@@ -55,48 +51,10 @@ public class BaseGame extends Game {
     }
 
     private void initExtends() {
-//        extendInfo = new Label("1111111111111111111111111111111",new Label.LabelStyle(){{
-//            font =Asset.getAsset().loadBitFont("font/Bahnschrift-Regular_40_1.fnt");
-//        }});
         Asset.getAsset();
     }
 
-    public void initAnrWatchDog(){
-        anrWatchDog = new ANRWatchDog(Constant.watchDogTime);
-        anrWatchDog.setANRListener(new ANRWatchDog.ANRListener() {
-                    @Override
-                    public void onAppNotResponding(ANRError error) {
-                        NLog.e("ANR-Watchdog-Demo", "Detected Application Not Responding!");
 
-                        // Some tools like ACRA are serializing the exception, so we must make sure the exception serializes correctly
-                        try {
-                            new ObjectOutputStream(new ByteArrayOutputStream()).writeObject(error);
-                        }
-                        catch (IOException ex) {
-                            throw new RuntimeException(ex);
-                        }
-
-                        NLog.i("ANR-Watchdog-Demo", "Error was successfully serialized");
-                        try {
-                            throw error;
-                        } catch (ANRError anrError) {
-                            anrError.printStackTrace();
-                        }
-                    }
-                })
-                .setANRInterceptor(new ANRWatchDog.ANRInterceptor() {
-                    @Override
-                    public long intercept(long duration) {
-                        long ret = 4 * 1000 - duration;
-                        if (ret > 0)
-                            NLog.i("ANR-Watchdog-Demo", "Intercepted ANR that is too short (" + duration + " ms), postponing for " + ret + " ms.");
-                        return ret;
-                    }
-                })
-        ;
-        anrWatchDog.setReportThreadNamePrefix("|ANR-WatchDog|");
-        anrWatchDog.start();
-    }
 
     private void gameInfoConfig() {
         GameInfo info = AnnotationInfo.checkClassAnnotation(this,GameInfo.class);
@@ -130,8 +88,12 @@ public class BaseGame extends Game {
 
     @Override
     public void render() {
+//        Gdx.gl.glClearColor(1.0f,1.0f,1.0f,1.0f);
         Gdx.gl.glClearColor(Constant.viewColor.r,Constant.viewColor.g,Constant.viewColor.b,Constant.viewColor.a);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+        Gdx.gl.glClear(
+                GL20.GL_COLOR_BUFFER_BIT
+                | GL20.GL_DEPTH_BUFFER_BIT
+                | GL20.GL_STENCIL_BUFFER_BIT);
         if (Constant.SHOWFRAMESPERSECOND){
             NLog.i("FramesPerSecond",Gdx.app.getGraphics().getFramesPerSecond());
         }

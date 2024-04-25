@@ -16,6 +16,7 @@ import com.kw.gdx.resource.annotation.ShaderResource;
 @ShaderResource()
 public class ShaderGroup extends Group {
     protected ShaderProgram program;
+
     public ShaderGroup(){
         ShaderResource annotation = AnnotationInfo.checkClassAnnotation(this,ShaderResource.class);
         if (annotation!=null){

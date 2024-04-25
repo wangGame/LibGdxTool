@@ -1,0 +1,165 @@
+{
+  "ID": "c27f6eeb-23fb-4329-95ed-04a8e30a12a3",
+  "Version": "2.3.4",
+  "Name": "LaodingScreen",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 505,
+        "Children": [
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "image/bg.png",
+              "Plist": ""
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 640.0,
+              "Y": 360.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.5
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 506,
+            "ActionTag": 178788819,
+            "Size": {
+              "X": 1280.0,
+              "Y": 720.0
+            },
+            "Name": "bg_1",
+            "ctype": "SpriteObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "image/bg_.png",
+              "Plist": ""
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 640.0,
+              "Y": 150.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.2083
+            },
+            "PreSize": {
+              "X": 0.5797,
+              "Y": 0.0611
+            },
+            "LeftMargin": 269.0,
+            "RightMargin": 269.0,
+            "TopMargin": 548.0,
+            "BottomMargin": 128.0,
+            "Tag": 507,
+            "ActionTag": 1893164617,
+            "Size": {
+              "X": 742.0,
+              "Y": 44.0
+            },
+            "Name": "bg__2",
+            "ctype": "SpriteObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "image/jindutiao.png",
+              "Plist": ""
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 640.0,
+              "Y": 150.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.2083
+            },
+            "PreSize": {
+              "X": 0.5711,
+              "Y": 0.0486
+            },
+            "LeftMargin": 274.5,
+            "RightMargin": 274.5,
+            "TopMargin": 552.5,
+            "BottomMargin": 132.5,
+            "Tag": 508,
+            "ActionTag": 1248204820,
+            "Size": {
+              "X": 731.0,
+              "Y": 35.0
+            },
+            "Name": "jindutiao_3",
+            "ctype": "SpriteObjectData"
+          }
+        ],
+        "Size": {
+          "X": 1280.0,
+          "Y": 720.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "image/bg.png",
+        "image/bg_.png",
+        "image/jindutiao.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

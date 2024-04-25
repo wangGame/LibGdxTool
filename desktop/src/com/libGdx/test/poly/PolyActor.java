@@ -8,23 +8,36 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ShortArray;
+import com.kw.gdx.asset.Asset;
 
 /**
+ *
+ *裁剪   点变为图形
  * @Auther jian xian si qi
  * @Date 2023/7/24 14:16
  */
 public class PolyActor extends Actor {
     private PolygonSprite poly;
+
+//    Image image1 = new Image(Asset.getAsset().getTexture("assets/hand1.png"));
     public PolyActor(){
-        Texture texture = new Texture("fangshiyi.png");
+        setSize(500,500);
+        setDebug(true);
+        Texture texture = new Texture("assets/hand1.png");
         TextureRegion region = new TextureRegion(texture);
+//        image = new Image(texture);
         float rwidth = region.getRegionWidth();
         float rheight = region.getRegionHeight();
         float fv[] = {
                 rwidth/2,rheight/2,
                 rwidth/2,rheight,
                 rwidth,rheight,
+                rwidth,0,
+                0,0,
+                0,rheight,
+                rwidth/3,rheight
         };
         EarClippingTriangulator triangulator = new EarClippingTriangulator();
         ShortArray shortArray = triangulator.computeTriangles(fv);
@@ -35,7 +48,8 @@ public class PolyActor extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+//        super.draw(batch, parentAlpha);
+//        image1.draw(batch,parentAlpha);
         poly.draw((PolygonSpriteBatch) batch);
     }
 }

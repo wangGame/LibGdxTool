@@ -19,75 +19,19 @@ public class Demo extends LibGdxTestMain {
         demo.start(demo);
     }
 
-    private float baseX;
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
         Table table = new Table(){
             {
-                for (int i = 0; i < 100; i++) {
-                    add(new DemoGroup(){
-                        @Override
-                        public void draw(Batch batch, float parentAlpha) {
-                            super.draw(batch, parentAlpha);
-                            float v = getX() - baseX;
-                            setOffSetX(v);
-                        }
-                    });
+                for (int i = 0; i < 15; i++) {
+                    add(new DemoGroup(i));
                 }
                 pack();
             }
         };
-        ScrollPane pane = new ScrollPane(table){
-            @Override
-            public void act(float delta) {
-
-                baseX = getScrollX()+Constant.GAMEWIDTH/2;
-                super.act(delta);
-            }
-        };
+        ScrollPane pane = new ScrollPane(table);
         pane.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
         addActor(pane);
-
-
-
-        pane.addAction(Actions.sequence(Actions.run(new Runnable() {
-            @Override
-            public void run() {
-                pane.setScrollX(100);
-                pane.updateVisualScroll();
-            }
-        }),Actions.delay(4),
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        pane.setScrollX(0);
-                        pane.updateVisualScroll();
-                    }
-                }),Actions.delay(4),
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        pane.setScrollX(29);
-
-                    }
-                }),Actions.delay(4),
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        pane.setScrollX(500);
-
-                    }
-                }),Actions.delay(4),
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        pane.setScrollX(400);
-
-                    }
-                })
-                ));
     }
 }

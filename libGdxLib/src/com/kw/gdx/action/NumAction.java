@@ -5,6 +5,7 @@ import com.kw.gdx.resource.csvanddata.ConvertUtil;
 import com.kw.gdx.utils.ClassType;
 
 import java.lang.reflect.Field;
+import java.util.Random;
 
 /**
  * 有点翻车，初衷是使用泛型，让数字在一段时间内变化到目标值。
@@ -19,6 +20,7 @@ import java.lang.reflect.Field;
 public class NumAction extends TemporalAction {
     private Double start, end;
     private Double value;
+    private Runnable updateRunnable;
 
     /** Creates an IntAction that transitions from start to end. */
     public NumAction (Number start, Number end) {
@@ -26,12 +28,19 @@ public class NumAction extends TemporalAction {
         this.end = Double.valueOf(end.toString());
     }
 
+    public void setUpdateRunnable(Runnable updateRunnable) {
+        this.updateRunnable = updateRunnable;
+    }
+
     protected void begin () {
         value = start;
     }
 
     protected void update (float percent) {
-        value = start + (end -start) * percent;
+        value = start + (end - start) * percent;
+        if (updateRunnable!=null) {
+            updateRunnable.run();
+        }
     }
 
     /** Gets the current int value. */

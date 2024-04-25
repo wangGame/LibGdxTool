@@ -16,7 +16,7 @@ import com.libGdx.test.base.LibGdxTestMain;
  * @Auther jian xian si qi
  * @Date 2023/7/24 13:56
  */
-@GameInfo(width = 320,height = 400,batch = Constant.COUPOLYGONBATCH)
+@GameInfo(width = 720,height = 1280,batch = Constant.COUPOLYGONBATCH)
 public class PolygonTest extends LibGdxTestMain {
     public static void main(String[] args) {
         PolygonTest polygonTest = new PolygonTest();

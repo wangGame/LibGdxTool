@@ -1,4 +1,4 @@
-package com.kw.gdx.label;
+package com.kw.gdx.view.label;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Colors;

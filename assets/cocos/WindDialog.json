@@ -1,0 +1,1210 @@
+{
+  "ID": "7c0affc4-b94a-4ddd-8934-07322dd69f24",
+  "Version": "2.3.4",
+  "Name": "WindDialog",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 306,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 640.0,
+              "Y": 360.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.5
+            },
+            "PreSize": {
+              "X": 0.8562,
+              "Y": 0.6417
+            },
+            "LeftMargin": 92.0,
+            "RightMargin": 92.0,
+            "TopMargin": 129.0,
+            "BottomMargin": 129.0,
+            "Tag": 328,
+            "Children": [
+              {
+                "FontSize": 14,
+                "ButtonText": "",
+                "TextColor": {
+                  "R": 65,
+                  "G": 65,
+                  "B": 70
+                },
+                "DisabledFileData": {
+                  "Type": "Default",
+                  "Path": "Default/Button_Disable.png",
+                  "Plist": ""
+                },
+                "PressedFileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_Btn1.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "NormalFileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_Btn1.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 11,
+                "Scale9Width": 137,
+                "Scale9Height": 51,
+                "OutlineColor": {
+                  "G": 0,
+                  "B": 0
+                },
+                "ShadowColor": {
+                  "R": 110,
+                  "G": 110,
+                  "B": 110
+                },
+                "ShadowOffsetX": 2.0,
+                "ShadowOffsetY": -2.0,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 536.8519,
+                  "Y": 39.4166
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4898,
+                  "Y": 0.0853
+                },
+                "PreSize": {
+                  "X": 0.1524,
+                  "Y": 0.158
+                },
+                "LeftMargin": 453.3519,
+                "RightMargin": 475.6481,
+                "TopMargin": 386.0834,
+                "BottomMargin": 2.9166,
+                "Tag": 307,
+                "Children": [
+                  {
+                    "FontSize": 35,
+                    "LabelText": "返回",
+                    "FontResource": {
+                      "Type": "Normal",
+                      "Path": "fonts/FZY4JW.TTF",
+                      "Plist": ""
+                    },
+                    "OutlineColor": {
+                      "G": 0,
+                      "B": 0
+                    },
+                    "ShadowColor": {
+                      "R": 110,
+                      "G": 110,
+                      "B": 110
+                    },
+                    "ShadowOffsetX": 2.0,
+                    "ShadowOffsetY": -2.0,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 83.0,
+                      "Y": 43.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 189,
+                      "G": 254,
+                      "B": 69
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.497,
+                      "Y": 0.589
+                    },
+                    "PreSize": {
+                      "X": 0.4251,
+                      "Y": 0.5616
+                    },
+                    "LeftMargin": 47.5,
+                    "RightMargin": 48.5,
+                    "TopMargin": 9.5,
+                    "BottomMargin": 22.5,
+                    "Tag": 308,
+                    "ActionTag": -692607764,
+                    "Size": {
+                      "X": 71.0,
+                      "Y": 41.0
+                    },
+                    "Name": "Text_1",
+                    "ctype": "TextObjectData"
+                  }
+                ],
+                "ActionTag": 1997325630,
+                "Size": {
+                  "X": 167.0,
+                  "Y": 73.0
+                },
+                "Name": "Button_Back_GM",
+                "ctype": "ButtonObjectData"
+              },
+              {
+                "FontSize": 14,
+                "ButtonText": "",
+                "TextColor": {
+                  "R": 65,
+                  "G": 65,
+                  "B": 70
+                },
+                "DisabledFileData": {
+                  "Type": "Default",
+                  "Path": "Default/Button_Disable.png",
+                  "Plist": ""
+                },
+                "PressedFileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_Btn2.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "NormalFileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_Btn2.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 11,
+                "Scale9Width": 137,
+                "Scale9Height": 51,
+                "OutlineColor": {
+                  "G": 0,
+                  "B": 0
+                },
+                "ShadowColor": {
+                  "R": 110,
+                  "G": 110,
+                  "B": 110
+                },
+                "ShadowOffsetX": 2.0,
+                "ShadowOffsetY": -2.0,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 701.8481,
+                  "Y": 40.4169
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.6404,
+                  "Y": 0.0875
+                },
+                "PreSize": {
+                  "X": 0.1524,
+                  "Y": 0.158
+                },
+                "LeftMargin": 618.3481,
+                "RightMargin": 310.6519,
+                "TopMargin": 385.0831,
+                "BottomMargin": 3.9169,
+                "Tag": 309,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "PlistSubImage",
+                      "Path": "eightBall_Word_PlayAgain.png",
+                      "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                    },
+                    "Scale9OriginX": 42,
+                    "Scale9OriginY": 11,
+                    "Scale9Width": 45,
+                    "Scale9Height": 12,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5109,
+                      "ScaleY": 0.5109
+                    },
+                    "Position": {
+                      "X": 85.4991,
+                      "Y": 41.4996
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.512,
+                      "Y": 0.5685
+                    },
+                    "PreSize": {
+                      "X": 0.7725,
+                      "Y": 0.4658
+                    },
+                    "LeftMargin": 19.593,
+                    "RightMargin": 18.407,
+                    "TopMargin": 14.871,
+                    "BottomMargin": 24.129,
+                    "Tag": 310,
+                    "ActionTag": -1527532652,
+                    "Size": {
+                      "X": 129.0,
+                      "Y": 34.0
+                    },
+                    "Name": "Image_3",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": -758720149,
+                "Size": {
+                  "X": 167.0,
+                  "Y": 73.0
+                },
+                "Name": "Button_Again",
+                "ctype": "ButtonObjectData"
+              },
+              {
+                "FontSize": 14,
+                "ButtonText": "",
+                "TextColor": {
+                  "R": 65,
+                  "G": 65,
+                  "B": 70
+                },
+                "DisabledFileData": {
+                  "Type": "Default",
+                  "Path": "Default/Button_Disable.png",
+                  "Plist": ""
+                },
+                "PressedFileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_Btn1.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "NormalFileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_Btn1.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 11,
+                "Scale9Width": 137,
+                "Scale9Height": 51,
+                "OutlineColor": {
+                  "G": 0,
+                  "B": 0
+                },
+                "ShadowColor": {
+                  "R": 110,
+                  "G": 110,
+                  "B": 110
+                },
+                "ShadowOffsetX": 2.0,
+                "ShadowOffsetY": -2.0,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 372.8521,
+                  "Y": 37.4164
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.3402,
+                  "Y": 0.081
+                },
+                "PreSize": {
+                  "X": 0.1524,
+                  "Y": 0.158
+                },
+                "LeftMargin": 289.3521,
+                "RightMargin": 639.6478,
+                "TopMargin": 388.0836,
+                "BottomMargin": 0.9164,
+                "Tag": 311,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "PlistSubImage",
+                      "Path": "eightBall_Word_BackHall.png",
+                      "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                    },
+                    "Scale9OriginX": 42,
+                    "Scale9OriginY": 11,
+                    "Scale9Width": 46,
+                    "Scale9Height": 12,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 82.0004,
+                      "Y": 41.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.491,
+                      "Y": 0.5616
+                    },
+                    "PreSize": {
+                      "X": 0.7784,
+                      "Y": 0.4658
+                    },
+                    "LeftMargin": 17.0004,
+                    "RightMargin": 19.9996,
+                    "TopMargin": 15.0,
+                    "BottomMargin": 24.0,
+                    "Tag": 312,
+                    "ActionTag": 991646417,
+                    "Size": {
+                      "X": 130.0,
+                      "Y": 34.0
+                    },
+                    "Name": "Image_2",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": -11242572,
+                "Size": {
+                  "X": 167.0,
+                  "Y": 73.0
+                },
+                "Name": "Button_BackHall",
+                "ctype": "ButtonObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 666.8135,
+                  "Y": 189.4165
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.6084,
+                  "Y": 0.41
+                },
+                "PreSize": {
+                  "X": 0.1825,
+                  "Y": 0.4329
+                },
+                "LeftMargin": 666.8135,
+                "RightMargin": 229.1865,
+                "TopMargin": 72.5835,
+                "BottomMargin": 189.4165,
+                "Tag": 313,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "PlistSubImage",
+                      "Path": "eightBall_Word_winner.png",
+                      "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                    },
+                    "Scale9OriginX": 72,
+                    "Scale9OriginY": 15,
+                    "Scale9Width": 75,
+                    "Scale9Height": 17,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 100.9952,
+                      "Y": 247.0048
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.505,
+                      "Y": 1.235
+                    },
+                    "PreSize": {
+                      "X": 1.095,
+                      "Y": 0.235
+                    },
+                    "LeftMargin": -8.5048,
+                    "RightMargin": -10.4952,
+                    "TopMargin": -70.5048,
+                    "BottomMargin": 223.5048,
+                    "Tag": 314,
+                    "ActionTag": 331114484,
+                    "Size": {
+                      "X": 219.0,
+                      "Y": 47.0
+                    },
+                    "Name": "Winner",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FontSize": 35,
+                    "LabelText": "+9999",
+                    "FontResource": {
+                      "Type": "Normal",
+                      "Path": "fonts/FZY4JW.TTF",
+                      "Plist": ""
+                    },
+                    "OutlineColor": {
+                      "G": 0,
+                      "B": 0
+                    },
+                    "ShadowColor": {
+                      "R": 110,
+                      "G": 110,
+                      "B": 110
+                    },
+                    "ShadowOffsetX": 2.0,
+                    "ShadowOffsetY": -2.0,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 96.5007,
+                      "Y": 3.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 246,
+                      "B": 1
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4825,
+                      "Y": 0.015
+                    },
+                    "PreSize": {
+                      "X": 0.515,
+                      "Y": 0.205
+                    },
+                    "LeftMargin": 96.5007,
+                    "RightMargin": 0.4993,
+                    "TopMargin": 176.5,
+                    "BottomMargin": -17.5,
+                    "Tag": 315,
+                    "ActionTag": -650007810,
+                    "Size": {
+                      "X": 103.0,
+                      "Y": 41.0
+                    },
+                    "Name": "WinScore",
+                    "ctype": "TextObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "PlistSubImage",
+                      "Path": "eightBall_Head_Bg.png",
+                      "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                    },
+                    "Scale9OriginX": 21,
+                    "Scale9OriginY": 21,
+                    "Scale9Width": 75,
+                    "Scale9Height": 76,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 102.9984,
+                      "Y": 134.0047
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.515,
+                      "Y": 0.67
+                    },
+                    "PreSize": {
+                      "X": 0.585,
+                      "Y": 0.59
+                    },
+                    "LeftMargin": 44.4984,
+                    "RightMargin": 38.5016,
+                    "TopMargin": 6.9953,
+                    "BottomMargin": 75.0047,
+                    "Tag": 316,
+                    "ActionTag": 941407829,
+                    "Size": {
+                      "X": 117.0,
+                      "Y": 118.0
+                    },
+                    "Name": "Head_Main",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "Default",
+                      "Path": "Default/ImageFile.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 20,
+                    "Scale9Width": 18,
+                    "Scale9Height": 6,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 60.0,
+                      "Y": 6.0017
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3,
+                      "Y": 0.03
+                    },
+                    "PreSize": {
+                      "X": 0.3,
+                      "Y": 0.25
+                    },
+                    "LeftMargin": 30.0,
+                    "RightMargin": 110.0,
+                    "TopMargin": 168.9983,
+                    "BottomMargin": -18.9983,
+                    "Tag": 317,
+                    "ActionTag": 1015041344,
+                    "Size": {
+                      "X": 60.0,
+                      "Y": 50.0
+                    },
+                    "Name": "Image_7",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "Default",
+                      "Path": "Default/ImageFile.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 2,
+                    "Scale9OriginY": 2,
+                    "Scale9Width": 42,
+                    "Scale9Height": 42,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 103.0,
+                      "Y": 136.0005
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.515,
+                      "Y": 0.68
+                    },
+                    "PreSize": {
+                      "X": 0.515,
+                      "Y": 0.515
+                    },
+                    "LeftMargin": 51.5,
+                    "RightMargin": 45.5,
+                    "TopMargin": 12.4995,
+                    "BottomMargin": 84.5005,
+                    "Tag": 318,
+                    "ActionTag": -73176928,
+                    "Size": {
+                      "X": 103.0,
+                      "Y": 103.0
+                    },
+                    "Name": "Head",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FontSize": 27,
+                    "LabelText": "韦嘉丽",
+                    "FontResource": {
+                      "Type": "Normal",
+                      "Path": "fonts/FZY4JW.TTF",
+                      "Plist": ""
+                    },
+                    "HorizontalAlignmentType": "HT_Center",
+                    "VerticalAlignmentType": "VT_Center",
+                    "OutlineColor": {
+                      "G": 0,
+                      "B": 0
+                    },
+                    "ShadowColor": {
+                      "R": 110,
+                      "G": 110,
+                      "B": 110
+                    },
+                    "ShadowOffsetX": 2.0,
+                    "ShadowOffsetY": -2.0,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 100.9976,
+                      "Y": 54.0042
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 163,
+                      "G": 210,
+                      "B": 254
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.505,
+                      "Y": 0.27
+                    },
+                    "PreSize": {
+                      "X": 0.415,
+                      "Y": 0.16
+                    },
+                    "LeftMargin": 59.4976,
+                    "RightMargin": 57.5024,
+                    "TopMargin": 129.9958,
+                    "BottomMargin": 38.0042,
+                    "Tag": 319,
+                    "ActionTag": -425480203,
+                    "Size": {
+                      "X": 83.0,
+                      "Y": 32.0
+                    },
+                    "Name": "NickName",
+                    "ctype": "TextObjectData"
+                  }
+                ],
+                "ActionTag": -1649825437,
+                "Size": {
+                  "X": 200.0,
+                  "Y": 200.0
+                },
+                "Name": "Panel_Player_2",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 183.8463,
+                  "Y": 189.416
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.1677,
+                  "Y": 0.41
+                },
+                "PreSize": {
+                  "X": 0.1825,
+                  "Y": 0.4329
+                },
+                "LeftMargin": 183.8463,
+                "RightMargin": 712.1537,
+                "TopMargin": 72.584,
+                "BottomMargin": 189.416,
+                "Tag": 320,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "PlistSubImage",
+                      "Path": "eightBall_Word_winner.png",
+                      "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                    },
+                    "Scale9OriginX": 72,
+                    "Scale9OriginY": 15,
+                    "Scale9Width": 75,
+                    "Scale9Height": 17,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 100.9952,
+                      "Y": 247.0048
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.505,
+                      "Y": 1.235
+                    },
+                    "PreSize": {
+                      "X": 1.095,
+                      "Y": 0.235
+                    },
+                    "LeftMargin": -8.5048,
+                    "RightMargin": -10.4952,
+                    "TopMargin": -70.5048,
+                    "BottomMargin": 223.5048,
+                    "Tag": 321,
+                    "ActionTag": -601254110,
+                    "Size": {
+                      "X": 219.0,
+                      "Y": 47.0
+                    },
+                    "Name": "Winner",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FontSize": 35,
+                    "LabelText": "+9999",
+                    "FontResource": {
+                      "Type": "Normal",
+                      "Path": "fonts/FZY4JW.TTF",
+                      "Plist": ""
+                    },
+                    "OutlineColor": {
+                      "G": 0,
+                      "B": 0
+                    },
+                    "ShadowColor": {
+                      "R": 110,
+                      "G": 110,
+                      "B": 110
+                    },
+                    "ShadowOffsetX": 2.0,
+                    "ShadowOffsetY": -2.0,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 96.5007,
+                      "Y": 3.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 246,
+                      "B": 1
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4825,
+                      "Y": 0.015
+                    },
+                    "PreSize": {
+                      "X": 0.515,
+                      "Y": 0.205
+                    },
+                    "LeftMargin": 96.5007,
+                    "RightMargin": 0.4993,
+                    "TopMargin": 176.5,
+                    "BottomMargin": -17.5,
+                    "Tag": 322,
+                    "ActionTag": -118162391,
+                    "Size": {
+                      "X": 103.0,
+                      "Y": 41.0
+                    },
+                    "Name": "WinScore",
+                    "ctype": "TextObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "PlistSubImage",
+                      "Path": "eightBall_Head_Bg.png",
+                      "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                    },
+                    "Scale9OriginX": 21,
+                    "Scale9OriginY": 21,
+                    "Scale9Width": 75,
+                    "Scale9Height": 76,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 102.9984,
+                      "Y": 134.0047
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.515,
+                      "Y": 0.67
+                    },
+                    "PreSize": {
+                      "X": 0.585,
+                      "Y": 0.59
+                    },
+                    "LeftMargin": 44.4984,
+                    "RightMargin": 38.5016,
+                    "TopMargin": 6.9953,
+                    "BottomMargin": 75.0047,
+                    "Tag": 323,
+                    "ActionTag": -1582300976,
+                    "Size": {
+                      "X": 117.0,
+                      "Y": 118.0
+                    },
+                    "Name": "Head_Main",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "Default",
+                      "Path": "Default/ImageFile.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 20,
+                    "Scale9Width": 18,
+                    "Scale9Height": 6,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 60.0,
+                      "Y": 6.0017
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3,
+                      "Y": 0.03
+                    },
+                    "PreSize": {
+                      "X": 0.3,
+                      "Y": 0.25
+                    },
+                    "LeftMargin": 30.0,
+                    "RightMargin": 110.0,
+                    "TopMargin": 168.9983,
+                    "BottomMargin": -18.9983,
+                    "Tag": 324,
+                    "ActionTag": -9174024,
+                    "Size": {
+                      "X": 60.0,
+                      "Y": 50.0
+                    },
+                    "Name": "Image_7",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "Default",
+                      "Path": "Default/ImageFile.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 2,
+                    "Scale9OriginY": 2,
+                    "Scale9Width": 42,
+                    "Scale9Height": 42,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 103.0,
+                      "Y": 136.0005
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.515,
+                      "Y": 0.68
+                    },
+                    "PreSize": {
+                      "X": 0.515,
+                      "Y": 0.515
+                    },
+                    "LeftMargin": 51.5,
+                    "RightMargin": 45.5,
+                    "TopMargin": 12.4995,
+                    "BottomMargin": 84.5005,
+                    "Tag": 325,
+                    "ActionTag": 1068851912,
+                    "Size": {
+                      "X": 103.0,
+                      "Y": 103.0
+                    },
+                    "Name": "Head",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FontSize": 27,
+                    "LabelText": "韦嘉丽",
+                    "FontResource": {
+                      "Type": "Normal",
+                      "Path": "fonts/FZY4JW.TTF",
+                      "Plist": ""
+                    },
+                    "HorizontalAlignmentType": "HT_Center",
+                    "VerticalAlignmentType": "VT_Center",
+                    "OutlineColor": {
+                      "G": 0,
+                      "B": 0
+                    },
+                    "ShadowColor": {
+                      "R": 110,
+                      "G": 110,
+                      "B": 110
+                    },
+                    "ShadowOffsetX": 2.0,
+                    "ShadowOffsetY": -2.0,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 100.9976,
+                      "Y": 54.0042
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 163,
+                      "G": 210,
+                      "B": 254
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.505,
+                      "Y": 0.27
+                    },
+                    "PreSize": {
+                      "X": 0.415,
+                      "Y": 0.16
+                    },
+                    "LeftMargin": 59.4976,
+                    "RightMargin": 57.5024,
+                    "TopMargin": 129.9958,
+                    "BottomMargin": 38.0042,
+                    "Tag": 326,
+                    "ActionTag": -1749671440,
+                    "Size": {
+                      "X": 83.0,
+                      "Y": 32.0
+                    },
+                    "Name": "NickName",
+                    "ctype": "TextObjectData"
+                  }
+                ],
+                "ActionTag": -439751165,
+                "Size": {
+                  "X": 200.0,
+                  "Y": 200.0
+                },
+                "Name": "Panel_Player_1",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_VS_Bg.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "Scale9OriginX": 352,
+                "Scale9OriginY": 92,
+                "Scale9Width": 365,
+                "Scale9Height": 96,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 534.85,
+                  "Y": 290.4152
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.488,
+                  "Y": 0.6286
+                },
+                "PreSize": {
+                  "X": 0.9754,
+                  "Y": 0.6061
+                },
+                "LeftMargin": 0.35,
+                "RightMargin": 26.65,
+                "TopMargin": 31.5848,
+                "BottomMargin": 150.4152,
+                "Tag": 327,
+                "ActionTag": -845686515,
+                "Size": {
+                  "X": 1069.0,
+                  "Y": 280.0
+                },
+                "Alpha": 229,
+                "Name": "Image_1",
+                "ctype": "ImageViewObjectData"
+              }
+            ],
+            "ActionTag": -259045280,
+            "Size": {
+              "X": 1096.0,
+              "Y": 462.0
+            },
+            "Name": "Panel_3",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 1280.0,
+          "Y": 720.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "Default/Button_Disable.png",
+        "Default/ImageFile.png",
+        "fonts/FZY4JW.TTF",
+        "gameBilliards/plist/BilliardsCommon.plist",
+        "gameBilliards/plist/BilliardsCommon.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

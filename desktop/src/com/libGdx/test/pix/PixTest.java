@@ -30,7 +30,7 @@ class PixTest extends LibGdxTestMain {
         super.useShow(stage);
 //        Asset.getAsset().getTexture("7.png")
 //        FileHandle internal = Gdx.files.internal("assets/7.png");
-//        test01();
+        test01();
     }
 
     private void test01() {

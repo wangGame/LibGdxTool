@@ -1,0 +1,246 @@
+{
+  "ID": "f5e1eca6-acc6-4211-959c-091d0839ee5f",
+  "Version": "2.3.4",
+  "Name": "Loading",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 130,
+        "Children": [
+          {
+            "FontSize": 14,
+            "ButtonText": "",
+            "TextColor": {
+              "R": 65,
+              "G": 65,
+              "B": 70
+            },
+            "DisabledFileData": {
+              "Type": "Default",
+              "Path": "Default/Button_Disable.png",
+              "Plist": ""
+            },
+            "PressedFileData": {
+              "Type": "PlistSubImage",
+              "Path": "eightBall_Btn5.png",
+              "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+            },
+            "NormalFileData": {
+              "Type": "PlistSubImage",
+              "Path": "eightBall_Btn5.png",
+              "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+            },
+            "Scale9Enable": true,
+            "Scale9OriginX": 15,
+            "Scale9OriginY": 11,
+            "Scale9Width": 137,
+            "Scale9Height": 51,
+            "OutlineColor": {
+              "G": 0,
+              "B": 0
+            },
+            "ShadowColor": {
+              "R": 110,
+              "G": 110,
+              "B": 110
+            },
+            "ShadowOffsetX": 2.0,
+            "ShadowOffsetY": -2.0,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 640.0,
+              "Y": 205.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.2847
+            },
+            "PreSize": {
+              "X": 0.1305,
+              "Y": 0.1014
+            },
+            "LeftMargin": 556.5,
+            "RightMargin": 556.5,
+            "TopMargin": 478.5,
+            "BottomMargin": 168.5,
+            "Tag": 401,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_Word_BlueCancle.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "Scale9OriginX": 27,
+                "Scale9OriginY": 11,
+                "Scale9Width": 24,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 85.999,
+                  "Y": 42.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.515,
+                  "Y": 0.5753
+                },
+                "PreSize": {
+                  "X": 0.4671,
+                  "Y": 0.5205
+                },
+                "LeftMargin": 46.999,
+                "RightMargin": 42.001,
+                "TopMargin": 12.0,
+                "BottomMargin": 23.0,
+                "Tag": 402,
+                "ActionTag": 165180044,
+                "Size": {
+                  "X": 78.0,
+                  "Y": 38.0
+                },
+                "Name": "Image_11",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "PlistSubImage",
+                  "Path": "eightBall_Word_Confirm.png",
+                  "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+                },
+                "Scale9OriginX": 27,
+                "Scale9OriginY": 11,
+                "Scale9Width": 28,
+                "Scale9Height": 13,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 83.9998,
+                  "Y": 41.0005
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.503,
+                  "Y": 0.5617
+                },
+                "PreSize": {
+                  "X": 0.491,
+                  "Y": 0.4795
+                },
+                "LeftMargin": 42.9998,
+                "RightMargin": 42.0002,
+                "TopMargin": 14.4995,
+                "BottomMargin": 23.5005,
+                "Tag": 403,
+                "ActionTag": -1272034948,
+                "Size": {
+                  "X": 82.0,
+                  "Y": 35.0
+                },
+                "Name": "Image_10",
+                "ctype": "ImageViewObjectData"
+              }
+            ],
+            "ActionTag": -608348261,
+            "Size": {
+              "X": 167.0,
+              "Y": 73.0
+            },
+            "Name": "Button_Cancle",
+            "ctype": "ButtonObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "PlistSubImage",
+              "Path": "eightBall_Word_Matching.png",
+              "Plist": "gameBilliards/plist/BilliardsCommon.plist"
+            },
+            "Scale9OriginX": 155,
+            "Scale9OriginY": 15,
+            "Scale9Width": 160,
+            "Scale9Height": 16,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 640.0,
+              "Y": 489.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.6792
+            },
+            "PreSize": {
+              "X": 0.3672,
+              "Y": 0.0639
+            },
+            "LeftMargin": 405.0,
+            "RightMargin": 405.0,
+            "TopMargin": 208.0,
+            "BottomMargin": 466.0,
+            "Tag": 404,
+            "ActionTag": -1592366760,
+            "Size": {
+              "X": 470.0,
+              "Y": 46.0
+            },
+            "Name": "Image_9",
+            "ctype": "ImageViewObjectData"
+          }
+        ],
+        "Size": {
+          "X": 1280.0,
+          "Y": 720.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "Default/Button_Disable.png",
+        "gameBilliards/plist/BilliardsCommon.plist",
+        "gameBilliards/plist/BilliardsCommon.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 /**
+ * 注解使用
  * @Auther jian xian si qi
  * @Date 2023/11/14 11:06
  */
@@ -20,7 +21,6 @@ public class Inte {
                     IntRange rangeAnnotation = (IntRange) annotation;
                     double min = rangeAnnotation.from();
                     double max = rangeAnnotation.to();
-
                     System.out.println("Parameter range: " + min + " to " + max);
                 }
             }

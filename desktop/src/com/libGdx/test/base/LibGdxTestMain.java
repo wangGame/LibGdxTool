@@ -6,15 +6,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.kw.gdx.BaseGame;
-import com.kw.gdx.resource.annotation.ScreenResource;
 import com.kw.gdx.screen.BaseScreen;
-
-
-
-import java.io.IOException;
-
-import kw.test.file.Bean;
-import kw.test.file.ReadFileConfig;
 
 /**
  * @Auther jian xian si qi
@@ -56,10 +48,7 @@ public class LibGdxTestMain extends BaseGame {
     }
 
     public void start(LibGdxTestMain test) {
-        ReadFileConfig readFileConfig = new ReadFileConfig();
-        Bean value = readFileConfig.getValue();
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.title=value.getName();
         config.x = 1000;
         config.stencil=8;
         config.y = 0;
