@@ -42,12 +42,10 @@ import java.lang.reflect.Field;
 
 public class Asset implements Disposable {
     private static Asset asset;
-    public static AssetManager assetManager;
-    public static AssetManager localAssetManager;
+    private static AssetManager assetManager;
+    private static AssetManager localAssetManager;
     private int i=0;
-
     private SkeletonRenderer renderer;
-
     private FrameBuffer frameBuffer;
     public void loadAsset(Object ob){
         loadAsset(ob,Asset.assetManager);
@@ -240,7 +238,7 @@ public class Asset implements Disposable {
         }
     }
 
-    private AssetManager getAssetManager(){
+    public AssetManager getAssetManager(){
         if (assetManager == null){
             assetManager = new AssetManager();
             assetManager.setLoader(ManagerUIEditor.class,new ManagerUILoader(assetManager.getFileHandleResolver()));
