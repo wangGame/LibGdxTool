@@ -16,10 +16,24 @@ public class BroadImage extends Group {
         addActor(image);
         rectangle.setWidth(image.getWidth());
         rectangle.setHeight(image.getHeight());
+        setSize(image.getWidth(),image.getHeight());
     }
 
-    public void overlap(Circle shape2D){
-        Intersector.overlaps(shape2D,rectangle);
+    @Override
+    protected void positionChanged() {
+        super.positionChanged();
+        rectangle.set(getX(),getY(),getWidth(),getHeight());
     }
 
+    public boolean overlap(Circle shape2D){
+        return Intersector.overlaps(shape2D,rectangle);
+    }
+
+    public boolean overlap(Rectangle rectangle){
+        return this.rectangle.overlaps(rectangle);
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
 }

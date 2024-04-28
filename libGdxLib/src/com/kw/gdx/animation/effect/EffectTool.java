@@ -22,7 +22,7 @@ public class EffectTool extends Actor {
     private boolean isClip = false;
 
     public EffectTool(String effectResourcePath){
-        this(effectResourcePath,Asset.assetManager);
+        this(effectResourcePath,Asset.getAsset().getAssetManager());
     }
 
     public EffectTool(String effectResourcePath,AssetManager assetManager){
@@ -50,7 +50,7 @@ public class EffectTool extends Actor {
     }
 
     public EffectTool(String path, String atlasFile){
-        this(path,atlasFile,Asset.assetManager);
+        this(path,atlasFile,Asset.getAsset().getAssetManager());
     }
 
     public void setEffectScale(float scaleX, float scaleY) {
