@@ -10,13 +10,13 @@ public class CocosResource {
 
     public static Group loadFile(String resourcePath){
         if (resourcePath!=null) {
-            if (!Asset.getAsset().assetManager.isLoaded(resourcePath)){
+            if (!Asset.getAsset().getAssetManager().isLoaded(resourcePath)){
                 ManagerUILoader.ManagerUIParameter managerUIParameter1 =
-                        new ManagerUILoader.ManagerUIParameter("cocos/", Asset.assetManager);
-                Asset.assetManager.load(resourcePath, ManagerUIEditor.class, managerUIParameter1);
-                Asset.assetManager.finishLoading();
+                        new ManagerUILoader.ManagerUIParameter("cocos/", Asset.getAsset().getAssetManager());
+                Asset.getAsset().getAssetManager().load(resourcePath, ManagerUIEditor.class, managerUIParameter1);
+                Asset.getAsset().getAssetManager().finishLoading();
             }
-            ManagerUIEditor managerUIEditor = Asset.assetManager.get(resourcePath);
+            ManagerUIEditor managerUIEditor = Asset.getAsset().getAssetManager().get(resourcePath);
             return managerUIEditor.createGroup();
         }
         return new Group();
@@ -24,20 +24,20 @@ public class CocosResource {
 
     public static void loadFile1(String resourcePath){
         if (resourcePath!=null) {
-            if (!Asset.getAsset().assetManager.isLoaded(resourcePath)) {
+            if (!Asset.getAsset().getAssetManager().isLoaded(resourcePath)) {
                 ManagerUILoader.ManagerUIParameter managerUIParameter1 =
-                        new ManagerUILoader.ManagerUIParameter("ccs/", Asset.assetManager);
-                Asset.assetManager.load(resourcePath, ManagerUIEditor.class, managerUIParameter1);
-                Asset.assetManager.finishLoading();
+                        new ManagerUILoader.ManagerUIParameter("ccs/", Asset.getAsset().getAssetManager());
+                Asset.getAsset().getAssetManager().load(resourcePath, ManagerUIEditor.class, managerUIParameter1);
+                Asset.getAsset().getAssetManager().finishLoading();
             }
         }
     }
 
     public static void unLoadFile(String path){
         if (path!=null){
-            if (Asset.assetManager.isLoaded(path)){
+            if (Asset.getAsset().getAssetManager().isLoaded(path)){
                 NLog.i("%s dispose",path);
-                Asset.assetManager.unload(path);
+                Asset.getAsset().getAssetManager().unload(path);
             }
         }
     }

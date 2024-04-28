@@ -22,18 +22,18 @@ public class AssetLoadingTest extends LibGdxTestMain {
         {
             SpineResResourceTest test = SpineResResourceTest.getInstance();
             test.loadRes();
-            Asset.assetManager.finishLoading();
+            Asset.getAsset().getAssetManager().finishLoading();
             test.getRes();
-            if (Asset.assetManager.isLoaded(test.jiazaiTupic)) {
+            if (Asset.getAsset().getAssetManager().isLoaded(test.jiazaiTupic)) {
                 System.out.println("-");
             }
         }
         {
             EffectResResourceTest test = EffectResResourceTest.getInstance();
             test.loadRes();
-            Asset.assetManager.finishLoading();
+            Asset.getAsset().getAssetManager().finishLoading();
             test.getRes();
-            if (Asset.assetManager.isLoaded(test.jiazaiTupic)) {
+            if (Asset.getAsset().getAssetManager().isLoaded(test.jiazaiTupic)) {
                 System.out.println("-");
             }
         }

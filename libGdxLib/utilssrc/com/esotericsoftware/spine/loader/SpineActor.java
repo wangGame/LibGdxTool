@@ -45,7 +45,7 @@ public class SpineActor extends Actor {
 
     public SpineActor(String path, String atlas) {
         this.path = path;
-        assetamnagerinstance = Asset.getAsset().assetManager;
+        assetamnagerinstance = Asset.getAsset().getAssetManager();
         if(!assetamnagerinstance.isLoaded(path+".json")) {
             SkeletonDataLoader.SkeletonDataParameter mainSkeletonParameter = new SkeletonDataLoader.SkeletonDataParameter();
             mainSkeletonParameter.atlasfile = atlas;
@@ -70,7 +70,7 @@ public class SpineActor extends Actor {
     }
 
     public void flushAsset(){
-        assetamnagerinstance = Asset.getAsset().assetManager;
+        assetamnagerinstance = Asset.getAsset().getAssetManager();
         if(!assetamnagerinstance.isLoaded(path+".json")) {
             assetamnagerinstance.load(path + ".json", SkeletonData.class);
             assetamnagerinstance.finishLoading();
@@ -162,8 +162,8 @@ public class SpineActor extends Actor {
 
 
     public void unloadSpine(){
-        if(Asset.getAsset().assetManager.isLoaded(path+".json")){
-            Asset.getAsset().assetManager.unload(path+".json");
+        if(Asset.getAsset().getAssetManager().isLoaded(path+".json")){
+            Asset.getAsset().getAssetManager().unload(path+".json");
         }
         remove();
     }

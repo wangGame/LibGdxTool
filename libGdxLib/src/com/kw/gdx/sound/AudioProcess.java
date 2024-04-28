@@ -28,7 +28,7 @@ public class AudioProcess {
 
     public static void prepare(Class clazz) { // 准备哪些资源将要加载
         clear();
-        assetManager = Asset.getAsset().assetManager;
+        assetManager = Asset.getAsset().getAssetManager();
         Field[] declaredFields = clazz.getDeclaredFields();
         for (Field declaredField : declaredFields) {
             AudioResource annotation = AnnotationInfo.checkFeildAnnotation(declaredField, AudioResource.class);
