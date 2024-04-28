@@ -1,4 +1,4 @@
-package kw.auto;
+package kw.dgx;
 
 public class App {
 }

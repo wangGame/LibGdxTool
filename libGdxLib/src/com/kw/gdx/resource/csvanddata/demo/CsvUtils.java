@@ -10,14 +10,6 @@ import java.io.BufferedReader;
 
 public class CsvUtils {
     private static ReadCvs readCvs = new ReadCvs();
-    public static void main(String[] args) {
-        new CsvResource(CsvUtils.class);
-    }
-    @ExecuteMathod
-    public void readChapter(){
-        Array riderChapters = common("csv/rider_chap.csv", RiderChapter.class);
-    }
-
 
     public static <T> Array<T> common(String path, Class<T> tClass,boolean isLocal) {
         Array<T> array = new Array<>();

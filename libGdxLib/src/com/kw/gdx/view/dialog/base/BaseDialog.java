@@ -92,9 +92,7 @@ public class BaseDialog extends Group {
 
     public void show() {
         playOpenAudio();
-//        AudioProcess.playSound(AudioType.TABPOPUP);
         setOrigin(Align.center);
-//        addAction(Actions.sequence(Actions.scaleTo(0,0),Actions.scaleTo(1,1,0.3F, Interpolation.swingOut)));
         enterAnimation();
     }
 

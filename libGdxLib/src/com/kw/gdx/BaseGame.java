@@ -26,7 +26,6 @@ public class BaseGame extends Game {
     private Batch batch;
     private Viewport stageViewport;
 
-
     @Override
     public void create() {
         printInfo();
@@ -34,7 +33,6 @@ public class BaseGame extends Game {
         initInstance();
         initViewport();
         initExtends();
-
         Gdx.app.postRunnable(()->{
             loadingView();
         });
@@ -48,13 +46,12 @@ public class BaseGame extends Game {
         String version = Gdx.gl.glGetString(GL20.GL_VERSION);
         String glslVersion = Gdx.gl.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
         NLog.i("version: %s ,glslVersion : %s",version,glslVersion);
+        NLog.i("tool version: %s",Version.VERSION);
     }
 
     private void initExtends() {
         Asset.getAsset();
     }
-
-
 
     private void gameInfoConfig() {
         GameInfo info = AnnotationInfo.checkClassAnnotation(this,GameInfo.class);
@@ -88,7 +85,6 @@ public class BaseGame extends Game {
 
     @Override
     public void render() {
-//        Gdx.gl.glClearColor(1.0f,1.0f,1.0f,1.0f);
         Gdx.gl.glClearColor(Constant.viewColor.r,Constant.viewColor.g,Constant.viewColor.b,Constant.viewColor.a);
         Gdx.gl.glClear(
                 GL20.GL_COLOR_BUFFER_BIT
