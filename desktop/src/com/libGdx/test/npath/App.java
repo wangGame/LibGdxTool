@@ -14,7 +14,7 @@ public class App extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        NPath nPath = new NPath();
+        NPath nPath = new NPath(3);
         stage.addActor(nPath);
     }
 }
