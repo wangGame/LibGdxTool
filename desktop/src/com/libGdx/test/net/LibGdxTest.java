@@ -19,7 +19,6 @@ public class LibGdxTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-//        http://gaoshanren.cdn-doodlemobile.com/Art_Puzzle/level_resource/version7/level/level160.zip
         Net.HttpRequest request = new Net.HttpRequest();
         request.setUrl("https://gaoshanren.cdn-doodlemobile.com/Art_Puzzle/level_resource/version7/level/level160.zip");
         request.setMethod(Net.HttpMethods.GET);

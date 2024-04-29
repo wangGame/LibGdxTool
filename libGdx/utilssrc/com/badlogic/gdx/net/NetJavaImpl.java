@@ -40,6 +40,9 @@ import com.badlogic.gdx.utils.async.AsyncTask;
  * backends.
  * @author acoppes */
 public class NetJavaImpl {
+	private final AsyncExecutor asyncExecutor;
+	final ObjectMap<HttpRequest, HttpURLConnection> connections;
+	final ObjectMap<HttpRequest, HttpResponseListener> listeners;
 
 	static class HttpClientResponse implements HttpResponse {
 		private final HttpURLConnection connection;
@@ -119,10 +122,6 @@ public class NetJavaImpl {
 		}
 	}
 
-	private final AsyncExecutor asyncExecutor;
-	final ObjectMap<HttpRequest, HttpURLConnection> connections;
-	final ObjectMap<HttpRequest, HttpResponseListener> listeners;
-
 	public NetJavaImpl () {
 		asyncExecutor = new AsyncExecutor(1);
 		connections = new ObjectMap<HttpRequest, HttpURLConnection>();
@@ -134,11 +133,9 @@ public class NetJavaImpl {
 			httpResponseListener.failed(new GdxRuntimeException("can't process a HTTP request without URL set"));
 			return;
 		}
-
 		try {
 			final String method = httpRequest.getMethod();
 			URL url;
-
 			if (method.equalsIgnoreCase(HttpMethods.GET)) {
 				String queryString = "";
 				String value = httpRequest.getContent();
@@ -147,7 +144,6 @@ public class NetJavaImpl {
 			} else {
 				url = new URL(httpRequest.getUrl());
 			}
-
 			final HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 			// should be enabled to upload data.
 			final boolean doingOutPut = method.equalsIgnoreCase(HttpMethods.POST) || method.equalsIgnoreCase(HttpMethods.PUT);
@@ -155,17 +151,13 @@ public class NetJavaImpl {
 			connection.setDoInput(true);
 			connection.setRequestMethod(method);
 			HttpURLConnection.setFollowRedirects(httpRequest.getFollowRedirects());
-
 			putIntoConnectionsAndListeners(httpRequest, httpResponseListener, connection);
-
 			// Headers get set regardless of the method
 			for (Map.Entry<String, String> header : httpRequest.getHeaders().entrySet())
 				connection.addRequestProperty(header.getKey(), header.getValue());
-
 			// Set Timeouts
 			connection.setConnectTimeout(httpRequest.getTimeOut());
 			connection.setReadTimeout(httpRequest.getTimeOut());
-
 			asyncExecutor.submit(new AsyncTask<Void>() {
 				@Override
 				public Void call () throws Exception {
@@ -193,13 +185,10 @@ public class NetJavaImpl {
 								}
 							}
 						}
-
 						connection.connect();
-
 						final HttpClientResponse clientResponse = new HttpClientResponse(connection);
 						try {
 							HttpResponseListener listener = getFromListeners(httpRequest);
-
 							if (listener != null) {
 								listener.handleHttpResponse(clientResponse);
 							}
@@ -215,7 +204,6 @@ public class NetJavaImpl {
 							removeFromConnectionsAndListeners(httpRequest);
 						}
 					}
-
 					return null;
 				}
 			});
@@ -231,7 +219,6 @@ public class NetJavaImpl {
 
 	public void cancelHttpRequest (HttpRequest httpRequest) {
 		HttpResponseListener httpResponseListener = getFromListeners(httpRequest);
-
 		if (httpResponseListener != null) {
 			httpResponseListener.cancelled();
 			removeFromConnectionsAndListeners(httpRequest);

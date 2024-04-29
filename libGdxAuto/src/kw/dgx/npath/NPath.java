@@ -11,6 +11,8 @@ import com.kw.gdx.asset.Asset;
 
 /**
  * 可以直接切，然后拼起来
+ *
+ * 思路完成，不写了
  */
 public class NPath extends Group {
     private TextureRegion region;
