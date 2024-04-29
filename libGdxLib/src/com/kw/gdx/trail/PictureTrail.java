@@ -9,22 +9,22 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
 
-/**
- * @Auther jian xian si qi
- * @Date 2023/12/29 12:20
- */
 public class PictureTrail extends Actor implements Pool.Poolable {
-    /**
-     *
-     */
-    private static final int MAX_POSITIONS = 30;
-    private static final float THRESHOLD = 5 * 5;
+    private static final int MAX_POSITIONS = 150;
+    private static final float THRESHOLD =  15;
+    public float x;
+    public float y;
+
     private final FloatQueue positions = new FloatQueue(MAX_POSITIONS * 2);
     private final float[] vertices = new float[MAX_POSITIONS * 5 * 2]; //every point: x,y,color,u,v; every position: two points.
     private final float[] tmpDist = new float[MAX_POSITIONS];
     private final short[] indices = new short[MAX_POSITIONS * 6];
     private TextureRegion region;
-    private boolean overlay = false;
+    private boolean overlay = true;
+
+    public void setOverlay(boolean overlay) {
+        this.overlay = overlay;
+    }
 
     public PictureTrail() {
         for (short i = 0; i < MAX_POSITIONS; ++i) {
@@ -36,6 +36,9 @@ public class PictureTrail extends Actor implements Pool.Poolable {
             indices[i * 6 + 4] = (short) (start + 3);
             indices[i * 6 + 5] = (short) (start + 1);
         }
+        setSize(200,200);
+        setDebug(true);
+
     }
 
     public void setRegion(TextureRegion region) {

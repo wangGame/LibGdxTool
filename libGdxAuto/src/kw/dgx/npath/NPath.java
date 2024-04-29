@@ -1,5 +1,6 @@
 package kw.dgx.npath;
 
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -26,6 +27,9 @@ public class NPath extends Group {
         addActor(x[0]);
         addActor(x[1]);
         x[1].setX(520);
+
+
+        Image image = new Image(new NinePatch());
     }
 
 }
