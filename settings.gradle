@@ -1,1 +1,1 @@
-include 'libGdxLib','libGdx','desktop','libGdxAuto'
+include 'libGdxLib','libGdx','desktop','libGdxAuto','android','mylibrary'

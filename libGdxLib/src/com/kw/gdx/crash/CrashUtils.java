@@ -13,9 +13,33 @@ public class CrashUtils {
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread thread, Throwable throwable) {
+                Throwable cause = throwable.getCause();
+                StackTraceElement element = parseThrowable("", throwable);
+                if (element == null) return;
+                System.out.println(element.getLineNumber());
+                System.out.println(element.getClassName());
+                System.out.println(element.getFileName());
+                System.out.println(element.getMethodName());
+                System.out.println(throwable.getClass().getName());
                 writeToFile(thread,throwable,"crash/");
             }
         });
+    }
+
+    /**
+     * 把Throwable解析成StackTraceElement
+     */
+    public static StackTraceElement parseThrowable(String packageName, Throwable ex) {
+        if (ex == null || ex.getStackTrace() == null || ex.getStackTrace().length == 0) return null;
+        StackTraceElement element;
+        for (StackTraceElement ele : ex.getStackTrace()) {
+            if (ele.getClassName().contains(packageName)) {
+                element = ele;
+                return element;
+            }
+        }
+        element = ex.getStackTrace()[0];
+        return element;
     }
 
     public void writeToFile(Thread thread, Throwable ex, String folder) {
