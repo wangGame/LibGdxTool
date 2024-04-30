@@ -35,6 +35,7 @@ public class BaseGame extends Game {
         initViewport();
         initExtends();
         Gdx.app.postRunnable(()->{
+            Constant.SDPATH = Gdx.files.local("/").file().getAbsolutePath();
             loadingView();
         });
     }
@@ -158,6 +159,8 @@ public class BaseGame extends Game {
         }else {
             BaseGame.super.setScreen(screen);
         }
+
+
     }
 
     protected void preDiapose(){
