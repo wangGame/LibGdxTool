@@ -1,4 +1,4 @@
-package kw.dgx.test;
+package com.kw.gdx.abtest;
 
 public class ABTest {
     public static String currentV = "B";

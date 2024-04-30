@@ -6,12 +6,14 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.kw.gdx.BaseGame;
+import com.kw.gdx.anr.ANRDEMO;
 import com.kw.gdx.screen.BaseScreen;
 
 /**
  * @Auther jian xian si qi
  * @Date 2023/6/21 15:51
  */
+@ANRDEMO
 public class LibGdxTestMain extends BaseGame {
 
     private Stage stageMain;

@@ -10,6 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.kw.gdx.anr.ANRError;
+import com.kw.gdx.anr.ANRListener;
+import com.kw.gdx.anr.ANRDEMO;
+import com.kw.gdx.anr.ANRWatchDog;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.resource.annotation.AnnotationInfo;
@@ -17,25 +21,37 @@ import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
 import com.kw.gdx.utils.log.NLog;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
-
 public class BaseGame extends Game {
     private Batch batch;
     private Viewport stageViewport;
+    protected ANRWatchDog dog;
 
     @Override
     public void create() {
         printInfo();
         gameInfoConfig();
+        anrTest();
         initInstance();
         initViewport();
         initExtends();
         Gdx.app.postRunnable(()->{
             loadingView();
         });
+    }
+
+    private void anrTest() {
+        ANRDEMO anrdemo = AnnotationInfo.checkClassAnnotation(this, ANRDEMO.class);
+        if (anrdemo!=null){
+            float delaytime = anrdemo.delaytime();
+            dog = new ANRWatchDog((int) (delaytime ));
+            dog.start();
+            dog.setANRListener(new ANRListener() {
+                @Override
+                public void onAppNotResponding(ANRError error) {
+                    error.printStackTrace();
+                }
+            });
+        }
     }
 
     public static void setText(String start) {

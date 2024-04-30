@@ -1,10 +1,12 @@
-package com.libGdx.test.npath;
+package com.libGdx.test.anr;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.kw.gdx.anr.ANRDEMO;
+import com.kw.gdx.resource.annotation.GameInfo;
 import com.libGdx.test.base.LibGdxTestMain;
 
-import com.kw.gdx.npath.NPath;
-
+@GameInfo(width = 100)
+@ANRDEMO(delaytime = 500)
 public class App extends LibGdxTestMain {
     public static void main(String[] args) {
         App app = new App();
@@ -14,7 +16,10 @@ public class App extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        NPath nPath = new NPath(3);
-        stage.addActor(nPath);
+
+
+        while (true) {
+
+        }
     }
 }
