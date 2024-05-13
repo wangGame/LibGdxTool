@@ -16,6 +16,7 @@ import com.kw.gdx.anr.ANRDEMO;
 import com.kw.gdx.anr.ANRWatchDog;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
+import com.kw.gdx.crash.CrashUtils;
 import com.kw.gdx.resource.annotation.AnnotationInfo;
 import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
@@ -35,7 +36,10 @@ public class BaseGame extends Game {
         initViewport();
         initExtends();
         Gdx.app.postRunnable(()->{
-            Constant.SDPATH = Gdx.files.local("/").file().getAbsolutePath();
+            if (Constant.crashlog){
+                Constant.SDPATH = Gdx.files.local("/").file().getAbsolutePath();
+                new CrashUtils();
+            }
             loadingView();
         });
     }
