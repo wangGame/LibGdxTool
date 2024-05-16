@@ -57,6 +57,7 @@ public abstract class WidgetParser<T extends WidgetData> extends BaseWidgetParse
         }
 
         table.setRotation(actor.getRotation());
+        actor.setRotation(0);
         table.setVisible(actor.isVisible());
 
         table.setTouchable(widget.TouchEnable ? Touchable.enabled
