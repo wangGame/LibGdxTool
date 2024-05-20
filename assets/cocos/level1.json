@@ -14,8 +14,46 @@
       "ObjectData": {
         "Children": [
           {
+            "FileData": {
+              "Type": "Normal",
+              "Path": "pic/bg.jpg",
+              "Plist": ""
+            },
+            "Scale9OriginX": 186,
+            "Scale9OriginY": 329,
+            "Scale9Width": 192,
+            "Scale9Height": 340,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 34,
+            "ActionTag": -337748163,
+            "Size": {
+              "X": 610.0,
+              "Y": 830.0
+            },
+            "Name": "bg1",
+            "ctype": "ImageViewObjectData"
+          },
+          {
             "ClipAble": false,
-            "BackColorAlpha": 102,
+            "BackColorAlpha": 0,
             "ComboBoxIndex": 1,
             "SingleColor": {
               "R": 150,
@@ -48,587 +86,231 @@
               "Y": 0.0
             },
             "PreSize": {
-              "X": 0.2778,
-              "Y": 0.1562
+              "X": 1.0,
+              "Y": 1.0
             },
-            "RightMargin": 520.0,
-            "TopMargin": 1080.0,
-            "Tag": 36,
+            "Tag": 35,
             "Children": [
               {
-                "ClipAble": false,
-                "BackColorAlpha": 102,
-                "ComboBoxIndex": 1,
-                "SingleColor": {
-                  "R": 150,
-                  "G": 200
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/L_Shaped.png",
+                  "Plist": ""
                 },
-                "FirstColor": {
-                  "R": 150,
-                  "G": 200
+                "Scale9OriginX": 56,
+                "Scale9OriginY": 56,
+                "Scale9Width": 60,
+                "Scale9Height": 60,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
                 },
-                "EndColor": {},
-                "ColorVector": {
-                  "ScaleY": 1.0
-                },
-                "Scale9Width": 1,
-                "Scale9Height": 1,
-                "TouchEnable": true,
-                "AnchorPoint": {},
                 "Position": {
-                  "X": 287.0,
-                  "Y": -6.7398
+                  "X": 485.7165,
+                  "Y": 516.7747
                 },
                 "Scale": {
-                  "ScaleX": 0.6613,
-                  "ScaleY": 0.7208
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
                 },
                 "CColor": {},
                 "IconVisible": false,
                 "PrePosition": {
-                  "X": 1.435,
-                  "Y": -0.0337
+                  "X": 0.7963,
+                  "Y": 0.6226
                 },
                 "PreSize": {
-                  "X": 3.5,
-                  "Y": 5.0
+                  "X": 0.282,
+                  "Y": 0.2072
                 },
-                "LeftMargin": 287.0,
-                "RightMargin": -787.0,
-                "TopMargin": -793.2602,
-                "BottomMargin": -6.7398,
-                "Tag": 26,
+                "LeftMargin": 399.7165,
+                "RightMargin": 38.2835,
+                "TopMargin": 227.2253,
+                "BottomMargin": 430.7747,
+                "Tag": 46,
                 "Children": [
                   {
                     "FileData": {
                       "Type": "Normal",
-                      "Path": "level1-50/bg.jpg",
+                      "Path": "pic/hole.png",
                       "Plist": ""
                     },
-                    "Scale9OriginX": 186,
-                    "Scale9OriginY": 329,
-                    "Scale9Width": 192,
-                    "Scale9Height": 340,
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 14,
+                    "Scale9Width": 15,
+                    "Scale9Height": 15,
                     "AnchorPoint": {
                       "ScaleX": 0.5,
                       "ScaleY": 0.5
                     },
                     "Position": {
-                      "X": 349.2678,
-                      "Y": 499.9835
+                      "X": 145.4989,
+                      "Y": 99.1449
                     },
                     "Scale": {
-                      "ScaleX": 1.0041,
-                      "ScaleY": 0.9917
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
                     },
                     "CColor": {},
                     "IconVisible": false,
                     "PrePosition": {
-                      "X": 0.499,
-                      "Y": 0.5
+                      "X": 0.8459,
+                      "Y": 0.5764
                     },
                     "PreSize": {
-                      "X": 1.0,
-                      "Y": 1.0
+                      "X": 0.25,
+                      "Y": 0.25
                     },
-                    "LeftMargin": -0.7322,
-                    "RightMargin": 0.7322,
-                    "TopMargin": 0.0165,
-                    "BottomMargin": -0.0165,
-                    "Tag": 5,
-                    "ActionTag": -1865540835,
+                    "LeftMargin": 123.9989,
+                    "RightMargin": 5.0011,
+                    "TopMargin": 51.3551,
+                    "BottomMargin": 77.6449,
+                    "Tag": 56,
+                    "ActionTag": 1741362963,
                     "Size": {
-                      "X": 700.0,
-                      "Y": 1000.0
+                      "X": 43.0,
+                      "Y": 43.0
                     },
-                    "Name": "bg1",
+                    "Name": "hole5",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "Normal",
+                      "Path": "pic/hole.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 14,
+                    "Scale9Width": 15,
+                    "Scale9Height": 15,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 85.8661,
+                      "Y": 29.0787
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4992,
+                      "Y": 0.1691
+                    },
+                    "PreSize": {
+                      "X": 0.25,
+                      "Y": 0.25
+                    },
+                    "LeftMargin": 64.3661,
+                    "RightMargin": 64.6339,
+                    "TopMargin": 121.4213,
+                    "BottomMargin": 7.5787,
+                    "Tag": 57,
+                    "ActionTag": 774190128,
+                    "Size": {
+                      "X": 43.0,
+                      "Y": 43.0
+                    },
+                    "Name": "hole8",
                     "ctype": "ImageViewObjectData"
                   }
                 ],
-                "ActionTag": -1632068554,
+                "ActionTag": 898035360,
                 "Size": {
-                  "X": 700.0,
-                  "Y": 1000.0
+                  "X": 172.0,
+                  "Y": 172.0
                 },
-                "Name": "Panel_1",
-                "ctype": "PanelObjectData"
+                "Name": "shape_L1",
+                "ctype": "ImageViewObjectData"
               },
               {
-                "ClipAble": false,
-                "BackColorAlpha": 102,
-                "ComboBoxIndex": 1,
-                "SingleColor": {
-                  "R": 150,
-                  "G": 200
+                "FlipX": true,
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/L_Shaped.png",
+                  "Plist": ""
                 },
-                "FirstColor": {
-                  "R": 150,
-                  "G": 200
+                "Scale9OriginX": 56,
+                "Scale9OriginY": 56,
+                "Scale9Width": 60,
+                "Scale9Height": 60,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
                 },
-                "EndColor": {},
-                "ColorVector": {
-                  "ScaleY": 1.0
-                },
-                "Scale9Width": 1,
-                "Scale9Height": 1,
-                "TouchEnable": true,
-                "AnchorPoint": {},
                 "Position": {
-                  "X": 287.0,
-                  "Y": -6.74
+                  "X": 170.1827,
+                  "Y": 516.1611
                 },
                 "Scale": {
-                  "ScaleX": 0.6613,
-                  "ScaleY": 0.7208
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
                 },
                 "CColor": {},
                 "IconVisible": false,
                 "PrePosition": {
-                  "X": 1.435,
-                  "Y": -0.0337
+                  "X": 0.279,
+                  "Y": 0.6219
                 },
                 "PreSize": {
-                  "X": 3.5,
-                  "Y": 5.0
+                  "X": 0.282,
+                  "Y": 0.2072
                 },
-                "LeftMargin": 287.0,
-                "RightMargin": -787.0,
-                "TopMargin": -793.26,
-                "BottomMargin": -6.74,
-                "Tag": 27,
+                "LeftMargin": 84.1827,
+                "RightMargin": 353.8173,
+                "TopMargin": 227.8389,
+                "BottomMargin": 430.1611,
+                "Tag": 48,
                 "Children": [
                   {
                     "FileData": {
                       "Type": "Normal",
-                      "Path": "pic/T_shape.png",
+                      "Path": "pic/hole.png",
                       "Plist": ""
                     },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 14,
+                    "Scale9Width": 15,
+                    "Scale9Height": 15,
                     "AnchorPoint": {
                       "ScaleX": 0.5,
                       "ScaleY": 0.5
                     },
                     "Position": {
-                      "X": 345.6671,
-                      "Y": 653.7083
+                      "X": 145.3964,
+                      "Y": 104.0289
                     },
                     "Scale": {
-                      "ScaleX": 0.4316,
-                      "ScaleY": 0.3866
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
                     },
                     "CColor": {},
                     "IconVisible": false,
                     "PrePosition": {
-                      "X": 0.4938,
-                      "Y": 0.6537
+                      "X": 0.8453,
+                      "Y": 0.6048
                     },
                     "PreSize": {
-                      "X": 0.8743,
-                      "Y": 0.303
+                      "X": 0.25,
+                      "Y": 0.25
                     },
-                    "LeftMargin": 39.6671,
-                    "RightMargin": 48.3329,
-                    "TopMargin": 194.7917,
-                    "BottomMargin": 502.2083,
-                    "Tag": 8,
-                    "ActionTag": 397894435,
+                    "LeftMargin": 123.8964,
+                    "RightMargin": 5.1036,
+                    "TopMargin": 46.4711,
+                    "BottomMargin": 82.5289,
+                    "Tag": 58,
+                    "ActionTag": -960505169,
                     "Size": {
-                      "X": 612.0,
-                      "Y": 303.0
+                      "X": 43.0,
+                      "Y": 43.0
                     },
-                    "Name": "shapeT_1",
-                    "ctype": "SpriteObjectData"
-                  }
-                ],
-                "ActionTag": -430145358,
-                "Size": {
-                  "X": 700.0,
-                  "Y": 1000.0
-                },
-                "Name": "Panel_2",
-                "ctype": "PanelObjectData"
-              },
-              {
-                "ClipAble": false,
-                "BackColorAlpha": 102,
-                "ComboBoxIndex": 1,
-                "SingleColor": {
-                  "R": 150,
-                  "G": 200
-                },
-                "FirstColor": {
-                  "R": 150,
-                  "G": 200
-                },
-                "EndColor": {},
-                "ColorVector": {
-                  "ScaleY": 1.0
-                },
-                "Scale9Width": 1,
-                "Scale9Height": 1,
-                "TouchEnable": true,
-                "AnchorPoint": {},
-                "Position": {
-                  "X": 287.0,
-                  "Y": -6.74
-                },
-                "Scale": {
-                  "ScaleX": 0.6613,
-                  "ScaleY": 0.7208
-                },
-                "CColor": {},
-                "IconVisible": false,
-                "PrePosition": {
-                  "X": 1.435,
-                  "Y": -0.0337
-                },
-                "PreSize": {
-                  "X": 3.5,
-                  "Y": 5.0
-                },
-                "LeftMargin": 287.0,
-                "RightMargin": -787.0,
-                "TopMargin": -793.26,
-                "BottomMargin": -6.74,
-                "Tag": 32,
-                "Children": [
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/shape_1.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 265.8357,
-                      "Y": 593.0217
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2159,
-                      "ScaleY": 0.2081
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.3798,
-                      "Y": 0.593
-                    },
-                    "PreSize": {
-                      "X": 0.5371,
-                      "Y": 0.376
-                    },
-                    "LeftMargin": 77.8357,
-                    "RightMargin": 246.1643,
-                    "TopMargin": 218.9783,
-                    "BottomMargin": 405.0217,
-                    "Tag": 6,
-                    "ActionTag": -1954891550,
-                    "Size": {
-                      "X": 376.0,
-                      "Y": 376.0
-                    },
-                    "Name": "shapeO_1",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/shape_1.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 440.423,
-                      "Y": 591.1419
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2159,
-                      "ScaleY": 0.2081
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.6292,
-                      "Y": 0.5911
-                    },
-                    "PreSize": {
-                      "X": 0.5371,
-                      "Y": 0.376
-                    },
-                    "LeftMargin": 252.423,
-                    "RightMargin": 71.577,
-                    "TopMargin": 220.8581,
-                    "BottomMargin": 403.1419,
-                    "Tag": 10,
-                    "ActionTag": -1653266241,
-                    "Size": {
-                      "X": 376.0,
-                      "Y": 376.0
-                    },
-                    "Name": "shapeO_2",
-                    "ctype": "SpriteObjectData"
-                  }
-                ],
-                "ActionTag": -179201559,
-                "Size": {
-                  "X": 700.0,
-                  "Y": 1000.0
-                },
-                "Name": "Panel_3",
-                "ctype": "PanelObjectData"
-              },
-              {
-                "ClipAble": false,
-                "BackColorAlpha": 102,
-                "ComboBoxIndex": 1,
-                "SingleColor": {
-                  "R": 150,
-                  "G": 200
-                },
-                "FirstColor": {
-                  "R": 150,
-                  "G": 200
-                },
-                "EndColor": {},
-                "ColorVector": {
-                  "ScaleY": 1.0
-                },
-                "Scale9Width": 1,
-                "Scale9Height": 1,
-                "TouchEnable": true,
-                "AnchorPoint": {},
-                "Position": {
-                  "X": 287.0,
-                  "Y": -6.74
-                },
-                "Scale": {
-                  "ScaleX": 0.6613,
-                  "ScaleY": 0.7208
-                },
-                "CColor": {},
-                "IconVisible": false,
-                "PrePosition": {
-                  "X": 1.435,
-                  "Y": -0.0337
-                },
-                "PreSize": {
-                  "X": 3.5,
-                  "Y": 5.0
-                },
-                "LeftMargin": 287.0,
-                "RightMargin": -787.0,
-                "TopMargin": -793.26,
-                "BottomMargin": -6.74,
-                "Tag": 33,
-                "Children": [
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/C-Shaped.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 254.1711,
-                      "Y": 497.6956
-                    },
-                    "Scale": {
-                      "ScaleX": 0.3094,
-                      "ScaleY": 0.3353
-                    },
-                    "RotationSkewX": 90.0,
-                    "RotationSkewY": 90.0,
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.3631,
-                      "Y": 0.4977
-                    },
-                    "PreSize": {
-                      "X": 0.3829,
-                      "Y": 0.456
-                    },
-                    "LeftMargin": 120.1711,
-                    "RightMargin": 311.8289,
-                    "TopMargin": 274.3044,
-                    "BottomMargin": 269.6956,
-                    "Tag": 4,
-                    "ActionTag": -473792095,
-                    "Size": {
-                      "X": 268.0,
-                      "Y": 456.0
-                    },
-                    "Name": "shapU_1",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/C-Shaped.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 438.1472,
-                      "Y": 496.5893
-                    },
-                    "Scale": {
-                      "ScaleX": 0.3094,
-                      "ScaleY": 0.3353
-                    },
-                    "RotationSkewX": 90.0,
-                    "RotationSkewY": 90.0,
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.6259,
-                      "Y": 0.4966
-                    },
-                    "PreSize": {
-                      "X": 0.3829,
-                      "Y": 0.456
-                    },
-                    "LeftMargin": 304.1472,
-                    "RightMargin": 127.8528,
-                    "TopMargin": 275.4107,
-                    "BottomMargin": 268.5893,
-                    "Tag": 9,
-                    "ActionTag": -1358446252,
-                    "Size": {
-                      "X": 268.0,
-                      "Y": 456.0
-                    },
-                    "Name": "shapU_2",
-                    "ctype": "SpriteObjectData"
-                  }
-                ],
-                "ActionTag": -1301366796,
-                "Size": {
-                  "X": 700.0,
-                  "Y": 1000.0
-                },
-                "Name": "Panel_4",
-                "ctype": "PanelObjectData"
-              },
-              {
-                "ClipAble": false,
-                "BackColorAlpha": 102,
-                "ComboBoxIndex": 1,
-                "SingleColor": {
-                  "R": 150,
-                  "G": 200
-                },
-                "FirstColor": {
-                  "R": 150,
-                  "G": 200
-                },
-                "EndColor": {},
-                "ColorVector": {
-                  "ScaleY": 1.0
-                },
-                "Scale9Width": 1,
-                "Scale9Height": 1,
-                "TouchEnable": true,
-                "AnchorPoint": {},
-                "Position": {
-                  "X": 287.0,
-                  "Y": -7.2218
-                },
-                "Scale": {
-                  "ScaleX": 0.6613,
-                  "ScaleY": 0.7208
-                },
-                "CColor": {},
-                "IconVisible": false,
-                "PrePosition": {
-                  "X": 1.435,
-                  "Y": -0.0361
-                },
-                "PreSize": {
-                  "X": 3.5,
-                  "Y": 5.0
-                },
-                "LeftMargin": 287.0,
-                "RightMargin": -787.0,
-                "TopMargin": -792.7782,
-                "BottomMargin": -7.2218,
-                "Tag": 34,
-                "Children": [
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/lock.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 174.9225,
-                      "Y": 342.8419
-                    },
-                    "Scale": {
-                      "ScaleX": 0.15,
-                      "ScaleY": 0.15
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.2499,
-                      "Y": 0.3428
-                    },
-                    "PreSize": {
-                      "X": 0.2843,
-                      "Y": 0.199
-                    },
-                    "LeftMargin": 75.4225,
-                    "RightMargin": 425.5775,
-                    "TopMargin": 557.6581,
-                    "BottomMargin": 243.3419,
-                    "Tag": 21,
-                    "ActionTag": -606921386,
-                    "Size": {
-                      "X": 199.0,
-                      "Y": 199.0
-                    },
-                    "Name": "lock_1",
-                    "ctype": "SpriteObjectData"
+                    "Name": "hole1",
+                    "ctype": "ImageViewObjectData"
                   },
                   {
                     "FileData": {
@@ -636,618 +318,1045 @@
                       "Path": "pic/hole.png",
                       "Plist": ""
                     },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 14,
+                    "Scale9Width": 15,
+                    "Scale9Height": 15,
                     "AnchorPoint": {
                       "ScaleX": 0.5,
                       "ScaleY": 0.5
                     },
                     "Position": {
-                      "X": 425.6442,
-                      "Y": 342.1827
+                      "X": 78.3208,
+                      "Y": 28.6477
                     },
                     "Scale": {
-                      "ScaleX": 0.12,
-                      "ScaleY": 0.12
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
                     },
                     "CColor": {},
                     "IconVisible": false,
                     "PrePosition": {
-                      "X": 0.6081,
-                      "Y": 0.3422
+                      "X": 0.4554,
+                      "Y": 0.1666
                     },
                     "PreSize": {
-                      "X": 0.3614,
-                      "Y": 0.253
+                      "X": 0.25,
+                      "Y": 0.25
                     },
-                    "LeftMargin": 299.1442,
-                    "RightMargin": 147.8558,
-                    "TopMargin": 531.3173,
-                    "BottomMargin": 215.6827,
-                    "Tag": 25,
-                    "ActionTag": -1140236201,
+                    "LeftMargin": 56.8208,
+                    "RightMargin": 72.1792,
+                    "TopMargin": 121.8523,
+                    "BottomMargin": 7.1477,
+                    "Tag": 59,
+                    "ActionTag": 60786792,
                     "Size": {
-                      "X": 253.0,
-                      "Y": 253.0
-                    },
-                    "Name": "hole_4",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/hole.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 384.6443,
-                      "Y": 342.1827
-                    },
-                    "Scale": {
-                      "ScaleX": 0.12,
-                      "ScaleY": 0.12
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.5495,
-                      "Y": 0.3422
-                    },
-                    "PreSize": {
-                      "X": 0.3614,
-                      "Y": 0.253
-                    },
-                    "LeftMargin": 258.1443,
-                    "RightMargin": 188.8557,
-                    "TopMargin": 531.3173,
-                    "BottomMargin": 215.6827,
-                    "Tag": 24,
-                    "ActionTag": 821927181,
-                    "Size": {
-                      "X": 253.0,
-                      "Y": 253.0
-                    },
-                    "Name": "hole_3",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/hole.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 306.6422,
-                      "Y": 342.1807
-                    },
-                    "Scale": {
-                      "ScaleX": 0.1153,
-                      "ScaleY": 0.1153
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.4381,
-                      "Y": 0.3422
-                    },
-                    "PreSize": {
-                      "X": 0.3614,
-                      "Y": 0.253
-                    },
-                    "LeftMargin": 180.1422,
-                    "RightMargin": 266.8578,
-                    "TopMargin": 531.3193,
-                    "BottomMargin": 215.6807,
-                    "Tag": 23,
-                    "ActionTag": 1579784238,
-                    "Size": {
-                      "X": 253.0,
-                      "Y": 253.0
-                    },
-                    "Name": "hole_2",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/hole.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 265.6426,
-                      "Y": 342.1827
-                    },
-                    "Scale": {
-                      "ScaleX": 0.12,
-                      "ScaleY": 0.12
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.3795,
-                      "Y": 0.3422
-                    },
-                    "PreSize": {
-                      "X": 0.3614,
-                      "Y": 0.253
-                    },
-                    "LeftMargin": 139.1426,
-                    "RightMargin": 307.8574,
-                    "TopMargin": 531.3173,
-                    "BottomMargin": 215.6827,
-                    "Tag": 22,
-                    "ActionTag": 1968283915,
-                    "Size": {
-                      "X": 253.0,
-                      "Y": 253.0
-                    },
-                    "Name": "hole_1",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 266.1591,
-                      "Y": 596.0214
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.3802,
-                      "Y": 0.596
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 180.1591,
-                    "RightMargin": 347.8409,
-                    "TopMargin": 318.4786,
-                    "BottomMargin": 510.5214,
-                    "Tag": 11,
-                    "ActionTag": -1161679253,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_1",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 442.7042,
-                      "Y": 593.0082
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.6324,
-                      "Y": 0.593
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 356.7042,
-                    "RightMargin": 171.2958,
-                    "TopMargin": 321.4918,
-                    "BottomMargin": 507.5082,
-                    "Tag": 13,
-                    "ActionTag": 1134087112,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_2",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 197.2409,
-                      "Y": 517.551
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.2818,
-                      "Y": 0.5176
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 111.2409,
-                    "RightMargin": 416.7591,
-                    "TopMargin": 396.949,
-                    "BottomMargin": 432.051,
-                    "Tag": 14,
-                    "ActionTag": -1871826525,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_3",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 312.214,
-                      "Y": 519.76
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.446,
-                      "Y": 0.5198
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 226.214,
-                    "RightMargin": 301.786,
-                    "TopMargin": 394.74,
-                    "BottomMargin": 434.26,
-                    "Tag": 15,
-                    "ActionTag": 419962989,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_4",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 385.1275,
-                      "Y": 517.6115
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.5502,
-                      "Y": 0.5176
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 299.1275,
-                    "RightMargin": 228.8725,
-                    "TopMargin": 396.8885,
-                    "BottomMargin": 432.1115,
-                    "Tag": 16,
-                    "ActionTag": 1067780814,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_5",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 495.5246,
-                      "Y": 517.3306
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.7079,
-                      "Y": 0.5173
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 409.5246,
-                    "RightMargin": 118.4754,
-                    "TopMargin": 397.1694,
-                    "BottomMargin": 431.8306,
-                    "Tag": 17,
-                    "ActionTag": 55938524,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_6",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 348.1375,
-                      "Y": 618.5688
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.4973,
-                      "Y": 0.6186
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 262.1375,
-                    "RightMargin": 265.8625,
-                    "TopMargin": 295.9312,
-                    "BottomMargin": 533.0688,
-                    "Tag": 18,
-                    "ActionTag": 648599905,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_7",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 240.623,
-                      "Y": 690.2627
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.3437,
-                      "Y": 0.6903
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 154.623,
-                    "RightMargin": 373.377,
-                    "TopMargin": 224.2373,
-                    "BottomMargin": 604.7627,
-                    "Tag": 19,
-                    "ActionTag": -936765023,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_8",
-                    "ctype": "SpriteObjectData"
-                  },
-                  {
-                    "FileData": {
-                      "Type": "Normal",
-                      "Path": "pic/pin.png",
-                      "Plist": ""
-                    },
-                    "BlendFunc": {
-                      "Src": 1,
-                      "Dst": 771
-                    },
-                    "AnchorPoint": {
-                      "ScaleX": 0.5,
-                      "ScaleY": 0.5
-                    },
-                    "Position": {
-                      "X": 448.3785,
-                      "Y": 688.5951
-                    },
-                    "Scale": {
-                      "ScaleX": 0.2,
-                      "ScaleY": 0.2
-                    },
-                    "CColor": {},
-                    "IconVisible": false,
-                    "PrePosition": {
-                      "X": 0.6405,
-                      "Y": 0.6886
-                    },
-                    "PreSize": {
-                      "X": 0.2457,
-                      "Y": 0.171
-                    },
-                    "LeftMargin": 362.3785,
-                    "RightMargin": 165.6215,
-                    "TopMargin": 225.9049,
-                    "BottomMargin": 603.0951,
-                    "Tag": 20,
-                    "ActionTag": -1606086729,
-                    "Size": {
-                      "X": 172.0,
-                      "Y": 171.0
-                    },
-                    "Name": "pin_9",
-                    "ctype": "SpriteObjectData"
+                      "X": 43.0,
+                      "Y": 43.0
+                    },
+                    "Name": "hole7",
+                    "ctype": "ImageViewObjectData"
                   }
                 ],
-                "ActionTag": 312641700,
+                "ActionTag": -1895860610,
                 "Size": {
-                  "X": 700.0,
-                  "Y": 1000.0
+                  "X": 172.0,
+                  "Y": 172.0
                 },
-                "Name": "Panel_5",
-                "ctype": "PanelObjectData"
+                "Name": "shape_L2",
+                "ctype": "ImageViewObjectData"
               }
             ],
-            "ActionTag": 1088888112,
+            "ActionTag": -1790529933,
             "Size": {
-              "X": 200.0,
-              "Y": 200.0
+              "X": 610.0,
+              "Y": 830.0
             },
-            "Name": "level1",
+            "Name": "Panel_1",
+            "ctype": "PanelObjectData"
+          },
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 0,
+            "ComboBoxIndex": 1,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.1475,
+              "Y": 1.2048
+            },
+            "RightMargin": -90.0,
+            "TopMargin": -170.0,
+            "Tag": 36,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/E-Shaped.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 63,
+                "Scale9OriginY": 33,
+                "Scale9Width": 66,
+                "Scale9Height": 36,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 328.5816,
+                  "Y": 374.9918
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4694,
+                  "Y": 0.375
+                },
+                "PreSize": {
+                  "X": 0.2743,
+                  "Y": 0.102
+                },
+                "LeftMargin": 232.5816,
+                "RightMargin": 275.4184,
+                "TopMargin": 574.0082,
+                "BottomMargin": 323.9918,
+                "Tag": 47,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "Normal",
+                      "Path": "pic/hole.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 14,
+                    "Scale9Width": 15,
+                    "Scale9Height": 15,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 95.6298,
+                      "Y": 76.1888
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4981,
+                      "Y": 0.7469
+                    },
+                    "PreSize": {
+                      "X": 0.224,
+                      "Y": 0.4216
+                    },
+                    "LeftMargin": 74.1298,
+                    "RightMargin": 74.8702,
+                    "TopMargin": 4.3112,
+                    "BottomMargin": 54.6888,
+                    "Tag": 54,
+                    "ActionTag": -392800297,
+                    "Size": {
+                      "X": 43.0,
+                      "Y": 43.0
+                    },
+                    "Name": "hole4",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "Normal",
+                      "Path": "pic/hole.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 14,
+                    "Scale9Width": 15,
+                    "Scale9Height": 15,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 95.5743,
+                      "Y": 29.0431
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4978,
+                      "Y": 0.2847
+                    },
+                    "PreSize": {
+                      "X": 0.224,
+                      "Y": 0.4216
+                    },
+                    "LeftMargin": 74.0743,
+                    "RightMargin": 74.9257,
+                    "TopMargin": 51.4569,
+                    "BottomMargin": 7.5431,
+                    "Tag": 55,
+                    "ActionTag": -579420049,
+                    "Size": {
+                      "X": 43.0,
+                      "Y": 43.0
+                    },
+                    "Name": "hole6",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": 194752110,
+                "Size": {
+                  "X": 192.0,
+                  "Y": 102.0
+                },
+                "Name": "shape_E1",
+                "ctype": "ImageViewObjectData"
+              }
+            ],
+            "ActionTag": -375021670,
+            "Size": {
+              "X": 700.0,
+              "Y": 1000.0
+            },
+            "Name": "Panel_2",
+            "ctype": "PanelObjectData"
+          },
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 0,
+            "ComboBoxIndex": 1,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.1475,
+              "Y": 1.2048
+            },
+            "RightMargin": -90.0,
+            "TopMargin": -170.0,
+            "Tag": 37,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/T_shape.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 83,
+                "Scale9OriginY": 41,
+                "Scale9Width": 88,
+                "Scale9Height": 44,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 324.8447,
+                  "Y": 541.737
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4641,
+                  "Y": 0.5417
+                },
+                "PreSize": {
+                  "X": 0.3629,
+                  "Y": 0.126
+                },
+                "LeftMargin": 197.8447,
+                "RightMargin": 248.1553,
+                "TopMargin": 395.263,
+                "BottomMargin": 478.737,
+                "Tag": 45,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "Normal",
+                      "Path": "pic/hole.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 14,
+                    "Scale9Width": 15,
+                    "Scale9Height": 15,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 44.2117,
+                      "Y": 102.7302
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1741,
+                      "Y": 0.8153
+                    },
+                    "PreSize": {
+                      "X": 0.1693,
+                      "Y": 0.3413
+                    },
+                    "LeftMargin": 22.7117,
+                    "RightMargin": 188.2883,
+                    "TopMargin": 1.7698,
+                    "BottomMargin": 81.2302,
+                    "Tag": 44,
+                    "ActionTag": -691651864,
+                    "Size": {
+                      "X": 43.0,
+                      "Y": 43.0
+                    },
+                    "Name": "hole2",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "Normal",
+                      "Path": "pic/hole.png",
+                      "Plist": ""
+                    },
+                    "Scale9OriginX": 14,
+                    "Scale9OriginY": 14,
+                    "Scale9Width": 15,
+                    "Scale9Height": 15,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 206.338,
+                      "Y": 101.2605
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.8124,
+                      "Y": 0.8037
+                    },
+                    "PreSize": {
+                      "X": 0.1693,
+                      "Y": 0.3413
+                    },
+                    "LeftMargin": 184.838,
+                    "RightMargin": 26.162,
+                    "TopMargin": 3.2395,
+                    "BottomMargin": 79.7605,
+                    "Tag": 53,
+                    "ActionTag": 1558722821,
+                    "Size": {
+                      "X": 43.0,
+                      "Y": 43.0
+                    },
+                    "Name": "hole3",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": -973056599,
+                "Size": {
+                  "X": 254.0,
+                  "Y": 126.0
+                },
+                "Name": "shape_T1",
+                "ctype": "ImageViewObjectData"
+              }
+            ],
+            "ActionTag": -1431902894,
+            "Size": {
+              "X": 700.0,
+              "Y": 1000.0
+            },
+            "Name": "Panel_3",
+            "ctype": "PanelObjectData"
+          },
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 10,
+            "ComboBoxIndex": 1,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.118,
+              "Y": 1.2048
+            },
+            "RightMargin": -72.0,
+            "TopMargin": -170.0,
+            "Tag": 38,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/pin.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 15,
+                "Scale9Width": 16,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.4824,
+                  "ScaleY": 0.4683
+                },
+                "Position": {
+                  "X": 177.3656,
+                  "Y": 456.4161
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.2601,
+                  "Y": 0.4564
+                },
+                "PreSize": {
+                  "X": 0.0674,
+                  "Y": 0.046
+                },
+                "LeftMargin": 155.1752,
+                "RightMargin": 480.8248,
+                "TopMargin": 519.1257,
+                "BottomMargin": 434.8743,
+                "Tag": 39,
+                "ActionTag": -990921491,
+                "Size": {
+                  "X": 46.0,
+                  "Y": 46.0
+                },
+                "Name": "pin1",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/pin.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 15,
+                "Scale9Width": 16,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 405.139,
+                  "Y": 578.6466
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.594,
+                  "Y": 0.5786
+                },
+                "PreSize": {
+                  "X": 0.0674,
+                  "Y": 0.046
+                },
+                "LeftMargin": 382.139,
+                "RightMargin": 253.861,
+                "TopMargin": 398.3534,
+                "BottomMargin": 555.6466,
+                "Tag": 40,
+                "ActionTag": 550942378,
+                "Size": {
+                  "X": 46.0,
+                  "Y": 46.0
+                },
+                "Name": "pin2",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/pin.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 15,
+                "Scale9Width": 16,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 242.6837,
+                  "Y": 580.0658
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.3558,
+                  "Y": 0.5801
+                },
+                "PreSize": {
+                  "X": 0.0674,
+                  "Y": 0.046
+                },
+                "LeftMargin": 219.6837,
+                "RightMargin": 416.3163,
+                "TopMargin": 396.9342,
+                "BottomMargin": 557.0658,
+                "Tag": 41,
+                "ActionTag": 1859079237,
+                "Size": {
+                  "X": 46.0,
+                  "Y": 46.0
+                },
+                "Name": "pin3",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/pin.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 15,
+                "Scale9Width": 16,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 328.8796,
+                  "Y": 398.6136
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4822,
+                  "Y": 0.3986
+                },
+                "PreSize": {
+                  "X": 0.0674,
+                  "Y": 0.046
+                },
+                "LeftMargin": 305.8796,
+                "RightMargin": 330.1204,
+                "TopMargin": 578.3864,
+                "BottomMargin": 375.6136,
+                "Tag": 42,
+                "ActionTag": 602622873,
+                "Size": {
+                  "X": 46.0,
+                  "Y": 46.0
+                },
+                "Name": "pin4",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/pin.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 15,
+                "Scale9Width": 16,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 485.7638,
+                  "Y": 459.2096
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.7123,
+                  "Y": 0.4592
+                },
+                "PreSize": {
+                  "X": 0.0674,
+                  "Y": 0.046
+                },
+                "LeftMargin": 462.7638,
+                "RightMargin": 173.2362,
+                "TopMargin": 517.7904,
+                "BottomMargin": 436.2096,
+                "Tag": 43,
+                "ActionTag": -2002740748,
+                "Size": {
+                  "X": 46.0,
+                  "Y": 46.0
+                },
+                "Name": "pin5",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/pin.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 15,
+                "Scale9Width": 16,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 328.5811,
+                  "Y": 351.7614
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4818,
+                  "Y": 0.3518
+                },
+                "PreSize": {
+                  "X": 0.0674,
+                  "Y": 0.046
+                },
+                "LeftMargin": 305.5811,
+                "RightMargin": 330.4189,
+                "TopMargin": 625.2386,
+                "BottomMargin": 328.7614,
+                "Tag": 49,
+                "ActionTag": -1650885976,
+                "Size": {
+                  "X": 46.0,
+                  "Y": 46.0
+                },
+                "Name": "pin6",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/pin.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 15,
+                "Scale9Width": 16,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 110.6921,
+                  "Y": 533.7223
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.1623,
+                  "Y": 0.5337
+                },
+                "PreSize": {
+                  "X": 0.0674,
+                  "Y": 0.046
+                },
+                "LeftMargin": 87.6921,
+                "RightMargin": 548.3079,
+                "TopMargin": 443.2777,
+                "BottomMargin": 510.7223,
+                "Tag": 50,
+                "ActionTag": 1828084477,
+                "Size": {
+                  "X": 46.0,
+                  "Y": 46.0
+                },
+                "Name": "pin7",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/pin.png",
+                  "Plist": ""
+                },
+                "Scale9OriginX": 15,
+                "Scale9OriginY": 15,
+                "Scale9Width": 16,
+                "Scale9Height": 16,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 545.9119,
+                  "Y": 528.4719
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.8005,
+                  "Y": 0.5285
+                },
+                "PreSize": {
+                  "X": 0.0674,
+                  "Y": 0.046
+                },
+                "LeftMargin": 522.9119,
+                "RightMargin": 113.0881,
+                "TopMargin": 448.5281,
+                "BottomMargin": 505.4719,
+                "Tag": 51,
+                "ActionTag": 209367788,
+                "Size": {
+                  "X": 46.0,
+                  "Y": 46.0
+                },
+                "Name": "pin8",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/hole.png",
+                  "Plist": ""
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 195.8285,
+                  "Y": 181.9049
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.2871,
+                  "Y": 0.1819
+                },
+                "PreSize": {
+                  "X": 0.063,
+                  "Y": 0.043
+                },
+                "LeftMargin": 174.3285,
+                "RightMargin": 464.6715,
+                "TopMargin": 796.5951,
+                "BottomMargin": 160.4049,
+                "Tag": 55,
+                "ActionTag": 1982392436,
+                "Size": {
+                  "X": 43.0,
+                  "Y": 43.0
+                },
+                "Name": "hole1",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/hole.png",
+                  "Plist": ""
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 265.6583,
+                  "Y": 181.5229
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.3895,
+                  "Y": 0.1815
+                },
+                "PreSize": {
+                  "X": 0.063,
+                  "Y": 0.043
+                },
+                "LeftMargin": 244.1583,
+                "RightMargin": 394.8417,
+                "TopMargin": 796.9771,
+                "BottomMargin": 160.0229,
+                "Tag": 56,
+                "ActionTag": -1373662307,
+                "Size": {
+                  "X": 43.0,
+                  "Y": 43.0
+                },
+                "Name": "hole2",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/hole.png",
+                  "Plist": ""
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 332.1668,
+                  "Y": 182.3259
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.487,
+                  "Y": 0.1823
+                },
+                "PreSize": {
+                  "X": 0.063,
+                  "Y": 0.043
+                },
+                "LeftMargin": 310.6668,
+                "RightMargin": 328.3332,
+                "TopMargin": 796.1741,
+                "BottomMargin": 160.8259,
+                "Tag": 57,
+                "ActionTag": -1932418122,
+                "Size": {
+                  "X": 43.0,
+                  "Y": 43.0
+                },
+                "Name": "hole3",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "Normal",
+                  "Path": "pic/lock.png",
+                  "Plist": ""
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 401.9946,
+                  "Y": 179.7134
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5894,
+                  "Y": 0.1797
+                },
+                "PreSize": {
+                  "X": 0.063,
+                  "Y": 0.043
+                },
+                "LeftMargin": 380.4946,
+                "RightMargin": 258.5054,
+                "TopMargin": 798.7866,
+                "BottomMargin": 158.2134,
+                "Tag": 58,
+                "ActionTag": 706876627,
+                "Size": {
+                  "X": 43.0,
+                  "Y": 43.0
+                },
+                "Name": "lock",
+                "ctype": "SpriteObjectData"
+              }
+            ],
+            "ActionTag": -1097966264,
+            "Size": {
+              "X": 682.0,
+              "Y": 1000.0
+            },
+            "Name": "Panel_4",
             "ctype": "PanelObjectData"
           }
         ],
         "Size": {
-          "X": 720.0,
-          "Y": 1280.0
+          "X": 610.0,
+          "Y": 830.0
         },
         "Name": "Scene",
         "ctype": "SingleNodeObjectData"
       },
       "UsedResources": [
-        "level1-50/bg.jpg",
-        "pic/C-Shaped.png",
+        "pic/bg.jpg",
+        "pic/E-Shaped.png",
         "pic/hole.png",
+        "pic/L_Shaped.png",
         "pic/lock.png",
         "pic/pin.png",
-        "pic/shape_1.png",
         "pic/T_shape.png"
       ],
       "ctype": "GameFileData"

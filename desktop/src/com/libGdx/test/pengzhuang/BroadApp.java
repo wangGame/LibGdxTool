@@ -22,7 +22,10 @@ public class BroadApp extends LibGdxTestMain {
 
         BroadImage broadImage1 = new BroadImage();
         addActor(broadImage1);
-        broadImage1.addAction(Actions.moveTo(0,700,5));
+        broadImage1.addAction(
+                Actions.sequence(
+                        Actions.moveTo(0,600,5),
+                        Actions.forever(Actions.rotateBy(5,0.1f))));
         stage.addAction(new Action() {
             @Override
             public boolean act(float delta) {

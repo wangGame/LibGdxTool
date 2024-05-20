@@ -16,6 +16,7 @@ public class BroadImage extends Group {
         addActor(image);
         rectangle.setWidth(image.getWidth());
         rectangle.setHeight(image.getHeight());
+
         setSize(image.getWidth(),image.getHeight());
     }
 

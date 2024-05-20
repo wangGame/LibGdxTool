@@ -15,9 +15,12 @@
  */
 package net.mwplay.cocostudio.ui.parser.widget;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import net.mwplay.cocostudio.ui.BaseCocoStudioUIEditor;
 import net.mwplay.cocostudio.ui.model.objectdata.widget.ImageViewObjectData;
 import net.mwplay.cocostudio.ui.parser.WidgetParser;
@@ -35,6 +38,12 @@ public class CCImageView extends WidgetParser<ImageViewObjectData> {
 		Drawable tr = editor.findDrawable(widget, widget.FileData);
         if (tr == null) {
             return new Image();
+        }
+        if (tr instanceof TextureRegionDrawable){
+            if (widget.FlipX){
+                TextureRegionDrawable tr1 = (TextureRegionDrawable) (tr);
+                tr1.getRegion().flip(widget.FlipX, widget.FlipY);
+            }
         }
         return new Image(tr);
     }
