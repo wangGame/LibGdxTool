@@ -1,6 +1,8 @@
 package com.libGdx.test.stencil;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -23,6 +25,10 @@ public class Cir extends Actor {
         setSize(radius * 2, radius * 2);
         sr = new ShapeRenderer();
     }
+    private int blendSrcFunc = GL20.GL_SRC_ALPHA;
+    private int blendDstFunc = GL20.GL_ONE_MINUS_SRC_ALPHA;
+    private int blendSrcFuncAlpha = GL20.GL_SRC_ALPHA;
+    private int blendDstFuncAlpha = GL20.GL_ONE_MINUS_SRC_ALPHA;
 
     @Override
     public void act(float delta) {
@@ -34,11 +40,20 @@ public class Cir extends Actor {
         super.draw(batch, parentAlpha);
         if (sr != null) {
             batch.end();
+
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
+
+
             sr.setProjectionMatrix(batch.getProjectionMatrix());
             sr.setTransformMatrix(batch.getTransformMatrix());
             sr.setColor(Color.valueOf("000000"));
             sr.begin(ShapeRenderer.ShapeType.Filled);
             sr.circle(centerX, centerY, radius);
+
+            Gdx.gl.glDisable(GL20.GL_BLEND);
+
+
             sr.end();
             batch.begin();
         }

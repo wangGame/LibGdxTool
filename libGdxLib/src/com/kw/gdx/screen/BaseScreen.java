@@ -34,7 +34,6 @@ public class BaseScreen implements Screen {
     protected String viewpath;
     protected float offsetY;
     protected float offsetX;
-    protected boolean back;
     protected BaseGame game;
     protected final DialogManager dialogManager;
     protected final BannerManager bannerManager;
@@ -139,7 +138,6 @@ public class BaseScreen implements Screen {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if ((keycode == Input.Keys.ESCAPE || keycode == Input.Keys.BACK)) {
-                    back = true;
                     back();
                 }
                 return super.keyDown(event, keycode);
@@ -148,7 +146,6 @@ public class BaseScreen implements Screen {
     }
 
     protected BaseDialog back() {
-        back = false;
         BaseDialog back = dialogManager.back();
         return back;
     }
