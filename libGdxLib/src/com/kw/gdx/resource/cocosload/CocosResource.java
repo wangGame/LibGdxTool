@@ -22,6 +22,20 @@ public class CocosResource {
         return new Group();
     }
 
+    public static ManagerUIEditor loadFil1e1(String resourcePath){
+        if (resourcePath!=null) {
+            if (!Asset.getAsset().getAssetManager().isLoaded(resourcePath)){
+                ManagerUILoader.ManagerUIParameter managerUIParameter1 =
+                        new ManagerUILoader.ManagerUIParameter("cocos/", Asset.getAsset().getAssetManager());
+                Asset.getAsset().getAssetManager().load(resourcePath, ManagerUIEditor.class, managerUIParameter1);
+                Asset.getAsset().getAssetManager().finishLoading();
+            }
+            ManagerUIEditor managerUIEditor = Asset.getAsset().getAssetManager().get(resourcePath);
+            return managerUIEditor;
+        }
+        return null;
+    }
+
     public static void loadFile1(String resourcePath){
         if (resourcePath!=null) {
             if (!Asset.getAsset().getAssetManager().isLoaded(resourcePath)) {
