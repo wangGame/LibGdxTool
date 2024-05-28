@@ -18,6 +18,7 @@ void main() {
     if(pic.a <=0.0){
         discard;
     }else{
-        gl_FragColor = pic1;
+        float xx = (pic.r + pic.g + pic.b)/3.0;
+        gl_FragColor = pic1 * vec4(xx,xx,xx,pic.a);
     }
 }

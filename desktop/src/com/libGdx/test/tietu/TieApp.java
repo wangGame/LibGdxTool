@@ -19,13 +19,16 @@ public class TieApp extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
         Constant.viewColor.set(Color.BROWN);
-        TieTuGroup tieTuGroup = new TieTuGroup();
-        addActor(tieTuGroup);
-        tieTuGroup.setPosition(0,Constant.GAMEHIGHT/2.0f, Align.left);
 
 
-        Texture model = Asset.getAsset().getTexture("0_1_41_512.jpg");
-        Image image = new Image(model);
-        addActor(image);
+        BodyImage bodyImage = new BodyImage();
+        addActor(bodyImage);
+        bodyImage.setPosition(Constant.GAMEWIDTH/2.0f,Constant.GAMEHIGHT/2.0f,Align.center);
+
+
+
+//        Texture model = Asset.getAsset().getTexture("0_1_41_512.jpg");
+//        Image image = new Image(model);
+//        addActor(image);
     }
 }
