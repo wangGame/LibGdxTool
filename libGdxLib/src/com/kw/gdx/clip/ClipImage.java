@@ -11,13 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
  */
 public class ClipImage extends Group {
     public ClipImage(){
-        setSize(100,100);
+        setSize(600,600);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.flush();
-        if (clipBegin(0,0,50,getHeight()/2)) {
+        if (clipBegin(0,0,570,getHeight()/2)) {
             super.draw(batch, parentAlpha);
             batch.flush();
             clipEnd();

@@ -24,7 +24,7 @@ public class TieApp extends LibGdxTestMain {
         BodyImage bodyImage = new BodyImage();
         addActor(bodyImage);
         bodyImage.setPosition(Constant.GAMEWIDTH/2.0f,Constant.GAMEHIGHT/2.0f,Align.center);
-
+        bodyImage.setScale(6);
 
 
 //        Texture model = Asset.getAsset().getTexture("0_1_41_512.jpg");

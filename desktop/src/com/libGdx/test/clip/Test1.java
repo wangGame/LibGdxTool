@@ -1,7 +1,9 @@
 package com.libGdx.test.clip;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
+import com.kw.gdx.clip.ClipImage;
 import com.libGdx.test.base.LibGdxTestMain;
 
 /**
@@ -17,10 +19,10 @@ public class Test1 extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-//        ClipImage image = new ClipImage();
-//        Image image1 = new Image(Asset.getAsset().getTexture("shuoming.png"));
-//        stage.addActor(image);
-//        image.addActor(image1);
+        ClipImage image = new ClipImage();
+        Image image1 = new Image(Asset.getAsset().getTexture("shuoming.png"));
+        stage.addActor(image);
+        image.addActor(image1);
 
 
 //        Group group = new Group(){

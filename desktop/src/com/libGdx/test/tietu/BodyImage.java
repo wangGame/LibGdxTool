@@ -8,23 +8,24 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
+import com.kw.gdx.tietu.TietuGroup;
 
+/**
+ * 画圆
+ */
 public class BodyImage extends CirGroup {
-    private TieTuGroup image;
+    private TietuGroup image;
     private Array<Actor> cirArray;
 
     public BodyImage(){
         Texture texture = Asset.getAsset().getTexture("L_Shaped.png");
-        image = new TieTuGroup();
+        image = new TietuGroup();
         setSize(image.getWidth(),image.getHeight());
         image.setPosition(getWidth()/2.0f,getHeight()/2.0f, Align.center);
         addActor(image);
         cirArray = new Array<>();
 
-        Image imagec = new Image(Asset.getAsset().getTexture("ad_progress.png"));
-        addActor(imagec);
-        imagec.setPosition(50,25,Align.center);
-        setCir(imagec);
+
     }
 
     @Override
