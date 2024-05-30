@@ -49,8 +49,16 @@ public class BaseScreen implements Screen {
         this.screenSize = new Vector2(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
         this.game = game;
         this.stage = new Stage(getStageViewport(), getBatch());
-        this.offsetY = (Constant.GAMEHIGHT - Constant.HIGHT)/2;
-        this.offsetX = (Constant.GAMEWIDTH - Constant.WIDTH)/2;
+        if (Constant.viewportType == Constant.EXTENDVIEWPORT) {
+            this.offsetY = (Constant.GAMEHIGHT - Constant.HIGHT) / 2;
+            this.offsetX = (Constant.GAMEWIDTH - Constant.WIDTH) / 2;
+        }else if (Constant.viewportType == Constant.SCALINGVIEWPORTX){
+            this.offsetY = (Constant.GAMEHIGHT - Constant.HIGHT) / 2;
+            this.offsetX = (Constant.GAMEWIDTH - Constant.WIDTH) / 2;
+        }else if (Constant.viewportType == Constant.SCALINGVIEWPORTY){
+            this.offsetY = (Constant.GAMEHIGHT - Constant.HIGHT) / 2;
+            this.offsetX = (Constant.GAMEWIDTH - Constant.WIDTH) / 2;
+        }
         this.bannerManager = new BannerManager(stage);
         this.bannerManager.init(offsetY);
         if (Constant.DEBUG) {

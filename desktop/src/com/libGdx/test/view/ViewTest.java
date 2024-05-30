@@ -5,7 +5,7 @@ import com.kw.gdx.constant.Constant;
 import com.kw.gdx.resource.annotation.GameInfo;
 import com.libGdx.test.base.LibGdxTestMain;
 
-@GameInfo(viewportType = Constant.SCALINGVIEWPORTY)
+@GameInfo
 public class ViewTest extends LibGdxTestMain {
     public static void main(String[] args) {
         ViewTest viewTest = new ViewTest();

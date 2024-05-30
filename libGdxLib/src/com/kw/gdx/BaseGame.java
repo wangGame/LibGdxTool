@@ -43,6 +43,10 @@ public class BaseGame extends Game {
         initInstance();
         initViewport();
         initExtends();
+        initScreen();
+    }
+
+    protected void initScreen() {
         Gdx.app.postRunnable(()->{
             if (Constant.crashlog){
                 Constant.SDPATH = Gdx.files.local("/").file().getAbsolutePath();
@@ -52,7 +56,7 @@ public class BaseGame extends Game {
         });
     }
 
-    private void anrTest() {
+    protected void anrTest() {
         ANRDEMO anrdemo = AnnotationInfo.checkClassAnnotation(this, ANRDEMO.class);
         if (anrdemo!=null){
             float delaytime = anrdemo.delaytime();
@@ -71,7 +75,7 @@ public class BaseGame extends Game {
 
     }
 
-    private void printInfo() {
+    protected void printInfo() {
         String version = Gdx.gl.glGetString(GL20.GL_VERSION);
         String glslVersion = Gdx.gl.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
         NLog.i("version: %s ,glslVersion : %s",version,glslVersion);
@@ -82,18 +86,18 @@ public class BaseGame extends Game {
         Asset.getAsset();
     }
 
-    private void gameInfoConfig() {
+    protected void gameInfoConfig() {
         GameInfo info = AnnotationInfo.checkClassAnnotation(this,GameInfo.class);
         Constant.updateInfo(info);
     }
 
     protected void loadingView(){}
 
-    private void initInstance(){
+    protected void initInstance(){
         Gdx.input.setCatchBackKey(true);
     }
 
-    private void initViewport() {
+    protected void initViewport() {
         if (Constant.viewportType == Constant.EXTENDVIEWPORT) {
             stageViewport = new ExtendViewport(Constant.WIDTH, Constant.HIGHT);
         }else if (Constant.viewportType == Constant.FITVIEWPORT){
