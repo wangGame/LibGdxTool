@@ -7,8 +7,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.CpuPolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kw.gdx.anr.ANRError;
 import com.kw.gdx.anr.ANRListener;
@@ -21,6 +26,9 @@ import com.kw.gdx.resource.annotation.AnnotationInfo;
 import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
 import com.kw.gdx.utils.log.NLog;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class BaseGame extends Game {
     private Batch batch;
@@ -90,6 +98,16 @@ public class BaseGame extends Game {
             stageViewport = new ExtendViewport(Constant.WIDTH, Constant.HIGHT);
         }else if (Constant.viewportType == Constant.FITVIEWPORT){
             stageViewport = new FitViewport(Constant.WIDTH, Constant.HIGHT);
+        }else if (Constant.viewportType == Constant.STRETCHVIEWPORT){
+            stageViewport = new StretchViewport(Constant.WIDTH, Constant.HIGHT);
+        }else if (Constant.viewportType == Constant.FILLVIEWPORT){
+            stageViewport = new FillViewport(Constant.WIDTH,Constant.WIDTH);
+        }else if (Constant.viewportType == Constant.SCALINGVIEWPORTX){
+            stageViewport = new ScalingViewport(Scaling.fillX,Constant.WIDTH,Constant.HIGHT);
+        }else if (Constant.viewportType == Constant.SCALINGVIEWPORTY){
+            stageViewport = new ScalingViewport(Scaling.fillY,Constant.WIDTH,Constant.HIGHT);
+        }else if (Constant.viewportType == Constant.SCREENVIEWPORT){
+            stageViewport = new ScreenViewport();
         }
     }
 
@@ -149,6 +167,22 @@ public class BaseGame extends Game {
         }
         otherDispose();
     }
+
+
+    public void setScreen(Class<? extends BaseScreen> t) {
+        Constructor<?> constructor = t.getConstructors()[0];
+        try {
+            BaseScreen baseScreen = (BaseScreen) constructor.newInstance(this);
+            setScreen(baseScreen);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void setScreen(Screen screen) {

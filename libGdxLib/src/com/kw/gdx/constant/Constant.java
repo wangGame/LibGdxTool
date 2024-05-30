@@ -15,7 +15,14 @@ public class Constant {
 //    viewport
     public static final int EXTENDVIEWPORT = 0;
     public static final int FITVIEWPORT = 1;
-//   batch
+    public static final int SCREENVIEWPORT = 2;
+    public static final int FILLVIEWPORT = 3;
+    public static final int STRETCHVIEWPORT = 4;
+    public static final int SCALINGVIEWPORTX = 5;
+    public static final int SCALINGVIEWPORTY = 6;
+
+
+    //   batch
     public static final int COUPOLYGONBATCH = 0;
     public static final int SPRITEBATCH = 1;
 //  assetManager Type
