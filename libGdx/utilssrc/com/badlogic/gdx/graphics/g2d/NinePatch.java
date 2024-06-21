@@ -71,14 +71,9 @@ public class NinePatch {
 		this(new TextureRegion(texture), left, right, top, bottom);
 	}
 
-	/** Create a ninepatch by cutting up the given texture region into nine patches. The subsequent parameters define the 4 lines
-	 * that will cut the texture region into 9 pieces.
-	 * 
-	 * @param left Pixels from left edge.
-	 * @param right Pixels from carRun edge.
-	 * @param top Pixels from top edge.
-	 * @param bottom Pixels from bottom edge. */
-	public NinePatch (TextureRegion region, int left, int right, int top, int bottom) {
+	public NinePatch (TextureRegion region, int left, int right, int top, int bottom,boolean flipX,boolean flipY) {
+		this.flipX = flipX;
+		this.flipY = flipY;
 		if (region == null) throw new IllegalArgumentException("region cannot be null.");
 		final int middleWidth = region.getRegionWidth() - left - right;
 		final int middleHeight = region.getRegionHeight() - top - bottom;
@@ -122,6 +117,17 @@ public class NinePatch {
 		load(patches);
 	}
 
+	/** Create a ninepatch by cutting up the given texture region into nine patches. The subsequent parameters define the 4 lines
+	 * that will cut the texture region into 9 pieces.
+	 * 
+	 * @param left Pixels from left edge.
+	 * @param right Pixels from carRun edge.
+	 * @param top Pixels from top edge.
+	 * @param bottom Pixels from bottom edge. */
+	public NinePatch (TextureRegion region, int left, int right, int top, int bottom) {
+		this(region,left,right,top,bottom,false,false);
+	}
+
 	/** Construct a degenerate "nine" patch with only a center component. */
 	public NinePatch (Texture texture, Color color) {
 		this(texture);
@@ -138,9 +144,14 @@ public class NinePatch {
 		this(region);
 		setColor(color);
 	}
-
-	/** Construct a degenerate "nine" patch with only a center component. */
 	public NinePatch (TextureRegion region) {
+		this(region,false,false);
+
+	}
+	/** Construct a degenerate "nine" patch with only a center component. */
+	public NinePatch (TextureRegion region,boolean flipX,boolean flipY) {
+		this.flipX = flipX;
+		this.flipY = flipY;
 		load(new TextureRegion[] {
 			//
 			null, null, null, //
@@ -148,11 +159,13 @@ public class NinePatch {
 			null, null, null //
 		});
 	}
-
+	public NinePatch (TextureRegion... patches){
+		this(false,false,patches);
+	}
 	/** Construct a nine patch from the given nine texture regions. The provided patches must be consistently sized (e.g., any left
 	 * edge textures must have the same width, etc). Patches may be <code>null</code>. Patch indices are specified via the public
 	 * members {@link #TOP_LEFT}, {@link #TOP_CENTER}, etc. */
-	public NinePatch (TextureRegion... patches) {
+	public NinePatch (boolean flipX,boolean flipY,TextureRegion... patches) {
 		if (patches == null || patches.length != 9) throw new IllegalArgumentException("NinePatch needs nine TextureRegions");
 
 		load(patches);
@@ -221,7 +234,46 @@ public class NinePatch {
 		this.color.set(color);
 	}
 
+
+	private boolean flipX;
+	private boolean flipY;
+
 	private void load (TextureRegion[] patches) {
+		for (TextureRegion patch : patches) {
+			patch.flip(flipX,flipY);
+		}
+		if (flipX){
+			TextureRegion tl = patches[TOP_LEFT];
+			patches[TOP_LEFT] = patches[TOP_RIGHT];
+			patches[TOP_RIGHT] = tl;
+
+			TextureRegion ml = patches[MIDDLE_LEFT];
+			patches[MIDDLE_LEFT] = patches[MIDDLE_RIGHT];
+			patches[MIDDLE_RIGHT] = ml;
+
+
+			TextureRegion bl = patches[BOTTOM_LEFT];
+			patches[BOTTOM_LEFT] = patches[BOTTOM_RIGHT];
+			patches[BOTTOM_RIGHT] = bl;
+		}
+		if (flipY){
+			TextureRegion tl = patches[TOP_LEFT];
+			patches[TOP_LEFT] = patches[BOTTOM_LEFT];
+			patches[BOTTOM_LEFT] = tl;
+
+
+			TextureRegion tc = patches[TOP_CENTER];
+			patches[TOP_CENTER] = patches[BOTTOM_CENTER];
+			patches[BOTTOM_CENTER] = tc;
+
+
+			TextureRegion tr = patches[TOP_RIGHT];
+			patches[TOP_RIGHT] = patches[BOTTOM_RIGHT];
+			patches[BOTTOM_RIGHT] = tr;
+		}
+
+
+
 		final float color = Color.WHITE.toFloatBits(); // placeholder color, overwritten at draw time
 
 		if (patches[BOTTOM_LEFT] != null) {

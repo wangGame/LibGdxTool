@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
-import com.libGdx.test.npath.NinePathNew;
 
 public class DownLoadFile extends LibGdxTestMain {
     public static void main(String[] args) {
@@ -20,9 +19,9 @@ public class DownLoadFile extends LibGdxTestMain {
         super.useShow(stage);
         Texture texture = Asset.getAsset().getTexture("000.png");
         TextureRegion region = new TextureRegion(texture);
-        NinePathNew ninePatch = new NinePathNew(region,100,100,100,100);
+        NinePatch ninePatch = new NinePatch(region,100,100,100,100,false,true);
         Image image = new Image(ninePatch);
-
+        image.setWidth(1999);
         addActor(image);
     }
 }
