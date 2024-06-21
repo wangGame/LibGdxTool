@@ -538,4 +538,7 @@ public class NinePatch {
 	public Texture getTexture () {
 		return texture;
 	}
+
+	public void flip() {
+	}
 }
