@@ -67,11 +67,16 @@ public class BaseDialog extends Group {
                         Actions.scaleTo(0.074F,0.074F,0.2667F * timeScale,
                                 new BseInterpolation(0.25f,0,1,1)),
                         Actions.run(()->{
+                            removeBefore();
                             remove();
                         })
                     ), Actions.sequence(Actions.alpha(0,0.2333F * timeScale))
                 )
         );
+    }
+
+    protected void removeBefore(){
+
     }
 
     protected void playOpenAudio(){

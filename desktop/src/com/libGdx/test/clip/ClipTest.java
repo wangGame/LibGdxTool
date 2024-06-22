@@ -20,9 +20,12 @@ public class ClipTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        TextureRegion region = new TextureRegion(Asset.getAsset().getTexture("7.png"));
-        TextureRegion region1 = new TextureRegion(Asset.getAsset().getTexture("3_34_24.png"));
-        ClipActor actor = new ClipActor(region,region1);
-        stage.addActor(actor);
+//        TextureRegion region = new TextureRegion(Asset.getAsset().getTexture("7.png"));
+//        TextureRegion region1 = new TextureRegion(Asset.getAsset().getTexture("3_34_24.png"));
+//        ClipActor actor = new ClipActor(region,region1);
+//        stage.addActor(actor);
+
+        ClipDemo clipDemo = new ClipDemo();
+        addActor(clipDemo);
     }
 }

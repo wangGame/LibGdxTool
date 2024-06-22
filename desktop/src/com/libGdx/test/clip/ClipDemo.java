@@ -31,7 +31,7 @@ public class ClipDemo extends ClipGroup {
 //    }
 
     public ClipDemo(){
-        Texture texture = Asset.getAsset().getTexture("test001.png");
+        Texture texture = Asset.getAsset().getTexture("000.png");
         TextureRegionActor textureRegionActor = new TextureRegionActor(texture);
         addActor(textureRegionActor);
         setSize(texture.getWidth(),texture.getHeight());

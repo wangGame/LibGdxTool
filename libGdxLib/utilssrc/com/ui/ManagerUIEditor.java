@@ -38,6 +38,7 @@ import com.ui.loader.ManagerUILoader;
 import com.ui.plist.PlistAtlas;
 
 import net.mwplay.cocostudio.ui.BaseCocoStudioUIEditor;
+import net.mwplay.cocostudio.ui.model.CCExport;
 import net.mwplay.cocostudio.ui.model.FileData;
 import net.mwplay.cocostudio.ui.model.ObjectData;
 import net.mwplay.cocostudio.ui.widget.TTFLabelStyle;
@@ -77,10 +78,13 @@ public class ManagerUIEditor extends BaseCocoStudioUIEditor implements Disposabl
 	public ManagerUIEditor (FileHandle jsonFile, String dirName) {
 		this(jsonFile,dirName,null);
 	}
-
+	private CCExport export1;
 	//初始化函数
 	public ManagerUIEditor (FileHandle jsonFile, String dirName, AssetManager assetManager) {
 		super(jsonFile);
+		this.export1 = export;
+
+
 		this.assetManager = assetManager;
 		if (this.assetManager == null)
 			this.assetManager = null;
@@ -95,6 +99,10 @@ public class ManagerUIEditor extends BaseCocoStudioUIEditor implements Disposabl
 		if (!filedir.equals("")) {
 			filedir += "/";
 		}
+	}
+
+	public CCExport getExport1() {
+		return export1;
 	}
 
 	//获取依赖资源

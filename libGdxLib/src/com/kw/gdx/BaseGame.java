@@ -7,8 +7,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.CpuPolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kw.gdx.anr.ANRError;
 import com.kw.gdx.anr.ANRListener;
@@ -21,6 +26,9 @@ import com.kw.gdx.resource.annotation.AnnotationInfo;
 import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
 import com.kw.gdx.utils.log.NLog;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class BaseGame extends Game {
     private Batch batch;
@@ -35,6 +43,10 @@ public class BaseGame extends Game {
         initInstance();
         initViewport();
         initExtends();
+        initScreen();
+    }
+
+    protected void initScreen() {
         Gdx.app.postRunnable(()->{
             if (Constant.crashlog){
                 Constant.SDPATH = Gdx.files.local("/").file().getAbsolutePath();
@@ -44,7 +56,7 @@ public class BaseGame extends Game {
         });
     }
 
-    private void anrTest() {
+    protected void anrTest() {
         ANRDEMO anrdemo = AnnotationInfo.checkClassAnnotation(this, ANRDEMO.class);
         if (anrdemo!=null){
             float delaytime = anrdemo.delaytime();
@@ -63,7 +75,7 @@ public class BaseGame extends Game {
 
     }
 
-    private void printInfo() {
+    protected void printInfo() {
         String version = Gdx.gl.glGetString(GL20.GL_VERSION);
         String glslVersion = Gdx.gl.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
         NLog.i("version: %s ,glslVersion : %s",version,glslVersion);
@@ -74,22 +86,32 @@ public class BaseGame extends Game {
         Asset.getAsset();
     }
 
-    private void gameInfoConfig() {
+    protected void gameInfoConfig() {
         GameInfo info = AnnotationInfo.checkClassAnnotation(this,GameInfo.class);
         Constant.updateInfo(info);
     }
 
     protected void loadingView(){}
 
-    private void initInstance(){
+    protected void initInstance(){
         Gdx.input.setCatchBackKey(true);
     }
 
-    private void initViewport() {
+    protected void initViewport() {
         if (Constant.viewportType == Constant.EXTENDVIEWPORT) {
             stageViewport = new ExtendViewport(Constant.WIDTH, Constant.HIGHT);
         }else if (Constant.viewportType == Constant.FITVIEWPORT){
             stageViewport = new FitViewport(Constant.WIDTH, Constant.HIGHT);
+        }else if (Constant.viewportType == Constant.STRETCHVIEWPORT){
+            stageViewport = new StretchViewport(Constant.WIDTH, Constant.HIGHT);
+        }else if (Constant.viewportType == Constant.FILLVIEWPORT){
+            stageViewport = new FillViewport(Constant.WIDTH,Constant.WIDTH);
+        }else if (Constant.viewportType == Constant.SCALINGVIEWPORTX){
+            stageViewport = new ScalingViewport(Scaling.fillX,Constant.WIDTH,Constant.HIGHT);
+        }else if (Constant.viewportType == Constant.SCALINGVIEWPORTY){
+            stageViewport = new ScalingViewport(Scaling.fillY,Constant.WIDTH,Constant.HIGHT);
+        }else if (Constant.viewportType == Constant.SCREENVIEWPORT){
+            stageViewport = new ScreenViewport();
         }
     }
 
@@ -149,6 +171,22 @@ public class BaseGame extends Game {
         }
         otherDispose();
     }
+
+
+    public void setScreen(Class<? extends BaseScreen> t) {
+        Constructor<?> constructor = t.getConstructors()[0];
+        try {
+            BaseScreen baseScreen = (BaseScreen) constructor.newInstance(this);
+            setScreen(baseScreen);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void setScreen(Screen screen) {

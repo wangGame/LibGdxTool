@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>gameview/add.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1511,81},{54,54}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{54,54}</string>
+			</dict>
+			<key>gameview/back.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1425,81},{80,69}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{80,69}</string>
+			</dict>
+			<key>gameview/circle.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1617,81},{24,24}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{24,24}</string>
+			</dict>
+			<key>gameview/circle_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1309,113},{88,40}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{88,40}</string>
+			</dict>
+			<key>gameview/heart_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1639,3},{188,72}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{188,72}</string>
+			</dict>
+			<key>gameview/icon_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1089,3},{140,140}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{140,140}</string>
+			</dict>
+			<key>gameview/level_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1235,3},{184,104}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{184,104}</string>
+			</dict>
+			<key>gameview/Replay.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1949,3},{92,76}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{92,76}</string>
+			</dict>
+			<key>gameview/screw.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1235,113},{68,68}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{68,68}</string>
+			</dict>
+			<key>gameview/screwdriver.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1949,85},{77,76}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{77,76}</string>
+			</dict>
+			<key>gameview/stop.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1571,81},{40,42}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{40,42}</string>
+			</dict>
+			<key>gameview/stop_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1833,3},{110,96}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{110,96}</string>
+			</dict>
+			<key>gameview/time_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1425,3},{208,72}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{208,72}</string>
+			</dict>
+			<key>gameview/Banner.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{3,3},{1080,120}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{1080,120}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>gameview.png</string>
+			<key>realTextureFileName</key>
+			<string>gameview.png</string>
+			<key>size</key>
+			<string>{2044,184}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>2044</integer>
+			<key>height</key>
+			<integer>184</integer>
+		</dict>
+	</dict>
+</plist>
