@@ -79,7 +79,7 @@ public class BaseGame extends Game {
         String version = Gdx.gl.glGetString(GL20.GL_VERSION);
         String glslVersion = Gdx.gl.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
         NLog.i("version: %s ,glslVersion : %s",version,glslVersion);
-        NLog.i("tool version: %s",Version.VERSION);
+        NLog.i("LibgdxTool version: %s",Version.VERSION);
     }
 
     private void initExtends() {

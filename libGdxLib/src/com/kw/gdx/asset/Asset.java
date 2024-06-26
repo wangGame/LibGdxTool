@@ -3,8 +3,10 @@ package com.kw.gdx.asset;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.assets.loaders.resolvers.LocalFileHandleResolver;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.kw.gdx.constant.Constant;
@@ -376,6 +378,22 @@ public class Asset implements Disposable {
             assetManager.unload(path);
         }
     }
+
+    public Image createImg(String texture){
+        return new Image(Asset.getAsset().getTexture(texture));
+    }
+
+    public Image createNineImg(String texture,int left,int right,int top,int bottom){
+        return createNineImg(texture,left,right,top,bottom);
+    }
+
+    public Image createNineImg(String texture,int left,int right,int top,int bottom,boolean flipX,boolean flipY){
+        return new Image(new NinePatch(
+                new TextureRegion(Asset.getAsset().getTexture(texture)),
+                left, right, top, bottom,flipX,flipY
+        ));
+    }
+
 
 
     @Override

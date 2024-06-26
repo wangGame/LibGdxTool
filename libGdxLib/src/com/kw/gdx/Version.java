@@ -23,10 +23,9 @@ package com.kw.gdx;
  */
 public final class Version {
     public static final String VERSION;
-    public static String a;
 
     static {
-        String internalVersion = "1.0.4";
+        String internalVersion = "1.0.9";
         VERSION = internalVersion;
     }
 }

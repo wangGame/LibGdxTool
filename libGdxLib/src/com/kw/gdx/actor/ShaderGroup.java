@@ -13,7 +13,6 @@ import com.kw.gdx.resource.annotation.ShaderResource;
  *
  * 注解ShaderGroup
  */
-@ShaderResource()
 public class ShaderGroup extends Group {
     protected ShaderProgram program;
 
