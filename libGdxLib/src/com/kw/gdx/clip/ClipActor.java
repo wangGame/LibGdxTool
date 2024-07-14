@@ -26,17 +26,15 @@ public class ClipActor extends Actor {
         super.draw(batch, parentAlpha);
         drawAlphaMask(batch);
         //画前景色
-        drawForeground(batch, 0, 0, (int) mask.getWidth() / 2, (int) mask.getHeight() / 2);
+        drawForeground(batch, 0, 0, (int) mask.getWidth(), (int) mask.getHeight());
     }
 
     private void drawForeground(Batch batchPara, int clipX, int clipY, int clipWidth, int clipHeight) {
         Gdx.gl.glColorMask(true, true, true, true);
         batchPara.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ONE_MINUS_DST_ALPHA);
-        Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
-        Gdx.gl.glScissor(clipX, clipY, clipWidth, clipHeight);
-        img.draw(batchPara, 1);
+        img.draw(batchPara, 1f);
         batchPara.flush();
-        Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
+
     }
 
     private void drawAlphaMask(Batch batch) {

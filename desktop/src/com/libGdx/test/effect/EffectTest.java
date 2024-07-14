@@ -28,22 +28,24 @@ public class EffectTest extends LibGdxTestMain {
             stage.addActor(tool);
             tool.setPosition(600, 600);
             tool.setFlipX();
+            tool.getColor().a = 0.7f;
+
         }
-        {
-            EffectTool tool = new EffectTool("lizi/1");
-            tool.setLoop(true);
-            stage.addActor(tool);
-            tool.setPosition(600,600);
-        }
-        //裁剪
-        {
-            EffectTool tool = new EffectTool("lizi/1");
-            tool.setLoop(true);
-            stage.addActor(tool);
-            tool.setPosition(600,900);
-            tool.setClip(true);
-            tool.setClipW(1400);
-            tool.setClipH(1400);
-        }
+//        {
+//            EffectTool tool = new EffectTool("lizi/1");
+//            tool.setLoop(true);
+//            stage.addActor(tool);
+//            tool.setPosition(600,600);
+//        }
+//        //裁剪
+//        {
+//            EffectTool tool = new EffectTool("lizi/1");
+//            tool.setLoop(true);
+//            stage.addActor(tool);
+//            tool.setPosition(600,900);
+//            tool.setClip(true);
+//            tool.setClipW(1400);
+//            tool.setClipH(1400);
+//        }
     }
 }

@@ -150,6 +150,10 @@ public class ParticleEmitter {
 		spawnHeightValue.setAlwaysActive(true);
 	}
 
+	public Particle[] getParticle(){
+		return particles;
+	}
+
 	public void setMaxParticleCount (int maxParticleCount) {
 		this.maxParticleCount = maxParticleCount;
 		active = new boolean[maxParticleCount];
@@ -265,7 +269,7 @@ public class ParticleEmitter {
 
 	/** Updates and draws the particles. This is slightly more efficient than calling {@link #update(float)} and
 	 * {@link #draw(Batch)} separately. */
-	public void draw (Batch batch, float delta) {
+	public void draw (Batch batch, float delta,float pa) {
 		accumulator += delta * 1000;
 		if (accumulator < 1) {
 			draw(batch);
@@ -288,9 +292,10 @@ public class ParticleEmitter {
 		for (int i = 0, n = active.length; i < n; i++) {
 			if (active[i]) {
 				Particle particle = particles[i];
-				if (updateParticle(particle, delta, deltaMillis))
+				if (updateParticle(particle, delta, deltaMillis)) {
+					particle.setAlpha(pa);
 					particle.draw(batch);
-				else {
+				}else {
 					active[i] = false;
 					activeCount--;
 				}

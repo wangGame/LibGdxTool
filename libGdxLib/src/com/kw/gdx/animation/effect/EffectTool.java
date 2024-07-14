@@ -5,7 +5,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.utils.log.NLog;
 
@@ -63,6 +65,7 @@ public class EffectTool extends Actor {
         effect = assetamnagerinstance.get(effectResourcePath);
         effect = new ParticleEffect(effect);
         play();
+
     }
 
     public void play(){
@@ -111,18 +114,22 @@ public class EffectTool extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (!isVisible())return; //duo yu
+        parentAlpha = parentAlpha * getColor().a;
         int blendSrcFunc = batch.getBlendSrcFunc();
         int blendDstFunc = batch.getBlendDstFunc();
+
+
         if (isClip) {
             batch.flush();
             if (clipBegin(0, 0, clipW, clipH)) {
-                effect.draw(batch, Gdx.graphics.getDeltaTime());
+                effect.draw(batch, Gdx.graphics.getDeltaTime(),parentAlpha);
                 batch.flush();
                 clipEnd();
             }
         }else {
-            effect.draw(batch, Gdx.graphics.getDeltaTime());
+            effect.draw(batch, Gdx.graphics.getDeltaTime(),parentAlpha);
         }
+
 
         batch.setBlendFunction(blendSrcFunc,blendDstFunc);
     }
