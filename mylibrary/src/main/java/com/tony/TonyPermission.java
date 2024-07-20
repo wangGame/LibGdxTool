@@ -12,16 +12,17 @@ public class TonyPermission {
         this.context = context;
     }
 
-    public void requestNotificationPermission() {
-        if (Build.VERSION.SDK_INT < 33 || hasNotificationPermission()) {
+    //android.permission.POST_NOTIFICATIONS
+    public void requestNotificationPermission(String permission) {
+        if (Build.VERSION.SDK_INT < 33 || hasNotificationPermission(permission)) {
             return;
         }
-        ActivityCompat.requestPermissions(context, new String[]{"android.permission.POST_NOTIFICATIONS"}, 101);
+        ActivityCompat.requestPermissions(context, new String[]{permission}, 101);
     }
 
-    public  boolean hasNotificationPermission() {
+    public  boolean hasNotificationPermission(String permission) {
         try {
-            return ContextCompat.checkSelfPermission(context, "android.permission.POST_NOTIFICATIONS") == 0;
+            return ContextCompat.checkSelfPermission(context, permission) == 0;
         } catch (Exception unused) {
             return false;
         }
