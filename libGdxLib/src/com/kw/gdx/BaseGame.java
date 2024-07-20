@@ -201,8 +201,6 @@ public class BaseGame extends Game {
         }else {
             BaseGame.super.setScreen(screen);
         }
-
-
     }
 
     protected void preDiapose(){

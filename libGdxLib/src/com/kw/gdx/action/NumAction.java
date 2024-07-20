@@ -18,14 +18,15 @@ import java.util.Random;
  * @Date 2023/12/25 9:53
  */
 public class NumAction extends TemporalAction {
-    private Double start, end;
-    private Double value;
+    private double start, end;
+    private double value;
     private Runnable updateRunnable;
 
     /** Creates an IntAction that transitions from start to end. */
-    public NumAction (Number start, Number end) {
-        this.start = Double.valueOf(start.toString());
-        this.end = Double.valueOf(end.toString());
+    public NumAction (double start, double end) {
+        this.start = start;
+        this.end = end;
+        value = start;
     }
 
     public void setUpdateRunnable(Runnable updateRunnable) {
@@ -41,6 +42,12 @@ public class NumAction extends TemporalAction {
         if (updateRunnable!=null) {
             updateRunnable.run();
         }
+    }
+
+    @Override
+    protected void end() {
+        super.end();
+        value = end;
     }
 
     /** Gets the current int value. */
