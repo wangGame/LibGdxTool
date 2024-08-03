@@ -1,4 +1,4 @@
-package com.kw.common;
+package com.kw.common.string;
 
 import java.util.IllegalFormatException;
 
@@ -186,6 +186,8 @@ public final class StringUtils {
 
     /**
      * Format the string.
+     *
+     * eg:String message = String.format("My name is %s and I am %d years old", name, age);
      *
      * @param str  The string.
      * @param args The args.
