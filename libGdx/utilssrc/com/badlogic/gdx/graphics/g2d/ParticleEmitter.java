@@ -293,7 +293,7 @@ public class ParticleEmitter {
 			if (active[i]) {
 				Particle particle = particles[i];
 				if (updateParticle(particle, delta, deltaMillis)) {
-					particle.setAlpha(pa);
+					particle.setAlpha(particle.getColor()*pa);
 					particle.draw(batch);
 				}else {
 					active[i] = false;
