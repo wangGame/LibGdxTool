@@ -41,7 +41,6 @@ public class AndroidLauncher extends BaseAndroidLauncher {
     public static boolean isDebug = false;
     private boolean isNewUser;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

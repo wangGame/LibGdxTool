@@ -77,14 +77,8 @@ public class BaseScreen implements Screen {
             }
         });
 
-        uiGroup.setName("uiGroup");
+
         dialogGroup = new Group();
-        dialogGroup.setName("dialogGroup");
-        otherGroup = new Group();
-        otherGroup.setName("otherGroup");
-        stage.addActor(uiGroup);
-        stage.addActor(otherGroup);
-        stage.addActor(dialogGroup);
         this.dialogManager = new DialogManager(dialogGroup);
         this.centerX = Constant.GAMEWIDTH / 2;
         this.centerY = Constant.GAMEHIGHT / 2;
@@ -147,6 +141,15 @@ public class BaseScreen implements Screen {
             rootView.setSize(Constant.WIDTH,Constant.HIGHT);
             rootView.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
         }
+
+        uiGroup.setName("uiGroup");
+        stage.addActor(uiGroup);
+        dialogGroup.setName("dialogGroup");
+        otherGroup = new Group();
+        otherGroup.setName("otherGroup");
+        stage.addActor(otherGroup);
+        stage.addActor(dialogGroup);
+
     }
 
     private void initTouch() {

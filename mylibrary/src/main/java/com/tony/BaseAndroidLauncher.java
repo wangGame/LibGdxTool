@@ -29,12 +29,8 @@ import java.util.Random;
 import java.util.UUID;
 
 public class BaseAndroidLauncher extends AndroidApplication {
-    private Vibrator vibrator;
-    public static float lastTime = 0;
-    public static boolean isDebug = false;
     private boolean isNewUser;
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +39,6 @@ public class BaseAndroidLauncher extends AndroidApplication {
             return;
         }
         initImmersiveMode();
-    }
-
-    private void initUser() {
-        SharedPreferences artPuzzle = getSharedPreferences("ArtPuzzle", Context.MODE_PRIVATE);
-        if (!artPuzzle.contains("isFristEnter")){
-            isNewUser = true;
-        }
     }
 
     private String getUUID() {
@@ -187,6 +176,7 @@ public class BaseAndroidLauncher extends AndroidApplication {
             SafeAreaInsetsUtils.getSafeAreaInsets(this);
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
