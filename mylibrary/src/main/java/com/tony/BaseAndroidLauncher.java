@@ -41,22 +41,6 @@ public class BaseAndroidLauncher extends AndroidApplication {
         initImmersiveMode();
     }
 
-    private String getUUID() {
-        String uuid = PreferenceManager.getDefaultSharedPreferences(this).getString("UUID", null);
-        if (uuid != null){
-            System.out.println(uuid);
-            return uuid;
-        }else {
-            UUID uuid1 = UUID.randomUUID();
-            PreferenceManager
-                    .getDefaultSharedPreferences(this)
-                    .edit()
-                    .putString("UUID",uuid1.toString())
-                    .apply();
-            return uuid1.toString();
-        }
-    }
-
     public String diviceAB(String pki){
         String AB = "AG";
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
