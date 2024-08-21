@@ -1,6 +1,4 @@
-package com.tony.puzzle;
-
-import android.app.Activity;
+package com.libGdx.test.trile;
 
 import com.kw.gdx.BaseGame;
 

@@ -174,4 +174,10 @@ public class DialogManager {
         }
         return null;
     }
+
+    public void resize(float width,float height){
+        for (BaseDialog baseDialog : array) {
+            baseDialog.resize(width,height);
+        }
+    }
 }

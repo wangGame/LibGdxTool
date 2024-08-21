@@ -1,10 +1,4 @@
-package com.tony.puzzle;
-
-import android.app.Activity;
-
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+package com.libGdx.test.trile;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.BaseGame;
@@ -12,7 +6,6 @@ import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.screen.BaseScreen;
-import com.tony.SafeAreaInsetsUtils;
 
 public class LoadingScreen extends BaseScreen {
     private Image image;

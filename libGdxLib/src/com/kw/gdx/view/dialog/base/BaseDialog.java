@@ -158,4 +158,8 @@ public class BaseDialog extends Group {
     public void closeDialog(){
         dialogManager.closeDialog(this);
     }
+
+    public void resize(float width, float height) {
+
+    }
 }

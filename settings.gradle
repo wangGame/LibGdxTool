@@ -1,1 +1,2 @@
-include 'libGdxLib','libGdx','desktop','libGdxAuto','android','mylibrary',"libgdxbox2d","libCommon"
+include 'libGdxLib','libGdx','desktop','libGdxAuto','android' ,
+        'mylibrary',"libgdxbox2d","libCommon","core"

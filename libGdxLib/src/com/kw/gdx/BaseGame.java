@@ -117,7 +117,6 @@ public class BaseGame extends Game {
 
     @Override
     public void resize(int width, int height) {
-
         viewPortResize(width, height);
         super.resize(width,height);
     }

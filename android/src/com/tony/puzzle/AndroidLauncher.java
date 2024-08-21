@@ -1,41 +1,21 @@
 package com.tony.puzzle;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Rect;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
-import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
-import android.view.DisplayCutout;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.WindowInsets;
-import android.view.WindowManager;
 
-import androidx.annotation.RequiresApi;
-
-import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.kw.gdx.BaseGame;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
+import com.libGdx.test.trile.TestGame;
 import com.tony.BaseAndroidLauncher;
-import com.tony.SafeAreaInsetsUtils;
 import com.tony.TonyPermission;
-import com.tony.util.PackageUtils;
 
 import java.util.Random;
-import java.util.UUID;
 
 public class AndroidLauncher extends BaseAndroidLauncher {
     public static boolean isDebug = false;
