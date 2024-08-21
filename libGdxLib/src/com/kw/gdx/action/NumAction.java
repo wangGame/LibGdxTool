@@ -26,6 +26,7 @@ public class NumAction extends TemporalAction {
     public NumAction (Number start, Number end) {
         this.start = Double.valueOf(start.toString());
         this.end = Double.valueOf(end.toString());
+        this.value = Double.valueOf(start.toString());
     }
 
     public void setUpdateRunnable(Runnable updateRunnable) {
