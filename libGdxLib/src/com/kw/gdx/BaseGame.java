@@ -117,12 +117,12 @@ public class BaseGame extends Game {
 
     @Override
     public void resize(int width, int height) {
-        super.resize(width,height);
         viewPortResize(width, height);
+        super.resize(width,height);
     }
 
     private void viewPortResize(int width, int height) {
-        stageViewport.update(width,height);
+        stageViewport.update(width,height,true);
         Constant.updateSize(stageViewport);
     }
 
@@ -201,8 +201,6 @@ public class BaseGame extends Game {
         }else {
             BaseGame.super.setScreen(screen);
         }
-
-
     }
 
     protected void preDiapose(){

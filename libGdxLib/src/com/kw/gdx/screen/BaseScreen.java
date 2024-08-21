@@ -43,6 +43,9 @@ public class BaseScreen implements Screen {
     protected float bannerHight;
     protected boolean activeScreen = false;
     protected Vector2 screenSize;
+    private Group uiGroup;
+    private Group dialogGroup;
+    private Group otherGroup;
 
     public BaseScreen(BaseGame game){
         activeScreen = true;
@@ -73,7 +76,10 @@ public class BaseScreen implements Screen {
                 return super.keyUp(event, keycode);
             }
         });
-        this.dialogManager = new DialogManager(stage);
+
+
+        dialogGroup = new Group();
+        this.dialogManager = new DialogManager(dialogGroup);
         this.centerX = Constant.GAMEWIDTH / 2;
         this.centerY = Constant.GAMEHIGHT / 2;
         multiplexer = new InputMultiplexer();
@@ -122,18 +128,28 @@ public class BaseScreen implements Screen {
     public void initView(){}
 
     private void initRootView() {
+        uiGroup = new Group();
         ScreenResource annotation = AnnotationInfo.checkClassAnnotation(this, ScreenResource.class);
         if (annotation!=null){
             viewpath = annotation.value();
             rootView = CocosResource.loadFile(viewpath);
-            stage.addActor(rootView);
+            uiGroup.addActor(rootView);
             rootView.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
         }else {
             rootView = new Group();
-            stage.addActor(rootView);
+            uiGroup.addActor(rootView);
             rootView.setSize(Constant.WIDTH,Constant.HIGHT);
             rootView.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
         }
+
+        uiGroup.setName("uiGroup");
+        stage.addActor(uiGroup);
+        dialogGroup.setName("dialogGroup");
+        otherGroup = new Group();
+        otherGroup.setName("otherGroup");
+        stage.addActor(otherGroup);
+        stage.addActor(dialogGroup);
+
     }
 
     private void initTouch() {

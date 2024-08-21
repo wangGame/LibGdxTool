@@ -24,37 +24,7 @@ public class ShapeRenderApp extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
 
-        PolygonClipGroup clipGroup = new PolygonClipGroup(new ShaperRenerInteface() {
-            @Override
-            public void draw(Batch batch,float a) {
-
-            }
-
-            @Override
-            public void setProjectionMatrix(Matrix4 projectionMatrix) {
-
-            }
-
-            @Override
-            public void setTransformMatrix(Matrix4 transformMatrix) {
-
-            }
-
-            @Override
-            public void begin(ShapeRenderer.ShapeType filled) {
-
-            }
-
-            @Override
-            public void setColor(Color color) {
-
-            }
-
-            @Override
-            public void end() {
-
-            }
-        });
+        PolygonClipGroup clipGroup = new PolygonClipGroup();
         clipGroup.setSize(500,500);
         addActor(clipGroup);
         Image image = new Image(Asset.getAsset().getTexture("0_1_41_512.jpg"));
