@@ -24,12 +24,12 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
 import com.tony.util.PackageUtils;
+import com.tony.util.Utils;
 
 import java.util.Random;
 import java.util.UUID;
 
 public class BaseAndroidLauncher extends AndroidApplication {
-    private boolean isNewUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,8 @@ public class BaseAndroidLauncher extends AndroidApplication {
     public String diviceAB(String pki){
         String AB = "AG";
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
-        if (isNewUser){
+        Utils utils = new Utils();
+        if (utils.initUser(this)){
             PackageManager packageManager = this.getPackageManager();
             try {
                 PackageInfo packageInfo = packageManager.getPackageInfo(this.getPackageName(), 0);

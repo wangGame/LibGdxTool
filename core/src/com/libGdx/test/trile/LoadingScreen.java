@@ -17,6 +17,7 @@ public class LoadingScreen extends BaseScreen {
     @Override
     public void initView() {
         super.initView();
+        rootView.setDebug(true);
         image = new Image(Asset.getAsset().getTexture("0_1_41_512.jpg"));
         addActor(image);
         image.setY(Constant.GAMEHIGHT, Align.top);

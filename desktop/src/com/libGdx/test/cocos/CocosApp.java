@@ -3,6 +3,7 @@ package com.libGdx.test.cocos;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.resource.cocosload.CocosResource;
 import com.libGdx.test.base.LibGdxTestMain;
 

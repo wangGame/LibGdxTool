@@ -32,8 +32,10 @@ import java.lang.reflect.InvocationTargetException;
 
 public class BaseGame extends Game {
     private Batch batch;
-    private Viewport stageViewport;
+    protected Viewport stageViewport;
     protected ANRWatchDog dog;
+    private float oldWidth;
+    private float oldHeight;
 
     @Override
     public void create() {
