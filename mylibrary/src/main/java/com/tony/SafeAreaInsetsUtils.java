@@ -36,7 +36,6 @@ public class SafeAreaInsetsUtils {
                         if (!boundingRects.isEmpty()) {
                             Rect rect = boundingRects.get(0);
                             // 通过刘海屏或挖孔的位置和大小进行UI适配
-                            System.out.println("-------------------------");
                             Configuration.left = rect.left;
                             Configuration.right = rect.right;
                             Configuration.top = rect.top;

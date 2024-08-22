@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 public class TonyPermission {
     private Activity context;
+
     public TonyPermission(Activity context){
         this.context = context;
     }

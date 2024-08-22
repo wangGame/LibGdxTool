@@ -7,20 +7,23 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.kw.gdx.utils.log.NLog;
+
 public class PackageUtils {
     private Context context;
+
     public PackageUtils(Context context){
         this.context = context;
     }
 
     public String getApkName(){
         String packageName = context.getPackageName();
-        System.out.println("apkinfo --- packageName:"+packageName);
+        NLog.i("apkinfo --- packageName:"+packageName);
         PackageManager packageManager = context.getPackageManager();
         try {
             PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
-            System.out.println("apkinfo --- versionName:"+packageInfo.versionName);
-            System.out.println("apkinfo --- versionCode:"+packageInfo.versionCode);
+            NLog.i("apkinfo --- versionName:"+packageInfo.versionName);
+            NLog.i("apkinfo --- versionCode:"+packageInfo.versionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
