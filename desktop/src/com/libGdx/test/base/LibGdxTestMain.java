@@ -46,6 +46,7 @@ public class LibGdxTestMain extends BaseGame {
         stageMain.addActor(actor);
     }
 
+
     public void start() {
         start(this);
     }
@@ -63,6 +64,6 @@ public class LibGdxTestMain extends BaseGame {
 
     @Override
     protected void initViewport() {
-        stageViewport = new ExtendViewport(720,1280,720,1280);
+        stageViewport = new ExtendViewport(720,1280);
     }
 }
