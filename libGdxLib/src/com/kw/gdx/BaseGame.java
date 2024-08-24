@@ -117,8 +117,14 @@ public class BaseGame extends Game {
         }
     }
 
+
     @Override
     public void resize(int width, int height) {
+        if (oldWidth == width && height == oldHeight) {
+            return;
+        }
+        oldWidth = width;
+        oldHeight = height;
         viewPortResize(width, height);
         super.resize(width,height);
     }
