@@ -175,7 +175,18 @@ public class ParticleEmitter {
 		}
 	}
 
+	public boolean endAddParticles;
+
+	public void setEndAddParticles(boolean endAddParticles) {
+		this.endAddParticles = endAddParticles;
+	}
+
+	public boolean isEndAddParticles() {
+		return endAddParticles;
+	}
+
 	public void addParticles (int count) {
+		if (endAddParticles)return;
 		count = Math.min(count, maxParticleCount - activeCount);
 		if (count == 0) return;
 		boolean[] active = this.active;

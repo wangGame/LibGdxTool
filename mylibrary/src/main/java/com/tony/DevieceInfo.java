@@ -1,4 +1,4 @@
-package com.tony.puzzle;
+package com.tony;
 
 import android.os.Build;
 
@@ -14,3 +14,4 @@ public class DevieceInfo {
     //
     private String cpuAbi = Build.CPU_ABI;
 }
+
