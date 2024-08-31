@@ -149,12 +149,6 @@ public class BaseAndroidLauncher extends AndroidApplication {
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        graphics.getView().requestFocus();
-        return super.dispatchKeyEvent(event);
-    }
-
-    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {

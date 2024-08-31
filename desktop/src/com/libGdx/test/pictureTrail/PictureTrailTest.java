@@ -19,6 +19,8 @@ public class PictureTrailTest extends LibGdxTestMain {
     public static void main(String[] args) {
         PictureTrailTest test = new PictureTrailTest();
         test.start(test);
+
+
     }
     PictureTrail pictureTrail;
     @Override
