@@ -49,10 +49,11 @@ public class AndroidLauncher extends BaseAndroidLauncher {
     }
 
     private void initUser() {
-        SharedPreferences artPuzzle = getSharedPreferences("ArtPuzzle", Context.MODE_PRIVATE);
-        if (!artPuzzle.contains("isFristEnter")){
-            isNewUser = true;
-        }
+//        SharedPreferences artPuzzle = getSharedPreferences("ArtPuzzle", Context.MODE_PRIVATE);
+//        if (!artPuzzle.contains("isFristEnter")){
+//            isNewUser = true;
+//        }
+
     }
 
     public String diviceAB(String pki){

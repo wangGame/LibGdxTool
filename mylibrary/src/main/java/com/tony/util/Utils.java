@@ -6,19 +6,16 @@ import android.content.SharedPreferences;
 
 public class Utils {
     public boolean initUser(Activity activity) {
-        boolean isNewUser = false;
-        SharedPreferences artPuzzle = activity.getSharedPreferences("utilspreference", Context.MODE_PRIVATE);
+        boolean isNewUser=false;
+        PackageUtils utils = new PackageUtils(activity);
+        String apkName = utils.getApkName();
+        SharedPreferences artPuzzle = activity.getSharedPreferences(apkName, Context.MODE_PRIVATE);
         if (!artPuzzle.contains("isFristEnter")){
             isNewUser = true;
             SharedPreferences.Editor edit = artPuzzle.edit();
-            edit.putBoolean("isFristEnter",true);
+            edit.putBoolean("isFristEnter",false);
             edit.apply();
         }
         return isNewUser;
     }
-
-    public void splitVersion(Activity activity){
-        SharedPreferences utilspreference = activity.getSharedPreferences("utilspreference", Context.MODE_PRIVATE);
-    }
-
 }

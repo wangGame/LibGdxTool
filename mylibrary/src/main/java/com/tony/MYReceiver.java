@@ -26,9 +26,6 @@ public class MYReceiver extends BroadcastReceiver {
     String channelName = "artpuzzle";
     static String ColorStr = "#oco";
     private int tuisong;
-    public MYReceiver(int tuisong){
-        this.tuisong = tuisong;
-    }
 
     @Override
     @SuppressLint("WrongConstant")

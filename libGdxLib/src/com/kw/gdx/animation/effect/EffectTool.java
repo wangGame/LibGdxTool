@@ -164,5 +164,9 @@ public class EffectTool extends Actor {
     public void setFlipY(){
         effect.flipY();
     }
+
+    public void stop(){
+        effect.setStop();
+    }
 }
 

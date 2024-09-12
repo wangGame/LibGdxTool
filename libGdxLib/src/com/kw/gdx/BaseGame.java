@@ -32,8 +32,10 @@ import java.lang.reflect.InvocationTargetException;
 
 public class BaseGame extends Game {
     private Batch batch;
-    private Viewport stageViewport;
+    protected Viewport stageViewport;
     protected ANRWatchDog dog;
+    private float oldWidth;
+    private float oldHeight;
 
     @Override
     public void create() {
@@ -115,8 +117,14 @@ public class BaseGame extends Game {
         }
     }
 
+
     @Override
     public void resize(int width, int height) {
+        if (oldWidth == width && height == oldHeight) {
+            return;
+        }
+        oldWidth = width;
+        oldHeight = height;
         viewPortResize(width, height);
         super.resize(width,height);
     }

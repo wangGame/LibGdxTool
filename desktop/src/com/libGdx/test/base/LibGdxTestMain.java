@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.anr.ANRDEMO;
 import com.kw.gdx.screen.BaseScreen;
@@ -45,6 +46,7 @@ public class LibGdxTestMain extends BaseGame {
         stageMain.addActor(actor);
     }
 
+
     public void start() {
         start(this);
     }
@@ -58,5 +60,10 @@ public class LibGdxTestMain extends BaseGame {
         config.width = (int) (1080 * 0.5f);
         Gdx.isJiami = true;
         new LwjglApplication(test, config);
+    }
+
+    @Override
+    protected void initViewport() {
+        stageViewport = new ExtendViewport(720,1280);
     }
 }
