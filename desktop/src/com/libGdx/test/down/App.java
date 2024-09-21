@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 /**
  * 简单的下载案例
  */
@@ -15,6 +17,9 @@ public class App {
             URL url = new URL("https://gaoshanren.cdn-doodlemobile.com/Art_Puzzle/level_resource/version7/level/level160.zip");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
+            if (connection instanceof HttpsURLConnection){
+                ((HttpsURLConnection)(connection)).setSSLSocketFactory(new TLSSocketFactory1());
+            }
             connection.setRequestMethod("GET");
             new Thread(new Runnable() {
                 @Override

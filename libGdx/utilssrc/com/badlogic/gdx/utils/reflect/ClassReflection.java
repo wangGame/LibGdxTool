@@ -273,6 +273,7 @@ public final class ClassReflection {
 		return null;
 	}
 
+	//接口
 	static public Class[] getInterfaces(Class c) {
 		return c.getInterfaces();
 	}

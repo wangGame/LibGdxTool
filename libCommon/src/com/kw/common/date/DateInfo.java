@@ -2,6 +2,11 @@ package com.kw.common.date;
 
 public class DateInfo {
     private int year;
+    private int month;
+    private int day;
+    private int hour;
+    private int minutes;
+    private int second;
 
     public int getYear() {
         return year;
@@ -51,11 +56,6 @@ public class DateInfo {
         this.second = second;
     }
 
-    private int month;
-    private int day;
-    private int hour;
-    private int minutes;
-    private int second;
 
 
 }
