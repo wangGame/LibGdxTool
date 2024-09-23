@@ -53,5 +53,28 @@ public class DateUtils {
         return diff;
     }
 
+    public static String getETAString(final long etaInMilliSeconds) {
+        if (etaInMilliSeconds < 0) {
+            return "";
+        }
+        int seconds = (int) (etaInMilliSeconds / 1000);
+        long hours = seconds / 3600;
+        seconds -= (int) (hours * 3600);
+        long minutes = seconds / 60;
+        seconds -= (int) (minutes * 60);
+        long day = hours / 24;
+        if (day>0){
+            return String.format("%02dd %02dh %02dm %02ds", day,hours%24, minutes, seconds);
+        }else if (hours > 0) {
+            return String.format("%02dh %02dm %02ds", hours, minutes, seconds);
+        } else if (minutes > 0) {
+            return String.format("%02dm %02ds", minutes, seconds);
+        } else {
+            return String.format("%02ds", seconds);
+        }
+    }
 
+    public static void main(String[] args) {
+        System.out.println(getETAString(System.currentTimeMillis()));
+    }
 }
