@@ -14,7 +14,6 @@ dependencies {
     implementation files('libs/gdx-PVR-0.2.1-b34.jar')
     implementation project (':libGdxLib')
     implementation project (':libGdx')
-    implementation project (':libGdxAuto')
     implementation project(":libCommon")
     implementation 'junit:junit:4.12'
 //    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-core

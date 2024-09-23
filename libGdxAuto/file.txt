@@ -1,7 +1,0 @@
-screen:{
-    filename:"",
-    fitscreen:{
-        up:"",
-        down:""
-    }
-}

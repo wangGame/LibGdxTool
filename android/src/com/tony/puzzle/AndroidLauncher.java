@@ -19,8 +19,6 @@ import java.util.Random;
 
 public class AndroidLauncher extends BaseAndroidLauncher {
     public static boolean isDebug = false;
-    private boolean isNewUser;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,57 +42,52 @@ public class AndroidLauncher extends BaseAndroidLauncher {
         if (Build.MODEL.equals("MediaPad 10 FHD")) {
             configuration.numSamples = 0;
         }
-        initUser();
         initialize(new TestGame(),configuration);
     }
 
-    private void initUser() {
-//        SharedPreferences artPuzzle = getSharedPreferences("ArtPuzzle", Context.MODE_PRIVATE);
-//        if (!artPuzzle.contains("isFristEnter")){
-//            isNewUser = true;
-//        }
-
-    }
-
+    /**
+     * AB
+     * @param pki
+     * @return
+     */
     public String diviceAB(String pki){
-        String AB = "AG";
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), Context.MODE_PRIVATE);
-        if (isNewUser){
-            PackageManager packageManager = this.getPackageManager();
+        String abversion = "A";
+        if (true){
+            Random random = new Random();
+            String AB = "A";
+            if (10 < random.nextInt(20)){
+                AB = "A";
+            }else{
+                AB = "B";
+            }
+            abversion = AB;
             try {
+                PackageManager packageManager = this.getPackageManager();
                 PackageInfo packageInfo = packageManager.getPackageInfo(this.getPackageName(), 0);
+                String versionName = packageInfo.versionName;
+                int versionCode = packageInfo.versionCode;
                 SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putString("apkVersion",packageInfo.versionName);
+                edit.putString("intsallApkVersionName",versionName);
+                edit.putInt("intsallApkVersionCode",versionCode);
+                edit.putString("ABVERSION",AB);
                 edit.commit();
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
-            Random random = new Random();
-            int v = (int) (random.nextInt(20));
-            if (v < 10){
-                AB = "AG";
-            }else{
-                AB = "AH";
+        }else {
+            try {
+                PackageManager packageManager = this.getPackageManager();
+                PackageInfo packageInfo = packageManager.getPackageInfo(this.getPackageName(), 0);
+                int versionCode = packageInfo.versionCode;
+                int code = sharedPreferences.getInt("intsallApkVersionCode", 0);
+                abversion = sharedPreferences.getString("ABVERSION","A");
+                if (code != versionCode){
+                    abversion = "A";
+                }
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
             }
-            SharedPreferences.Editor edit = sharedPreferences.edit();
-            edit.putString("ABVERSION",AB);
-            edit.commit();
-        }
-        String abversion = sharedPreferences.getString("ABVERSION",AB);
-        if (abversion.equalsIgnoreCase("AG") ||
-                abversion.equalsIgnoreCase("AH")){
-            if (abversion.equalsIgnoreCase("AG")) {
-                abversion = "A";
-            }else if (abversion.equalsIgnoreCase("AH")){
-                abversion = "B";
-            }else {
-                abversion = "A";
-            }
-        }else{
-            SharedPreferences.Editor edit = sharedPreferences.edit();
-            edit.putString("ABVERSION","");
-            edit.commit();
-            abversion = "";
         }
         return abversion;
     }
