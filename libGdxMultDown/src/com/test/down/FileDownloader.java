@@ -1,5 +1,8 @@
 package com.test.down;
 
+import com.test.down.constant.Constant;
+import com.test.down.http.HttpUtils;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -88,15 +91,10 @@ public  class FileDownloader {
             this.threads =  new DownloadThread[threadNum];
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setConnectTimeout(5*1000);
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("Accept", "image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/x-shockwave-flash, application/xaml+xml, application/vnd.ms-xpsdocument, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
-            conn.setRequestProperty("Accept-Language", "zh-CN");
             conn.setRequestProperty("Referer", downloadUrl);
-            conn.setRequestProperty("Charset", "UTF-8");
-            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.2; Trident/4.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)");
-            conn.setRequestProperty("Connection", "Keep-Alive");
-            conn.setRequestProperty("Accept-Encoding", "identity");
+            HttpUtils.setHeader(conn);
+
             conn.connect();
             printResponseHeader(conn);
 
@@ -141,23 +139,19 @@ public  class FileDownloader {
      */
     private String getFileName(HttpURLConnection conn) {
         String filename =  this.downloadUrl.substring( this.downloadUrl.lastIndexOf('/') + 1);
-
         if(filename== null || "".equals(filename.trim())){ // 如果获取不到文件名称
             for ( int i = 0;; i++) {
                 String mine = conn.getHeaderField(i);
-
                 if (mine ==  null)  break;
-
                 if("content-disposition".equals(conn.getHeaderFieldKey(i).toLowerCase())){
                     Matcher m = Pattern.compile(".*filename=(.*)").matcher(mine.toLowerCase());
                     if(m.find())  return m.group(1);
                 }
             }
-
             filename = UUID.randomUUID()+ ".tmp"; // 默认取一个文件名
+            return filename;
         }
-
-        return filename;
+        return filename+".tmp";
     }
 
     /**
@@ -172,38 +166,35 @@ public  class FileDownloader {
             if( this.fileSize>0) randOut.setLength( this.fileSize);
             randOut.close();
             URL url =  new URL( this.downloadUrl);
-
             if( this.data.size() !=  this.threads.length){
                 this.data.clear();
-
                 for ( int i = 0; i <  this.threads.length; i++) {
                     this.data.put(i+1, 0); // 初始化每条线程已经下载的数据长度为0
                 }
             }
-
             for ( int i = 0; i <  this.threads.length; i++) { // 开启线程进行下载
                 int downLength =  this.data.get(i+1);
-
                 if(downLength <  this.block &&  this.downloadSize< this.fileSize){ // 判断线程是否已经完成下载,否则继续下载
-                    this.threads[i] =  new DownloadThread( this, url,  this.saveFile,  this.block,  this.data.get(i+1), i+1);
+                    this.threads[i] =  new DownloadThread(
+                            this, url,
+                            this.saveFile,
+                            this.block,
+                            this.data.get(i+1),
+                            i+1);
                     this.threads[i].setPriority(7);
                     this.threads[i].start();
                 } else{
                     this.threads[i] =  null;
                 }
             }
-
             this.fileService.save( this.downloadUrl,  this.data);
             boolean notFinish =  true; // 下载未完成
-
             while (notFinish) { //  循环判断所有线程是否完成下载
                 Thread.sleep(900);
                 notFinish =  false; // 假定全部线程下载完成
-
                 for ( int i = 0; i <  this.threads.length; i++){
                     if ( this.threads[i] !=  null && ! this.threads[i].isFinish()) { // 如果发现线程未完成下载
                         notFinish =  true; // 设置标志为下载没有完成
-
                         if( this.threads[i].getDownLength() == -1){ // 如果下载失败,再重新下载
                             this.threads[i] =  new DownloadThread( this, url,  this.saveFile,  this.block,  this.data.get(i+1), i+1);
                             this.threads[i].setPriority(7);
@@ -228,13 +219,11 @@ public  class FileDownloader {
      */
     public  static Map<String, String> getHttpResponseHeader(HttpURLConnection http) {
         Map<String, String> header =  new LinkedHashMap<String, String>();
-
         for ( int i = 0;; i++) {
             String mine = http.getHeaderField(i);
             if (mine ==  null)  break;
             header.put(http.getHeaderFieldKey(i), mine);
         }
-
         return header;
     }
 
@@ -242,16 +231,15 @@ public  class FileDownloader {
      * 打印Http头字段
      *  @param  http
      */
-    public  static  void printResponseHeader(HttpURLConnection http){
+    public static void printResponseHeader(HttpURLConnection http){
         Map<String, String> header = getHttpResponseHeader(http);
-
         for(Map.Entry<String, String> entry : header.entrySet()){
             String key = entry.getKey()!= null ? entry.getKey()+ ":" : "";
             print(key+ entry.getValue());
         }
     }
 
-    private  static  void print(String msg){
-
+    private static void print(String msg){
+        System.out.println(msg);
     }
 }

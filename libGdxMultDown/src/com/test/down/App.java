@@ -20,7 +20,7 @@ public class App {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                app.download(app.url, new File("./"),3);
+                app.download(app.url, new File("./"),4);
             }
         }).start();
     }
