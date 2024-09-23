@@ -9,7 +9,6 @@ sourceCompatibility = 1.8
 dependencies {
     implementation project (':libGdxLib')
     implementation project (':libGdx')
-    implementation project (':libGdxAuto')
     implementation project(":libCommon")
     implementation 'junit:junit:4.12'
 }
