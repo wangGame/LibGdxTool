@@ -1,0 +1,118 @@
+{
+  "ID": "1a69c87f-1661-4c1e-bfff-4b626484d60c",
+  "Version": "3.10.0.0",
+  "Name": "CommonButton",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 67,
+        "Children": [
+          {
+            "FileData": {
+              "Type": "MarkedSubImage",
+              "Path": "gameasset/button.png",
+              "Plist": "gameplist.plist"
+            },
+            "Scale9Enable": true,
+            "Scale9OriginX": 46,
+            "Scale9OriginY": 29,
+            "Scale9Width": 48,
+            "Scale9Height": 30,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 0.5833,
+              "Y": 0.0688
+            },
+            "RightMargin": 300.0,
+            "TopMargin": 1192.0,
+            "Tag": 304,
+            "ActionTag": 724939628,
+            "Size": {
+              "X": 420.0,
+              "Y": 88.0
+            },
+            "Name": "buttonBg",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "LabelText": "Rate Us",
+            "LabelBMFontFile_CNB": {
+              "Type": "Normal",
+              "Path": "font/inter-medium.fnt",
+              "Plist": ""
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 210.0,
+              "Y": 44.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.2917,
+              "Y": 0.0344
+            },
+            "PreSize": {
+              "X": 0.0,
+              "Y": 0.0328
+            },
+            "LeftMargin": 210.0,
+            "RightMargin": 510.0,
+            "TopMargin": 1215.0,
+            "BottomMargin": 23.0,
+            "Tag": 305,
+            "ActionTag": -649994170,
+            "Size": {
+              "X": 0.0,
+              "Y": 42.0
+            },
+            "Name": "buttonLabel",
+            "ctype": "TextBMFontObjectData"
+          }
+        ],
+        "Size": {
+          "X": 420.0,
+          "Y": 88.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/inter-medium.fnt",
+        "font/inter-medium.png",
+        "gameplist.plist",
+        "gameplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

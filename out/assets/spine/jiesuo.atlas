@@ -1,0 +1,27 @@
+
+jiesuo.png
+size: 85,33
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1_lock
+  rotate: true
+  xy: 2, 2
+  size: 29, 34
+  orig: 29, 34
+  offset: 0, 0
+  index: -1
+s1
+  rotate: true
+  xy: 38, 2
+  size: 29, 23
+  orig: 29, 23
+  offset: 0, 0
+  index: -1
+s2
+  rotate: false
+  xy: 63, 10
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1

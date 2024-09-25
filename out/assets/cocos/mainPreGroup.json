@@ -1,0 +1,316 @@
+{
+  "ID": "0716c884-b398-4c98-a495-199ecc6540fc",
+  "Version": "3.10.0.0",
+  "Name": "mainPreGroup",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 34,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": -15.0,
+              "Y": -18.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": -0.023,
+              "Y": -0.0747
+            },
+            "PreSize": {
+              "X": 1.046,
+              "Y": 1.1203
+            },
+            "LeftMargin": -15.0,
+            "RightMargin": -15.0,
+            "TopMargin": -11.0,
+            "BottomMargin": -18.0,
+            "Tag": 35,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/daily_bg.png",
+                  "Plist": "gameplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 341.0,
+                  "Y": 135.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0
+                },
+                "Tag": 42,
+                "ActionTag": 393546683,
+                "Size": {
+                  "X": 682.0,
+                  "Y": 270.0
+                },
+                "Name": "banner_bg_1",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "collection2/border.png",
+                  "Plist": "coinmay.plist"
+                },
+                "Scale9OriginX": 26,
+                "Scale9OriginY": 33,
+                "Scale9Width": 247,
+                "Scale9Height": 238,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 432.9295,
+                  "Y": -12.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "RotationSkewX": -26.9993,
+                "RotationSkewY": -26.9978,
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.6348,
+                  "Y": -0.0444
+                },
+                "PreSize": {
+                  "X": 0.4384,
+                  "Y": 1.1
+                },
+                "LeftMargin": 283.4295,
+                "RightMargin": 99.5705,
+                "TopMargin": 133.5,
+                "BottomMargin": -160.5,
+                "Tag": 37,
+                "ActionTag": -938770671,
+                "Size": {
+                  "X": 299.0,
+                  "Y": 297.0
+                },
+                "Name": "preKuang_1",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "collection2/border.png",
+                  "Plist": "coinmay.plist"
+                },
+                "Scale9OriginX": 26,
+                "Scale9OriginY": 33,
+                "Scale9Width": 247,
+                "Scale9Height": 238,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 467.934,
+                  "Y": 36.0001
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "RotationSkewX": -26.0009,
+                "RotationSkewY": -25.999,
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.6861,
+                  "Y": 0.1333
+                },
+                "PreSize": {
+                  "X": 0.4384,
+                  "Y": 1.1
+                },
+                "LeftMargin": 318.434,
+                "RightMargin": 64.566,
+                "TopMargin": 85.4999,
+                "BottomMargin": -112.4999,
+                "Tag": 38,
+                "ActionTag": 2050786755,
+                "Size": {
+                  "X": 299.0,
+                  "Y": 297.0
+                },
+                "Name": "preKuang_2",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "collection2/border.png",
+                  "Plist": "coinmay.plist"
+                },
+                "Scale9OriginX": 26,
+                "Scale9OriginY": 33,
+                "Scale9Width": 247,
+                "Scale9Height": 238,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 506.9282,
+                  "Y": 66.0032
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "RotationSkewX": -16.9992,
+                "RotationSkewY": -17.0015,
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.7433,
+                  "Y": 0.2445
+                },
+                "PreSize": {
+                  "X": 0.4384,
+                  "Y": 1.1
+                },
+                "LeftMargin": 357.4282,
+                "RightMargin": 25.5718,
+                "TopMargin": 55.4968,
+                "BottomMargin": -82.4968,
+                "Tag": 39,
+                "ActionTag": 1591892223,
+                "Size": {
+                  "X": 299.0,
+                  "Y": 297.0
+                },
+                "Name": "preKuang_3",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "collection2/border.png",
+                  "Plist": "coinmay.plist"
+                },
+                "Scale9OriginX": 26,
+                "Scale9OriginY": 33,
+                "Scale9Width": 247,
+                "Scale9Height": 238,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 560.9291,
+                  "Y": 98.0002
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "RotationSkewX": -8.9999,
+                "RotationSkewY": -8.9992,
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.8225,
+                  "Y": 0.363
+                },
+                "PreSize": {
+                  "X": 0.4384,
+                  "Y": 1.1
+                },
+                "LeftMargin": 411.4291,
+                "RightMargin": -28.4291,
+                "TopMargin": 23.4998,
+                "BottomMargin": -50.4998,
+                "Tag": 40,
+                "ActionTag": 1313959779,
+                "Size": {
+                  "X": 299.0,
+                  "Y": 297.0
+                },
+                "Name": "preKuang_4",
+                "ctype": "ImageViewObjectData"
+              }
+            ],
+            "ActionTag": -584355618,
+            "Size": {
+              "X": 682.0,
+              "Y": 270.0
+            },
+            "Name": "group",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 652.0,
+          "Y": 241.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "coinmay.plist",
+        "coinmay.png",
+        "gameplist.plist",
+        "gameplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

@@ -1,0 +1,583 @@
+{
+  "ID": "ba2dc870-a808-48ce-a410-7933745e0b33",
+  "Version": "3.10.0.0",
+  "Name": "worktitle",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 47,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "ComboBoxIndex": 1,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 48,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/topbar_bg.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 22,
+                "Scale9OriginY": 47,
+                "Scale9Width": 24,
+                "Scale9Height": 29,
+                "AnchorPoint": {
+                  "ScaleY": 1.0
+                },
+                "Position": {
+                  "X": 0.0,
+                  "Y": 104.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0,
+                  "Y": 1.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.3846
+                },
+                "BottomMargin": -40.0,
+                "Tag": 52,
+                "ActionTag": 1471406514,
+                "Size": {
+                  "X": 720.0,
+                  "Y": 144.0
+                },
+                "Name": "bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 672.0,
+                  "Y": 52.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.9333,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.0972,
+                  "Y": 0.6731
+                },
+                "LeftMargin": 637.0,
+                "RightMargin": 13.0,
+                "TopMargin": 17.0,
+                "BottomMargin": 17.0,
+                "Tag": 92,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/1_1_setting.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 35.0,
+                      "Y": 35.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.6,
+                      "Y": 0.6
+                    },
+                    "LeftMargin": 14.0,
+                    "RightMargin": 14.0,
+                    "TopMargin": 14.0,
+                    "BottomMargin": 14.0,
+                    "Tag": 49,
+                    "ActionTag": -1493062884,
+                    "Size": {
+                      "X": 42.0,
+                      "Y": 42.0
+                    },
+                    "Name": "setting",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 1245480601,
+                "Size": {
+                  "X": 70.0,
+                  "Y": 70.0
+                },
+                "Name": "settingPanel",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 52.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.6111,
+                  "Y": 0.5385
+                },
+                "LeftMargin": 140.0,
+                "RightMargin": 140.0,
+                "TopMargin": 24.0,
+                "BottomMargin": 24.0,
+                "Tag": 60,
+                "Children": [
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 220.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 0.5,
+                      "Y": 1.0
+                    },
+                    "LeftMargin": 220.0,
+                    "Tag": 46,
+                    "ActionTag": -189335558,
+                    "Size": {
+                      "X": 220.0,
+                      "Y": 56.0
+                    },
+                    "Name": "progress",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 0.5,
+                      "Y": 1.0
+                    },
+                    "RightMargin": 220.0,
+                    "Tag": 47,
+                    "ActionTag": -1588002261,
+                    "Size": {
+                      "X": 220.0,
+                      "Y": 56.0
+                    },
+                    "Name": "complated",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 48,
+                    "Children": [
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "gameasset/tap_border.png",
+                          "Plist": "gameplist.plist"
+                        },
+                        "Scale9Enable": true,
+                        "Scale9OriginX": 33,
+                        "Scale9OriginY": 18,
+                        "Scale9Width": 34,
+                        "Scale9Height": 20,
+                        "AnchorPoint": {
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 0.0,
+                          "Y": 28.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.0,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 1.0,
+                          "Y": 1.0
+                        },
+                        "Tag": 54,
+                        "ActionTag": -1811980963,
+                        "Size": {
+                          "X": 440.0,
+                          "Y": 56.0
+                        },
+                        "Name": "titlebg",
+                        "ctype": "ImageViewObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "gameasset/tap_bg.png",
+                          "Plist": "gameplist.plist"
+                        },
+                        "Scale9Enable": true,
+                        "Scale9OriginX": 33,
+                        "Scale9OriginY": 18,
+                        "Scale9Width": 34,
+                        "Scale9Height": 20,
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 110.0,
+                          "Y": 28.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.25,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 0.5,
+                          "Y": 1.0
+                        },
+                        "RightMargin": 220.0,
+                        "Tag": 58,
+                        "ActionTag": 255923550,
+                        "Size": {
+                          "X": 220.0,
+                          "Y": 56.0
+                        },
+                        "Name": "titleseekbar",
+                        "ctype": "ImageViewObjectData"
+                      },
+                      {
+                        "LabelText": "Complated",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/frmb-40.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 330.0,
+                          "Y": 29.104
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.75,
+                          "Y": 0.5197
+                        },
+                        "PreSize": {
+                          "X": 0.4614,
+                          "Y": 0.9464
+                        },
+                        "LeftMargin": 228.5,
+                        "RightMargin": 8.5,
+                        "TopMargin": 0.396,
+                        "BottomMargin": 2.604,
+                        "Tag": 57,
+                        "ActionTag": -195631025,
+                        "Size": {
+                          "X": 203.0,
+                          "Y": 53.0
+                        },
+                        "Name": "BitmapFontLabel_1_0",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "LabelText": "In progress",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/frmb-40.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 110.0,
+                          "Y": 28.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.25,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 0.475,
+                          "Y": 0.9464
+                        },
+                        "LeftMargin": 5.5,
+                        "RightMargin": 225.5,
+                        "TopMargin": 1.5,
+                        "BottomMargin": 1.5,
+                        "Tag": 55,
+                        "ActionTag": 1745193654,
+                        "Size": {
+                          "X": 209.0,
+                          "Y": 53.0
+                        },
+                        "Name": "BitmapFontLabel_1",
+                        "ctype": "TextBMFontObjectData"
+                      }
+                    ],
+                    "ActionTag": -1126097648,
+                    "Size": {
+                      "X": 440.0,
+                      "Y": 56.0
+                    },
+                    "Name": "other",
+                    "ctype": "PanelObjectData"
+                  }
+                ],
+                "ActionTag": 48915614,
+                "Size": {
+                  "X": 440.0,
+                  "Y": 56.0
+                },
+                "Name": "titlescrollpane",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": 1329088117,
+            "Size": {
+              "X": 720.0,
+              "Y": 104.0
+            },
+            "Name": "Panel_1",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 104.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/frmb-40.fnt",
+        "font/frmb-40.png",
+        "gameplist.plist",
+        "gameplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

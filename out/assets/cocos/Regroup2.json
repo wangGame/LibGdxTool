@@ -1,0 +1,607 @@
+{
+  "ID": "d0f5ca7e-de6f-47b0-bd64-af0cb16522e6",
+  "Version": "3.10.0.0",
+  "Name": "Regroup2",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 73,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 640.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.5
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 74,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/popups_bg.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 93,
+                "Scale9OriginY": 89,
+                "Scale9Width": 18,
+                "Scale9Height": 20,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 634.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.4953
+                },
+                "PreSize": {
+                  "X": 0.9208,
+                  "Y": 0.5813
+                },
+                "LeftMargin": 28.5,
+                "RightMargin": 28.5,
+                "TopMargin": 274.0,
+                "BottomMargin": 262.0,
+                "Tag": 75,
+                "ActionTag": 535416551,
+                "Size": {
+                  "X": 663.0,
+                  "Y": 744.0
+                },
+                "Name": "bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 413.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.3227
+                },
+                "PreSize": {
+                  "X": 0.5569,
+                  "Y": 0.0695
+                },
+                "LeftMargin": 159.5,
+                "RightMargin": 159.5,
+                "TopMargin": 822.5,
+                "BottomMargin": 368.5,
+                "Tag": 76,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "regroup/button_ad.png",
+                      "Plist": "regroup.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 201.1794,
+                      "Y": 43.3931
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5017,
+                      "Y": 0.4876
+                    },
+                    "PreSize": {
+                      "X": 1.0823,
+                      "Y": 1.3708
+                    },
+                    "LeftMargin": -15.8206,
+                    "RightMargin": -17.1794,
+                    "TopMargin": -15.3931,
+                    "BottomMargin": -17.6069,
+                    "Tag": 82,
+                    "ActionTag": -96787065,
+                    "Size": {
+                      "X": 434.0,
+                      "Y": 122.0
+                    },
+                    "Name": "button_ad_5",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 1351057193,
+                "Size": {
+                  "X": 401.0,
+                  "Y": 89.0
+                },
+                "Name": "adsbtn",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "regroup/getone.png",
+                  "Plist": "regroup.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 641.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5008
+                },
+                "PreSize": {
+                  "X": 0.3194,
+                  "Y": 0.0242
+                },
+                "LeftMargin": 245.0,
+                "RightMargin": 245.0,
+                "TopMargin": 623.5,
+                "BottomMargin": 625.5,
+                "Tag": 81,
+                "ActionTag": 2113681019,
+                "Size": {
+                  "X": 230.0,
+                  "Y": 31.0
+                },
+                "Name": "getone_4",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "regroup/trgroup.png",
+                  "Plist": "regroup.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 792.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.6187
+                },
+                "PreSize": {
+                  "X": 0.2153,
+                  "Y": 0.1469
+                },
+                "LeftMargin": 282.5,
+                "RightMargin": 282.5,
+                "TopMargin": 394.0,
+                "BottomMargin": 698.0,
+                "Tag": 79,
+                "ActionTag": 1566228249,
+                "Size": {
+                  "X": 155.0,
+                  "Y": 188.0
+                },
+                "Name": "trgroup_31",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 549.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.4289
+                },
+                "PreSize": {
+                  "X": 0.5569,
+                  "Y": 0.0695
+                },
+                "LeftMargin": 159.5,
+                "RightMargin": 159.5,
+                "TopMargin": 686.5,
+                "BottomMargin": 504.5,
+                "Tag": 84,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "regroup/btn500.png",
+                      "Plist": "regroup.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 200.0,
+                      "Y": 41.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4988,
+                      "Y": 0.4607
+                    },
+                    "PreSize": {
+                      "X": 1.0823,
+                      "Y": 1.3708
+                    },
+                    "LeftMargin": -17.0,
+                    "RightMargin": -16.0,
+                    "TopMargin": -13.0,
+                    "BottomMargin": -20.0,
+                    "Tag": 83,
+                    "ActionTag": -1617679769,
+                    "Size": {
+                      "X": 434.0,
+                      "Y": 122.0
+                    },
+                    "Name": "btn500_6",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": -760205124,
+                "Size": {
+                  "X": 401.0,
+                  "Y": 89.0
+                },
+                "Name": "coinbtn",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "regroup/addone.png",
+                  "Plist": "regroup.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 276.0,
+                  "Y": 872.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.3833,
+                  "Y": 0.6812
+                },
+                "PreSize": {
+                  "X": 0.1111,
+                  "Y": 0.0375
+                },
+                "LeftMargin": 236.0,
+                "RightMargin": 404.0,
+                "TopMargin": 384.0,
+                "BottomMargin": 848.0,
+                "Tag": 86,
+                "ActionTag": 1670255383,
+                "Size": {
+                  "X": 80.0,
+                  "Y": 48.0
+                },
+                "Name": "addone_8",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 549.01,
+                  "Y": 884.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.7625,
+                  "Y": 0.6906
+                },
+                "PreSize": {
+                  "X": 0.0833,
+                  "Y": 0.0469
+                },
+                "LeftMargin": 549.01,
+                "RightMargin": 110.99,
+                "TopMargin": 336.0,
+                "BottomMargin": 884.0,
+                "Tag": 168,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "regroup/close.png",
+                      "Plist": "regroup.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 30.0,
+                      "Y": 30.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.8667,
+                      "Y": 0.8667
+                    },
+                    "LeftMargin": 4.0,
+                    "RightMargin": 4.0,
+                    "TopMargin": 4.0,
+                    "BottomMargin": 4.0,
+                    "Tag": 167,
+                    "ActionTag": -1892086012,
+                    "Size": {
+                      "X": 52.0,
+                      "Y": 52.0
+                    },
+                    "Name": "closebtn",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": -437483647,
+                "Size": {
+                  "X": 60.0,
+                  "Y": 60.0
+                },
+                "Name": "close",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": 1388174804,
+            "Size": {
+              "X": 720.0,
+              "Y": 1280.0
+            },
+            "Name": "Panel_1",
+            "ctype": "PanelObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "MarkedSubImage",
+              "Path": "regroup/OR.png",
+              "Plist": "regroup.plist"
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 484.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.3781
+            },
+            "PreSize": {
+              "X": 0.0486,
+              "Y": 0.0148
+            },
+            "LeftMargin": 342.5,
+            "RightMargin": 342.5,
+            "TopMargin": 786.5,
+            "BottomMargin": 474.5,
+            "Tag": 171,
+            "ActionTag": -258494511,
+            "Size": {
+              "X": 35.0,
+              "Y": 19.0
+            },
+            "Name": "OR_8",
+            "ctype": "SpriteObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "gameplist.plist",
+        "gameplist.png",
+        "regroup.plist",
+        "regroup.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

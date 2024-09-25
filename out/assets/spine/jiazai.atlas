@@ -1,0 +1,426 @@
+
+jiazai.png
+size: 1749,262
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+js1_00000
+  rotate: false
+  xy: 793, 4
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00001
+  rotate: false
+  xy: 883, 4
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00002
+  rotate: false
+  xy: 973, 3
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00003
+  rotate: false
+  xy: 1063, 3
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00004
+  rotate: false
+  xy: 1153, 2
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00005
+  rotate: false
+  xy: 527, 6
+  size: 86, 86
+  orig: 115, 115
+  offset: 14, 14
+  index: -1
+js1_00006
+  rotate: false
+  xy: 1234, 177
+  size: 84, 83
+  orig: 115, 115
+  offset: 15, 16
+  index: -1
+js1_00007
+  rotate: false
+  xy: 234, 182
+  size: 80, 78
+  orig: 115, 115
+  offset: 17, 18
+  index: -1
+js1_00008
+  rotate: false
+  xy: 2, 187
+  size: 74, 73
+  orig: 115, 115
+  offset: 20, 21
+  index: -1
+js1_00009
+  rotate: true
+  xy: 480, 180
+  size: 80, 81
+  orig: 115, 115
+  offset: 17, 17
+  index: -1
+js1_00010
+  rotate: false
+  xy: 176, 8
+  size: 86, 85
+  orig: 115, 115
+  offset: 14, 15
+  index: -1
+js1_00011
+  rotate: true
+  xy: 615, 6
+  size: 86, 87
+  orig: 115, 115
+  offset: 14, 14
+  index: -1
+js1_00012
+  rotate: false
+  xy: 264, 8
+  size: 86, 85
+  orig: 115, 115
+  offset: 14, 15
+  index: -1
+js1_00013
+  rotate: false
+  xy: 352, 7
+  size: 85, 85
+  orig: 115, 115
+  offset: 14, 15
+  index: -1
+js1_00014
+  rotate: false
+  xy: 316, 181
+  size: 80, 79
+  orig: 115, 115
+  offset: 17, 18
+  index: -1
+js1_00015
+  rotate: true
+  xy: 87, 98
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00016
+  rotate: true
+  xy: 174, 96
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00017
+  rotate: true
+  xy: 261, 95
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00018
+  rotate: false
+  xy: 1320, 177
+  size: 84, 83
+  orig: 115, 115
+  offset: 15, 16
+  index: -1
+js1_00019
+  rotate: true
+  xy: 1064, 178
+  size: 82, 83
+  orig: 115, 115
+  offset: 16, 16
+  index: -1
+js1_00020
+  rotate: true
+  xy: 348, 95
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00021
+  rotate: true
+  xy: 435, 94
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00022
+  rotate: false
+  xy: 1406, 177
+  size: 84, 83
+  orig: 115, 115
+  offset: 15, 16
+  index: -1
+js1_00023
+  rotate: false
+  xy: 812, 179
+  size: 82, 81
+  orig: 115, 115
+  offset: 16, 17
+  index: -1
+js1_00024
+  rotate: true
+  xy: 522, 94
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00025
+  rotate: true
+  xy: 609, 94
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00026
+  rotate: true
+  xy: 696, 94
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00027
+  rotate: true
+  xy: 563, 180
+  size: 80, 81
+  orig: 115, 115
+  offset: 17, 17
+  index: -1
+js1_00028
+  rotate: true
+  xy: 783, 93
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00029
+  rotate: true
+  xy: 870, 93
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00030
+  rotate: true
+  xy: 957, 93
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00031
+  rotate: false
+  xy: 1492, 177
+  size: 84, 83
+  orig: 115, 115
+  offset: 15, 16
+  index: -1
+js1_00032
+  rotate: false
+  xy: 896, 179
+  size: 82, 81
+  orig: 115, 115
+  offset: 16, 17
+  index: -1
+js1_00033
+  rotate: true
+  xy: 1044, 92
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00034
+  rotate: true
+  xy: 1131, 92
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00035
+  rotate: true
+  xy: 1218, 91
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00036
+  rotate: true
+  xy: 1305, 91
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00037
+  rotate: true
+  xy: 1149, 178
+  size: 82, 83
+  orig: 115, 115
+  offset: 16, 16
+  index: -1
+js1_00038
+  rotate: true
+  xy: 646, 180
+  size: 80, 81
+  orig: 115, 115
+  offset: 17, 17
+  index: -1
+js1_00039
+  rotate: false
+  xy: 1578, 177
+  size: 84, 83
+  orig: 115, 115
+  offset: 15, 16
+  index: -1
+js1_00040
+  rotate: true
+  xy: 1392, 91
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00041
+  rotate: true
+  xy: 1479, 91
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00042
+  rotate: true
+  xy: 1566, 91
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00043
+  rotate: true
+  xy: 1653, 91
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00044
+  rotate: true
+  xy: 2, 12
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00045
+  rotate: false
+  xy: 1664, 177
+  size: 83, 83
+  orig: 115, 115
+  offset: 16, 16
+  index: -1
+js1_00046
+  rotate: true
+  xy: 729, 180
+  size: 80, 81
+  orig: 115, 115
+  offset: 17, 17
+  index: -1
+js1_00047
+  rotate: false
+  xy: 78, 185
+  size: 75, 75
+  orig: 115, 115
+  offset: 20, 20
+  index: -1
+js1_00048
+  rotate: true
+  xy: 155, 184
+  size: 76, 77
+  orig: 115, 115
+  offset: 19, 19
+  index: -1
+js1_00049
+  rotate: false
+  xy: 398, 181
+  size: 80, 79
+  orig: 115, 115
+  offset: 17, 18
+  index: -1
+js1_00050
+  rotate: false
+  xy: 980, 179
+  size: 82, 81
+  orig: 115, 115
+  offset: 16, 17
+  index: -1
+js1_00051
+  rotate: false
+  xy: 2, 100
+  size: 83, 83
+  orig: 115, 115
+  offset: 16, 16
+  index: -1
+js1_00052
+  rotate: true
+  xy: 89, 10
+  size: 84, 85
+  orig: 115, 115
+  offset: 15, 15
+  index: -1
+js1_00053
+  rotate: false
+  xy: 439, 7
+  size: 86, 85
+  orig: 115, 115
+  offset: 14, 15
+  index: -1
+js1_00054
+  rotate: true
+  xy: 704, 5
+  size: 86, 87
+  orig: 115, 115
+  offset: 14, 14
+  index: -1
+js1_00055
+  rotate: false
+  xy: 1243, 2
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00056
+  rotate: false
+  xy: 1333, 2
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00057
+  rotate: false
+  xy: 1423, 2
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00058
+  rotate: false
+  xy: 1513, 2
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1
+js1_00059
+  rotate: false
+  xy: 1603, 2
+  size: 88, 87
+  orig: 115, 115
+  offset: 13, 14
+  index: -1

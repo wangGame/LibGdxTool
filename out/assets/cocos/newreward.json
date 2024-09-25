@@ -1,0 +1,999 @@
+{
+  "ID": "a7369875-f2f8-4939-916f-169134aaffb0",
+  "Version": "3.10.0.0",
+  "Name": "newreward",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 11,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 1006.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.7859
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 0.0609
+            },
+            "TopMargin": 196.0,
+            "BottomMargin": 1006.0,
+            "Tag": 18,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/Claimrewards.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 9.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.1154
+                },
+                "PreSize": {
+                  "X": 0.5236,
+                  "Y": 0.3718
+                },
+                "LeftMargin": 171.5,
+                "RightMargin": 171.5,
+                "TopMargin": 54.5,
+                "BottomMargin": -5.5,
+                "Tag": 14,
+                "ActionTag": -88572801,
+                "Size": {
+                  "X": 377.0,
+                  "Y": 29.0
+                },
+                "Name": "Claimrewards_3",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/congratulations.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 66.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.8462
+                },
+                "PreSize": {
+                  "X": 0.5167,
+                  "Y": 0.5641
+                },
+                "LeftMargin": 174.0,
+                "RightMargin": 174.0,
+                "TopMargin": -10.0,
+                "BottomMargin": 44.0,
+                "Tag": 15,
+                "ActionTag": -1078592647,
+                "Size": {
+                  "X": 372.0,
+                  "Y": 44.0
+                },
+                "Name": "congratulations_4",
+                "ctype": "SpriteObjectData"
+              }
+            ],
+            "ActionTag": -624003748,
+            "Size": {
+              "X": 720.0,
+              "Y": 78.0
+            },
+            "Name": "toptitle",
+            "ctype": "PanelObjectData"
+          },
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 220.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.1719
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 0.1328
+            },
+            "TopMargin": 890.0,
+            "BottomMargin": 220.0,
+            "Tag": 19,
+            "Children": [
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 126.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.7412
+                },
+                "PreSize": {
+                  "X": 0.5556,
+                  "Y": 0.5176
+                },
+                "LeftMargin": 160.0,
+                "RightMargin": 160.0,
+                "BottomMargin": 82.0,
+                "Tag": 23,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "newreward/adbg.png",
+                      "Plist": "newreward.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 200.0,
+                      "Y": 40.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.4545
+                    },
+                    "PreSize": {
+                      "X": 1.085,
+                      "Y": 1.3864
+                    },
+                    "LeftMargin": -17.0,
+                    "RightMargin": -17.0,
+                    "TopMargin": -13.0,
+                    "BottomMargin": -21.0,
+                    "Tag": 12,
+                    "ActionTag": 39751820,
+                    "Size": {
+                      "X": 434.0,
+                      "Y": 122.0
+                    },
+                    "Name": "adbg_1",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "Claim 100",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-semi-36.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 200.0,
+                      "Y": 40.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.4545
+                    },
+                    "PreSize": {
+                      "X": 0.4275,
+                      "Y": 0.5
+                    },
+                    "LeftMargin": 114.5,
+                    "RightMargin": 114.5,
+                    "TopMargin": 26.0,
+                    "BottomMargin": 18.0,
+                    "Tag": 22,
+                    "ActionTag": -261787276,
+                    "Size": {
+                      "X": 171.0,
+                      "Y": 44.0
+                    },
+                    "Name": "btncoinnum",
+                    "ctype": "TextBMFontObjectData"
+                  }
+                ],
+                "ActionTag": -934241236,
+                "Size": {
+                  "X": 400.0,
+                  "Y": 88.0
+                },
+                "Name": "claim",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 12.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.0706
+                },
+                "PreSize": {
+                  "X": 0.5556,
+                  "Y": 0.4353
+                },
+                "LeftMargin": 160.0,
+                "RightMargin": 160.0,
+                "TopMargin": 121.0,
+                "BottomMargin": -25.0,
+                "Tag": 24,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "newreward/Continue.png",
+                      "Plist": "newreward.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 202.0,
+                      "Y": 40.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.505,
+                      "Y": 0.5405
+                    },
+                    "PreSize": {
+                      "X": 0.4125,
+                      "Y": 0.3919
+                    },
+                    "LeftMargin": 119.5,
+                    "RightMargin": 115.5,
+                    "TopMargin": 19.5,
+                    "BottomMargin": 25.5,
+                    "Tag": 16,
+                    "ActionTag": 1347646293,
+                    "Size": {
+                      "X": 165.0,
+                      "Y": 29.0
+                    },
+                    "Name": "Continue_5",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 238625489,
+                "Size": {
+                  "X": 400.0,
+                  "Y": 74.0
+                },
+                "Name": "continue",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": 844089658,
+            "Size": {
+              "X": 720.0,
+              "Y": 170.0
+            },
+            "Name": "bottom",
+            "ctype": "PanelObjectData"
+          },
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 461.1238
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.3603
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 0.0734
+            },
+            "TopMargin": 724.8762,
+            "BottomMargin": 461.1238,
+            "Tag": 20,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/bp.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.6389,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 130.0,
+                "RightMargin": 130.0,
+                "BottomMargin": 26.0,
+                "Tag": 17,
+                "ActionTag": 1963772672,
+                "Size": {
+                  "X": 460.0,
+                  "Y": 68.0
+                },
+                "Name": "bb",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/x5.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.1167,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 318.0,
+                "RightMargin": 318.0,
+                "BottomMargin": 26.0,
+                "Tag": 19,
+                "ActionTag": 1772902027,
+                "Size": {
+                  "X": 84.0,
+                  "Y": 68.0
+                },
+                "Name": "5",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/x4.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 438.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.6083,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.1014,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 401.5,
+                "RightMargin": 245.5,
+                "BottomMargin": 26.0,
+                "Tag": 18,
+                "ActionTag": 925267765,
+                "Size": {
+                  "X": 73.0,
+                  "Y": 68.0
+                },
+                "Name": "4r",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/x3.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 503.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.6986,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.0792,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 474.5,
+                "RightMargin": 188.5,
+                "BottomMargin": 26.0,
+                "Tag": 17,
+                "ActionTag": 1035084648,
+                "Size": {
+                  "X": 57.0,
+                  "Y": 68.0
+                },
+                "Name": "3r",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/x2.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 160.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.2222,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.0806,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 131.0,
+                "RightMargin": 531.0,
+                "BottomMargin": 26.0,
+                "Tag": 16,
+                "ActionTag": 187973929,
+                "Size": {
+                  "X": 58.0,
+                  "Y": 68.0
+                },
+                "Name": "2l",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/x3.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 217.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.3014,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.0792,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 188.5,
+                "RightMargin": 474.5,
+                "BottomMargin": 26.0,
+                "Tag": 20,
+                "ActionTag": -592556307,
+                "Size": {
+                  "X": 57.0,
+                  "Y": 68.0
+                },
+                "Name": "3l",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/x4.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 282.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.3917,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.1014,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 245.5,
+                "RightMargin": 401.5,
+                "BottomMargin": 26.0,
+                "Tag": 21,
+                "ActionTag": 1876881816,
+                "Size": {
+                  "X": 73.0,
+                  "Y": 68.0
+                },
+                "Name": "4l",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/x2r.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 559.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.7764,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.0806,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 530.0,
+                "RightMargin": 132.0,
+                "BottomMargin": 26.0,
+                "Tag": 22,
+                "ActionTag": 650430228,
+                "Size": {
+                  "X": 58.0,
+                  "Y": 68.0
+                },
+                "Name": "2r",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/x5_border.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 60.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.6383
+                },
+                "PreSize": {
+                  "X": 0.6389,
+                  "Y": 0.7234
+                },
+                "LeftMargin": 130.0,
+                "RightMargin": 130.0,
+                "BottomMargin": 26.0,
+                "Tag": 15,
+                "ActionTag": -1923786928,
+                "Size": {
+                  "X": 460.0,
+                  "Y": 68.0
+                },
+                "Name": "x5_border_1",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newreward/arrow.png",
+                  "Plist": "newreward.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 532.0,
+                  "Y": 21.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.7389,
+                  "Y": 0.2234
+                },
+                "PreSize": {
+                  "X": 0.0819,
+                  "Y": 0.5
+                },
+                "LeftMargin": 502.5,
+                "RightMargin": 158.5,
+                "TopMargin": 49.5,
+                "BottomMargin": -2.5,
+                "Tag": 13,
+                "ActionTag": -33675402,
+                "Size": {
+                  "X": 59.0,
+                  "Y": 47.0
+                },
+                "Name": "arrow_2",
+                "ctype": "SpriteObjectData"
+              }
+            ],
+            "ActionTag": -1524585043,
+            "Size": {
+              "X": 720.0,
+              "Y": 94.0
+            },
+            "Name": "biac",
+            "ctype": "PanelObjectData"
+          },
+          {
+            "LabelText": "+100",
+            "LabelBMFontFile_CNB": {
+              "Type": "Normal",
+              "Path": "font/inter-semi-36.fnt",
+              "Plist": ""
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 355.0,
+              "Y": 683.2806
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.4931,
+              "Y": 0.5338
+            },
+            "PreSize": {
+              "X": 0.0903,
+              "Y": 0.0344
+            },
+            "LeftMargin": 322.5,
+            "RightMargin": 332.5,
+            "TopMargin": 574.7194,
+            "BottomMargin": 661.2806,
+            "Tag": 25,
+            "ActionTag": -33800723,
+            "Size": {
+              "X": 65.0,
+              "Y": 44.0
+            },
+            "Name": "coinblnum",
+            "ctype": "TextBMFontObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/inter-semi-36.fnt",
+        "font/inter-semi-36.png",
+        "newreward.plist",
+        "newreward.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

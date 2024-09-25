@@ -1,0 +1,188 @@
+
+jmqh.png
+size: 427,141
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Daily
+  rotate: true
+  xy: 310, 81
+  size: 58, 24
+  orig: 58, 24
+  offset: 0, 0
+  index: -1
+Daily_h
+  rotate: true
+  xy: 336, 81
+  size: 58, 24
+  orig: 58, 24
+  offset: 0, 0
+  index: -1
+Gallery
+  rotate: true
+  xy: 52, 55
+  size: 84, 23
+  orig: 84, 23
+  offset: 0, 0
+  index: -1
+Gallery_h
+  rotate: true
+  xy: 77, 55
+  size: 84, 23
+  orig: 84, 23
+  offset: 0, 0
+  index: -1
+Leaderboard
+  rotate: false
+  xy: 102, 55
+  size: 153, 19
+  orig: 153, 19
+  offset: 0, 0
+  index: -1
+Leaderboard_h
+  rotate: false
+  xy: 257, 55
+  size: 153, 19
+  orig: 153, 19
+  offset: 0, 0
+  index: -1
+Leaderboard_t1
+  rotate: false
+  xy: 118, 3
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Leaderboard_t2
+  rotate: true
+  xy: 37, 14
+  size: 6, 24
+  orig: 6, 24
+  offset: 0, 0
+  index: -1
+Leaderboard_t3
+  rotate: true
+  xy: 28, 3
+  size: 6, 29
+  orig: 6, 29
+  offset: 0, 0
+  index: -1
+Leaderboard_t4
+  rotate: false
+  xy: 2, 2
+  size: 6, 18
+  orig: 6, 18
+  offset: 0, 0
+  index: -1
+My Works
+  rotate: true
+  xy: 2, 22
+  size: 117, 23
+  orig: 117, 23
+  offset: 0, 0
+  index: -1
+My Works1
+  rotate: true
+  xy: 27, 22
+  size: 117, 23
+  orig: 117, 23
+  offset: 0, 0
+  index: -1
+daily1
+  rotate: true
+  xy: 63, 3
+  size: 50, 53
+  orig: 50, 53
+  offset: 0, 0
+  index: -1
+daily3
+  rotate: false
+  xy: 343, 11
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+gallery1
+  rotate: false
+  xy: 170, 3
+  size: 44, 50
+  orig: 44, 50
+  offset: 0, 0
+  index: -1
+gallery2
+  rotate: false
+  xy: 10, 4
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+gallery3
+  rotate: false
+  xy: 305, 9
+  size: 36, 44
+  orig: 36, 44
+  offset: 0, 0
+  index: -1
+kuai1
+  rotate: true
+  xy: 28, 11
+  size: 9, 7
+  orig: 9, 7
+  offset: 0, 0
+  index: -1
+kuai2
+  rotate: true
+  xy: 28, 11
+  size: 9, 7
+  orig: 9, 7
+  offset: 0, 0
+  index: -1
+kuai3
+  rotate: true
+  xy: 28, 11
+  size: 9, 7
+  orig: 9, 7
+  offset: 0, 0
+  index: -1
+kuai4
+  rotate: true
+  xy: 28, 11
+  size: 9, 7
+  orig: 9, 7
+  offset: 0, 0
+  index: -1
+leader_yuanhu
+  rotate: false
+  xy: 102, 76
+  size: 206, 63
+  orig: 206, 63
+  offset: 0, 0
+  index: -1
+tournament_1
+  rotate: false
+  xy: 362, 99
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: -1
+work1
+  rotate: false
+  xy: 216, 7
+  size: 44, 46
+  orig: 44, 46
+  offset: 0, 0
+  index: -1
+work2
+  rotate: true
+  xy: 262, 8
+  size: 45, 41
+  orig: 45, 41
+  offset: 0, 0
+  index: -1
+work3
+  rotate: true
+  xy: 385, 12
+  size: 41, 40
+  orig: 41, 40
+  offset: 0, 0
+  index: -1

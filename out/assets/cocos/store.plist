@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>store/ad.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{657,2},{192,94}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{192,94}</string>
+			</dict>
+			<key>store/add1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{991,197},{31,24}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{31,24}</string>
+			</dict>
+			<key>store/add50.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{570,183},{60,25}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{60,25}</string>
+			</dict>
+			<key>store/add500.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{485,183},{81,25}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{81,25}</string>
+			</dict>
+			<key>store/adstip.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{2,133},{479,100}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{479,100}</string>
+			</dict>
+			<key>store/circle.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{611,133},{32,32}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{32,32}</string>
+			</dict>
+			<key>store/close.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{935,197},{52,52}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{52,52}</string>
+			</dict>
+			<key>store/coin50.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{853,182},{78,52}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{78,52}</string>
+			</dict>
+			<key>store/coin500.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{853,106},{91,72}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{91,72}</string>
+			</dict>
+			<key>store/coinBtn.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{657,100},{192,94}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{192,94}</string>
+			</dict>
+			<key>store/free.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{634,198},{192,94}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{192,94}</string>
+			</dict>
+			<key>store/hint.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{957,2},{51,71}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{51,71}</string>
+			</dict>
+			<key>store/noads.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{2,237},{479,60}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{479,60}</string>
+			</dict>
+			<key>store/popups_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{853,2},{100,100}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{100,100}</string>
+			</dict>
+			<key>store/skip.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{948,141},{55,52}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{55,52}</string>
+			</dict>
+			<key>store/text_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{957,77},{60,60}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{60,60}</string>
+			</dict>
+			<key>store/title.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{2,2},{651,127}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{651,127}</string>
+			</dict>
+			<key>store/buttongrey.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{830,253},{192,94}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{192,94}</string>
+			</dict>
+			<key>store/coin.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{485,133},{122,46}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{122,46}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>store.png</string>
+			<key>realTextureFileName</key>
+			<string>store.png</string>
+			<key>size</key>
+			<string>{1024,349}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>1024</integer>
+			<key>height</key>
+			<integer>349</integer>
+		</dict>
+	</dict>
+</plist>

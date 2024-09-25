@@ -1,0 +1,447 @@
+{
+  "ID": "575d462b-5eab-4282-9fa4-eb763e9844e2",
+  "Version": "3.10.0.0",
+  "Name": "phbItem",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 724,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 0.9333,
+              "Y": 0.075
+            },
+            "RightMargin": 48.0,
+            "TopMargin": 1184.0,
+            "Tag": 730,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "tournament/text_bg1.png",
+                  "Plist": "tournamentPlist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 21,
+                "Scale9OriginY": 18,
+                "Scale9Width": 7,
+                "Scale9Height": 11,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0
+                },
+                "Tag": 728,
+                "ActionTag": -434964619,
+                "Size": {
+                  "X": 672.0,
+                  "Y": 96.0
+                },
+                "Name": "phbBg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 597.5329,
+                  "Y": 49.5628
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.8892,
+                  "Y": 0.5163
+                },
+                "PreSize": {
+                  "X": 0.125,
+                  "Y": 0.4167
+                },
+                "LeftMargin": 555.5329,
+                "RightMargin": 32.4671,
+                "TopMargin": 26.4372,
+                "BottomMargin": 29.5628,
+                "Tag": 731,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tournament/star_bg1.png",
+                      "Plist": "tournamentPlist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 20.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 1.0476,
+                      "Y": 1.0
+                    },
+                    "RightMargin": -4.0,
+                    "Tag": 732,
+                    "ActionTag": -1892239482,
+                    "Size": {
+                      "X": 88.0,
+                      "Y": 40.0
+                    },
+                    "Name": "starBg",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tournament/star2.png",
+                      "Plist": "tournamentPlist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 20.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.5357,
+                      "Y": 1.075
+                    },
+                    "LeftMargin": -22.5,
+                    "RightMargin": 61.5,
+                    "TopMargin": -1.5,
+                    "BottomMargin": -1.5,
+                    "Tag": 725,
+                    "ActionTag": -148815695,
+                    "Size": {
+                      "X": 45.0,
+                      "Y": 43.0
+                    },
+                    "Name": "star",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "30",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-blod-32.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 47.0,
+                      "Y": 20.0
+                    },
+                    "Scale": {
+                      "ScaleX": 0.875,
+                      "ScaleY": 0.875
+                    },
+                    "CColor": {
+                      "R": 166,
+                      "G": 83,
+                      "B": 94
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5595,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.5119,
+                      "Y": 0.975
+                    },
+                    "LeftMargin": 25.5,
+                    "RightMargin": 15.5,
+                    "TopMargin": 0.5,
+                    "BottomMargin": 0.5,
+                    "Tag": 733,
+                    "ActionTag": -1682759144,
+                    "Size": {
+                      "X": 43.0,
+                      "Y": 39.0
+                    },
+                    "Name": "starNum",
+                    "ctype": "TextBMFontObjectData"
+                  }
+                ],
+                "ActionTag": 60604661,
+                "Size": {
+                  "X": 84.0,
+                  "Y": 40.0
+                },
+                "Name": "coinPanel",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "LabelText": "Fnt Text Label",
+                "LabelBMFontFile_CNB": {
+                  "Type": "Normal",
+                  "Path": "font/inter-regular-28.fnt",
+                  "Plist": ""
+                },
+                "AnchorPoint": {
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 110.0,
+                  "Y": 48.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {
+                  "R": 166,
+                  "G": 83,
+                  "B": 94
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.1637,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.2768,
+                  "Y": 0.3646
+                },
+                "LeftMargin": 110.0,
+                "RightMargin": 376.0,
+                "TopMargin": 30.5,
+                "BottomMargin": 30.5,
+                "Tag": 734,
+                "ActionTag": -1050850827,
+                "Size": {
+                  "X": 186.0,
+                  "Y": 35.0
+                },
+                "Name": "userName",
+                "ctype": "TextBMFontObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "tournament/trophy _2.png",
+                  "Plist": "tournamentPlist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 57.0,
+                  "Y": 48.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0848,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.1086,
+                  "Y": 0.6458
+                },
+                "LeftMargin": 20.5,
+                "RightMargin": 578.5,
+                "TopMargin": 17.0,
+                "BottomMargin": 17.0,
+                "Tag": 736,
+                "ActionTag": 1840849579,
+                "Size": {
+                  "X": 73.0,
+                  "Y": 62.0
+                },
+                "Name": "phbNumBg",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "LabelText": "6",
+                "LabelBMFontFile_CNB": {
+                  "Type": "Normal",
+                  "Path": "font/inter-blod-40.png.fnt",
+                  "Plist": ""
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 56.0,
+                  "Y": 56.0
+                },
+                "Scale": {
+                  "ScaleX": 0.9,
+                  "ScaleY": 0.9
+                },
+                "CColor": {
+                  "R": 166,
+                  "G": 83,
+                  "B": 94
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0833,
+                  "Y": 0.5833
+                },
+                "PreSize": {
+                  "X": 0.0387,
+                  "Y": 0.5104
+                },
+                "LeftMargin": 43.0,
+                "RightMargin": 603.0,
+                "TopMargin": 15.5,
+                "BottomMargin": 31.5,
+                "Tag": 737,
+                "ActionTag": -370026592,
+                "Size": {
+                  "X": 26.0,
+                  "Y": 49.0
+                },
+                "Name": "phbnum",
+                "ctype": "TextBMFontObjectData"
+              }
+            ],
+            "ActionTag": -363481485,
+            "Size": {
+              "X": 672.0,
+              "Y": 96.0
+            },
+            "Name": "phbItemView",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/inter-blod-32.fnt",
+        "font/inter-blod-32.png",
+        "font/inter-blod-40.png.fnt",
+        "font/inter-blod-40.png.png",
+        "font/inter-regular-28.fnt",
+        "font/inter-regular-28.png",
+        "tournamentPlist.plist",
+        "tournamentPlist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

@@ -1,0 +1,257 @@
+{
+  "ID": "71ba1aad-6ccb-40cb-acd5-78a2823267a3",
+  "Version": "3.10.0.0",
+  "Name": "flypanel",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 94,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 95,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "flypanel/ad_bg.png",
+                  "Plist": "flyplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 59.0,
+                  "Y": 57.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.4831
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0
+                },
+                "TopMargin": 2.0,
+                "BottomMargin": -2.0,
+                "Tag": 97,
+                "ActionTag": -666978434,
+                "Size": {
+                  "X": 118.0,
+                  "Y": 118.0
+                },
+                "Name": "ad_bg",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "flypanel/ad_progress.png",
+                  "Plist": "flyplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 59.0,
+                  "Y": 59.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.8475,
+                  "Y": 0.8475
+                },
+                "LeftMargin": 9.0,
+                "RightMargin": 9.0,
+                "TopMargin": 9.0,
+                "BottomMargin": 9.0,
+                "Tag": 98,
+                "ActionTag": -1004259778,
+                "Size": {
+                  "X": 100.0,
+                  "Y": 100.0
+                },
+                "Name": "ad_progress",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "flypanel/two2.png",
+                  "Plist": "flyplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 59.0,
+                  "Y": 59.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.3814,
+                  "Y": 0.5508
+                },
+                "LeftMargin": 36.5,
+                "RightMargin": 36.5,
+                "TopMargin": 26.5,
+                "BottomMargin": 26.5,
+                "Tag": 99,
+                "ActionTag": -655336261,
+                "Size": {
+                  "X": 45.0,
+                  "Y": 65.0
+                },
+                "Name": "two",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "flypanel/AD.png",
+                  "Plist": "flyplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 97.0,
+                  "Y": 29.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.822,
+                  "Y": 0.2458
+                },
+                "PreSize": {
+                  "X": 0.339,
+                  "Y": 0.339
+                },
+                "LeftMargin": 77.0,
+                "RightMargin": 1.0,
+                "TopMargin": 69.0,
+                "BottomMargin": 9.0,
+                "Tag": 96,
+                "ActionTag": 470307923,
+                "Size": {
+                  "X": 40.0,
+                  "Y": 40.0
+                },
+                "Name": "AD",
+                "ctype": "SpriteObjectData"
+              }
+            ],
+            "ActionTag": -326730196,
+            "Size": {
+              "X": 118.0,
+              "Y": 118.0
+            },
+            "Name": "Panel_1",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 118.0,
+          "Y": 118.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "flyplist.plist",
+        "flyplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

@@ -1,0 +1,1065 @@
+{
+  "ID": "2a7e5534-c644-4a7b-b885-1831939fcfeb",
+  "Version": "3.10.0.0",
+  "Name": "tourfinish",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 543,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 1.0
+            },
+            "Position": {
+              "X": 300.0,
+              "Y": 345.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.4167,
+              "Y": 0.2695
+            },
+            "PreSize": {
+              "X": 0.8333,
+              "Y": 0.2695
+            },
+            "RightMargin": 120.0,
+            "TopMargin": 935.0,
+            "Tag": 550,
+            "Children": [
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 1.0
+                },
+                "Position": {
+                  "X": 300.0,
+                  "Y": 345.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 1.0
+                },
+                "PreSize": {
+                  "X": 0.795,
+                  "Y": 0.3594
+                },
+                "LeftMargin": 61.5,
+                "RightMargin": 61.5,
+                "BottomMargin": 221.0,
+                "Tag": 561,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tourfinish/star 1.png",
+                      "Plist": "tourfinishplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 477.0,
+                      "Y": 61.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 1.0,
+                      "Y": 0.4919
+                    },
+                    "PreSize": {
+                      "X": 0.2662,
+                      "Y": 0.9839
+                    },
+                    "LeftMargin": 350.0,
+                    "TopMargin": 2.0,
+                    "Tag": 560,
+                    "ActionTag": 362999934,
+                    "Size": {
+                      "X": 127.0,
+                      "Y": 122.0
+                    },
+                    "Name": "Sprite_8",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tourfinish/star 1.png",
+                      "Plist": "tourfinishplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 175.0,
+                      "Y": 61.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3669,
+                      "Y": 0.4919
+                    },
+                    "PreSize": {
+                      "X": 0.2662,
+                      "Y": 0.9839
+                    },
+                    "LeftMargin": 175.0,
+                    "RightMargin": 175.0,
+                    "TopMargin": 2.0,
+                    "Tag": 562,
+                    "ActionTag": -298059578,
+                    "Size": {
+                      "X": 127.0,
+                      "Y": 122.0
+                    },
+                    "Name": "Sprite_8_0",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tourfinish/star 1.png",
+                      "Plist": "tourfinishplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 1.0
+                    },
+                    "Position": {
+                      "X": 2.11,
+                      "Y": 124.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0044,
+                      "Y": 1.0
+                    },
+                    "PreSize": {
+                      "X": 0.2662,
+                      "Y": 0.9839
+                    },
+                    "LeftMargin": 2.11,
+                    "RightMargin": 347.89,
+                    "BottomMargin": 2.0,
+                    "Tag": 563,
+                    "ActionTag": -1849184834,
+                    "Size": {
+                      "X": 127.0,
+                      "Y": 122.0
+                    },
+                    "Name": "Sprite_8_1",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 2102033695,
+                "Size": {
+                  "X": 477.0,
+                  "Y": 124.0
+                },
+                "Name": "bigStarPanel",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0029
+                },
+                "TopMargin": -1.0,
+                "Tag": 132,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tourfinish/rank_bg.png",
+                      "Plist": "tourfinishplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 0.4162
+                    },
+                    "TopMargin": 202.0,
+                    "Tag": 546,
+                    "ActionTag": -1013969398,
+                    "Size": {
+                      "X": 600.0,
+                      "Y": 144.0
+                    },
+                    "Name": "rank_bg_3",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tourfinish/line1.png",
+                      "Plist": "tourfinishplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 199.0,
+                      "Y": 72.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3317,
+                      "Y": 0.2081
+                    },
+                    "PreSize": {
+                      "X": 0.0033,
+                      "Y": 0.289
+                    },
+                    "LeftMargin": 198.0,
+                    "RightMargin": 400.0,
+                    "TopMargin": 224.0,
+                    "BottomMargin": 22.0,
+                    "Tag": 545,
+                    "ActionTag": 1198835784,
+                    "Size": {
+                      "X": 2.0,
+                      "Y": 100.0
+                    },
+                    "Name": "line1_2",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tourfinish/line1.png",
+                      "Plist": "tourfinishplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 399.0,
+                      "Y": 72.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.665,
+                      "Y": 0.2081
+                    },
+                    "PreSize": {
+                      "X": 0.0033,
+                      "Y": 0.289
+                    },
+                    "LeftMargin": 398.0,
+                    "RightMargin": 200.0,
+                    "TopMargin": 224.0,
+                    "BottomMargin": 22.0,
+                    "Tag": 558,
+                    "ActionTag": 1220092619,
+                    "Size": {
+                      "X": 2.0,
+                      "Y": 100.0
+                    },
+                    "Name": "line1_2_0",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 65.5335,
+                      "Y": 28.9617
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1092,
+                      "Y": 0.0837
+                    },
+                    "PreSize": {
+                      "X": 0.11,
+                      "Y": 0.2399
+                    },
+                    "LeftMargin": 65.5335,
+                    "RightMargin": 468.4665,
+                    "TopMargin": 234.0383,
+                    "BottomMargin": 28.9617,
+                    "Tag": 336,
+                    "Children": [
+                      {
+                        "LabelText": "Rank",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-regular-28.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 0.2505,
+                          "Y": 72.3597
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.0038,
+                          "Y": 0.8718
+                        },
+                        "PreSize": {
+                          "X": 1.0,
+                          "Y": 0.4217
+                        },
+                        "LeftMargin": 0.2505,
+                        "RightMargin": -0.2505,
+                        "TopMargin": -6.8597,
+                        "BottomMargin": 54.8597,
+                        "Tag": 337,
+                        "ActionTag": -1671298806,
+                        "Size": {
+                          "X": 66.0,
+                          "Y": 35.0
+                        },
+                        "Alpha": 204,
+                        "Name": "rankLabel_0",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "ClipAble": false,
+                        "BackColorAlpha": 102,
+                        "SingleColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "FirstColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "EndColor": {},
+                        "ColorVector": {
+                          "ScaleY": 1.0
+                        },
+                        "Scale9Width": 1,
+                        "Scale9Height": 1,
+                        "TouchEnable": true,
+                        "AnchorPoint": {},
+                        "Position": {
+                          "X": 0.0,
+                          "Y": 0.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.0,
+                          "Y": 0.0
+                        },
+                        "PreSize": {
+                          "X": 0.9848,
+                          "Y": 0.4217
+                        },
+                        "RightMargin": 1.0,
+                        "TopMargin": 48.0,
+                        "Tag": 345,
+                        "Children": [
+                          {
+                            "LabelText": "All>",
+                            "LabelBMFontFile_CNB": {
+                              "Type": "Normal",
+                              "Path": "font/inter-blod-32.fnt",
+                              "Plist": ""
+                            },
+                            "AnchorPoint": {},
+                            "Position": {
+                              "X": 2.2504,
+                              "Y": 0.36
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {
+                              "R": 166,
+                              "G": 83,
+                              "B": 94
+                            },
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.0346,
+                              "Y": 0.0103
+                            },
+                            "PreSize": {
+                              "X": 0.9231,
+                              "Y": 1.1143
+                            },
+                            "LeftMargin": 2.2504,
+                            "RightMargin": 2.7496,
+                            "TopMargin": -4.36,
+                            "BottomMargin": 0.36,
+                            "Tag": 338,
+                            "ActionTag": 1695079835,
+                            "Size": {
+                              "X": 60.0,
+                              "Y": 39.0
+                            },
+                            "Name": "BitmapFontLabel_4_1",
+                            "ctype": "TextBMFontObjectData"
+                          }
+                        ],
+                        "ActionTag": 238767074,
+                        "Size": {
+                          "X": 65.0,
+                          "Y": 35.0
+                        },
+                        "Name": "BitmapFontLabel_4_1",
+                        "ctype": "PanelObjectData"
+                      }
+                    ],
+                    "ActionTag": -673732272,
+                    "Size": {
+                      "X": 66.0,
+                      "Y": 83.0
+                    },
+                    "Name": "Panel_1",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 438.0,
+                      "Y": 29.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.73,
+                      "Y": 0.0838
+                    },
+                    "PreSize": {
+                      "X": 0.2417,
+                      "Y": 0.2514
+                    },
+                    "LeftMargin": 438.0,
+                    "RightMargin": 17.0,
+                    "TopMargin": 230.0,
+                    "BottomMargin": 29.0,
+                    "Tag": 342,
+                    "Children": [
+                      {
+                        "LabelText": "Total Stars",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-regular-28.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 72.7193,
+                          "Y": 73.4974
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5015,
+                          "Y": 0.8448
+                        },
+                        "PreSize": {
+                          "X": 1.0,
+                          "Y": 0.4023
+                        },
+                        "LeftMargin": 0.2193,
+                        "RightMargin": -0.2193,
+                        "TopMargin": -3.9974,
+                        "BottomMargin": 55.9974,
+                        "Tag": 346,
+                        "ActionTag": 2099174926,
+                        "Size": {
+                          "X": 145.0,
+                          "Y": 35.0
+                        },
+                        "Alpha": 204,
+                        "Name": "totalLabel_0",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "ClipAble": false,
+                        "BackColorAlpha": 102,
+                        "SingleColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "FirstColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "EndColor": {},
+                        "ColorVector": {
+                          "ScaleY": 1.0
+                        },
+                        "Scale9Width": 1,
+                        "Scale9Height": 1,
+                        "TouchEnable": true,
+                        "AnchorPoint": {},
+                        "Position": {
+                          "X": 3.7268,
+                          "Y": 0.4973
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.0257,
+                          "Y": 0.0057
+                        },
+                        "PreSize": {
+                          "X": 0.7931,
+                          "Y": 0.4598
+                        },
+                        "LeftMargin": 3.7268,
+                        "RightMargin": 26.2732,
+                        "TopMargin": 46.5027,
+                        "BottomMargin": 0.4973,
+                        "Tag": 347,
+                        "Children": [
+                          {
+                            "FileData": {
+                              "Type": "MarkedSubImage",
+                              "Path": "tourfinish/star_bg .png",
+                              "Plist": "tourfinishplist.plist"
+                            },
+                            "BlendFunc": {
+                              "Src": 1,
+                              "Dst": 771
+                            },
+                            "AnchorPoint": {
+                              "ScaleX": 0.5
+                            },
+                            "Position": {
+                              "X": 70.5612,
+                              "Y": 0.0
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {},
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.6136,
+                              "Y": 0.0
+                            },
+                            "PreSize": {
+                              "X": 0.7652,
+                              "Y": 1.0
+                            },
+                            "LeftMargin": 26.5612,
+                            "RightMargin": 0.4388,
+                            "Tag": 348,
+                            "ActionTag": 1653167581,
+                            "Size": {
+                              "X": 88.0,
+                              "Y": 40.0
+                            },
+                            "Name": "Sprite_6",
+                            "ctype": "SpriteObjectData"
+                          },
+                          {
+                            "FileData": {
+                              "Type": "MarkedSubImage",
+                              "Path": "tourfinish/star .png",
+                              "Plist": "tourfinishplist.plist"
+                            },
+                            "BlendFunc": {
+                              "Src": 1,
+                              "Dst": 771
+                            },
+                            "AnchorPoint": {
+                              "ScaleY": 0.5
+                            },
+                            "Position": {
+                              "X": 0.0,
+                              "Y": 20.0
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {},
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.0,
+                              "Y": 0.5
+                            },
+                            "PreSize": {
+                              "X": 0.3913,
+                              "Y": 1.075
+                            },
+                            "RightMargin": 70.0,
+                            "TopMargin": -1.5,
+                            "BottomMargin": -1.5,
+                            "Tag": 349,
+                            "ActionTag": -1093631945,
+                            "Size": {
+                              "X": 45.0,
+                              "Y": 43.0
+                            },
+                            "Name": "Sprite_4",
+                            "ctype": "SpriteObjectData"
+                          },
+                          {
+                            "LabelText": "6",
+                            "LabelBMFontFile_CNB": {
+                              "Type": "Normal",
+                              "Path": "font/inter-blod-32.fnt",
+                              "Plist": ""
+                            },
+                            "AnchorPoint": {
+                              "ScaleX": 0.5,
+                              "ScaleY": 0.5
+                            },
+                            "Position": {
+                              "X": 71.013,
+                              "Y": 20.2517
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {
+                              "R": 166,
+                              "G": 83,
+                              "B": 94
+                            },
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.6175,
+                              "Y": 0.5063
+                            },
+                            "PreSize": {
+                              "X": 0.1826,
+                              "Y": 0.975
+                            },
+                            "LeftMargin": 60.513,
+                            "RightMargin": 33.487,
+                            "TopMargin": 0.2483,
+                            "BottomMargin": 0.7517,
+                            "Tag": 350,
+                            "ActionTag": -951591824,
+                            "Size": {
+                              "X": 21.0,
+                              "Y": 39.0
+                            },
+                            "Name": "BitmapFontLabel_4_1",
+                            "ctype": "TextBMFontObjectData"
+                          }
+                        ],
+                        "ActionTag": 557673462,
+                        "Size": {
+                          "X": 115.0,
+                          "Y": 40.0
+                        },
+                        "Name": "starPanel_0",
+                        "ctype": "PanelObjectData"
+                      }
+                    ],
+                    "ActionTag": 301580815,
+                    "Size": {
+                      "X": 145.0,
+                      "Y": 87.0
+                    },
+                    "Name": "Panel_3",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 245.4471,
+                      "Y": 30.6927
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4091,
+                      "Y": 0.0887
+                    },
+                    "PreSize": {
+                      "X": 0.1783,
+                      "Y": 0.2399
+                    },
+                    "LeftMargin": 245.4471,
+                    "RightMargin": 247.5529,
+                    "TopMargin": 232.3073,
+                    "BottomMargin": 30.6927,
+                    "Tag": 341,
+                    "Children": [
+                      {
+                        "LabelText": "Position",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-regular-28.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 0.4267,
+                          "Y": 71.944
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.004,
+                          "Y": 0.8668
+                        },
+                        "PreSize": {
+                          "X": 1.0,
+                          "Y": 0.4217
+                        },
+                        "LeftMargin": 0.4267,
+                        "RightMargin": -0.4267,
+                        "TopMargin": -6.444,
+                        "BottomMargin": 54.444,
+                        "Tag": 339,
+                        "ActionTag": 1654782448,
+                        "Size": {
+                          "X": 107.0,
+                          "Y": 35.0
+                        },
+                        "Alpha": 204,
+                        "Name": "positionLabel_0",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "LabelText": "64",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-blod-32.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 30.428,
+                          "Y": 19.944
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.2844,
+                          "Y": 0.2403
+                        },
+                        "PreSize": {
+                          "X": 0.4019,
+                          "Y": 0.4699
+                        },
+                        "LeftMargin": 30.428,
+                        "RightMargin": 33.572,
+                        "TopMargin": 43.556,
+                        "BottomMargin": 0.444,
+                        "Tag": 340,
+                        "ActionTag": -1403740553,
+                        "Size": {
+                          "X": 43.0,
+                          "Y": 39.0
+                        },
+                        "Name": "BitmapFontLabel_4_0_0",
+                        "ctype": "TextBMFontObjectData"
+                      }
+                    ],
+                    "ActionTag": 1561272125,
+                    "Size": {
+                      "X": 107.0,
+                      "Y": 83.0
+                    },
+                    "Name": "Panel_2",
+                    "ctype": "PanelObjectData"
+                  }
+                ],
+                "ActionTag": 1943983714,
+                "Size": {
+                  "X": 600.0,
+                  "Y": 346.0
+                },
+                "Name": "Panel_4",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": -1692185049,
+            "Size": {
+              "X": 600.0,
+              "Y": 345.0
+            },
+            "Name": "finishTour",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/inter-blod-32.fnt",
+        "font/inter-blod-32.png",
+        "font/inter-regular-28.fnt",
+        "font/inter-regular-28.png",
+        "tourfinishplist.plist",
+        "tourfinishplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

@@ -1,0 +1,421 @@
+{
+  "ID": "de1f0f73-6336-481d-b501-f9ce050e1a8a",
+  "Version": "3.10.0.0",
+  "Name": "NewCollect",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 201.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.157
+            },
+            "PreSize": {
+              "X": 0.9167,
+              "Y": 0.6766
+            },
+            "LeftMargin": 30.0,
+            "RightMargin": 30.0,
+            "TopMargin": 213.0,
+            "BottomMargin": 201.0,
+            "Tag": 7,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "newCollect/dialogbg.png",
+                  "Plist": "newcollectplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 329.275,
+                  "Y": 0.0001
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4989,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 1.0091,
+                  "Y": 1.0
+                },
+                "LeftMargin": -3.725,
+                "RightMargin": -2.275,
+                "TopMargin": -0.0001,
+                "BottomMargin": 0.0001,
+                "Tag": 4,
+                "ActionTag": -36263666,
+                "Size": {
+                  "X": 666.0,
+                  "Y": 866.0
+                },
+                "Name": "dialogbg_3",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 552.0,
+                  "Y": 773.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.8364,
+                  "Y": 0.8926
+                },
+                "PreSize": {
+                  "X": 0.097,
+                  "Y": 0.0739
+                },
+                "LeftMargin": 520.0,
+                "RightMargin": 76.0,
+                "TopMargin": 61.0,
+                "BottomMargin": 741.0,
+                "Tag": 89,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "newCollect/close.png",
+                      "Plist": "newcollectplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 32.0,
+                      "Y": 32.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.8125,
+                      "Y": 0.8125
+                    },
+                    "LeftMargin": 6.0,
+                    "RightMargin": 6.0,
+                    "TopMargin": 6.0,
+                    "BottomMargin": 6.0,
+                    "Tag": 86,
+                    "ActionTag": -1237640632,
+                    "Size": {
+                      "X": 52.0,
+                      "Y": 52.0
+                    },
+                    "Name": "close_33",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 436222480,
+                "Size": {
+                  "X": 64.0,
+                  "Y": 64.0
+                },
+                "Name": "close",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 330.0,
+                  "Y": 153.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.1767
+                },
+                "PreSize": {
+                  "X": 0.6076,
+                  "Y": 0.1166
+                },
+                "LeftMargin": 129.5,
+                "RightMargin": 129.5,
+                "TopMargin": 662.5,
+                "BottomMargin": 102.5,
+                "Tag": 81,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "collection2/buttonBg.png",
+                      "Plist": "coinmay.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 201.0,
+                      "Y": 46.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5012,
+                      "Y": 0.4554
+                    },
+                    "PreSize": {
+                      "X": 1.0823,
+                      "Y": 1.2079
+                    },
+                    "LeftMargin": -16.0,
+                    "RightMargin": -17.0,
+                    "TopMargin": -6.0,
+                    "BottomMargin": -15.0,
+                    "Tag": 82,
+                    "ActionTag": 365037768,
+                    "Size": {
+                      "X": 434.0,
+                      "Y": 122.0
+                    },
+                    "Name": "button_5",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "collection2/coin .png",
+                      "Plist": "coinmay.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 139.0,
+                      "Y": 47.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3466,
+                      "Y": 0.4653
+                    },
+                    "PreSize": {
+                      "X": 0.1471,
+                      "Y": 0.5941
+                    },
+                    "LeftMargin": 109.5,
+                    "RightMargin": 232.5,
+                    "TopMargin": 24.0,
+                    "BottomMargin": 17.0,
+                    "Tag": 84,
+                    "ActionTag": -11963742,
+                    "Size": {
+                      "X": 59.0,
+                      "Y": 60.0
+                    },
+                    "Name": "Sprite_2",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "4,000",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-ssemi-36.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 231.7174,
+                      "Y": 49.009
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 236,
+                      "G": 235,
+                      "B": 219
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5778,
+                      "Y": 0.4852
+                    },
+                    "PreSize": {
+                      "X": 0.2643,
+                      "Y": 0.4356
+                    },
+                    "LeftMargin": 178.7174,
+                    "RightMargin": 116.2826,
+                    "TopMargin": 29.991,
+                    "BottomMargin": 27.009,
+                    "Tag": 85,
+                    "ActionTag": -1346381307,
+                    "Size": {
+                      "X": 106.0,
+                      "Y": 44.0
+                    },
+                    "Name": "BitmapFontLabel_1",
+                    "ctype": "TextBMFontObjectData"
+                  }
+                ],
+                "ActionTag": 1925271868,
+                "Size": {
+                  "X": 401.0,
+                  "Y": 101.0
+                },
+                "Name": "coinBtn",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": 921289441,
+            "Size": {
+              "X": 660.0,
+              "Y": 866.0
+            },
+            "Name": "Panel_3",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "coinmay.plist",
+        "coinmay.png",
+        "font/inter-ssemi-36.fnt",
+        "font/inter-ssemi-36.png",
+        "newcollectplist.plist",
+        "newcollectplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

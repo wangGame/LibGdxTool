@@ -1,0 +1,546 @@
+{
+  "ID": "a569e29b-ced2-4cae-b638-fb3acc3cd511",
+  "Version": "3.10.0.0",
+  "Name": "premiumpanel",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 141,
+        "Children": [
+          {
+            "FileData": {
+              "Type": "MarkedSubImage",
+              "Path": "premium/Close.png",
+              "Plist": "premium.plist"
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 665.0,
+              "Y": 689.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.9236,
+              "Y": 0.5383
+            },
+            "PreSize": {
+              "X": 0.0889,
+              "Y": 0.05
+            },
+            "LeftMargin": 633.0,
+            "RightMargin": 23.0,
+            "TopMargin": 559.0,
+            "BottomMargin": 657.0,
+            "Tag": 153,
+            "ActionTag": -788959274,
+            "Size": {
+              "X": 64.0,
+              "Y": 64.0
+            },
+            "Name": "closeBtn",
+            "ctype": "SpriteObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "MarkedSubImage",
+              "Path": "premium/popups_bg.png",
+              "Plist": "premium.plist"
+            },
+            "Scale9Enable": true,
+            "Scale9OriginX": 89,
+            "Scale9OriginY": 91,
+            "Scale9Width": 23,
+            "Scale9Height": 23,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 274.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.2141
+            },
+            "PreSize": {
+              "X": 1.0361,
+              "Y": 0.457
+            },
+            "LeftMargin": -13.0,
+            "RightMargin": -13.0,
+            "TopMargin": 713.5,
+            "BottomMargin": -18.5,
+            "Tag": 161,
+            "ActionTag": -2110740265,
+            "Size": {
+              "X": 746.0,
+              "Y": 585.0
+            },
+            "Name": "Image_1",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "MarkedSubImage",
+              "Path": "premium/ad.png",
+              "Plist": "premium.plist"
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 69.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.0539
+            },
+            "PreSize": {
+              "X": 0.6583,
+              "Y": 0.0953
+            },
+            "LeftMargin": 123.0,
+            "RightMargin": 123.0,
+            "TopMargin": 1089.0,
+            "BottomMargin": 69.0,
+            "Tag": 162,
+            "ActionTag": 10836284,
+            "Size": {
+              "X": 474.0,
+              "Y": 122.0
+            },
+            "Name": "lookvideo",
+            "ctype": "SpriteObjectData"
+          },
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 222.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.1734
+            },
+            "PreSize": {
+              "X": 0.6111,
+              "Y": 0.3438
+            },
+            "LeftMargin": 140.0,
+            "RightMargin": 140.0,
+            "TopMargin": 618.0,
+            "BottomMargin": 222.0,
+            "Tag": 154,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "premium/img_shadow.png",
+                  "Plist": "premium.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 54,
+                "Scale9OriginY": 54,
+                "Scale9Width": 24,
+                "Scale9Height": 25,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 220.0,
+                  "Y": -28.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {
+                  "R": 94,
+                  "G": 48,
+                  "B": 0
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": -0.0636
+                },
+                "PreSize": {
+                  "X": 1.1205,
+                  "Y": 1.1136
+                },
+                "LeftMargin": -26.5,
+                "RightMargin": -26.5,
+                "TopMargin": -22.0,
+                "BottomMargin": -28.0,
+                "Tag": 155,
+                "ActionTag": -2117625025,
+                "Size": {
+                  "X": 493.0,
+                  "Y": 490.0
+                },
+                "Alpha": 76,
+                "Name": "shadow",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "premium/img_bg.png",
+                  "Plist": "premium.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 26,
+                "Scale9OriginY": 26,
+                "Scale9Width": 28,
+                "Scale9Height": 28,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 220.0,
+                  "Y": 0.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {
+                  "R": 236,
+                  "G": 234,
+                  "B": 219
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 0.9977,
+                  "Y": 0.9977
+                },
+                "LeftMargin": 0.5,
+                "RightMargin": 0.5,
+                "TopMargin": 1.0,
+                "Tag": 156,
+                "ActionTag": -1437453700,
+                "Size": {
+                  "X": 439.0,
+                  "Y": 439.0
+                },
+                "Name": "di",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 220.0,
+                  "Y": 0.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0
+                },
+                "Tag": 16,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "premium/Premium.png",
+                      "Plist": "premium.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 359.0,
+                      "Y": 45.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.8159,
+                      "Y": 0.1023
+                    },
+                    "PreSize": {
+                      "X": 0.3568,
+                      "Y": 0.1364
+                    },
+                    "LeftMargin": 280.5,
+                    "RightMargin": 2.5,
+                    "TopMargin": 365.0,
+                    "BottomMargin": 15.0,
+                    "Tag": 158,
+                    "ActionTag": 1881913300,
+                    "Size": {
+                      "X": 157.0,
+                      "Y": 60.0
+                    },
+                    "Name": "preImg",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "premium/Mystery.png",
+                      "Plist": "premium.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 368.0,
+                      "Y": 45.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.8364,
+                      "Y": 0.1023
+                    },
+                    "PreSize": {
+                      "X": 0.3159,
+                      "Y": 0.1364
+                    },
+                    "LeftMargin": 298.5,
+                    "RightMargin": 2.5,
+                    "TopMargin": 365.0,
+                    "BottomMargin": 15.0,
+                    "Tag": 159,
+                    "ActionTag": 12378338,
+                    "Size": {
+                      "X": 139.0,
+                      "Y": 60.0
+                    },
+                    "Name": "mysImg",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "premium/img_framenew.png",
+                      "Plist": "premium.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 26,
+                    "Scale9OriginY": 26,
+                    "Scale9Width": 28,
+                    "Scale9Height": 28,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5
+                    },
+                    "Position": {
+                      "X": 220.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 157,
+                    "ActionTag": 1223306775,
+                    "Size": {
+                      "X": 440.0,
+                      "Y": 440.0
+                    },
+                    "Name": "kuang",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "premium/newImg.png",
+                      "Plist": "premium.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 51.0,
+                      "Y": 416.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1159,
+                      "Y": 0.9455
+                    },
+                    "PreSize": {
+                      "X": 0.2205,
+                      "Y": 0.1045
+                    },
+                    "LeftMargin": 2.5,
+                    "RightMargin": 340.5,
+                    "TopMargin": 1.0,
+                    "BottomMargin": 393.0,
+                    "Tag": 160,
+                    "ActionTag": 1078107603,
+                    "Size": {
+                      "X": 97.0,
+                      "Y": 46.0
+                    },
+                    "Name": "newImg",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 1736246015,
+                "Size": {
+                  "X": 440.0,
+                  "Y": 440.0
+                },
+                "Name": "up",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": -1305777915,
+            "Size": {
+              "X": 440.0,
+              "Y": 440.0
+            },
+            "Name": "preView",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "premium.plist",
+        "premium.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

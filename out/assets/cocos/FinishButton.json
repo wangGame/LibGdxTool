@@ -1,0 +1,168 @@
+{
+  "ID": "91918fdd-0c16-4642-b67b-0f40c6176bde",
+  "Version": "3.10.0.0",
+  "Name": "FinishButton",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 103,
+        "Children": [
+          {
+            "FileData": {
+              "Type": "MarkedSubImage",
+              "Path": "gameasset/button.png",
+              "Plist": "gameplist.plist"
+            },
+            "Scale9Enable": true,
+            "Scale9OriginX": 46,
+            "Scale9OriginY": 29,
+            "Scale9Width": 48,
+            "Scale9Height": 30,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {
+              "R": 23,
+              "G": 22,
+              "B": 19
+            },
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 0.6667,
+              "Y": 0.0688
+            },
+            "RightMargin": 240.0,
+            "TopMargin": 1192.0,
+            "Tag": 105,
+            "ActionTag": -153306217,
+            "Size": {
+              "X": 480.0,
+              "Y": 88.0
+            },
+            "Name": "buttonBg",
+            "ctype": "ImageViewObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "MarkedSubImage",
+              "Path": "gameasset/Continue.png",
+              "Plist": "gameplist.plist"
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 240.0,
+              "Y": 44.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.3333,
+              "Y": 0.0344
+            },
+            "PreSize": {
+              "X": 0.225,
+              "Y": 0.0227
+            },
+            "LeftMargin": 159.0,
+            "RightMargin": 399.0,
+            "TopMargin": 1221.5,
+            "BottomMargin": 29.5,
+            "Tag": 125,
+            "ActionTag": 1403070442,
+            "Size": {
+              "X": 162.0,
+              "Y": 29.0
+            },
+            "Name": "Continue_1",
+            "ctype": "SpriteObjectData"
+          },
+          {
+            "FileData": {
+              "Type": "MarkedSubImage",
+              "Path": "gameasset/Home.png",
+              "Plist": "gameplist.plist"
+            },
+            "BlendFunc": {
+              "Src": 1,
+              "Dst": 771
+            },
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 240.0,
+              "Y": 44.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.3333,
+              "Y": 0.0344
+            },
+            "PreSize": {
+              "X": 0.1417,
+              "Y": 0.0219
+            },
+            "LeftMargin": 189.0,
+            "RightMargin": 429.0,
+            "TopMargin": 1222.0,
+            "BottomMargin": 30.0,
+            "Tag": 62,
+            "ActionTag": 2021969319,
+            "Size": {
+              "X": 102.0,
+              "Y": 28.0
+            },
+            "Name": "Home_2",
+            "ctype": "SpriteObjectData"
+          }
+        ],
+        "Size": {
+          "X": 480.0,
+          "Y": 88.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "gameplist.plist",
+        "gameplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

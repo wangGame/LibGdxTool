@@ -1,0 +1,13 @@
+
+regroup.png
+size: 49,53
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+regroup
+  rotate: false
+  xy: 2, 2
+  size: 45, 49
+  orig: 45, 49
+  offset: 0, 0
+  index: -1

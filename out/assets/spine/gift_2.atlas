@@ -1,0 +1,20 @@
+
+gift_2.png
+size: 121,73
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+coinzs
+  rotate: true
+  xy: 2, 2
+  size: 69, 70
+  orig: 69, 70
+  offset: 0, 0
+  index: -1
+star2
+  rotate: false
+  xy: 74, 21
+  size: 45, 50
+  orig: 45, 50
+  offset: 0, 0
+  index: -1

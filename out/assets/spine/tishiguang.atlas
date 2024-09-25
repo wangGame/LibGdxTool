@@ -1,0 +1,13 @@
+
+tishiguang.png
+size: 312,312
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mask
+  rotate: false
+  xy: 2, 2
+  size: 308, 308
+  orig: 308, 308
+  offset: 0, 0
+  index: -1

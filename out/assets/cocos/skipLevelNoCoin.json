@@ -1,0 +1,598 @@
+{
+  "ID": "38f0a817-693f-48d8-befd-a808ebe8a9c9",
+  "Version": "3.10.0.0",
+  "Name": "skipLevelNoCoin",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 447,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 640.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.5
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 448,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/popups_bg.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 93,
+                "Scale9OriginY": 89,
+                "Scale9Width": 18,
+                "Scale9Height": 20,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 366.6967,
+                  "Y": 697.88
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5093,
+                  "Y": 0.5452
+                },
+                "PreSize": {
+                  "X": 0.9208,
+                  "Y": 0.5813
+                },
+                "LeftMargin": 35.1967,
+                "RightMargin": 21.8033,
+                "TopMargin": 210.12,
+                "BottomMargin": 325.88,
+                "Tag": 449,
+                "ActionTag": 2138849728,
+                "Size": {
+                  "X": 663.0,
+                  "Y": 744.0
+                },
+                "Name": "bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 555.0,
+                  "Y": 932.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.7708,
+                  "Y": 0.7281
+                },
+                "PreSize": {
+                  "X": 0.1139,
+                  "Y": 0.0641
+                },
+                "LeftMargin": 555.0,
+                "RightMargin": 83.0,
+                "TopMargin": 266.0,
+                "BottomMargin": 932.0,
+                "Tag": 450,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "reward/close.png",
+                      "Plist": "rewardplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 41.0,
+                      "Y": 41.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.6341,
+                      "Y": 0.6341
+                    },
+                    "LeftMargin": 15.0,
+                    "RightMargin": 15.0,
+                    "TopMargin": 15.0,
+                    "BottomMargin": 15.0,
+                    "Tag": 451,
+                    "ActionTag": 2028695135,
+                    "Size": {
+                      "X": 52.0,
+                      "Y": 52.0
+                    },
+                    "Name": "close_6",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": -1093924659,
+                "Size": {
+                  "X": 82.0,
+                  "Y": 82.0
+                },
+                "Name": "closeBtn",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 481.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.3758
+                },
+                "PreSize": {
+                  "X": 0.5556,
+                  "Y": 0.0688
+                },
+                "LeftMargin": 160.0,
+                "RightMargin": 160.0,
+                "TopMargin": 755.0,
+                "BottomMargin": 437.0,
+                "Tag": 454,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "reward/watch.png",
+                      "Plist": "rewardplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 200.3123,
+                      "Y": 39.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5008,
+                      "Y": 0.4432
+                    },
+                    "PreSize": {
+                      "X": 1.085,
+                      "Y": 1.3864
+                    },
+                    "LeftMargin": -16.6877,
+                    "RightMargin": -17.3123,
+                    "TopMargin": -12.0,
+                    "BottomMargin": -22.0,
+                    "Tag": 455,
+                    "ActionTag": -76119459,
+                    "Size": {
+                      "X": 434.0,
+                      "Y": 122.0
+                    },
+                    "Name": "button",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "reward/adnumcir.png",
+                      "Plist": "rewardplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 105.0,
+                      "Y": 60.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.2625,
+                      "Y": 0.6818
+                    },
+                    "PreSize": {
+                      "X": 0.08,
+                      "Y": 0.3636
+                    },
+                    "LeftMargin": 89.0,
+                    "RightMargin": 279.0,
+                    "TopMargin": 12.0,
+                    "BottomMargin": 44.0,
+                    "Tag": 317,
+                    "ActionTag": -2079385279,
+                    "Size": {
+                      "X": 32.0,
+                      "Y": 32.0
+                    },
+                    "Name": "adnumcir_1",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "5",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-semi-32.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 105.0,
+                      "Y": 60.0
+                    },
+                    "Scale": {
+                      "ScaleX": 0.75,
+                      "ScaleY": 0.75
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.2625,
+                      "Y": 0.6818
+                    },
+                    "PreSize": {
+                      "X": 0.05,
+                      "Y": 0.4432
+                    },
+                    "LeftMargin": 95.0,
+                    "RightMargin": 285.0,
+                    "TopMargin": 8.5,
+                    "BottomMargin": 40.5,
+                    "Tag": 318,
+                    "ActionTag": 1183895373,
+                    "Size": {
+                      "X": 20.0,
+                      "Y": 39.0
+                    },
+                    "Name": "timesad",
+                    "ctype": "TextBMFontObjectData"
+                  }
+                ],
+                "ActionTag": 2099377885,
+                "Size": {
+                  "X": 400.0,
+                  "Y": 88.0
+                },
+                "Name": "coinAvBtn",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "reward/coin.png",
+                  "Plist": "rewardplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 368.2512,
+                  "Y": 845.0004
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5115,
+                  "Y": 0.6602
+                },
+                "PreSize": {
+                  "X": 0.325,
+                  "Y": 0.1539
+                },
+                "LeftMargin": 251.2512,
+                "RightMargin": 234.7488,
+                "TopMargin": 336.4996,
+                "BottomMargin": 746.5004,
+                "Tag": 458,
+                "ActionTag": -50000487,
+                "Size": {
+                  "X": 234.0,
+                  "Y": 197.0
+                },
+                "Name": "coin_6",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "reward/coinnum500.png",
+                  "Plist": "rewardplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 479.2739,
+                  "Y": 940.6599
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.6657,
+                  "Y": 0.7349
+                },
+                "PreSize": {
+                  "X": 0.1792,
+                  "Y": 0.0961
+                },
+                "LeftMargin": 414.7739,
+                "RightMargin": 176.2261,
+                "TopMargin": 277.8401,
+                "BottomMargin": 879.1599,
+                "Tag": 461,
+                "ActionTag": 296025520,
+                "Size": {
+                  "X": 129.0,
+                  "Y": 123.0
+                },
+                "Name": "coinnum500",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "reward/InsffiCoins.png",
+                  "Plist": "rewardplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 690.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5391
+                },
+                "PreSize": {
+                  "X": 0.4361,
+                  "Y": 0.0227
+                },
+                "LeftMargin": 203.0,
+                "RightMargin": 203.0,
+                "TopMargin": 575.5,
+                "BottomMargin": 675.5,
+                "Tag": 463,
+                "ActionTag": -1122550094,
+                "Size": {
+                  "X": 314.0,
+                  "Y": 29.0
+                },
+                "Name": "InsffiCoins_8",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "reward/wavis.png",
+                  "Plist": "rewardplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 602.5881
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.4708
+                },
+                "PreSize": {
+                  "X": 0.6306,
+                  "Y": 0.0523
+                },
+                "LeftMargin": 133.0,
+                "RightMargin": 133.0,
+                "TopMargin": 643.9119,
+                "BottomMargin": 569.0881,
+                "Tag": 464,
+                "ActionTag": 1903694820,
+                "Size": {
+                  "X": 454.0,
+                  "Y": 67.0
+                },
+                "Name": "wavis_9",
+                "ctype": "SpriteObjectData"
+              }
+            ],
+            "ActionTag": 1935980941,
+            "Size": {
+              "X": 720.0,
+              "Y": 1280.0
+            },
+            "Name": "Panel_1",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/inter-semi-32.fnt",
+        "font/inter-semi-32.png",
+        "gameplist.plist",
+        "gameplist.png",
+        "rewardplist.plist",
+        "rewardplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

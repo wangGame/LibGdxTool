@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>finishMacPic/ifo.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{3,309},{465,99}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{465,99}</string>
+			</dict>
+			<key>finishMacPic/okbtn.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{521,287},{434,122}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{434,122}</string>
+			</dict>
+			<key>finishMacPic/top_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{3,3},{512,300}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{512,300}</string>
+			</dict>
+			<key>finishMacPic/trophy3.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{521,3},{434,278}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{434,278}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>finishMcplist.png</string>
+			<key>realTextureFileName</key>
+			<string>finishMcplist.png</string>
+			<key>size</key>
+			<string>{958,412}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>958</integer>
+			<key>height</key>
+			<integer>412</integer>
+		</dict>
+	</dict>
+</plist>

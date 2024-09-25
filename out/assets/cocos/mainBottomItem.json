@@ -1,0 +1,826 @@
+{
+  "ID": "86ab25b3-3910-48c5-846e-1bacd9333035",
+  "Version": "3.10.0.0",
+  "Name": "mainBottomItem",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 16,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5,
+              "ScaleY": 0.5
+            },
+            "Position": {
+              "X": 162.0,
+              "Y": 162.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.5
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 362,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/img_shadow.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 60,
+                "Scale9OriginY": 54,
+                "Scale9Width": 12,
+                "Scale9Height": 24,
+                "AnchorPoint": {
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": -24.0,
+                  "Y": 158.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": -0.0741,
+                  "Y": 0.4877
+                },
+                "PreSize": {
+                  "X": 1.1481,
+                  "Y": 1.1481
+                },
+                "LeftMargin": -24.0,
+                "RightMargin": -24.0,
+                "TopMargin": -20.0,
+                "BottomMargin": -28.0,
+                "Tag": 51,
+                "ActionTag": -1768159978,
+                "Size": {
+                  "X": 372.0,
+                  "Y": 372.0
+                },
+                "Name": "item_shadow",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/img_bg.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 26,
+                "Scale9OriginY": 26,
+                "Scale9Width": 28,
+                "Scale9Height": 28,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 162.0,
+                  "Y": 162.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {
+                  "R": 189,
+                  "G": 189,
+                  "B": 162
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.9877,
+                  "Y": 0.9877
+                },
+                "LeftMargin": 2.0,
+                "RightMargin": 2.0,
+                "TopMargin": 2.0,
+                "BottomMargin": 2.0,
+                "Tag": 49,
+                "ActionTag": -1193096779,
+                "Size": {
+                  "X": 320.0,
+                  "Y": 320.0
+                },
+                "Name": "item_bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/play.png",
+                  "Plist": "gameplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 162.0,
+                  "Y": 162.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.2037,
+                  "Y": 0.0957
+                },
+                "LeftMargin": 129.0,
+                "RightMargin": 129.0,
+                "TopMargin": 146.5,
+                "BottomMargin": 146.5,
+                "Tag": 124,
+                "ActionTag": -2050347430,
+                "Size": {
+                  "X": 66.0,
+                  "Y": 31.0
+                },
+                "Name": "empty_image",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/img_frame_kuang.png",
+                  "Plist": "gameplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 26,
+                "Scale9OriginY": 26,
+                "Scale9Width": 276,
+                "Scale9Height": 276,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 162.0,
+                  "Y": 162.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 1.0123,
+                  "Y": 1.0123
+                },
+                "LeftMargin": -2.0,
+                "RightMargin": -2.0,
+                "TopMargin": -2.0,
+                "BottomMargin": -2.0,
+                "Tag": 50,
+                "ActionTag": -446922734,
+                "Size": {
+                  "X": 328.0,
+                  "Y": 328.0
+                },
+                "Name": "item_kuang",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/num_bg.png",
+                  "Plist": "gameplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 290.0,
+                  "Y": 290.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.8951,
+                  "Y": 0.8951
+                },
+                "PreSize": {
+                  "X": 0.2099,
+                  "Y": 0.2099
+                },
+                "LeftMargin": 256.0,
+                "RightMargin": 0.0,
+                "BottomMargin": 256.0,
+                "Tag": 52,
+                "ActionTag": -1561202047,
+                "Size": {
+                  "X": 61.0,
+                  "Y": 61.0
+                },
+                "Name": "item_num_bg",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "LabelText": "89%",
+                "LabelBMFontFile_CNB": {
+                  "Type": "Normal",
+                  "Path": "font/inter-regular-24.fnt",
+                  "Plist": ""
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 292.922,
+                  "Y": 293.5573
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {
+                  "R": 115,
+                  "G": 115,
+                  "B": 115
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.9041,
+                  "Y": 0.906
+                },
+                "PreSize": {
+                  "X": 0.1543,
+                  "Y": 0.0926
+                },
+                "LeftMargin": 267.922,
+                "RightMargin": 6.078,
+                "TopMargin": 15.4427,
+                "BottomMargin": 278.5573,
+                "Tag": 54,
+                "ActionTag": 532406084,
+                "Size": {
+                  "X": 50.0,
+                  "Y": 30.0
+                },
+                "Name": "item_process",
+                "ctype": "TextBMFontObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 162.0619,
+                  "Y": 34.0003
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5002,
+                  "Y": 0.1049
+                },
+                "PreSize": {
+                  "X": 0.7377,
+                  "Y": 0.1481
+                },
+                "LeftMargin": 42.5619,
+                "RightMargin": 42.4381,
+                "TopMargin": 241.9997,
+                "BottomMargin": 34.0003,
+                "Tag": 81,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/play_bg.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 79,
+                    "ActionTag": 1974183095,
+                    "Size": {
+                      "X": 239.0,
+                      "Y": 48.0
+                    },
+                    "Name": "item_bg",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/play_bg.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 227,
+                      "G": 236,
+                      "B": 216
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 52,
+                    "ActionTag": 1910086458,
+                    "Size": {
+                      "X": 239.0,
+                      "Y": 48.0
+                    },
+                    "Name": "item_bg_0",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/play.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 120.0,
+                      "Y": 22.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5021,
+                      "Y": 0.4583
+                    },
+                    "PreSize": {
+                      "X": 0.2762,
+                      "Y": 0.6458
+                    },
+                    "LeftMargin": 87.0,
+                    "RightMargin": 86.0,
+                    "TopMargin": 10.5,
+                    "BottomMargin": 6.5,
+                    "Tag": 123,
+                    "ActionTag": -630224733,
+                    "Size": {
+                      "X": 66.0,
+                      "Y": 31.0
+                    },
+                    "Name": "play_inco",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "37",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-medium.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 141.0,
+                      "Y": 24.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 246,
+                      "B": 204
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.59,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1757,
+                      "Y": 0.875
+                    },
+                    "LeftMargin": 120.0,
+                    "RightMargin": 77.0,
+                    "TopMargin": 3.0,
+                    "BottomMargin": 3.0,
+                    "Tag": 82,
+                    "ActionTag": -304239891,
+                    "Size": {
+                      "X": 42.0,
+                      "Y": 42.0
+                    },
+                    "Name": "item_msg",
+                    "ctype": "TextBMFontObjectData"
+                  },
+                  {
+                    "LabelText": "37",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/frmb-40.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 141.0,
+                      "Y": 24.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 57,
+                      "G": 77,
+                      "B": 71
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.59,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1841,
+                      "Y": 1.1042
+                    },
+                    "LeftMargin": 119.0,
+                    "RightMargin": 76.0,
+                    "TopMargin": -2.5,
+                    "BottomMargin": -2.5,
+                    "Tag": 53,
+                    "ActionTag": 1807722461,
+                    "Size": {
+                      "X": 44.0,
+                      "Y": 53.0
+                    },
+                    "Name": "item_msg_0",
+                    "ctype": "TextBMFontObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/1_1_img_lock.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 89.3712,
+                      "Y": 24.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 246,
+                      "B": 204
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3739,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.1841,
+                      "Y": 0.9167
+                    },
+                    "LeftMargin": 67.3712,
+                    "RightMargin": 127.6288,
+                    "TopMargin": 2.0,
+                    "BottomMargin": 2.0,
+                    "Tag": 83,
+                    "ActionTag": 1250026920,
+                    "Size": {
+                      "X": 44.0,
+                      "Y": 44.0
+                    },
+                    "Name": "item_lock",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 753550557,
+                "Size": {
+                  "X": 239.0,
+                  "Y": 48.0
+                },
+                "Name": "item_info",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 159.0,
+                  "Y": 30.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.4907,
+                  "Y": 0.0926
+                },
+                "PreSize": {
+                  "X": 0.5,
+                  "Y": 0.1543
+                },
+                "LeftMargin": 78.0,
+                "RightMargin": 84.0,
+                "TopMargin": 269.0,
+                "BottomMargin": 5.0,
+                "Tag": 89,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/dailynumbg.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0185,
+                      "Y": 1.0
+                    },
+                    "RightMargin": -3.0,
+                    "Tag": 87,
+                    "ActionTag": -31825235,
+                    "Size": {
+                      "X": 165.0,
+                      "Y": 50.0
+                    },
+                    "Name": "dailynumbg",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "12",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-medium-28.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 82.5,
+                      "Y": 15.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.07,
+                      "ScaleY": 1.07
+                    },
+                    "CColor": {
+                      "R": 196,
+                      "G": 86,
+                      "B": 101
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5093,
+                      "Y": 0.3
+                    },
+                    "PreSize": {
+                      "X": 0.1914,
+                      "Y": 0.7
+                    },
+                    "LeftMargin": 67.0,
+                    "RightMargin": 64.0,
+                    "TopMargin": 17.5,
+                    "BottomMargin": -2.5,
+                    "Tag": 88,
+                    "ActionTag": 1100293097,
+                    "Size": {
+                      "X": 31.0,
+                      "Y": 35.0
+                    },
+                    "Name": "dailynum",
+                    "ctype": "TextBMFontObjectData"
+                  }
+                ],
+                "ActionTag": -144951124,
+                "Size": {
+                  "X": 162.0,
+                  "Y": 50.0
+                },
+                "Name": "dailyInfo",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": 1790049733,
+            "Size": {
+              "X": 324.0,
+              "Y": 324.0
+            },
+            "Name": "panel",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 324.0,
+          "Y": 324.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/frmb-40.fnt",
+        "font/frmb-40.png",
+        "font/inter-medium.fnt",
+        "font/inter-medium.png",
+        "font/inter-medium-28.fnt",
+        "font/inter-medium-28.png",
+        "font/inter-regular-24.fnt",
+        "font/inter-regular-24.png",
+        "gameplist.plist",
+        "gameplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

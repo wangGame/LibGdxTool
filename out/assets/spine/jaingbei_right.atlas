@@ -1,0 +1,55 @@
+
+jaingbei_right.png
+size: 747,420
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+light
+  rotate: true
+  xy: 2, 76
+  size: 342, 345
+  orig: 342, 345
+  offset: 0, 0
+  index: -1
+trophy
+  rotate: false
+  xy: 76, 27
+  size: 56, 47
+  orig: 56, 47
+  offset: 0, 0
+  index: -1
+trophy1
+  rotate: false
+  xy: 349, 217
+  size: 193, 201
+  orig: 193, 201
+  offset: 0, 0
+  index: -1
+trophy2
+  rotate: true
+  xy: 349, 22
+  size: 193, 201
+  orig: 193, 201
+  offset: 0, 0
+  index: -1
+trophy3
+  rotate: true
+  xy: 544, 225
+  size: 193, 201
+  orig: 193, 201
+  offset: 0, 0
+  index: -1
+trophy4
+  rotate: false
+  xy: 552, 22
+  size: 193, 201
+  orig: 193, 201
+  offset: 0, 0
+  index: -1
+trophy_bg
+  rotate: false
+  xy: 2, 2
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1

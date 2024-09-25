@@ -1,0 +1,76 @@
+
+4_3_3_rate.png
+size: 198,447
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+star1
+  rotate: true
+  xy: 139, 250
+  size: 56, 57
+  orig: 56, 57
+  offset: 0, 0
+  index: -1
+star1_light
+  rotate: false
+  xy: 2, 157
+  size: 105, 99
+  orig: 105, 99
+  offset: 0, 0
+  index: -1
+star2
+  rotate: true
+  xy: 2, 2
+  size: 56, 57
+  orig: 56, 57
+  offset: 0, 0
+  index: -1
+star2_light
+  rotate: false
+  xy: 2, 60
+  size: 105, 95
+  orig: 105, 95
+  offset: 0, 0
+  index: -1
+star3
+  rotate: true
+  xy: 109, 97
+  size: 66, 70
+  orig: 66, 70
+  offset: 0, 0
+  index: -1
+star3_light
+  rotate: true
+  xy: 2, 352
+  size: 93, 136
+  orig: 93, 136
+  offset: 0, 0
+  index: -1
+star4
+  rotate: true
+  xy: 109, 29
+  size: 66, 70
+  orig: 66, 70
+  offset: 0, 0
+  index: -1
+star4_light
+  rotate: true
+  xy: 2, 258
+  size: 92, 135
+  orig: 92, 135
+  offset: 0, 0
+  index: -1
+star5
+  rotate: false
+  xy: 109, 165
+  size: 83, 83
+  orig: 83, 83
+  offset: 0, 0
+  index: -1
+star5_light
+  rotate: false
+  xy: 140, 308
+  size: 51, 137
+  orig: 51, 137
+  offset: 0, 0
+  index: -1

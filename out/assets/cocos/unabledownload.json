@@ -1,0 +1,306 @@
+{
+  "ID": "56b6b2c2-ae09-4790-a06f-5b42962fee8f",
+  "Version": "3.10.0.0",
+  "Name": "unabledownload",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {
+              "ScaleX": 0.5
+            },
+            "Position": {
+              "X": 360.0,
+              "Y": 341.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.5,
+              "Y": 0.2664
+            },
+            "PreSize": {
+              "X": 0.925,
+              "Y": 0.4578
+            },
+            "LeftMargin": 27.0,
+            "RightMargin": 27.0,
+            "TopMargin": 353.0,
+            "BottomMargin": 341.0,
+            "Tag": 13,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "rate/popups_bg.png",
+                  "Plist": "otherplist.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 95,
+                "Scale9OriginY": 95,
+                "Scale9Width": 14,
+                "Scale9Height": 14,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 293.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0
+                },
+                "Tag": 14,
+                "ActionTag": 1859643312,
+                "Size": {
+                  "X": 666.0,
+                  "Y": 586.0
+                },
+                "Name": "setting_bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "unabledownload/label1.png",
+                  "Plist": "unload.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 231.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.3942
+                },
+                "PreSize": {
+                  "X": 0.6081,
+                  "Y": 0.1143
+                },
+                "LeftMargin": 130.5,
+                "RightMargin": 130.5,
+                "TopMargin": 288.0,
+                "BottomMargin": 231.0,
+                "Tag": 3,
+                "ActionTag": 719780182,
+                "Size": {
+                  "X": 405.0,
+                  "Y": 67.0
+                },
+                "Name": "label1_1",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "unabledownload/label2.png",
+                  "Plist": "unload.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 323.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5512
+                },
+                "PreSize": {
+                  "X": 0.5405,
+                  "Y": 0.0478
+                },
+                "LeftMargin": 153.0,
+                "RightMargin": 153.0,
+                "TopMargin": 235.0,
+                "BottomMargin": 323.0,
+                "Tag": 4,
+                "ActionTag": 497291204,
+                "Size": {
+                  "X": 360.0,
+                  "Y": 28.0
+                },
+                "Name": "label2_2",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "unabledownload/okbtn.png",
+                  "Plist": "unload.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 86.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.1468
+                },
+                "PreSize": {
+                  "X": 0.6517,
+                  "Y": 0.2082
+                },
+                "LeftMargin": 116.0,
+                "RightMargin": 116.0,
+                "TopMargin": 378.0,
+                "BottomMargin": 86.0,
+                "Tag": 5,
+                "ActionTag": 1236502896,
+                "Size": {
+                  "X": 434.0,
+                  "Y": 122.0
+                },
+                "Name": "okbtn",
+                "ctype": "SpriteObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "unabledownload/pic.png",
+                  "Plist": "unload.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5
+                },
+                "Position": {
+                  "X": 333.0,
+                  "Y": 397.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.6775
+                },
+                "PreSize": {
+                  "X": 0.3619,
+                  "Y": 0.3208
+                },
+                "LeftMargin": 212.5,
+                "RightMargin": 212.5,
+                "TopMargin": 1.0,
+                "BottomMargin": 397.0,
+                "Tag": 6,
+                "ActionTag": 1770733533,
+                "Size": {
+                  "X": 241.0,
+                  "Y": 188.0
+                },
+                "Name": "pic_4",
+                "ctype": "SpriteObjectData"
+              }
+            ],
+            "ActionTag": 193044255,
+            "Size": {
+              "X": 666.0,
+              "Y": 586.0
+            },
+            "Name": "Panel",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "otherplist.plist",
+        "otherplist.png",
+        "unload.plist",
+        "unload.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

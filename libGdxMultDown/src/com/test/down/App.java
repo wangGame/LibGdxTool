@@ -1,17 +1,20 @@
 package com.test.down;
 
 import java.io.File;
+import java.io.IOException;
 
 public class App {
-    String url = "http://192.168.1.192/installapk.7z";
+    String url = "http://192.168.1.192/ceshi/android-debug.apk";
 //    String url = "http://192.168.1.192/teet.7z";
 
     private  void download( final String path,  final File savedir,int num) {
-        FileDownloader loader =  new FileDownloader(path, savedir, num);
+        DownLoadTask task = new DownLoadTask();
         try {
-            loader.download();
-        }  catch (Exception e) {
-            e.printStackTrace();
+            task.down(url,"out.zip");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 

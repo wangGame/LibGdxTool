@@ -1,0 +1,1944 @@
+{
+  "ID": "e1e27eb0-982a-4edb-a484-a9fe79e70266",
+  "Version": "3.10.0.0",
+  "Name": "Tournament",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 57,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 488,
+            "Children": [
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleY": 1.0
+                },
+                "Position": {
+                  "X": 0.0,
+                  "Y": 1280.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0,
+                  "Y": 1.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 0.4352
+                },
+                "BottomMargin": 723.0,
+                "Tag": 489,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tournament/top_bg.png",
+                      "Plist": "tournamentPlist.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 6,
+                    "Scale9OriginY": 184,
+                    "Scale9Width": 8,
+                    "Scale9Height": 192,
+                    "AnchorPoint": {
+                      "ScaleY": 1.0
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 557.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 1.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0054
+                    },
+                    "BottomMargin": -3.0,
+                    "Tag": 509,
+                    "ActionTag": -1459128487,
+                    "Size": {
+                      "X": 720.0,
+                      "Y": 560.0
+                    },
+                    "Name": "bgImg",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 48.0,
+                      "Y": 509.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0667,
+                      "Y": 0.9138
+                    },
+                    "PreSize": {
+                      "X": 0.0833,
+                      "Y": 0.1077
+                    },
+                    "LeftMargin": 18.0,
+                    "RightMargin": 642.0,
+                    "TopMargin": 18.0,
+                    "BottomMargin": 479.0,
+                    "Tag": 510,
+                    "Children": [
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/back.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 30.0,
+                          "Y": 30.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 0.6667,
+                          "Y": 0.6
+                        },
+                        "LeftMargin": 10.0,
+                        "RightMargin": 10.0,
+                        "TopMargin": 12.0,
+                        "BottomMargin": 12.0,
+                        "Tag": 493,
+                        "ActionTag": -1732822215,
+                        "Size": {
+                          "X": 40.0,
+                          "Y": 36.0
+                        },
+                        "Name": "backBtn",
+                        "ctype": "SpriteObjectData"
+                      }
+                    ],
+                    "ActionTag": 481678099,
+                    "Size": {
+                      "X": 60.0,
+                      "Y": 60.0
+                    },
+                    "Name": "backBtn",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tournament/Leaderboard.png",
+                      "Plist": "tournamentPlist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 360.0,
+                      "Y": 512.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.9192
+                    },
+                    "PreSize": {
+                      "X": 0.3208,
+                      "Y": 0.0503
+                    },
+                    "LeftMargin": 244.5,
+                    "RightMargin": 244.5,
+                    "TopMargin": 31.0,
+                    "BottomMargin": 498.0,
+                    "Tag": 495,
+                    "ActionTag": 1423272568,
+                    "Size": {
+                      "X": 231.0,
+                      "Y": 28.0
+                    },
+                    "Name": "titleLabel",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tournament/trophy5.png",
+                      "Plist": "tournamentPlist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.856,
+                      "ScaleY": 1.0
+                    },
+                    "Position": {
+                      "X": 685.6294,
+                      "Y": 544.9998
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.9523,
+                      "Y": 0.9785
+                    },
+                    "PreSize": {
+                      "X": 0.1,
+                      "Y": 0.1293
+                    },
+                    "LeftMargin": 623.9974,
+                    "RightMargin": 24.0026,
+                    "TopMargin": 12.0002,
+                    "BottomMargin": 472.9998,
+                    "Tag": 496,
+                    "ActionTag": 758460483,
+                    "Size": {
+                      "X": 72.0,
+                      "Y": 72.0
+                    },
+                    "Name": "tournameIcon",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5
+                    },
+                    "Position": {
+                      "X": 360.0,
+                      "Y": 435.59
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.782
+                    },
+                    "PreSize": {
+                      "X": 0.3889,
+                      "Y": 0.0718
+                    },
+                    "LeftMargin": 220.0,
+                    "RightMargin": 220.0,
+                    "TopMargin": 81.41,
+                    "BottomMargin": 435.59,
+                    "Tag": 499,
+                    "Children": [
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/shape.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {},
+                        "Position": {
+                          "X": 0.0,
+                          "Y": 0.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.0,
+                          "Y": 0.0
+                        },
+                        "PreSize": {
+                          "X": 0.9821,
+                          "Y": 1.0
+                        },
+                        "RightMargin": 5.0,
+                        "Tag": 497,
+                        "ActionTag": 683301007,
+                        "Size": {
+                          "X": 275.0,
+                          "Y": 40.0
+                        },
+                        "Name": "shape_194",
+                        "ctype": "SpriteObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/Timer.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 86.0,
+                          "Y": 20.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.3071,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 0.0964,
+                          "Y": 0.65
+                        },
+                        "LeftMargin": 72.5,
+                        "RightMargin": 180.5,
+                        "TopMargin": 7.0,
+                        "BottomMargin": 7.0,
+                        "Tag": 500,
+                        "ActionTag": -392342754,
+                        "Size": {
+                          "X": 27.0,
+                          "Y": 26.0
+                        },
+                        "Name": "Timer_196",
+                        "ctype": "SpriteObjectData"
+                      },
+                      {
+                        "LabelText": "3d 14h",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-regular-24.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 158.0,
+                          "Y": 20.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 245,
+                          "G": 235,
+                          "B": 206
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5643,
+                          "Y": 0.5
+                        },
+                        "PreSize": {
+                          "X": 0.275,
+                          "Y": 0.75
+                        },
+                        "LeftMargin": 119.5,
+                        "RightMargin": 83.5,
+                        "TopMargin": 5.0,
+                        "BottomMargin": 5.0,
+                        "Tag": 722,
+                        "ActionTag": 1634723870,
+                        "Size": {
+                          "X": 77.0,
+                          "Y": 30.0
+                        },
+                        "Name": "timeLabel",
+                        "ctype": "TextBMFontObjectData"
+                      }
+                    ],
+                    "ActionTag": 1649818717,
+                    "Size": {
+                      "X": 280.0,
+                      "Y": 40.0
+                    },
+                    "Name": "timer",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tournament/top3_bg.png",
+                      "Plist": "tournamentPlist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 359.0,
+                      "Y": 160.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.4986,
+                      "Y": 0.2873
+                    },
+                    "PreSize": {
+                      "X": 0.8569,
+                      "Y": 0.5242
+                    },
+                    "LeftMargin": 50.5,
+                    "RightMargin": 52.5,
+                    "TopMargin": 251.0,
+                    "BottomMargin": 14.0,
+                    "Tag": 502,
+                    "ActionTag": 850980730,
+                    "Size": {
+                      "X": 617.0,
+                      "Y": 292.0
+                    },
+                    "Name": "top3_bg_198",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 56.1262,
+                      "Y": 33.6983
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.078,
+                      "Y": 0.0605
+                    },
+                    "PreSize": {
+                      "X": 0.2528,
+                      "Y": 0.3591
+                    },
+                    "LeftMargin": 56.1262,
+                    "RightMargin": 481.8738,
+                    "TopMargin": 323.3017,
+                    "BottomMargin": 33.6983,
+                    "Tag": 503,
+                    "Children": [
+                      {
+                        "LabelText": "Ener",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-regular-28.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 93.0,
+                          "Y": 151.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.511,
+                          "Y": 0.755
+                        },
+                        "PreSize": {
+                          "X": 0.3297,
+                          "Y": 0.175
+                        },
+                        "LeftMargin": 63.0,
+                        "RightMargin": 59.0,
+                        "TopMargin": 31.5,
+                        "BottomMargin": 133.5,
+                        "Tag": 504,
+                        "ActionTag": -378545410,
+                        "Size": {
+                          "X": 60.0,
+                          "Y": 35.0
+                        },
+                        "Name": "nameLabel",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "LabelText": "Fnt Text Label",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-blod-32.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 93.0,
+                          "Y": 151.0
+                        },
+                        "Scale": {
+                          "ScaleX": 0.875,
+                          "ScaleY": 0.875
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.511,
+                          "Y": 0.755
+                        },
+                        "PreSize": {
+                          "X": 1.1978,
+                          "Y": 0.195
+                        },
+                        "LeftMargin": -16.0,
+                        "RightMargin": -20.0,
+                        "TopMargin": 29.5,
+                        "BottomMargin": 131.5,
+                        "Tag": 274,
+                        "ActionTag": -1738340608,
+                        "Size": {
+                          "X": 218.0,
+                          "Y": 39.0
+                        },
+                        "Name": "userNameMe",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/gift2.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 94.0,
+                          "Y": 27.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5165,
+                          "Y": 0.135
+                        },
+                        "PreSize": {
+                          "X": 0.3352,
+                          "Y": 0.32
+                        },
+                        "LeftMargin": 63.5,
+                        "RightMargin": 57.5,
+                        "TopMargin": 141.0,
+                        "BottomMargin": -5.0,
+                        "Tag": 523,
+                        "ActionTag": -2018727017,
+                        "Size": {
+                          "X": 61.0,
+                          "Y": 64.0
+                        },
+                        "Name": "gift2_205",
+                        "ctype": "SpriteObjectData"
+                      },
+                      {
+                        "ClipAble": false,
+                        "BackColorAlpha": 102,
+                        "SingleColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "FirstColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "EndColor": {},
+                        "ColorVector": {
+                          "ScaleY": 1.0
+                        },
+                        "Scale9Width": 1,
+                        "Scale9Height": 1,
+                        "TouchEnable": true,
+                        "AnchorPoint": {
+                          "ScaleX": 0.5
+                        },
+                        "Position": {
+                          "X": 94.0,
+                          "Y": 78.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5165,
+                          "Y": 0.39
+                        },
+                        "PreSize": {
+                          "X": 0.6319,
+                          "Y": 0.215
+                        },
+                        "LeftMargin": 36.5,
+                        "RightMargin": 30.5,
+                        "TopMargin": 79.0,
+                        "BottomMargin": 78.0,
+                        "Tag": 505,
+                        "Children": [
+                          {
+                            "FileData": {
+                              "Type": "MarkedSubImage",
+                              "Path": "tournament/star2_bg.png",
+                              "Plist": "tournamentPlist.plist"
+                            },
+                            "BlendFunc": {
+                              "Src": 1,
+                              "Dst": 771
+                            },
+                            "AnchorPoint": {
+                              "ScaleX": 0.5,
+                              "ScaleY": 0.5
+                            },
+                            "Position": {
+                              "X": 70.0,
+                              "Y": 22.0
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {},
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.6087,
+                              "Y": 0.5116
+                            },
+                            "PreSize": {
+                              "X": 0.7652,
+                              "Y": 0.9302
+                            },
+                            "LeftMargin": 26.0,
+                            "RightMargin": 1.0,
+                            "TopMargin": 1.0,
+                            "BottomMargin": 2.0,
+                            "Tag": 507,
+                            "ActionTag": -1780685459,
+                            "Size": {
+                              "X": 88.0,
+                              "Y": 40.0
+                            },
+                            "Name": "starNumBg",
+                            "ctype": "SpriteObjectData"
+                          },
+                          {
+                            "FileData": {
+                              "Type": "MarkedSubImage",
+                              "Path": "tournament/star2.png",
+                              "Plist": "tournamentPlist.plist"
+                            },
+                            "BlendFunc": {
+                              "Src": 1,
+                              "Dst": 771
+                            },
+                            "AnchorPoint": {},
+                            "Position": {
+                              "X": 0.0,
+                              "Y": 0.0
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {},
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.0,
+                              "Y": 0.0
+                            },
+                            "PreSize": {
+                              "X": 0.3913,
+                              "Y": 1.0
+                            },
+                            "RightMargin": 70.0,
+                            "Tag": 506,
+                            "ActionTag": -1547203910,
+                            "Size": {
+                              "X": 45.0,
+                              "Y": 43.0
+                            },
+                            "Name": "staricon",
+                            "ctype": "SpriteObjectData"
+                          },
+                          {
+                            "LabelText": "200",
+                            "LabelBMFontFile_CNB": {
+                              "Type": "Normal",
+                              "Path": "font/inter-blod-32.fnt",
+                              "Plist": ""
+                            },
+                            "AnchorPoint": {
+                              "ScaleX": 0.5,
+                              "ScaleY": 0.5
+                            },
+                            "Position": {
+                              "X": 71.3299,
+                              "Y": 20.9953
+                            },
+                            "Scale": {
+                              "ScaleX": 0.875,
+                              "ScaleY": 0.875
+                            },
+                            "CColor": {
+                              "R": 166,
+                              "G": 83,
+                              "B": 94
+                            },
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.6203,
+                              "Y": 0.4883
+                            },
+                            "PreSize": {
+                              "X": 0.5478,
+                              "Y": 0.907
+                            },
+                            "LeftMargin": 39.8299,
+                            "RightMargin": 12.1701,
+                            "TopMargin": 2.5047,
+                            "BottomMargin": 1.4953,
+                            "Tag": 508,
+                            "ActionTag": 1575832027,
+                            "Size": {
+                              "X": 63.0,
+                              "Y": 39.0
+                            },
+                            "Name": "starNum",
+                            "ctype": "TextBMFontObjectData"
+                          }
+                        ],
+                        "ActionTag": 1779312117,
+                        "Size": {
+                          "X": 115.0,
+                          "Y": 43.0
+                        },
+                        "Name": "starPanel",
+                        "ctype": "PanelObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/trophy2.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5
+                        },
+                        "Position": {
+                          "X": 107.0,
+                          "Y": 192.5
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5879,
+                          "Y": 0.9625
+                        },
+                        "PreSize": {
+                          "X": 0.7088,
+                          "Y": 0.675
+                        },
+                        "LeftMargin": 42.5,
+                        "RightMargin": 10.5,
+                        "TopMargin": -127.5,
+                        "BottomMargin": 192.5,
+                        "Tag": 539,
+                        "ActionTag": -972704217,
+                        "Size": {
+                          "X": 129.0,
+                          "Y": 135.0
+                        },
+                        "Name": "trophy2_213",
+                        "ctype": "SpriteObjectData"
+                      }
+                    ],
+                    "ActionTag": 1051924817,
+                    "Size": {
+                      "X": 182.0,
+                      "Y": 200.0
+                    },
+                    "Name": "item_1",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 482.8799,
+                      "Y": 12.6716
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.6707,
+                      "Y": 0.0227
+                    },
+                    "PreSize": {
+                      "X": 0.2528,
+                      "Y": 0.3591
+                    },
+                    "LeftMargin": 482.8799,
+                    "RightMargin": 55.1201,
+                    "TopMargin": 344.3284,
+                    "BottomMargin": 12.6716,
+                    "Tag": 524,
+                    "Children": [
+                      {
+                        "LabelText": "Engine",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-regular-28.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 85.0,
+                          "Y": 159.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.467,
+                          "Y": 0.795
+                        },
+                        "PreSize": {
+                          "X": 0.489,
+                          "Y": 0.175
+                        },
+                        "LeftMargin": 40.5,
+                        "RightMargin": 52.5,
+                        "TopMargin": 23.5,
+                        "BottomMargin": 141.5,
+                        "Tag": 525,
+                        "ActionTag": 1638301158,
+                        "Size": {
+                          "X": 89.0,
+                          "Y": 35.0
+                        },
+                        "Name": "nameLabel",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "LabelText": "Fnt Text Label",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-blod-32.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 85.0,
+                          "Y": 159.0
+                        },
+                        "Scale": {
+                          "ScaleX": 0.875,
+                          "ScaleY": 0.875
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.467,
+                          "Y": 0.795
+                        },
+                        "PreSize": {
+                          "X": 1.1978,
+                          "Y": 0.195
+                        },
+                        "LeftMargin": -24.0,
+                        "RightMargin": -12.0,
+                        "TopMargin": 21.5,
+                        "BottomMargin": 139.5,
+                        "Tag": 273,
+                        "ActionTag": -350302021,
+                        "Size": {
+                          "X": 218.0,
+                          "Y": 39.0
+                        },
+                        "Name": "userNameMe",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/gift3.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 87.0,
+                          "Y": 47.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.478,
+                          "Y": 0.235
+                        },
+                        "PreSize": {
+                          "X": 0.3352,
+                          "Y": 0.32
+                        },
+                        "LeftMargin": 56.5,
+                        "RightMargin": 64.5,
+                        "TopMargin": 121.0,
+                        "BottomMargin": 15.0,
+                        "Tag": 526,
+                        "ActionTag": -1734099717,
+                        "Size": {
+                          "X": 61.0,
+                          "Y": 64.0
+                        },
+                        "Name": "gift2_205",
+                        "ctype": "SpriteObjectData"
+                      },
+                      {
+                        "ClipAble": false,
+                        "BackColorAlpha": 102,
+                        "SingleColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "FirstColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "EndColor": {},
+                        "ColorVector": {
+                          "ScaleY": 1.0
+                        },
+                        "Scale9Width": 1,
+                        "Scale9Height": 1,
+                        "TouchEnable": true,
+                        "AnchorPoint": {
+                          "ScaleX": 0.5
+                        },
+                        "Position": {
+                          "X": 85.0,
+                          "Y": 92.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.467,
+                          "Y": 0.46
+                        },
+                        "PreSize": {
+                          "X": 0.6319,
+                          "Y": 0.215
+                        },
+                        "LeftMargin": 27.5,
+                        "RightMargin": 39.5,
+                        "TopMargin": 65.0,
+                        "BottomMargin": 92.0,
+                        "Tag": 527,
+                        "Children": [
+                          {
+                            "FileData": {
+                              "Type": "MarkedSubImage",
+                              "Path": "tournament/star2_bg.png",
+                              "Plist": "tournamentPlist.plist"
+                            },
+                            "BlendFunc": {
+                              "Src": 1,
+                              "Dst": 771
+                            },
+                            "AnchorPoint": {
+                              "ScaleX": 0.5,
+                              "ScaleY": 0.5
+                            },
+                            "Position": {
+                              "X": 70.0,
+                              "Y": 22.0
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {},
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.6087,
+                              "Y": 0.5116
+                            },
+                            "PreSize": {
+                              "X": 0.7652,
+                              "Y": 0.9302
+                            },
+                            "LeftMargin": 26.0,
+                            "RightMargin": 1.0,
+                            "TopMargin": 1.0,
+                            "BottomMargin": 2.0,
+                            "Tag": 528,
+                            "ActionTag": -1040386101,
+                            "Size": {
+                              "X": 88.0,
+                              "Y": 40.0
+                            },
+                            "Name": "starNumBg",
+                            "ctype": "SpriteObjectData"
+                          },
+                          {
+                            "FileData": {
+                              "Type": "MarkedSubImage",
+                              "Path": "tournament/star2.png",
+                              "Plist": "tournamentPlist.plist"
+                            },
+                            "BlendFunc": {
+                              "Src": 1,
+                              "Dst": 771
+                            },
+                            "AnchorPoint": {},
+                            "Position": {
+                              "X": 0.0,
+                              "Y": 0.0
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {},
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.0,
+                              "Y": 0.0
+                            },
+                            "PreSize": {
+                              "X": 0.3913,
+                              "Y": 1.0
+                            },
+                            "RightMargin": 70.0,
+                            "Tag": 529,
+                            "ActionTag": 1492640879,
+                            "Size": {
+                              "X": 45.0,
+                              "Y": 43.0
+                            },
+                            "Name": "staricon",
+                            "ctype": "SpriteObjectData"
+                          },
+                          {
+                            "LabelText": "200",
+                            "LabelBMFontFile_CNB": {
+                              "Type": "Normal",
+                              "Path": "font/inter-blod-32.fnt",
+                              "Plist": ""
+                            },
+                            "AnchorPoint": {
+                              "ScaleX": 0.5,
+                              "ScaleY": 0.5
+                            },
+                            "Position": {
+                              "X": 71.3299,
+                              "Y": 20.9953
+                            },
+                            "Scale": {
+                              "ScaleX": 0.875,
+                              "ScaleY": 0.875
+                            },
+                            "CColor": {
+                              "R": 166,
+                              "G": 83,
+                              "B": 94
+                            },
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.6203,
+                              "Y": 0.4883
+                            },
+                            "PreSize": {
+                              "X": 0.5478,
+                              "Y": 0.907
+                            },
+                            "LeftMargin": 39.8299,
+                            "RightMargin": 12.1701,
+                            "TopMargin": 2.5047,
+                            "BottomMargin": 1.4953,
+                            "Tag": 530,
+                            "ActionTag": -1339342050,
+                            "Size": {
+                              "X": 63.0,
+                              "Y": 39.0
+                            },
+                            "Name": "starNum",
+                            "ctype": "TextBMFontObjectData"
+                          }
+                        ],
+                        "ActionTag": 265862987,
+                        "Size": {
+                          "X": 115.0,
+                          "Y": 43.0
+                        },
+                        "Name": "starPanel",
+                        "ctype": "PanelObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/trophy3.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5
+                        },
+                        "Position": {
+                          "X": 77.0,
+                          "Y": 193.5
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.4231,
+                          "Y": 0.9675
+                        },
+                        "PreSize": {
+                          "X": 0.7088,
+                          "Y": 0.675
+                        },
+                        "LeftMargin": 12.5,
+                        "RightMargin": 40.5,
+                        "TopMargin": -128.5,
+                        "BottomMargin": 193.5,
+                        "Tag": 540,
+                        "ActionTag": -1664028441,
+                        "Size": {
+                          "X": 129.0,
+                          "Y": 135.0
+                        },
+                        "Name": "trophy3_214",
+                        "ctype": "SpriteObjectData"
+                      }
+                    ],
+                    "ActionTag": -633500071,
+                    "Size": {
+                      "X": 182.0,
+                      "Y": 200.0
+                    },
+                    "Name": "item_3",
+                    "ctype": "PanelObjectData"
+                  },
+                  {
+                    "ClipAble": false,
+                    "BackColorAlpha": 102,
+                    "SingleColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "FirstColor": {
+                      "R": 150,
+                      "G": 200
+                    },
+                    "EndColor": {},
+                    "ColorVector": {
+                      "ScaleY": 1.0
+                    },
+                    "Scale9Width": 1,
+                    "Scale9Height": 1,
+                    "TouchEnable": true,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 257.5757,
+                      "Y": 27.9961
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.3577,
+                      "Y": 0.0503
+                    },
+                    "PreSize": {
+                      "X": 0.2528,
+                      "Y": 0.3591
+                    },
+                    "LeftMargin": 257.5757,
+                    "RightMargin": 280.4243,
+                    "TopMargin": 329.0039,
+                    "BottomMargin": 27.9961,
+                    "Tag": 531,
+                    "Children": [
+                      {
+                        "LabelText": "en",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-regular-28.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 102.0,
+                          "Y": 197.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5604,
+                          "Y": 0.985
+                        },
+                        "PreSize": {
+                          "X": 0.1758,
+                          "Y": 0.175
+                        },
+                        "LeftMargin": 86.0,
+                        "RightMargin": 64.0,
+                        "TopMargin": -14.5,
+                        "BottomMargin": 179.5,
+                        "Tag": 532,
+                        "ActionTag": -1140236384,
+                        "Size": {
+                          "X": 32.0,
+                          "Y": 35.0
+                        },
+                        "Name": "nameLabel",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "LabelText": "Fnt Text Label",
+                        "LabelBMFontFile_CNB": {
+                          "Type": "Normal",
+                          "Path": "font/inter-blod-32.fnt",
+                          "Plist": ""
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 102.0,
+                          "Y": 197.0
+                        },
+                        "Scale": {
+                          "ScaleX": 0.875,
+                          "ScaleY": 0.875
+                        },
+                        "CColor": {
+                          "R": 166,
+                          "G": 83,
+                          "B": 94
+                        },
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5604,
+                          "Y": 0.985
+                        },
+                        "PreSize": {
+                          "X": 1.1978,
+                          "Y": 0.195
+                        },
+                        "LeftMargin": -7.0,
+                        "RightMargin": -29.0,
+                        "TopMargin": -16.5,
+                        "BottomMargin": 177.5,
+                        "Tag": 275,
+                        "ActionTag": 799903839,
+                        "Size": {
+                          "X": 218.0,
+                          "Y": 39.0
+                        },
+                        "Name": "userNameMe",
+                        "ctype": "TextBMFontObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/gift1.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5,
+                          "ScaleY": 0.5
+                        },
+                        "Position": {
+                          "X": 102.0,
+                          "Y": 44.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5604,
+                          "Y": 0.22
+                        },
+                        "PreSize": {
+                          "X": 0.456,
+                          "Y": 0.435
+                        },
+                        "LeftMargin": 60.5,
+                        "RightMargin": 38.5,
+                        "TopMargin": 112.5,
+                        "BottomMargin": 0.5,
+                        "Tag": 533,
+                        "ActionTag": -712656572,
+                        "Size": {
+                          "X": 83.0,
+                          "Y": 87.0
+                        },
+                        "Name": "gift2_205",
+                        "ctype": "SpriteObjectData"
+                      },
+                      {
+                        "ClipAble": false,
+                        "BackColorAlpha": 102,
+                        "SingleColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "FirstColor": {
+                          "R": 150,
+                          "G": 200
+                        },
+                        "EndColor": {},
+                        "ColorVector": {
+                          "ScaleY": 1.0
+                        },
+                        "Scale9Width": 1,
+                        "Scale9Height": 1,
+                        "TouchEnable": true,
+                        "AnchorPoint": {
+                          "ScaleX": 0.5
+                        },
+                        "Position": {
+                          "X": 102.0,
+                          "Y": 122.0
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5604,
+                          "Y": 0.61
+                        },
+                        "PreSize": {
+                          "X": 0.6319,
+                          "Y": 0.215
+                        },
+                        "LeftMargin": 44.5,
+                        "RightMargin": 22.5,
+                        "TopMargin": 35.0,
+                        "BottomMargin": 122.0,
+                        "Tag": 534,
+                        "Children": [
+                          {
+                            "FileData": {
+                              "Type": "MarkedSubImage",
+                              "Path": "tournament/star2_bg.png",
+                              "Plist": "tournamentPlist.plist"
+                            },
+                            "BlendFunc": {
+                              "Src": 1,
+                              "Dst": 771
+                            },
+                            "AnchorPoint": {
+                              "ScaleX": 0.5,
+                              "ScaleY": 0.5
+                            },
+                            "Position": {
+                              "X": 70.0,
+                              "Y": 22.0
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {},
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.6087,
+                              "Y": 0.5116
+                            },
+                            "PreSize": {
+                              "X": 0.7652,
+                              "Y": 0.9302
+                            },
+                            "LeftMargin": 26.0,
+                            "RightMargin": 1.0,
+                            "TopMargin": 1.0,
+                            "BottomMargin": 2.0,
+                            "Tag": 535,
+                            "ActionTag": -537876424,
+                            "Size": {
+                              "X": 88.0,
+                              "Y": 40.0
+                            },
+                            "Name": "starNumBg",
+                            "ctype": "SpriteObjectData"
+                          },
+                          {
+                            "FileData": {
+                              "Type": "MarkedSubImage",
+                              "Path": "tournament/star2.png",
+                              "Plist": "tournamentPlist.plist"
+                            },
+                            "BlendFunc": {
+                              "Src": 1,
+                              "Dst": 771
+                            },
+                            "AnchorPoint": {},
+                            "Position": {
+                              "X": 0.0,
+                              "Y": 0.0
+                            },
+                            "Scale": {
+                              "ScaleX": 1.0,
+                              "ScaleY": 1.0
+                            },
+                            "CColor": {},
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.0,
+                              "Y": 0.0
+                            },
+                            "PreSize": {
+                              "X": 0.3913,
+                              "Y": 1.0
+                            },
+                            "RightMargin": 70.0,
+                            "Tag": 536,
+                            "ActionTag": -43218969,
+                            "Size": {
+                              "X": 45.0,
+                              "Y": 43.0
+                            },
+                            "Name": "staricon",
+                            "ctype": "SpriteObjectData"
+                          },
+                          {
+                            "LabelText": "200",
+                            "LabelBMFontFile_CNB": {
+                              "Type": "Normal",
+                              "Path": "font/inter-blod-32.fnt",
+                              "Plist": ""
+                            },
+                            "AnchorPoint": {
+                              "ScaleX": 0.5,
+                              "ScaleY": 0.5
+                            },
+                            "Position": {
+                              "X": 71.3299,
+                              "Y": 20.9953
+                            },
+                            "Scale": {
+                              "ScaleX": 0.875,
+                              "ScaleY": 0.875
+                            },
+                            "CColor": {
+                              "R": 166,
+                              "G": 83,
+                              "B": 94
+                            },
+                            "IconVisible": false,
+                            "PrePosition": {
+                              "X": 0.6203,
+                              "Y": 0.4883
+                            },
+                            "PreSize": {
+                              "X": 0.5478,
+                              "Y": 0.907
+                            },
+                            "LeftMargin": 39.8299,
+                            "RightMargin": 12.1701,
+                            "TopMargin": 2.5047,
+                            "BottomMargin": 1.4953,
+                            "Tag": 537,
+                            "ActionTag": 1786665083,
+                            "Size": {
+                              "X": 63.0,
+                              "Y": 39.0
+                            },
+                            "Name": "starNum",
+                            "ctype": "TextBMFontObjectData"
+                          }
+                        ],
+                        "ActionTag": 394750393,
+                        "Size": {
+                          "X": 115.0,
+                          "Y": 43.0
+                        },
+                        "Name": "starPanel",
+                        "ctype": "PanelObjectData"
+                      },
+                      {
+                        "FileData": {
+                          "Type": "MarkedSubImage",
+                          "Path": "tournament/trophy1.png",
+                          "Plist": "tournamentPlist.plist"
+                        },
+                        "BlendFunc": {
+                          "Src": 1,
+                          "Dst": 771
+                        },
+                        "AnchorPoint": {
+                          "ScaleX": 0.5
+                        },
+                        "Position": {
+                          "X": 103.0,
+                          "Y": 249.5
+                        },
+                        "Scale": {
+                          "ScaleX": 1.0,
+                          "ScaleY": 1.0
+                        },
+                        "CColor": {},
+                        "IconVisible": false,
+                        "PrePosition": {
+                          "X": 0.5659,
+                          "Y": 1.2475
+                        },
+                        "PreSize": {
+                          "X": 0.7088,
+                          "Y": 0.675
+                        },
+                        "LeftMargin": 38.5,
+                        "RightMargin": 14.5,
+                        "TopMargin": -184.5,
+                        "BottomMargin": 249.5,
+                        "Tag": 538,
+                        "ActionTag": 1956832122,
+                        "Size": {
+                          "X": 129.0,
+                          "Y": 135.0
+                        },
+                        "Name": "trophy1_212",
+                        "ctype": "SpriteObjectData"
+                      }
+                    ],
+                    "ActionTag": -819177974,
+                    "Size": {
+                      "X": 182.0,
+                      "Y": 200.0
+                    },
+                    "Name": "item_2",
+                    "ctype": "PanelObjectData"
+                  }
+                ],
+                "ActionTag": -508009348,
+                "Size": {
+                  "X": 720.0,
+                  "Y": 557.0
+                },
+                "Name": "topPanel",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 0.5891
+                },
+                "TopMargin": 526.0,
+                "Tag": 492,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "tournament/paper.png",
+                      "Plist": "tournamentPlist.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 62,
+                    "Scale9OriginY": 336,
+                    "Scale9Width": 27,
+                    "Scale9Height": 213,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5
+                    },
+                    "Position": {
+                      "X": 360.0,
+                      "Y": -29.84
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": -0.0396
+                    },
+                    "PreSize": {
+                      "X": 1.0958,
+                      "Y": 1.0862
+                    },
+                    "LeftMargin": -34.5,
+                    "RightMargin": -34.5,
+                    "TopMargin": -35.16,
+                    "BottomMargin": -29.84,
+                    "Tag": 542,
+                    "ActionTag": -400983882,
+                    "Size": {
+                      "X": 789.0,
+                      "Y": 819.0
+                    },
+                    "Name": "bottombg",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": -1473875457,
+                "Size": {
+                  "X": 720.0,
+                  "Y": 754.0
+                },
+                "Name": "bottomPanel",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": -1642204659,
+            "Size": {
+              "X": 720.0,
+              "Y": 1280.0
+            },
+            "Name": "rootView",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/inter-blod-32.fnt",
+        "font/inter-blod-32.png",
+        "font/inter-regular-24.fnt",
+        "font/inter-regular-24.png",
+        "font/inter-regular-28.fnt",
+        "font/inter-regular-28.png",
+        "tournamentPlist.plist",
+        "tournamentPlist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

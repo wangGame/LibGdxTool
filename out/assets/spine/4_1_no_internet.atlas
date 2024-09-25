@@ -1,0 +1,27 @@
+
+4_1_no_internet.png
+size: 86,48
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+icon1
+  rotate: false
+  xy: 2, 33
+  size: 27, 13
+  orig: 27, 13
+  offset: 0, 0
+  index: -1
+icon2
+  rotate: false
+  xy: 31, 27
+  size: 53, 19
+  orig: 53, 19
+  offset: 0, 0
+  index: -1
+icon3
+  rotate: false
+  xy: 2, 2
+  size: 71, 23
+  orig: 71, 23
+  offset: 0, 0
+  index: -1

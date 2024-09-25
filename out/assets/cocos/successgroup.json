@@ -1,0 +1,1223 @@
+{
+  "ID": "22454556-324f-43d2-9000-a3718b9841a3",
+  "Version": "3.10.0.0",
+  "Name": "successgroup",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 78,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.0
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 1.0
+            },
+            "Tag": 81,
+            "Children": [
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "taskgroup/bg1_1.png",
+                  "Plist": "taskplsit.plist"
+                },
+                "Scale9Enable": true,
+                "Scale9OriginX": 20,
+                "Scale9OriginY": 21,
+                "Scale9Width": 11,
+                "Scale9Height": 9,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {
+                  "G": 251,
+                  "B": 239
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0,
+                  "Y": 0.0
+                },
+                "PreSize": {
+                  "X": 1.0,
+                  "Y": 1.0
+                },
+                "Tag": 82,
+                "ActionTag": 1151664757,
+                "Size": {
+                  "X": 596.0,
+                  "Y": 340.0
+                },
+                "Alpha": 76,
+                "Name": "bg",
+                "ctype": "ImageViewObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 28.0,
+                  "Y": 228.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.047,
+                  "Y": 0.6706
+                },
+                "PreSize": {
+                  "X": 0.906,
+                  "Y": 0.2471
+                },
+                "LeftMargin": 28.0,
+                "RightMargin": 28.0,
+                "TopMargin": 28.0,
+                "BottomMargin": 228.0,
+                "Tag": 84,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/bg1_2 .png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 16,
+                    "Scale9OriginY": 16,
+                    "Scale9Width": 18,
+                    "Scale9Height": 18,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5
+                    },
+                    "Position": {
+                      "X": 270.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 85,
+                    "ActionTag": -1067329319,
+                    "Size": {
+                      "X": 540.0,
+                      "Y": 84.0
+                    },
+                    "Alpha": 127,
+                    "Name": "processBg",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/bg1_2 .png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 16,
+                    "Scale9OriginY": 16,
+                    "Scale9Width": 18,
+                    "Scale9Height": 18,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 42.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.5833,
+                      "Y": 1.0
+                    },
+                    "RightMargin": 225.0,
+                    "Tag": 86,
+                    "ActionTag": -464314907,
+                    "Size": {
+                      "X": 315.0,
+                      "Y": 84.0
+                    },
+                    "Name": "process",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/tick_bg.png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 24.0,
+                      "Y": 20.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 76,
+                      "G": 74,
+                      "B": 69
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0444,
+                      "Y": 0.2381
+                    },
+                    "PreSize": {
+                      "X": 0.0889,
+                      "Y": 0.5714
+                    },
+                    "LeftMargin": 24.0,
+                    "RightMargin": 468.0,
+                    "TopMargin": 16.0,
+                    "BottomMargin": 20.0,
+                    "Tag": 88,
+                    "ActionTag": -1979512907,
+                    "Size": {
+                      "X": 48.0,
+                      "Y": 48.0
+                    },
+                    "Alpha": 76,
+                    "Name": "tick_bg_5",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/dyui.png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 29.0,
+                      "Y": 27.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0537,
+                      "Y": 0.3214
+                    },
+                    "PreSize": {
+                      "X": 0.1,
+                      "Y": 0.5
+                    },
+                    "LeftMargin": 29.0,
+                    "RightMargin": 457.0,
+                    "TopMargin": 15.0,
+                    "BottomMargin": 27.0,
+                    "Tag": 87,
+                    "ActionTag": 288232999,
+                    "Size": {
+                      "X": 54.0,
+                      "Y": 42.0
+                    },
+                    "Name": "dyui_4",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "Speed time",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-semi-32.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 91.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 166,
+                      "G": 83,
+                      "B": 94
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1685,
+                      "Y": 0.5238
+                    },
+                    "PreSize": {
+                      "X": 0.3241,
+                      "Y": 0.4643
+                    },
+                    "LeftMargin": 91.0,
+                    "RightMargin": 274.0,
+                    "TopMargin": 20.5,
+                    "BottomMargin": 24.5,
+                    "Tag": 89,
+                    "ActionTag": 108475122,
+                    "Size": {
+                      "X": 175.0,
+                      "Y": 39.0
+                    },
+                    "Name": "item_label",
+                    "ctype": "TextBMFontObjectData"
+                  },
+                  {
+                    "LabelText": "20/30min",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-mediumm-28.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 457.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 158,
+                      "G": 158,
+                      "B": 158
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.8463,
+                      "Y": 0.5238
+                    },
+                    "PreSize": {
+                      "X": 0.2407,
+                      "Y": 0.4167
+                    },
+                    "LeftMargin": 392.0,
+                    "RightMargin": 18.0,
+                    "TopMargin": 22.5,
+                    "BottomMargin": 26.5,
+                    "Tag": 90,
+                    "ActionTag": 453824493,
+                    "Size": {
+                      "X": 130.0,
+                      "Y": 35.0
+                    },
+                    "Name": "items_label",
+                    "ctype": "TextBMFontObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/bgban2 .png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 16,
+                    "Scale9OriginY": 15,
+                    "Scale9Width": 18,
+                    "Scale9Height": 19,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 1.0
+                    },
+                    "Position": {
+                      "X": 270.0,
+                      "Y": 84.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 1.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 123,
+                    "ActionTag": 1755103007,
+                    "Size": {
+                      "X": 540.0,
+                      "Y": 84.0
+                    },
+                    "Name": "zhij",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": 1008646253,
+                "Size": {
+                  "X": 540.0,
+                  "Y": 84.0
+                },
+                "Name": "item_1",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 28.0,
+                  "Y": 128.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.047,
+                  "Y": 0.3765
+                },
+                "PreSize": {
+                  "X": 0.906,
+                  "Y": 0.2471
+                },
+                "LeftMargin": 28.0,
+                "RightMargin": 28.0,
+                "TopMargin": 128.0,
+                "BottomMargin": 128.0,
+                "Tag": 106,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/bg1_2 .png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 16,
+                    "Scale9OriginY": 16,
+                    "Scale9Width": 18,
+                    "Scale9Height": 18,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 107,
+                    "ActionTag": 857131004,
+                    "Size": {
+                      "X": 540.0,
+                      "Y": 84.0
+                    },
+                    "Alpha": 127,
+                    "Name": "processBg",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/bg1_2 .png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 16,
+                    "Scale9OriginY": 16,
+                    "Scale9Width": 18,
+                    "Scale9Height": 18,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 42.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.5833,
+                      "Y": 1.0
+                    },
+                    "RightMargin": 225.0,
+                    "Tag": 108,
+                    "ActionTag": -961292577,
+                    "Size": {
+                      "X": 315.0,
+                      "Y": 84.0
+                    },
+                    "Name": "process",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/tick_bg.png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 24.0,
+                      "Y": 20.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 76,
+                      "G": 74,
+                      "B": 69
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0444,
+                      "Y": 0.2381
+                    },
+                    "PreSize": {
+                      "X": 0.0889,
+                      "Y": 0.5714
+                    },
+                    "LeftMargin": 24.0,
+                    "RightMargin": 468.0,
+                    "TopMargin": 16.0,
+                    "BottomMargin": 20.0,
+                    "Tag": 110,
+                    "ActionTag": 1566760810,
+                    "Size": {
+                      "X": 48.0,
+                      "Y": 48.0
+                    },
+                    "Alpha": 76,
+                    "Name": "tick_bg_5",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/dyui.png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 29.0,
+                      "Y": 27.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0537,
+                      "Y": 0.3214
+                    },
+                    "PreSize": {
+                      "X": 0.1,
+                      "Y": 0.5
+                    },
+                    "LeftMargin": 29.0,
+                    "RightMargin": 457.0,
+                    "TopMargin": 15.0,
+                    "BottomMargin": 27.0,
+                    "Tag": 109,
+                    "ActionTag": 699600471,
+                    "Size": {
+                      "X": 54.0,
+                      "Y": 42.0
+                    },
+                    "Name": "dyui_4",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "Speed time",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-semi-32.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 91.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 166,
+                      "G": 83,
+                      "B": 94
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1685,
+                      "Y": 0.5238
+                    },
+                    "PreSize": {
+                      "X": 0.3241,
+                      "Y": 0.4643
+                    },
+                    "LeftMargin": 91.0,
+                    "RightMargin": 274.0,
+                    "TopMargin": 20.5,
+                    "BottomMargin": 24.5,
+                    "Tag": 111,
+                    "ActionTag": 1741818164,
+                    "Size": {
+                      "X": 175.0,
+                      "Y": 39.0
+                    },
+                    "Name": "item_label",
+                    "ctype": "TextBMFontObjectData"
+                  },
+                  {
+                    "LabelText": "20/30min",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-mediumm-28.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 457.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 158,
+                      "G": 158,
+                      "B": 158
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.8463,
+                      "Y": 0.5238
+                    },
+                    "PreSize": {
+                      "X": 0.2407,
+                      "Y": 0.4167
+                    },
+                    "LeftMargin": 392.0,
+                    "RightMargin": 18.0,
+                    "TopMargin": 22.5,
+                    "BottomMargin": 26.5,
+                    "Tag": 112,
+                    "ActionTag": 1212114799,
+                    "Size": {
+                      "X": 130.0,
+                      "Y": 35.0
+                    },
+                    "Name": "items_label",
+                    "ctype": "TextBMFontObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/white_bg.png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 6,
+                    "Scale9OriginY": 15,
+                    "Scale9Width": 8,
+                    "Scale9Height": 5,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 1.0
+                    },
+                    "Position": {
+                      "X": 270.0,
+                      "Y": 84.0273
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 1.0003
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "TopMargin": -0.0273,
+                    "BottomMargin": 0.0273,
+                    "Tag": 124,
+                    "ActionTag": 1553034964,
+                    "Size": {
+                      "X": 540.0,
+                      "Y": 84.0
+                    },
+                    "Name": "zhij",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": 434049771,
+                "Size": {
+                  "X": 540.0,
+                  "Y": 84.0
+                },
+                "Name": "item_2",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {},
+                "Position": {
+                  "X": 28.0,
+                  "Y": 28.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.047,
+                  "Y": 0.0824
+                },
+                "PreSize": {
+                  "X": 0.906,
+                  "Y": 0.2471
+                },
+                "LeftMargin": 28.0,
+                "RightMargin": 28.0,
+                "TopMargin": 228.0,
+                "BottomMargin": 28.0,
+                "Tag": 113,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/bg1_2 .png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 16,
+                    "Scale9OriginY": 16,
+                    "Scale9Width": 18,
+                    "Scale9Height": 18,
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 114,
+                    "ActionTag": 1473708328,
+                    "Size": {
+                      "X": 540.0,
+                      "Y": 84.0
+                    },
+                    "Alpha": 127,
+                    "Name": "processBg",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/bg1_2 .png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 16,
+                    "Scale9OriginY": 16,
+                    "Scale9Width": 18,
+                    "Scale9Height": 18,
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 0.0,
+                      "Y": 42.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.5833,
+                      "Y": 1.0
+                    },
+                    "RightMargin": 225.0,
+                    "Tag": 115,
+                    "ActionTag": 968139181,
+                    "Size": {
+                      "X": 315.0,
+                      "Y": 84.0
+                    },
+                    "Name": "process",
+                    "ctype": "ImageViewObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/tick_bg.png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 24.0,
+                      "Y": 20.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 76,
+                      "G": 74,
+                      "B": 69
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0444,
+                      "Y": 0.2381
+                    },
+                    "PreSize": {
+                      "X": 0.0889,
+                      "Y": 0.5714
+                    },
+                    "LeftMargin": 24.0,
+                    "RightMargin": 468.0,
+                    "TopMargin": 16.0,
+                    "BottomMargin": 20.0,
+                    "Tag": 117,
+                    "ActionTag": -1476729810,
+                    "Size": {
+                      "X": 48.0,
+                      "Y": 48.0
+                    },
+                    "Alpha": 76,
+                    "Name": "tick_bg_5",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/dyui.png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {},
+                    "Position": {
+                      "X": 29.0,
+                      "Y": 27.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.0537,
+                      "Y": 0.3214
+                    },
+                    "PreSize": {
+                      "X": 0.1,
+                      "Y": 0.5
+                    },
+                    "LeftMargin": 29.0,
+                    "RightMargin": 457.0,
+                    "TopMargin": 15.0,
+                    "BottomMargin": 27.0,
+                    "Tag": 116,
+                    "ActionTag": -134775677,
+                    "Size": {
+                      "X": 54.0,
+                      "Y": 42.0
+                    },
+                    "Name": "dyui_4",
+                    "ctype": "SpriteObjectData"
+                  },
+                  {
+                    "LabelText": "Speed time",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-semi-32.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 91.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 166,
+                      "G": 83,
+                      "B": 94
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.1685,
+                      "Y": 0.5238
+                    },
+                    "PreSize": {
+                      "X": 0.3241,
+                      "Y": 0.4643
+                    },
+                    "LeftMargin": 91.0,
+                    "RightMargin": 274.0,
+                    "TopMargin": 20.5,
+                    "BottomMargin": 24.5,
+                    "Tag": 118,
+                    "ActionTag": -708511539,
+                    "Size": {
+                      "X": 175.0,
+                      "Y": 39.0
+                    },
+                    "Name": "item_label",
+                    "ctype": "TextBMFontObjectData"
+                  },
+                  {
+                    "LabelText": "20/30min",
+                    "LabelBMFontFile_CNB": {
+                      "Type": "Normal",
+                      "Path": "font/inter-mediumm-28.fnt",
+                      "Plist": ""
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 457.0,
+                      "Y": 44.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "R": 158,
+                      "G": 158,
+                      "B": 158
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.8463,
+                      "Y": 0.5238
+                    },
+                    "PreSize": {
+                      "X": 0.2407,
+                      "Y": 0.4167
+                    },
+                    "LeftMargin": 392.0,
+                    "RightMargin": 18.0,
+                    "TopMargin": 22.5,
+                    "BottomMargin": 26.5,
+                    "Tag": 119,
+                    "ActionTag": 932462626,
+                    "Size": {
+                      "X": 130.0,
+                      "Y": 35.0
+                    },
+                    "Name": "items_label",
+                    "ctype": "TextBMFontObjectData"
+                  },
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "taskgroup/bgban1 .png",
+                      "Plist": "taskplsit.plist"
+                    },
+                    "Scale9Enable": true,
+                    "Scale9OriginX": 19,
+                    "Scale9OriginY": 7,
+                    "Scale9Width": 12,
+                    "Scale9Height": 11,
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 1.0
+                    },
+                    "Position": {
+                      "X": 270.0,
+                      "Y": 84.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {
+                      "G": 251,
+                      "B": 239
+                    },
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 1.0
+                    },
+                    "PreSize": {
+                      "X": 1.0,
+                      "Y": 1.0
+                    },
+                    "Tag": 121,
+                    "ActionTag": -513939888,
+                    "Size": {
+                      "X": 540.0,
+                      "Y": 84.0
+                    },
+                    "Name": "zhij",
+                    "ctype": "ImageViewObjectData"
+                  }
+                ],
+                "ActionTag": 53188388,
+                "Size": {
+                  "X": 540.0,
+                  "Y": 84.0
+                },
+                "Name": "item_3",
+                "ctype": "PanelObjectData"
+              }
+            ],
+            "ActionTag": 531368258,
+            "Size": {
+              "X": 596.0,
+              "Y": 340.0
+            },
+            "Name": "Panel_1",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 596.0,
+          "Y": 340.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/inter-mediumm-28.fnt",
+        "font/inter-mediumm-28.png",
+        "font/inter-semi-32.fnt",
+        "font/inter-semi-32.png",
+        "taskplsit.plist",
+        "taskplsit.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

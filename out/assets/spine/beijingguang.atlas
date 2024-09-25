@@ -1,0 +1,27 @@
+
+beijingguang.png
+size: 1876,720
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+light2
+  rotate: false
+  xy: 723, 84
+  size: 635, 634
+  orig: 635, 634
+  offset: 0, 0
+  index: -1
+light3
+  rotate: true
+  xy: 2, 2
+  size: 716, 719
+  orig: 716, 719
+  offset: 0, 0
+  index: -1
+light4
+  rotate: true
+  xy: 1360, 201
+  size: 517, 514
+  orig: 517, 514
+  offset: 0, 0
+  index: -1

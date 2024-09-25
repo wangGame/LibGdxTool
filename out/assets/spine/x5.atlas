@@ -1,0 +1,20 @@
+
+x5.png
+size: 139,88
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+5g
+  rotate: false
+  xy: 2, 2
+  size: 106, 84
+  orig: 106, 84
+  offset: 0, 0
+  index: -1
+lz1
+  rotate: false
+  xy: 110, 59
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1

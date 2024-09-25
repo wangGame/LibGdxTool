@@ -1,0 +1,375 @@
+{
+  "ID": "84403101-be60-4c60-b0f4-9497635cb44a",
+  "Version": "3.10.0.0",
+  "Name": "mainview2",
+  "Content": {
+    "Content": {
+      "Animation": {
+        "Duration": 0,
+        "Speed": 1.0,
+        "Timelines": [],
+        "ctype": "TimelineActionData"
+      },
+      "AnimationList": [],
+      "ObjectData": {
+        "Tag": 23,
+        "Children": [
+          {
+            "ClipAble": false,
+            "BackColorAlpha": 102,
+            "SingleColor": {
+              "R": 150,
+              "G": 200
+            },
+            "FirstColor": {
+              "R": 150,
+              "G": 200
+            },
+            "EndColor": {},
+            "ColorVector": {
+              "ScaleY": 1.0
+            },
+            "Scale9Width": 1,
+            "Scale9Height": 1,
+            "TouchEnable": true,
+            "AnchorPoint": {},
+            "Position": {
+              "X": 0.0,
+              "Y": 1200.0
+            },
+            "Scale": {
+              "ScaleX": 1.0,
+              "ScaleY": 1.0
+            },
+            "CColor": {},
+            "IconVisible": false,
+            "PrePosition": {
+              "X": 0.0,
+              "Y": 0.9375
+            },
+            "PreSize": {
+              "X": 1.0,
+              "Y": 0.0625
+            },
+            "BottomMargin": 1200.0,
+            "Tag": 26,
+            "Children": [
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 50.0,
+                  "Y": 40.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.0694,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.1194,
+                  "Y": 0.975
+                },
+                "LeftMargin": 7.0,
+                "RightMargin": 627.0,
+                "TopMargin": 1.0,
+                "BottomMargin": 1.0,
+                "Tag": 352,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/title_arrow1.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 43.0,
+                      "Y": 39.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.186,
+                      "Y": 0.359
+                    },
+                    "LeftMargin": 35.0,
+                    "RightMargin": 35.0,
+                    "TopMargin": 25.0,
+                    "BottomMargin": 25.0,
+                    "Tag": 24,
+                    "ActionTag": 1539776563,
+                    "Size": {
+                      "X": 16.0,
+                      "Y": 28.0
+                    },
+                    "Name": "title_arrow_left",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": -1637529186,
+                "Size": {
+                  "X": 86.0,
+                  "Y": 78.0
+                },
+                "Name": "title_arrow_left",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "ClipAble": false,
+                "BackColorAlpha": 102,
+                "SingleColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "FirstColor": {
+                  "R": 150,
+                  "G": 200
+                },
+                "EndColor": {},
+                "ColorVector": {
+                  "ScaleY": 1.0
+                },
+                "Scale9Width": 1,
+                "Scale9Height": 1,
+                "TouchEnable": true,
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 670.0,
+                  "Y": 40.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.9306,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.1194,
+                  "Y": 0.975
+                },
+                "LeftMargin": 627.0,
+                "RightMargin": 7.0,
+                "TopMargin": 1.0,
+                "BottomMargin": 1.0,
+                "Tag": 353,
+                "Children": [
+                  {
+                    "FileData": {
+                      "Type": "MarkedSubImage",
+                      "Path": "gameasset/title_arrow2.png",
+                      "Plist": "gameplist.plist"
+                    },
+                    "BlendFunc": {
+                      "Src": 1,
+                      "Dst": 771
+                    },
+                    "AnchorPoint": {
+                      "ScaleX": 0.5,
+                      "ScaleY": 0.5
+                    },
+                    "Position": {
+                      "X": 43.0,
+                      "Y": 39.0
+                    },
+                    "Scale": {
+                      "ScaleX": 1.0,
+                      "ScaleY": 1.0
+                    },
+                    "CColor": {},
+                    "IconVisible": false,
+                    "PrePosition": {
+                      "X": 0.5,
+                      "Y": 0.5
+                    },
+                    "PreSize": {
+                      "X": 0.186,
+                      "Y": 0.359
+                    },
+                    "LeftMargin": 35.0,
+                    "RightMargin": 35.0,
+                    "TopMargin": 25.0,
+                    "BottomMargin": 25.0,
+                    "Tag": 25,
+                    "ActionTag": 717398236,
+                    "Size": {
+                      "X": 16.0,
+                      "Y": 28.0
+                    },
+                    "Name": "title_arrow_right",
+                    "ctype": "SpriteObjectData"
+                  }
+                ],
+                "ActionTag": 935435220,
+                "Size": {
+                  "X": 86.0,
+                  "Y": 78.0
+                },
+                "Name": "title_arrow_right",
+                "ctype": "PanelObjectData"
+              },
+              {
+                "LabelText": "February 2023",
+                "LabelBMFontFile_CNB": {
+                  "Type": "Normal",
+                  "Path": "font/inter-semi-36.fnt",
+                  "Plist": ""
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 40.0
+                },
+                "Scale": {
+                  "ScaleX": 0.8889,
+                  "ScaleY": 0.8889
+                },
+                "CColor": {
+                  "R": 245,
+                  "G": 235,
+                  "B": 206
+                },
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.5
+                },
+                "PreSize": {
+                  "X": 0.3583,
+                  "Y": 0.55
+                },
+                "LeftMargin": 231.0,
+                "RightMargin": 231.0,
+                "TopMargin": 18.0,
+                "BottomMargin": 18.0,
+                "Tag": 27,
+                "ActionTag": 857114378,
+                "Size": {
+                  "X": 258.0,
+                  "Y": 44.0
+                },
+                "Name": "year_month",
+                "ctype": "TextBMFontObjectData"
+              },
+              {
+                "FileData": {
+                  "Type": "MarkedSubImage",
+                  "Path": "gameasset/calen_line.png",
+                  "Plist": "gameplist.plist"
+                },
+                "BlendFunc": {
+                  "Src": 1,
+                  "Dst": 771
+                },
+                "AnchorPoint": {
+                  "ScaleX": 0.5,
+                  "ScaleY": 0.5
+                },
+                "Position": {
+                  "X": 360.0,
+                  "Y": 1.0
+                },
+                "Scale": {
+                  "ScaleX": 1.0,
+                  "ScaleY": 1.0
+                },
+                "CColor": {},
+                "IconVisible": false,
+                "PrePosition": {
+                  "X": 0.5,
+                  "Y": 0.0125
+                },
+                "PreSize": {
+                  "X": 0.9111,
+                  "Y": 0.0125
+                },
+                "LeftMargin": 32.0,
+                "RightMargin": 32.0,
+                "TopMargin": 78.5,
+                "BottomMargin": 0.5,
+                "Tag": 166,
+                "ActionTag": -2020549107,
+                "Size": {
+                  "X": 656.0,
+                  "Y": 1.0
+                },
+                "Name": "calen_line_1",
+                "ctype": "SpriteObjectData"
+              }
+            ],
+            "ActionTag": -1667115838,
+            "Size": {
+              "X": 720.0,
+              "Y": 80.0
+            },
+            "Name": "Panel_1",
+            "ctype": "PanelObjectData"
+          }
+        ],
+        "Size": {
+          "X": 720.0,
+          "Y": 1280.0
+        },
+        "Name": "Scene",
+        "ctype": "SingleNodeObjectData"
+      },
+      "UsedResources": [
+        "font/inter-semi-36.fnt",
+        "font/inter-semi-36.png",
+        "gameplist.plist",
+        "gameplist.png"
+      ],
+      "ctype": "GameFileData"
+    }
+  },
+  "Type": "Scene"
+}

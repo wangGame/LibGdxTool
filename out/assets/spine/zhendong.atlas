@@ -1,0 +1,27 @@
+
+zhendong.png
+size: 60,53
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+iconhaptic
+  rotate: true
+  xy: 2, 2
+  size: 36, 52
+  orig: 36, 52
+  offset: 0, 0
+  index: -1
+iconhaptic1
+  rotate: true
+  xy: 2, 40
+  size: 11, 27
+  orig: 11, 27
+  offset: 0, 0
+  index: -1
+iconhaptic2
+  rotate: true
+  xy: 31, 40
+  size: 11, 27
+  orig: 11, 27
+  offset: 0, 0
+  index: -1

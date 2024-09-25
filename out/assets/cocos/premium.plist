@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>premium/ad.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{2,2},{474,122}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{474,122}</string>
+			</dict>
+			<key>premium/Close.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{210,314},{64,64}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{64,64}</string>
+			</dict>
+			<key>premium/img_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{346,256},{80,80}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{80,80}</string>
+			</dict>
+			<key>premium/img_framenew.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{430,256},{80,80}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{80,80}</string>
+			</dict>
+			<key>premium/img_shadow.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{210,128},{132,132}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{132,132}</string>
+			</dict>
+			<key>premium/Mystery.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{346,192},{139,60}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{139,60}</string>
+			</dict>
+			<key>premium/newImg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{210,264},{97,46}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{97,46}</string>
+			</dict>
+			<key>premium/popups_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{2,128},{204,204}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{204,204}</string>
+			</dict>
+			<key>premium/Premium.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{346,128},{157,60}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{157,60}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>premium.png</string>
+			<key>realTextureFileName</key>
+			<string>premium.png</string>
+			<key>size</key>
+			<string>{512,380}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>512</integer>
+			<key>height</key>
+			<integer>380</integer>
+		</dict>
+	</dict>
+</plist>

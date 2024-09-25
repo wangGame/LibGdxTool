@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
+		<key>frames</key>
+		<dict>
+			<key>fiishdialog/coin.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{202,73},{55,56}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{55,56}</string>
+			</dict>
+			<key>fiishdialog/digital_bg.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{202,3},{353,64}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{353,64}</string>
+			</dict>
+			<key>fiishdialog/finishdialoginfp.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{3,210},{438,62}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{438,62}</string>
+			</dict>
+			<key>fiishdialog/trophy1.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{3,3},{193,201}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false />
+				<key>sourceSize</key>
+				<string>{193,201}</string>
+			</dict>
+		</dict>
+		<key>metadata</key>
+		<dict>
+			<key>format</key>
+			<integer>2</integer>
+			<key>textureFileName</key>
+			<string>finishDialogPlist.png</string>
+			<key>realTextureFileName</key>
+			<string>finishDialogPlist.png</string>
+			<key>size</key>
+			<string>{558,275}</string>
+		</dict>
+		<key>texture</key>
+		<dict>
+			<key>width</key>
+			<integer>558</integer>
+			<key>height</key>
+			<integer>275</integer>
+		</dict>
+	</dict>
+</plist>
