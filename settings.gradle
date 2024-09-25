@@ -1,3 +1,2 @@
 include 'libGdxLib','libGdx','desktop','libGdxMultDown','android' ,
         'mylibrary',"libgdxbox2d","libCommon","core"
-include ':lib'

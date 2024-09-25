@@ -2,6 +2,8 @@ package com.test.down.blackinfo;
 
 /**
  * 存储每部分的位置
+ *
+ *
  */
 public class DownFileLog {
     private String downpath;
