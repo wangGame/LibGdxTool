@@ -38,17 +38,28 @@ public class DownLoadTask {
         long splitSizie = contentLengthLong / threadNum;
         long startpostion = 0;
         int uniqueId = HttpUtils.getUniqueId(url, file.getAbsoluteFile().getParent(), out, "3");
+        String outFileTemp = file.getAbsoluteFile().getParent() +"/"+uniqueId +"/"+
+                "temp/partfile" + uniqueId;
+        DownLoadInfo read = JsonUtils.read(outFileTemp, DownLoadInfo.class);
+        if (read != null){
+            //文件更改就删除
+            if (read.getContentLengthLong() != contentLengthLong) {
+                JsonUtils.delete(outFileTemp);
+            }
+        }
         DownLoadInfo downLoadInfo = new DownLoadInfo();
         downLoadInfo.setUrl(url);
         downLoadInfo.setThreadNum(threadNum);
         downLoadInfo.setFilePath(file.getAbsoluteFile().getPath());
-        JsonUtils.save(file.getAbsoluteFile().getParent()+"/temp/partfile"+uniqueId,downLoadInfo);
+        downLoadInfo.setContentLength(contentLengthLong);
+        JsonUtils.save(outFileTemp,downLoadInfo);
+        int blackNum = 0;
         for (int i = 0; i < 2; i++) {
-            new Thread(new SplitTask(url,startpostion,splitSizie,tempPath))
+            new Thread(new SplitTask(url,startpostion,splitSizie,tempPath,blackNum++,outFileTemp))
                     .start();
             startpostion += splitSizie;
         }
-        new Thread(new SplitTask(url,startpostion,contentLengthLong - startpostion,tempPath))
+        new Thread(new SplitTask(url,startpostion,contentLengthLong - startpostion,tempPath, blackNum++, outFileTemp))
                 .start();
     }
 }

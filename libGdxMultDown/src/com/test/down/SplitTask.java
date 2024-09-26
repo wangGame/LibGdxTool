@@ -1,6 +1,7 @@
 package com.test.down;
 
 import com.kw.gdx.file.JsonUtils;
+import com.test.down.bean.DownLoadInfo;
 import com.test.down.http.DefaultHttpClient;
 import com.test.down.http.HttpClient;
 import com.test.down.http.HttpUtils;
@@ -20,13 +21,17 @@ public class SplitTask extends Thread{
     private static final int BUFFER_SIZE = 1024 * 1024 * 4;
     private DownLoadStatus downloadStatus;
     private File downloadfile;
-
-    public SplitTask(String downLoadString, long startPosition, long downLoadLength, String out){
+    private int blockNum = 0;
+    private String tempPath;
+    private DownLoadInfo downLoadInfo;
+    public SplitTask(String downLoadString, long startPosition, long downLoadLength, String out, int i, String outFileTemp){
         this.downLoadLength = downLoadLength;
         this.startPosition = startPosition;
         this.downLoadString = downLoadString;
         downloadfile = new File(out);
         this.downloadStatus = DownLoadStatus.READY;
+        this.blockNum = i;
+        this.tempPath = outFileTemp;
     }
 
     @Override
@@ -37,10 +42,30 @@ public class SplitTask extends Thread{
         client = new DefaultHttpClient();
         HttpURLConnection connect = null;
         try {
-            long startPos = startPosition; // 开始位置
             long endPos = startPosition + downLoadLength - 1; // 结束位置
             connect = client.createConnect(downLoadString);
-            connect.setRequestProperty("Range", "bytes=" + startPos + "-"+ endPos);
+
+            this.downLoadInfo = JsonUtils.read(tempPath + "-" + blockNum, DownLoadInfo.class);
+            if (downLoadInfo!=null){
+                long oldStartPosition = downLoadInfo.getStartPosition();
+                long oldEndPosition = downLoadInfo.getEndPosition();
+                long currentPosition = downLoadInfo.getCurrentPosition();
+                if (oldStartPosition == startPosition && oldEndPosition == endPos) {
+                    startPosition = startPosition + currentPosition;
+                }else {
+                    downLoadInfo.setStartPosition(startPosition);
+                    downLoadInfo.setEndPosition(endPos);
+                    downLoadInfo.setContentLength(0);
+                }
+            }else {
+                downLoadInfo = new DownLoadInfo();
+                downLoadInfo.setStartPosition(startPosition);
+                downLoadInfo.setEndPosition(endPos);
+                downLoadInfo.setContentLength(0);
+            }
+
+
+            connect.setRequestProperty("Range", "bytes=" + startPosition + "-"+ endPos);
             client.connect();
             connect = HttpUtils.redirect(connect);
             long contentLengthLong = connect.getContentLengthLong();
@@ -49,14 +74,18 @@ public class SplitTask extends Thread{
             randomAccessFile.seek(startPosition);
             InputStream inputStream = connect.getInputStream();
             byte[] buff = new byte[BUFFER_SIZE];
+
             do {
                 final int byteCount = inputStream.read(buff, 0, BUFFER_SIZE);
+                System.out.println(downLoadInfo.getCurrentPosition());
                 if (byteCount == -1) {
                     downloadStatus = DownLoadStatus.FINISH;
                     break;
                 }
                 randomAccessFile.write(buff, 0, byteCount);
                 randomAccessFile.flushAndSync();
+                downLoadInfo.setCurrentPosition(downLoadInfo.getCurrentPosition()+byteCount);
+                JsonUtils.save(tempPath + "-" + blockNum, downLoadInfo);
             }while (true);
         } catch (IOException e) {
             this.downloadStatus = DownLoadStatus.FAILED;
