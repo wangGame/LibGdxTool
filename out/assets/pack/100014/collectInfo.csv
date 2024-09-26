@@ -1,5 +1,0 @@
-collectID,collectName,version,type,prices,start,lasttime,playColor,collectNameColor,collectColor,collectA
-1,Autumn Time,100011,1,2000,-1,-1,#747300,#ffde59,#f5ebce,0.7
-2,Winter Story,100012,2,2500,-1,-1,#3c61b5,#fffe81,#f5ebce,0.7
-3,Merry Christmas,100013,3,4000,2024/2/26,20,#bd4e5b,#fffe81,#f5ebce,0.7
-4,Love Story,100014,4,4000,2024/3/7,30,#2f7ea5,#074566,#74472c,0.7

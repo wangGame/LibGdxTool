@@ -6,6 +6,7 @@ import com.test.down.bean.DownLoadInfo;
 import com.test.down.http.DefaultHttpClient;
 import com.test.down.http.HttpClient;
 import com.test.down.http.HttpUtils;
+import com.test.down.status.DownLoadStatus;
 import com.test.down.stream.FileDownloadRandomAccessFile;
 
 import java.io.File;
@@ -15,7 +16,7 @@ import java.net.HttpURLConnection;
 public class DownLoadTask {
     private HttpClient client;
     private int threadNum = 3;
-    private Array<Thread> downLoadThread;
+    private Array<SplitTask> downLoadThread;
 
     public void down(String url,String out) throws IOException, IllegalAccessException {
         //存储目录
@@ -55,11 +56,63 @@ public class DownLoadTask {
         JsonUtils.save(outFileTemp,downLoadInfo);
         int blackNum = 0;
         for (int i = 0; i < 2; i++) {
-            new Thread(new SplitTask(url,startpostion,splitSizie,tempPath,blackNum++,outFileTemp))
-                    .start();
+            SplitTask splitTask = new SplitTask(url, startpostion, splitSizie, tempPath, blackNum++, outFileTemp);
+            downLoadThread.add(splitTask);
             startpostion += splitSizie;
         }
-        new Thread(new SplitTask(url,startpostion,contentLengthLong - startpostion,tempPath, blackNum++, outFileTemp))
-                .start();
+        SplitTask splitTask = new SplitTask(url, startpostion, contentLengthLong - startpostion, tempPath, blackNum++, outFileTemp);
+        downLoadThread.add(splitTask);
+
+        for (Thread thread1 : downLoadThread) {
+            thread1.start();
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    boolean finish = true;
+                    long allCount = 0;
+                    for (SplitTask task : downLoadThread) {
+                        if (task.getDownloadStatus() != DownLoadStatus.FINISH) {
+                            finish = false;
+                        }
+                        allCount += task.getDownLoadInfo().getCurrentPosition();
+                    }
+                    downloadListener.process(contentLengthLong, allCount);
+                    if (finish) {
+                        downloadListener.downFinish();
+
+                        String outFileTemp1 = file.getAbsoluteFile().getParent() +"/"+uniqueId ;
+                        File file1 = new File(outFileTemp1);
+                        deleteDirectory(file1);
+                        break;
+                    }
+                }
+            }
+        }).start();
+    }
+
+    // 递归删除文件夹及其内容
+    public static void deleteDirectory(File directory) {
+        File[] files = directory.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file); // 递归删除子目录
+                }
+                file.delete(); // 删除文件
+            }
+        }
+        directory.delete(); // 最后删除空目录
+    }
+
+    private DownloadListener downloadListener;
+    public void addListener(DownloadListener listener) {
+        this.downloadListener = listener;
     }
 }

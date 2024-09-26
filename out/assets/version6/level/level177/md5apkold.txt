@@ -1,7 +1,0 @@
-config.csv	cb52ce1c87ffcd09d4db34aaba09961c
-finish.json	c8a80fdde420b21106a1fbf2ce7680a4
-layout.json	47ad1f3833b95fa41973ec6f2d5011cd
-levelAtlas.atlas	70337946151b6e5e3d2fd01ad9673b3f
-levelAtlas.png	8af5a622994cc5a231fc4b5c11bfb6f2
-line.atlas	25dc908a7c43052037914fdb76c48201
-line.png	9e603f40b4a43a2e98a43c326bd053a2

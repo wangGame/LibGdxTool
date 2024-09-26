@@ -51,7 +51,7 @@ public class SplitTask extends Thread{
                 long oldEndPosition = downLoadInfo.getEndPosition();
                 long currentPosition = downLoadInfo.getCurrentPosition();
                 if (oldStartPosition == startPosition && oldEndPosition == endPos) {
-                    startPosition = startPosition + currentPosition;
+                    startPosition = startPosition + currentPosition-1;
                 }else {
                     downLoadInfo.setStartPosition(startPosition);
                     downLoadInfo.setEndPosition(endPos);
@@ -80,6 +80,7 @@ public class SplitTask extends Thread{
                 System.out.println(downLoadInfo.getCurrentPosition());
                 if (byteCount == -1) {
                     downloadStatus = DownLoadStatus.FINISH;
+                    JsonUtils.delete(tempPath + "-" + blockNum);
                     break;
                 }
                 randomAccessFile.write(buff, 0, byteCount);
@@ -98,5 +99,9 @@ public class SplitTask extends Thread{
 
     public DownLoadStatus getDownloadStatus() {
         return downloadStatus;
+    }
+
+    public DownLoadInfo getDownLoadInfo() {
+        return downLoadInfo;
     }
 }

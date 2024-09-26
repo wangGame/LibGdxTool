@@ -11,6 +11,22 @@ public class App {
         DownLoadTask task = new DownLoadTask();
         try {
             task.down(url,"out.zip");
+            task.addListener(new DownloadListener() {
+                @Override
+                public void downFinish() {
+                    System.out.println("finish ====>");
+                }
+
+                @Override
+                public void error() {
+
+                }
+
+                @Override
+                public void process(long all, long process) {
+                    System.out.println(all +"  == "+process+"  "+process/all);
+                }
+            });
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
