@@ -1,4 +1,4 @@
-package com.test.down;
+package com.test.down.task;
 
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.file.JsonUtils;
@@ -6,6 +6,7 @@ import com.test.down.bean.DownLoadInfo;
 import com.test.down.http.DefaultHttpClient;
 import com.test.down.http.HttpClient;
 import com.test.down.http.HttpUtils;
+import com.test.down.listener.DownloadListener;
 import com.test.down.status.DownLoadStatus;
 import com.test.down.stream.FileDownloadRandomAccessFile;
 
@@ -18,9 +19,9 @@ public class DownLoadTask {
     private int threadNum = 3;
     private Array<SplitTask> downLoadThread;
 
-    public void down(String url,String out) throws IOException, IllegalAccessException {
+    public void down(String url,String saveDir,String saveFile) throws IOException, IllegalAccessException {
         //存储目录
-        String tempPath = out;
+        String tempPath = saveDir+"/"+saveFile;
         this.downLoadThread = new Array<>();
         client = new DefaultHttpClient();
         HttpURLConnection connect = client.createConnect(url);
@@ -38,7 +39,7 @@ public class DownLoadTask {
         randomAccessFile.setLength(contentLengthLong);
         long splitSizie = contentLengthLong / threadNum;
         long startpostion = 0;
-        int uniqueId = HttpUtils.getUniqueId(url, file.getAbsoluteFile().getParent(), out, "3");
+        int uniqueId = HttpUtils.getUniqueId(url, saveDir, saveFile, "3");
         String outFileTemp = file.getAbsoluteFile().getParent() +"/"+uniqueId +"/"+
                 "temp/partfile" + uniqueId;
         DownLoadInfo read = JsonUtils.read(outFileTemp, DownLoadInfo.class);

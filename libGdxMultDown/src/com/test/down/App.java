@@ -1,5 +1,8 @@
 package com.test.down;
 
+import com.test.down.listener.DownloadListener;
+import com.test.down.task.DownLoadTask;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -7,10 +10,12 @@ public class App {
     String url = "http://192.168.1.192/ceshi/android-debug.apk";
 //    String url = "http://192.168.1.192/teet.7z";
 
-    private  void download( final String path,  final File savedir,int num) {
+    private  void download(final String downloadUrl,
+                           final String saveDir,
+                           final String saveFile) {
         DownLoadTask task = new DownLoadTask();
         try {
-            task.down(url,"out.zip");
+            task.down(downloadUrl,saveDir,saveFile);
             task.addListener(new DownloadListener() {
                 @Override
                 public void downFinish() {
@@ -39,7 +44,7 @@ public class App {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                app.download(app.url, new File("./"),4);
+                app.download(app.url, "","");
             }
         }).start();
     }

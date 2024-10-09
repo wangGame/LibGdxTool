@@ -1,4 +1,4 @@
-package com.test.down;
+package com.test.down.listener;
 
 public interface DownloadListener {
     void downFinish();

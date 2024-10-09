@@ -1,4 +1,4 @@
-package com.test.down;
+package com.test.down.task;
 
 import com.kw.gdx.file.JsonUtils;
 import com.test.down.bean.DownLoadInfo;

@@ -76,18 +76,18 @@ public class AndroidLauncher extends BaseAndroidLauncher {
                 e.printStackTrace();
             }
         }else {
-            try {
-                PackageManager packageManager = this.getPackageManager();
-                PackageInfo packageInfo = packageManager.getPackageInfo(this.getPackageName(), 0);
-                int versionCode = packageInfo.versionCode;
-                int code = sharedPreferences.getInt("intsallApkVersionCode", 0);
-                abversion = sharedPreferences.getString("ABVERSION","A");
-                if (code != versionCode){
-                    abversion = "A";
-                }
-            } catch (PackageManager.NameNotFoundException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                PackageManager packageManager = this.getPackageManager();
+//                PackageInfo packageInfo = packageManager.getPackageInfo(this.getPackageName(), 0);
+//                int versionCode = packageInfo.versionCode;
+//                int code = sharedPreferences.getInt("intsallApkVersionCode", 0);
+//                abversion = sharedPreferences.getString("ABVERSION","A");
+//                if (code != versionCode){
+//                    abversion = "A";
+//                }
+//            } catch (PackageManager.NameNotFoundException e) {
+//                e.printStackTrace();
+//            }
         }
         return abversion;
     }

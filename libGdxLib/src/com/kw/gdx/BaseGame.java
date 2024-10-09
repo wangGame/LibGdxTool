@@ -151,7 +151,6 @@ public class BaseGame extends Game {
             }
         }
     }
-
     public Viewport getStageViewport() {
         return stageViewport;
     }
