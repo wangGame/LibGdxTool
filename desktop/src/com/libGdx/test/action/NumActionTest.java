@@ -66,7 +66,7 @@ public class NumActionTest extends LibGdxTestMain {
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        float v = 1/0;
+//                        float v = 1/0;
                     }
                 })
         ));

@@ -42,7 +42,7 @@ public class BaseGame extends Game {
         printInfo();
         gameInfoConfig();
         anrTest();
-        initInstance();
+        catchBackKey();
         initViewport();
         initExtends();
         initScreen();
@@ -95,7 +95,7 @@ public class BaseGame extends Game {
 
     protected void loadingView(){}
 
-    protected void initInstance(){
+    protected void catchBackKey(){
         Gdx.input.setCatchBackKey(true);
     }
 
