@@ -1,9 +1,12 @@
 package com.kw.gdx.view.dialog.base;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
+import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.resource.annotation.AnnotationInfo;
 import com.kw.gdx.resource.annotation.ScreenResource;
@@ -28,10 +31,24 @@ public class BaseDialog extends Group {
     protected boolean playCloseAudio = false;
     protected String closeMusic = AudioType.clickA;
     protected Vector2 dialogSize = new Vector2();
-    protected boolean novalue;
+    protected boolean backClose;
+    protected float aa = 0.75f;
+    protected boolean isFont;
+    protected String viewpath;
+    protected Actor closeBg;
+    protected boolean entered = false;
+    protected boolean closeFlag = false;
+    protected boolean closed;
+    public void setFont(boolean font) {
+        isFont = font;
+    }
 
-    public boolean isNovalue() {
-        return novalue;
+    public boolean isFont() {
+        return isFont;
+    }
+
+    public boolean isBackClose() {
+        return backClose;
     }
 
     public float getShadowTime() {
@@ -40,7 +57,8 @@ public class BaseDialog extends Group {
 
     public BaseDialog(){
         ScreenResource annotation = AnnotationInfo.checkClassAnnotation(this, ScreenResource.class);
-        String viewpath;
+        closeBg = new Actor();
+
         if (annotation!=null){
             viewpath = annotation.value();
             dialogGroup = CocosResource.loadFile(viewpath);
@@ -50,12 +68,14 @@ public class BaseDialog extends Group {
         }
         dialogSize.set(dialogGroup.getWidth(),dialogGroup.getHeight());
         setSize(dialogSize.x,dialogSize.y);
+        closeBg.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
+        closeBg.setPosition(dialogSize.x/2.0f,dialogSize.y/2.0f,Align.center);
+        addActor(closeBg);
         addActor(dialogGroup);
         setY(Constant.GAMEHIGHT/2, Align.center);
         setX(Constant.GAMEWIDTH/2,Align.center);
         offsetX = (Constant.GAMEWIDTH - Constant.WIDTH)/2;
         offsetY = (Constant.GAMEHIGHT - Constant.HIGHT) / 2;
-
     }
 
     public void close(){
@@ -63,14 +83,14 @@ public class BaseDialog extends Group {
         playCloseAudio();
         addAction(
                 Actions.parallel(
-                    Actions.sequence(
-                        Actions.scaleTo(0.074F,0.074F,0.2667F * timeScale,
-                                new BseInterpolation(0.25f,0,1,1)),
-                        Actions.run(()->{
-                            removeBefore();
-                            remove();
-                        })
-                    ), Actions.sequence(Actions.alpha(0,0.2333F * timeScale))
+                        Actions.sequence(
+                                Actions.scaleTo(0.074F,0.074F,0.2667F * timeScale,
+                                        new BseInterpolation(0.25f,0,1,1)),
+                                Actions.run(()->{
+                                    removeBefore();
+                                    remove();
+                                })
+                        ), Actions.sequence(Actions.alpha(0,0.2333F * timeScale))
                 )
         );
     }
@@ -108,7 +128,14 @@ public class BaseDialog extends Group {
         addAction(Actions.parallel(
                 Actions.sequence(
                         Actions.alpha(0,0),
-                        Actions.alpha(1,0.1667F * timeScale)
+                        Actions.alpha(1,0.1667F * timeScale),
+                        Actions.run(()->{
+                            //打开了
+                            entered = true;
+                            if (closeFlag) {
+                                enterMethod();
+                            }
+                        })
                 ), Actions.sequence(
                         Actions.scaleTo(0.074F,0.074F,0),
                         Actions.scaleTo(1.03F,1.03F,0.3333F * timeScale,
@@ -117,6 +144,10 @@ public class BaseDialog extends Group {
                                 new BseInterpolation(0,0,1,0.99f)))
 
         ));
+    }
+
+    protected void enterMethod() {
+        closeDialog();
     }
 
     public void hide() {
@@ -156,10 +187,35 @@ public class BaseDialog extends Group {
     }
 
     public void closeDialog(){
+        if (closed)return;
+        closed = true;
         dialogManager.closeDialog(this);
     }
 
-    public void resize(float width, float height) {
+    public float getA() {
+        return aa;
+    }
 
+    public void touchDisable(){
+        setTouchable(Touchable.disabled);
+    }
+
+    public void touchEnable(){
+        setTouchable(Touchable.childrenOnly);
+    }
+
+    public void resize(float width, float height) {
+        setY(Constant.GAMEHIGHT/2, Align.center);
+        setX(Constant.GAMEWIDTH/2,Align.center);
+    }
+
+    protected void hideRootView() {
+        ScreenResource annotation = AnnotationInfo.checkClassAnnotation(this, ScreenResource.class);
+        if (annotation!=null){
+            viewpath = annotation.value();
+            if (Configuration.device_state == Configuration.DeviceState.good) {
+                CocosResource.unLoadFile(viewpath);
+            }
+        }
     }
 }

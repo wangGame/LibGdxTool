@@ -2,7 +2,6 @@ package com.kw.gdx.view.dialog;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
@@ -160,7 +159,7 @@ public class DialogManager {
     public BaseDialog back() {
         if (array.size>0) {
             BaseDialog baseDialog = array.get(array.size - 1);
-            if (baseDialog.isNovalue()) {
+            if (baseDialog.isBackClose()) {
                 return baseDialog;
             }
             BaseDialog pop = array.pop();

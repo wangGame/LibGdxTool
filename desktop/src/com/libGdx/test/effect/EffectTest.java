@@ -26,8 +26,9 @@ public class EffectTest extends LibGdxTestMain {
             EffectTool tool = new EffectTool("lizi/1");
             tool.setLoop(true);
             stage.addActor(tool);
-            tool.setPosition(100, 100);
+            tool.setPosition(600, 100);
             tool.getColor().a = 0.7f;
+            tool.setFlipX();
 
         }
 //        {
