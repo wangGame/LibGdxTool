@@ -125,7 +125,8 @@ public class DialogManager {
         dialog.close();
         array.removeValue(dialog,true);
         if (array.size<=0){
-            Actor shadow = dialogView.findActor("shadow");
+            //如果存在多个遮罩，会存在无法关闭遮罩的问题
+//            Actor shadow = dialogView.findActor("shadow");
             if (shadow!=null) {
                 hasShadow = false;
                 if (shadowCloseType==1){

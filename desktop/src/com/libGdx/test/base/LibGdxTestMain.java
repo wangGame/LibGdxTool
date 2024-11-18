@@ -34,6 +34,7 @@ public class LibGdxTestMain extends BaseGame {
         @Override
         public void show() {
             super.show();
+            Gdx.input.setInputProcessor(stage);
             useShow(stage);
         }
     }
