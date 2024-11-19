@@ -2,8 +2,11 @@ package com.kw.gdx.file;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.kw.gdx.resource.csvanddata.ConvertUtil;
+
+import java.util.HashSet;
 
 /**
  * file操作
@@ -29,71 +32,82 @@ import com.kw.gdx.resource.csvanddata.ConvertUtil;
  * }
  * ```
  */
-public abstract class FileContentOpetion {
-    protected String nomalFileName;
-    private ArrayMap<Integer,Integer> oldNewLevel;
+public abstract class FileContentOpetion<T> {
+    protected String saveFileName;
+    private Array<T> valueArray;
     protected FileContentOpetion instance;
-    protected FileContentOpetion(String nomalFileName){
-        this.nomalFileName = nomalFileName;
+
+    protected FileContentOpetion(String saveFileName){
+        this.saveFileName = saveFileName;
     }
 
-    private FileHandle getLocalPlayLevelFileHandle(){
-        return Gdx.files.local(nomalFileName);
+    /**
+     * over method
+     * @return
+     */
+    protected FileHandle getLocalPlayLevelFileHandle(){
+        return Gdx.files.local(saveFileName);
     }
 
-    public ArrayMap<Integer,Integer> readFile(){
-        oldNewLevel = new ArrayMap<>();
+    public Array<T> readFileArray(){
+        return readFileArray(",");
+    }
+
+    public Array<T> readFileArray(String spltSub){
+        if (valueArray == null) {
+            valueArray = new Array<>();
+        }else {
+            valueArray.clear();
+        }
         FileHandle local = getLocalPlayLevelFileHandle();
         if (local.exists()) {
             String string = local.readString();
-            String[] s = string.split(",");
+            String[] s = string.split(spltSub);
             for (String s1 : s) {
                 int i = ConvertUtil.convertToInt(s1, -1);
                 if (i!=-1) {
-                    oldNewLevel.put(i, i);
+                    valueArray.add((T) s1);
                 }
             }
         }
-        return oldNewLevel;
+        return valueArray;
     }
 
+    public boolean updateLevel(T level) {
+        return updateLevel(level,true);
+    }
 
-    public boolean updateLevel(int level){
-        if (oldNewLevel ==null){
-            readFile();
-        }
-        if (oldNewLevel.containsKey(level)) {
-            oldNewLevel.removeKey(level);
-        }
-        oldNewLevel.put(level,level);
+    public boolean updateLevel(T level,boolean isOnlyOne){
+        saveArray(level);
         savePlaylevel();
         return true;
     }
 
+    private void saveArray(T level) {
+        if (valueArray ==null){
+            readFileArray();
+        }
+        valueArray.removeValue(level,false);
+        valueArray.add(level);
+    }
 
     public void savePlaylevel(){
         StringBuilder builder = new StringBuilder();
-        int size = oldNewLevel.size;
-        Object[] keys = oldNewLevel.keys;
-        for (int i = 0; i < size; i++) {
-            Object key = keys[i];
-            if (key instanceof Integer) {
-                builder.append(key+",");
-            }
-        }
-        if (builder.length()>0) {
-            char c = builder.charAt(builder.length() - 1);
-            if (c == ',') {
-                builder.delete(builder.length()-1,builder.length());
+        for (int i = 0; i < valueArray.size; i++) {
+            T t = valueArray.get(i);
+            if (i<valueArray.size-1){
+                builder.append(t+",");
+            }else {
+                builder.append(t);
             }
         }
         FileHandle local = getLocalPlayLevelFileHandle();
         local.writeString(builder.toString(),false);
     }
 
-    public void delete(int level){
-        ArrayMap<Integer, Integer> arrayMap = readFile();
-        arrayMap.removeKey(level);
+    public void delete(T level){
+        Array<T> ts = readFileArray();
+        ts.removeValue(level,false);
         savePlaylevel();
     }
 }

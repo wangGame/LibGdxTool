@@ -1,13 +1,13 @@
 
-h_lizi.png
-size: 31,31
+quxian_ck.png
+size: 105,131
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-lizi
+A
   rotate: false
   xy: 2, 2
-  size: 27, 27
-  orig: 27, 27
-  offset: 0, 0
+  size: 101, 127
+  orig: 103, 128
+  offset: 2, 1
   index: -1

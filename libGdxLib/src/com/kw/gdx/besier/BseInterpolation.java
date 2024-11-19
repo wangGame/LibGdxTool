@@ -50,6 +50,8 @@ public class BseInterpolation extends Interpolation {
             x += dfx;
             y += dfy;
         }
+
+        System.out.println("-------------------");
     }
 
 
@@ -70,6 +72,10 @@ public class BseInterpolation extends Interpolation {
         }
         float y = curves[i - 1];
         float v = y + (1 - y) * (percent - x) / (1 - x);
+
+
+
+
         return v;
     }
 

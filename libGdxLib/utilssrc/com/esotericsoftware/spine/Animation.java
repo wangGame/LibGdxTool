@@ -301,6 +301,8 @@ public class Animation {
 				x += dfx;
 				y += dfy;
 			}
+
+			System.out.println("----------------------");
 		}
 
 		/** Returns the interpolated percentage for the specified key frame and linear percentage. */
@@ -322,7 +324,11 @@ public class Animation {
 				}
 			}
 			float y = curves[i - 1];
-			return y + (1 - y) * (percent - x) / (1 - x); // Last point is 1,1.
+			float v = y + (1 - y) * (percent - x) / (1 - x);
+
+			System.out.println(v);
+
+			return v; // Last point is 1,1.
 		}
 	}
 

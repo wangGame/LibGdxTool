@@ -119,7 +119,6 @@ public class DialogManager {
         }
         closeDialog(dialog);
     }
-
     public void closeDialog(BaseDialog dialog){
         int shadowCloseType = dialog.getShadowCloseType();
         dialog.close();

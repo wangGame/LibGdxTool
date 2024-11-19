@@ -514,7 +514,7 @@ public class ArrayMap<K, V> implements Iterable<ObjectMap.Entry<K, V>> {
 		return keysIter2;
 	}
 
-	static public class Entries<K, V> implements Iterable<Entry<K, V>>, Iterator<Entry<K, V>> {
+    static public class Entries<K, V> implements Iterable<Entry<K, V>>, Iterator<Entry<K, V>> {
 		private final ArrayMap<K, V> map;
 		Entry<K, V> entry = new Entry();
 		int index;
