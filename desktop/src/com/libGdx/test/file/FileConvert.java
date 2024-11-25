@@ -10,6 +10,11 @@ import com.kw.gdx.asset.Asset;
 import com.kw.gdx.utils.ConvertUtil;
 import com.libGdx.test.base.LibGdxTestMain;
 
+/**
+ * libgdx 和 cocos刚体坐标转换工具
+ *
+ *
+ */
 public class FileConvert extends LibGdxTestMain {
     //    libbody/woodbody.xml
     public static void main(String[] args) {
@@ -20,12 +25,15 @@ public class FileConvert extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        convert();
+        String fileName = "assets/libbody/out";
+        convertLibGdxFile(fileName);
+        convertCocos(fileName);
     }
 
-    public void convert(){
-        FileHandle internal = Gdx.files.internal("assets/libbody/out.plist.xml");
-        FileHandle outFile = Gdx.files.local("woodbody.xml");
+//
+    public void convertLibGdxFile(String fileName){
+        FileHandle internal = Gdx.files.internal(fileName+".xml");
+        FileHandle outFile = Gdx.files.local(fileName+"out.xml");
         XmlReader xmlReader = new XmlReader();
         String xml = internal.readString("UTF-8");
         if (xml.charAt(0) == 65279)
@@ -61,6 +69,61 @@ public class FileConvert extends LibGdxTestMain {
                     builder.append(",");
                 }
                 element1.setText(builder.toString());
+            }
+        }
+        outFile.writeString(element.toString(),false);
+    }
+
+    public void convertCocos(String fileName){
+        FileHandle internal = Gdx.files.internal(fileName+".plist");
+        FileHandle outFile = Gdx.files.local(fileName+"out.plist");
+        XmlReader xmlReader = new XmlReader();
+        String xml = internal.readString("UTF-8");
+        if (xml.charAt(0) == 65279)
+            xml = xml.substring(1);
+        XmlReader.Element element = xmlReader.parse(xml);
+        XmlReader.Element child3 = element.getChild(0);
+        XmlReader.Element child = child3.getChild(7);
+        String name = null;
+//        System.out.println(child);
+        for (int i = 0; i < child.getChildCount(); i++) {
+            XmlReader.Element child1 = child.getChild(i);
+            String text = child1.getText();
+            float width = 0;
+            float height = 0;
+            if (Gdx.files.internal("assets/pic/"+name+".png").exists()){
+                Texture texture = Asset.getAsset().getTexture("assets/pic/" + name + ".png");
+                width = texture.getWidth();
+                height = texture.getHeight();
+            }
+
+            if (text == null){
+                XmlReader.Element child2 = child1.getChild(9);
+                XmlReader.Element child4 = child2.getChild(0);
+                XmlReader.Element child5 = child4.getChild(23);
+                for (int i1 = 0; i1 < child5.getChildCount(); i1++) {
+                    XmlReader.Element child6 = child5.getChild(i1);
+                    for (int i2 = 0; i2 < child6.getChildCount(); i2++) {
+                        XmlReader.Element child7 = child6.getChild(i2);
+                        String text1 = child7.getText();
+                        text1 = text1.replace("{","");
+                        text1 = text1.replace("}","");
+                        String[] split = text1.split(",");
+                        float xx = ConvertUtil.convertToFloat(split[0],0);
+                        float yy = ConvertUtil.convertToFloat(split[1],0);
+                        xx = xx - width/2.0f;
+                        yy = yy - height/2.0f;
+                        StringBuilder builder = new StringBuilder();
+                        builder.append("{");
+                        builder.append(xx);
+                        builder.append(",");
+                        builder.append(yy);
+                        builder.append("}");
+                        child7.setText(builder.toString());
+                    }
+                }
+            }else {
+                System.out.println(text);
             }
         }
         outFile.writeString(element.toString(),false);
