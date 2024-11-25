@@ -3,10 +3,7 @@ package com.kw.gdx.file;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ArrayMap;
 import com.kw.gdx.resource.csvanddata.ConvertUtil;
-
-import java.util.HashSet;
 
 /**
  * file操作
@@ -78,16 +75,25 @@ public abstract class FileContentOpetion<T> {
     }
 
     public boolean updateLevel(T level,boolean isOnlyOne){
-        saveArray(level);
+        saveArray(level,isOnlyOne);
         savePlaylevel();
         return true;
     }
 
-    private void saveArray(T level) {
+    private void saveArray(T level, boolean isOnlyOne) {
         if (valueArray ==null){
             readFileArray();
         }
-        valueArray.removeValue(level,false);
+        if (isOnlyOne) {
+            //目前的删除只是删除一个 ，
+            /**
+             * 如果需要全部
+             *
+             * while (valueArray.removeValue(level,false)){
+             * }
+             */
+            valueArray.removeValue(level, false);
+        }
         valueArray.add(level);
     }
 
