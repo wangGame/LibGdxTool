@@ -178,6 +178,12 @@ public class SpineActor extends Actor {
     }
 
     @Override
+    public void act(float delta) {
+        super.act(delta);
+        state.update(delta);
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         float alpha = this.color.a*parentAlpha;
         Color color = skeleton.getColor();
@@ -187,8 +193,6 @@ public class SpineActor extends Actor {
             skeleton.getRootBone().setScale(rootBoneScaleX*scaleX,
                     scaleY*rootBoneScaleY);
         }
-
-        state.update(Gdx.graphics.getDeltaTime());
         state.apply(skeleton);
         skeleton.updateWorldTransform();
         int src = batch.getBlendSrcFunc();
