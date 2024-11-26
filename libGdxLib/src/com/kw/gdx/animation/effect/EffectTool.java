@@ -63,9 +63,9 @@ public class EffectTool extends Actor {
 
     public void init(){
         effect = assetamnagerinstance.get(effectResourcePath);
+        //如果动画不连续播放，完全没有必要这样写  。纯纯浪费。
         effect = new ParticleEffect(effect);
         play();
-
     }
 
     public void play(){
