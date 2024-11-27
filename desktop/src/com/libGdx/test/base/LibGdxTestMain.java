@@ -25,6 +25,16 @@ public class LibGdxTestMain extends BaseGame {
         setScreen(new TestScreen(this));
     }
 
+
+    public static void run(Class<? extends LibGdxTestMain> c){
+        try{
+            LibGdxTestMain libGdxTestMain = c.getDeclaredConstructor().newInstance();
+            libGdxTestMain.start();
+        }catch (Exception e){
+
+        }
+    }
+
     class TestScreen extends BaseScreen {
         public TestScreen(BaseGame game) {
             super(game);

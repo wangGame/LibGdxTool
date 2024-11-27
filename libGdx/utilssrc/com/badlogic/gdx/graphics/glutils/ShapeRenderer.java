@@ -281,7 +281,7 @@ public class ShapeRenderer implements Disposable {
 					   float cx1, float cy1,
 					   float cx2, float cy2,
 					   float x2, float y2, int segments) {
-		check(ShapeType.Filled, null, segments * 2 + 2);
+		check(ShapeType.Line, null, segments * 2 + 2);
 		float colorBits = color.toFloatBits();
 
 		// Algorithm from: http://www.antigrain.com/research/bezier_interpolation/index.html#PAGE_BEZIER_INTERPOLATION
