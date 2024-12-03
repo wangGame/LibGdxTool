@@ -18,12 +18,12 @@ public class PackageUtils {
 
     public String getApkName(){
         String packageName = context.getPackageName();
-        NLog.i("apkinfo --- packageName:"+packageName);
+        NLog.d("apkinfo --- packageName:"+packageName);
         PackageManager packageManager = context.getPackageManager();
         try {
             PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
-            NLog.i("apkinfo --- versionName:"+packageInfo.versionName);
-            NLog.i("apkinfo --- versionCode:"+packageInfo.versionCode);
+            NLog.d("apkinfo --- versionName:"+packageInfo.versionName);
+            NLog.d("apkinfo --- versionCode:"+packageInfo.versionCode);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

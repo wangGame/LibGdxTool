@@ -39,7 +39,6 @@ public class UnPackZip {
             InputStream in = zip.getInputStream(entry);
             String outPath = (descDir+zipEntryName).replaceAll("\\*", "/");;
             //判断路径是否存在,不存在则创建文件路径
-            NLog.i(outPath+" ----------- outpath");
             File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));
             if(!file.exists()){
                 file.mkdirs();
@@ -60,6 +59,5 @@ public class UnPackZip {
             out.close();
         }
         zip.close();
-        NLog.e("******************解压完毕********************");
     }
 }

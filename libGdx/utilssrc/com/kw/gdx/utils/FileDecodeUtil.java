@@ -72,7 +72,7 @@ public class FileDecodeUtil {
 
    public static byte[] getBytes(String name) {
       FileHandle internal = Gdx.files.internal("key/data_00.var");
-      if (internal!=null)return new byte[100];
+      if (internal==null)return new byte[100];
       if (key == null) {
          InputStream is = internal.read();
          byte[] buffer = new byte[1024];
