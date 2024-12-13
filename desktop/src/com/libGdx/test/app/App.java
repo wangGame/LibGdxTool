@@ -10,6 +10,17 @@ public class App extends LibGdxTestMain {
     public static void main(String[] args) {
         App app = new App();
         app.start();
+
+//
+//        for (int i = 1; i <= 10; i++) {
+//            String i1 = ((i-1) / 2 + 1) +"";
+//            if (i%2 == 0){
+//                i1 += "-2";
+//            }else {
+//                i1 += "-1";
+//            }
+//            System.out.println(i +"   "+i1);
+//        }
     }
 
     @Override

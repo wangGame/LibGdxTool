@@ -25,9 +25,10 @@ public class FileConvert extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        String fileName = "assets/libbody/out";
+        String fileName = "assets/124/2/out";
         convertLibGdxFile(fileName);
         convertCocos(fileName);
+        System.out.println("end-----------------");
     }
 
 //
@@ -35,6 +36,7 @@ public class FileConvert extends LibGdxTestMain {
         FileHandle internal = Gdx.files.internal(fileName+".xml");
         FileHandle outFile = Gdx.files.local(fileName+"out.xml");
         XmlReader xmlReader = new XmlReader();
+        // 禁止格式化输出
         String xml = internal.readString("UTF-8");
         if (xml.charAt(0) == 65279)
             xml = xml.substring(1);
@@ -46,7 +48,7 @@ public class FileConvert extends LibGdxTestMain {
             Array<XmlReader.Element> polygon = fixture.getChildrenByName("polygon");
             if (polygon==null)continue;
             String name = child.getAttribute("name");
-            System.out.println();
+
             float width = 0;
             float height = 0;
 
@@ -85,7 +87,6 @@ public class FileConvert extends LibGdxTestMain {
         XmlReader.Element child3 = element.getChild(0);
         XmlReader.Element child = child3.getChild(7);
         String name = null;
-//        System.out.println(child);
         for (int i = 0; i < child.getChildCount(); i++) {
             XmlReader.Element child1 = child.getChild(i);
             String text = child1.getText();
@@ -123,6 +124,7 @@ public class FileConvert extends LibGdxTestMain {
                     }
                 }
             }else {
+                name = text;
                 System.out.println(text);
             }
         }
