@@ -25,10 +25,10 @@ public class App2 extends LibGdxTestMain {
             String string = internal.readString();
             json.toJson(string);
         }
-        {
-            Json json = new Json();
-            FileHandle internal = Gdx.files.internal("1_59_40.json");
-            json.fromJson(Bean.class,internal);
-        }
+////        {
+//            Json json = new Json();
+//            FileHandle internal = Gdx.files.internal("1_59_40.json");
+//            json.fromJson(Bean.class,internal);
+////        }
     }
 }

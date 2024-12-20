@@ -19,6 +19,9 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-freetype-platform:1.9.8:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-freetype:1.9.8"
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
 //    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-core
 //    implementation 'org.deeplearning4j:rl4j-core:1.0.0-M1.1'
 
