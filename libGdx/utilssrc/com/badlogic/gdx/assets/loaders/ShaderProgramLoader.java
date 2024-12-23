@@ -22,7 +22,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /** {@link AssetLoader} for {@link ShaderProgram} instances loaded from text files. If the file suffix is ".vert", it is assumed
  * to be a vertex shader, and a fragment shader is found using the same file name with a ".frag" suffix. And vice versa if the
@@ -95,7 +94,7 @@ public class ShaderProgramLoader extends AsynchronousAssetLoader<ShaderProgram, 
 		/** File name to be used for the fragment program instead of the default determined by the file name used to submit this
 		 * asset to AssetManager. */
 		public String fragmentFile;
-		/** Whether to log (at the error level1) the shader's log if it fails to compile. Default true. */
+		/** Whether to log (at the error level) the shader's log if it fails to compile. Default true. */
 		public boolean logOnCompileFailure = true;
 		/** Code that is always added to the vertex shader code. This is added as-is, and you should include a newline (`\n`) if
 		 * needed. {@linkplain ShaderProgram#prependVertexCode} is placed before this code. */

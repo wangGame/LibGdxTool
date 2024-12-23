@@ -16,18 +16,19 @@
 
 package com.badlogic.gdx.input;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.utils.GdxRuntimeException;
-
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/** <p>
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+
+/**
+ * <p>
  * An {@link Input} implementation that receives touch, key, accelerometer and compass events from a remote Android device. Just
  * instantiate it and specify the port it should listen on for incoming connections (default 8190). Then store the new RemoteInput
  * instance in Gdx.input. That's it.
@@ -35,7 +36,7 @@ import java.net.Socket;
  * 
  * <p>
  * On your Android device you can use the gdx-remote application available on the Google Code page as an APK or in SVN
- * (extensions/gdx-remote). Open it, specify the IP address and the port of the PC your libgdx app is running on and then tap
+ * (extensions/gdx-remote). Open it, specify the IP address and the port of the PC your libGDX app is running on and then tap
  * away.
  * </p>
  * 
@@ -46,9 +47,9 @@ import java.net.Socket;
  * @author mzechner */
 public class RemoteInput implements Runnable, Input {
 	public interface RemoteInputListener {
-		void onConnected();
+		void onConnected ();
 
-		void onDisconnected();
+		void onDisconnected ();
 	}
 
 	class KeyEvent {
@@ -99,14 +100,14 @@ public class RemoteInput implements Runnable, Input {
 					case TouchEvent.TOUCH_DOWN:
 						deltaX[touchEvent.pointer] = 0;
 						deltaY[touchEvent.pointer] = 0;
-						processor.touchDown(touchEvent.x, touchEvent.y, touchEvent.pointer, Buttons.LEFT);
+						processor.touchDown(touchEvent.x, touchEvent.y, touchEvent.pointer, Input.Buttons.LEFT);
 						isTouched[touchEvent.pointer] = true;
 						justTouched = true;
 						break;
 					case TouchEvent.TOUCH_UP:
 						deltaX[touchEvent.pointer] = 0;
 						deltaY[touchEvent.pointer] = 0;
-						processor.touchUp(touchEvent.x, touchEvent.y, touchEvent.pointer, Buttons.LEFT);
+						processor.touchUp(touchEvent.x, touchEvent.y, touchEvent.pointer, Input.Buttons.LEFT);
 						isTouched[touchEvent.pointer] = false;
 						break;
 					case TouchEvent.TOUCH_DRAGGED:
@@ -143,7 +144,7 @@ public class RemoteInput implements Runnable, Input {
 				}
 			} else {
 				if (touchEvent != null) {
-					switch(touchEvent.type) {
+					switch (touchEvent.type) {
 					case TouchEvent.TOUCH_DOWN:
 						deltaX[touchEvent.pointer] = 0;
 						deltaY[touchEvent.pointer] = 0;
@@ -183,6 +184,8 @@ public class RemoteInput implements Runnable, Input {
 		}
 	}
 
+	private static final int MAX_TOUCHES = 20;
+
 	public static int DEFAULT_PORT = 8190;
 	private ServerSocket serverSocket;
 	private float[] accel = new float[3];
@@ -197,11 +200,11 @@ public class RemoteInput implements Runnable, Input {
 	boolean[] keys = new boolean[256];
 	boolean keyJustPressed = false;
 	boolean[] justPressedKeys = new boolean[256];
-	int[] deltaX = new int[20];
-	int[] deltaY = new int[20];
-	int[] touchX = new int[20];
-	int[] touchY = new int[20];
-	boolean isTouched[] = new boolean[20];
+	int[] deltaX = new int[MAX_TOUCHES];
+	int[] deltaY = new int[MAX_TOUCHES];
+	int[] touchX = new int[MAX_TOUCHES];
+	int[] touchY = new int[MAX_TOUCHES];
+	boolean isTouched[] = new boolean[MAX_TOUCHES];
 	boolean justTouched = false;
 	InputProcessor processor = null;
 	private final int port;
@@ -243,6 +246,8 @@ public class RemoteInput implements Runnable, Input {
 			try {
 				connected = false;
 				if (listener != null) listener.onDisconnected();
+
+				System.out.println("listening, port " + port);
 				Socket socket = null;
 
 				socket = serverSocket.accept();
@@ -271,7 +276,7 @@ public class RemoteInput implements Runnable, Input {
 					case RemoteSender.SIZE:
 						remoteWidth = in.readFloat();
 						remoteHeight = in.readFloat();
-						break;	
+						break;
 					case RemoteSender.GYRO:
 						gyrate[0] = in.readFloat();
 						gyrate[1] = in.readFloat();
@@ -341,7 +346,7 @@ public class RemoteInput implements Runnable, Input {
 	public float getAccelerometerZ () {
 		return accel[2];
 	}
-	
+
 	@Override
 	public float getGyroscopeX () {
 		return gyrate[0];
@@ -355,6 +360,11 @@ public class RemoteInput implements Runnable, Input {
 	@Override
 	public float getGyroscopeZ () {
 		return gyrate[2];
+	}
+
+	@Override
+	public int getMaxPointers () {
+		return MAX_TOUCHES;
 	}
 
 	@Override
@@ -393,6 +403,16 @@ public class RemoteInput implements Runnable, Input {
 	}
 
 	@Override
+	public float getPressure () {
+		return getPressure(0);
+	}
+
+	@Override
+	public float getPressure (int pointer) {
+		return isTouched(pointer) ? 1 : 0;
+	}
+
+	@Override
 	public boolean isButtonPressed (int button) {
 		if (button != Buttons.LEFT) return false;
 		for (int i = 0; i < isTouched.length; i++)
@@ -401,8 +421,13 @@ public class RemoteInput implements Runnable, Input {
 	}
 
 	@Override
+	public boolean isButtonJustPressed (int button) {
+		return button == Buttons.LEFT && justTouched;
+	}
+
+	@Override
 	public boolean isKeyPressed (int key) {
-		if (key == Keys.ANY_KEY) {
+		if (key == Input.Keys.ANY_KEY) {
 			return keyCount > 0;
 		}
 		if (key < 0 || key > 255) {
@@ -413,7 +438,7 @@ public class RemoteInput implements Runnable, Input {
 
 	@Override
 	public boolean isKeyJustPressed (int key) {
-		if (key == Keys.ANY_KEY) {
+		if (key == Input.Keys.ANY_KEY) {
 			return keyJustPressed;
 		}
 		if (key < 0 || key > 255) {
@@ -428,22 +453,47 @@ public class RemoteInput implements Runnable, Input {
 	}
 
 	@Override
+	public void getTextInput (TextInputListener listener, String title, String text, String hint, OnscreenKeyboardType type) {
+		Gdx.app.getInput().getTextInput(listener, title, text, hint, type);
+	}
+
+	@Override
 	public void setOnscreenKeyboardVisible (boolean visible) {
 	}
 
 	@Override
+	public void setOnscreenKeyboardVisible (boolean visible, OnscreenKeyboardType type) {
+	}
+
+	@Override
+	public void openTextInputField (NativeInputConfiguration configuration) {
+
+	}
+
+	@Override
+	public void closeTextInputField (boolean sendReturn) {
+
+	}
+
+	@Override
+	public void setKeyboardHeightObserver (KeyboardHeightObserver observer) {
+
+	}
+
+	@Override
 	public void vibrate (int milliseconds) {
-
 	}
 
 	@Override
-	public void vibrate (long[] pattern, int repeat) {
-
+	public void vibrate (int milliseconds, boolean fallback) {
 	}
 
 	@Override
-	public void cancelVibrate () {
+	public void vibrate (int milliseconds, int amplitude, boolean fallback) {
+	}
 
+	@Override
+	public void vibrate (VibrationType vibrationType) {
 	}
 
 	@Override
@@ -462,25 +512,14 @@ public class RemoteInput implements Runnable, Input {
 	}
 
 	@Override
-	public void setCatchBackKey (boolean catchBack) {
+	public void setCatchKey (int keycode, boolean catchKey) {
 
 	}
 
 	@Override
-	public boolean isCatchBackKey() {
+	public boolean isCatchKey (int keycode) {
 		return false;
 	}
-	
-	@Override
-	public void setCatchMenuKey (boolean catchMenu) {
-		
-	}
-	
-	@Override
-	public boolean isCatchMenuKey () {
-		return false;
-	}
-
 
 	@Override
 	public void setInputProcessor (InputProcessor processor) {
@@ -492,7 +531,8 @@ public class RemoteInput implements Runnable, Input {
 		return this.processor;
 	}
 
-	/** @return the IP addresses {@link RemoteSender} or gdx-remote should connect to. Most likely the LAN addresses if behind a NAT. */
+	/** @return the IP addresses {@link RemoteSender} or gdx-remote should connect to. Most likely the LAN addresses if behind a
+	 *         NAT. */
 	public String[] getIPs () {
 		return ips;
 	}

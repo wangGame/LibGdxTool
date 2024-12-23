@@ -44,7 +44,7 @@ public class TooltipManager {
 	public boolean enabled = true;
 	/** If false, tooltips will be shown without animations. Default is true. */
 	public boolean animations = true;
-	/** The maximum width of a {@link TextTooltip}. The com.kw.gdx.label will wrap if needed. Default is Integer.MAX_VALUE. */
+	/** The maximum width of a {@link TextTooltip}. The label will wrap if needed. Default is Integer.MAX_VALUE. */
 	public float maxWidth = Integer.MAX_VALUE;
 	/** The distance from the mouse position to offset the tooltip actor. Default is 15,19. */
 	public float offsetX = 15, offsetY = 19;
@@ -64,7 +64,7 @@ public class TooltipManager {
 	Tooltip showTooltip;
 	final Task showTask = new Task() {
 		public void run () {
-			if (showTooltip == null) return;
+			if (showTooltip == null || showTooltip.targetActor == null) return;
 
 			Stage stage = showTooltip.targetActor.getStage();
 			if (stage == null) return;

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 
 package com.badlogic.gdx.utils;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.UUID;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
@@ -34,309 +36,364 @@ import java.util.zip.ZipFile;
  * @author mzechner
  * @author Nathan Sweet */
 public class SharedLibraryLoader {
-	static public boolean isWindows = System.getProperty("os.name").contains("Windows");
-	static public boolean isLinux = System.getProperty("os.name").contains("Linux");
-	static public boolean isMac = System.getProperty("os.name").contains("Mac");
-	static public boolean isIos = false;
-	static public boolean isAndroid = false;
-	static public boolean isARM = System.getProperty("os.arch").startsWith("arm");
-	static public boolean is64Bit = System.getProperty("os.arch").equals("amd64")
-		|| System.getProperty("os.arch").equals("x86_64");
 
-	// JDK 8 only.
-	static public String abi = (System.getProperty("sun.arch.abi") != null ? System.getProperty("sun.arch.abi") : "");
+    static public Os os;
+    static public Architecture.Bitness bitness = Architecture.Bitness._32;
+    static public Architecture architecture = Architecture.x86;
 
-	static {
-		boolean isMOEiOS = "iOS".equals(System.getProperty("moe.platform.name"));
-		String vm = System.getProperty("java.runtime.name");
-		if (vm != null && vm.contains("Android Runtime")) {
-			isAndroid = true;
-			isWindows = false;
-			isLinux = false;
-			isMac = false;
-			is64Bit = false;
-		}
-		if (isMOEiOS || (!isAndroid && !isWindows && !isLinux && !isMac)) {
-			isIos = true;
-			isAndroid = false;
-			isWindows = false;
-			isLinux = false;
-			isMac = false;
-			is64Bit = false;
-		}
-	}
+    static {
+        if (System.getProperty("os.name").contains("Windows"))
+            os = Os.Windows;
+        else if (System.getProperty("os.name").contains("Linux"))
+            os = Os.Linux;
+        else if (System.getProperty("os.name").contains("Mac"))
+            os = Os.MacOsX;
 
-	static private final HashSet<String> loadedLibraries = new HashSet();
+        if (System.getProperty("os.arch").startsWith("arm") || System.getProperty("os.arch").startsWith("aarch64"))
+            architecture = Architecture.ARM;
+        else if (System.getProperty("os.arch").startsWith("riscv"))
+            architecture = Architecture.RISCV;
+        else if (System.getProperty("os.arch").startsWith("loongarch"))
+            architecture = Architecture.LOONGARCH;
 
-	private String nativesJar;
+        if (System.getProperty("os.arch").contains("64") || System.getProperty("os.arch").startsWith("armv8"))
+            bitness = Architecture.Bitness._64;
+        else if (System.getProperty("os.arch").contains("128"))
+            bitness = Architecture.Bitness._128;
 
-	public SharedLibraryLoader () {
-	}
+        boolean isMOEiOS = System.getProperty("moe.platform.name") != null;
+        String vm = System.getProperty("java.runtime.name");
+        if (vm != null && vm.contains("Android Runtime")) {
+            os = Os.Android;
+            bitness = Architecture.Bitness._32;
+            architecture = Architecture.x86;
+        }
+        if (isMOEiOS || (os != Os.Android && os != Os.Windows && os != Os.Linux && os != Os.MacOsX)) {
+            os = Os.IOS;
+            bitness = Architecture.Bitness._32;
+            architecture = Architecture.x86;
+        }
+    }
 
-	/** Fetches the natives from the given natives jar file. Used for testing a shared lib on the fly.
-	 * @param nativesJar */
-	public SharedLibraryLoader (String nativesJar) {
-		this.nativesJar = nativesJar;
-	}
+    /**
+     * @deprecated Use {@link #os} as {@code SharedLibraryLoader.os == Os.Windows} instead.
+     */
+    @Deprecated
+    static public boolean isWindows = os == Os.Windows;
+    /**
+     * @deprecated Use {@link #os} as {@code SharedLibraryLoader.os == Os.Linux} instead.
+     */
+    @Deprecated
+    static public boolean isLinux = os == Os.Linux;
+    /**
+     * @deprecated Use {@link #os} as {@code SharedLibraryLoader.os == Os.MacOsX} instead.
+     */
+    @Deprecated
+    static public boolean isMac = os == Os.MacOsX;
+    /**
+     * @deprecated Use {@link #os} as {@code SharedLibraryLoader.os == Os.IOS} instead.
+     */
+    @Deprecated
+    static public boolean isIos = os == Os.IOS;
+    /**
+     * @deprecated Use {@link #os} as {@code SharedLibraryLoader.os == Os.Android} instead.
+     */
+    @Deprecated
+    static public boolean isAndroid = os == Os.Android;
+    /**
+     * @deprecated Use {@link #architecture} as {@code SharedLibraryLoader.architecture == Architecture.ARM} instead.
+     */
+    @Deprecated
+    static public boolean isARM = architecture == Architecture.ARM;
+    /**
+     * @deprecated Use {@link #bitness} as {@code SharedLibraryLoader.bitness == Architecture.Bitness._64} instead.
+     */
+    @Deprecated
+    static public boolean is64Bit = bitness == Architecture.Bitness._64;
 
-	/** Returns a CRC of the remaining bytes in the stream. */
-	public String crc (InputStream input) {
-		if (input == null) throw new IllegalArgumentException("input cannot be null.");
-		CRC32 crc = new CRC32();
-		byte[] buffer = new byte[4096];
-		try {
-			while (true) {
-				int length = input.read(buffer);
-				if (length == -1) break;
-				crc.update(buffer, 0, length);
-			}
-		} catch (Exception ex) {
-		} finally {
-			StreamUtils.closeQuietly(input);
-		}
-		return Long.toString(crc.getValue(), 16);
-	}
+    static private final HashSet<String> loadedLibraries = new HashSet<>();
+    static private final Random random = new Random();
 
-	/** Maps a platform independent library name to a platform dependent name. */
-	public String mapLibraryName (String libraryName) {
-		if (isWindows) return libraryName + (is64Bit ? "64.dll" : ".dll");
-		if (isLinux) return "lib" + libraryName + (isARM ? "arm" + abi : "") + (is64Bit ? "64.so" : ".so");
-		if (isMac) return "lib" + libraryName + (is64Bit ? "64.dylib" : ".dylib");
-		return libraryName;
-	}
+    private String nativesJar;
 
-	/** Loads a shared library for the platform the application is running on.
-	 * @param libraryName The platform independent library name. If not contain a prefix (eg lib) or suffix (eg .dll). */
-	public void load (String libraryName) {
-		// in case of iOS, things have been linked statically to the executable, bail out.
-		if (isIos) return;
+    public SharedLibraryLoader () {
+    }
 
-		synchronized (SharedLibraryLoader.class) {
-			if (isLoaded(libraryName)) return;
-			String platformName = mapLibraryName(libraryName);
-			try {
-				if (isAndroid)
-					System.loadLibrary(platformName);
-				else
-					loadFile(platformName);
-				setLoaded(libraryName);
-			} catch (Throwable ex) {
-				throw new GdxRuntimeException("Couldn't load shared library '" + platformName + "' for target: "
-					+ System.getProperty("os.name") + (is64Bit ? ", 64-bit" : ", 32-bit"), ex);
-			}
-		}
-	}
+    static String randomUUID () {
+        return new UUID(random.nextLong(), random.nextLong()).toString();
+    }
 
-	private InputStream readFile (String path) {
-		if (nativesJar == null) {
-			InputStream input = SharedLibraryLoader.class.getResourceAsStream("/" + path);
-			if (input == null) throw new GdxRuntimeException("Unable to read file for extraction: " + path);
-			return input;
-		}
+    /** Fetches the natives from the given natives jar file. Used for testing a shared lib on the fly.
+     * @param nativesJar */
+    public SharedLibraryLoader (String nativesJar) {
+        this.nativesJar = nativesJar;
+    }
 
-		// Read from JAR.
-		try {
-			ZipFile file = new ZipFile(nativesJar);
-			ZipEntry entry = file.getEntry(path);
-			if (entry == null) throw new GdxRuntimeException("Couldn't find '" + path + "' in JAR: " + nativesJar);
-			return file.getInputStream(entry);
-		} catch (IOException ex) {
-			throw new GdxRuntimeException("Error reading '" + path + "' in JAR: " + nativesJar, ex);
-		}
-	}
+    /** Returns a CRC of the remaining bytes in the stream. */
+    public String crc (InputStream input) {
+        if (input == null) throw new IllegalArgumentException("input cannot be null.");
+        CRC32 crc = new CRC32();
+        byte[] buffer = new byte[4096];
+        try {
+            while (true) {
+                int length = input.read(buffer);
+                if (length == -1) break;
+                crc.update(buffer, 0, length);
+            }
+        } catch (Exception ex) {
+        } finally {
+            closeQuietly(input);
+        }
+        return Long.toString(crc.getValue(), 16);
+    }
 
-	/** Extracts the specified file to the specified directory if it does not already exist or the CRC does not match. If file
-	 * extraction fails and the file exists at java.library.path, that file is returned.
-	 * @param sourcePath The file to extract from the classpath or JAR.
-	 * @param dirName The name of the subdirectory where the file will be extracted. If null, the file's CRC will be used.
-	 * @return The extracted file. */
-	public File extractFile (String sourcePath, String dirName) throws IOException {
-		try {
-			String sourceCrc = crc(readFile(sourcePath));
-			if (dirName == null) dirName = sourceCrc;
+    /** Maps a platform independent library name to a platform dependent name. */
+    public String mapLibraryName (String libraryName) {
+        if (os == Os.Android)
+            return libraryName;
+        return os.getLibPrefix() + libraryName + architecture.toSuffix() + bitness.toSuffix() + "." + os.getLibExtension();
+    }
 
-			File extractedFile = getExtractedFile(dirName, new File(sourcePath).getName());
-			if (extractedFile == null) {
-				extractedFile = getExtractedFile(UUID.randomUUID().toString(), new File(sourcePath).getName());
-				if (extractedFile == null) throw new GdxRuntimeException(
-					"Unable to find writable path to extract file. Is the user home directory writable?");
-			}
-			return extractFile(sourcePath, sourceCrc, extractedFile);
-		} catch (RuntimeException ex) {
-			// Fallback to file at java.library.path location, eg for applets.
-			File file = new File(System.getProperty("java.library.path"), sourcePath);
-			if (file.exists()) return file;
-			throw ex;
-		}
-	}
+    /** Loads a shared library for the platform the application is running on.
+     * @param libraryName The platform independent library name. If not contain a prefix (eg lib) or suffix (eg .dll). */
+    public void load (String libraryName) {
+        // in case of iOS, it's unnecessary to dlopen
+        if (os == Os.IOS) return;
 
-	/** Extracts the specified file into the temp directory if it does not already exist or the CRC does not match. If file
-	 * extraction fails and the file exists at java.library.path, that file is returned.
-	 * @param sourcePath The file to extract from the classpath or JAR.
-	 * @param dir The location where the extracted file will be written. */
-	public void extractFileTo (String sourcePath, File dir) throws IOException {
-		extractFile(sourcePath, crc(readFile(sourcePath)), new File(dir, new File(sourcePath).getName()));
-	}
+        synchronized (SharedLibraryLoader.class) {
+            if (isLoaded(libraryName)) return;
+            String platformName = mapLibraryName(libraryName);
+            try {
+                if (os == Os.Android)
+                    System.loadLibrary(platformName);
+                else
+                    loadFile(platformName);
+                setLoaded(libraryName);
+            } catch (Throwable ex) {
 
-	/** Returns a path to a file that can be written. Tries multiple locations and verifies writing succeeds.
-	 * @return null if a writable path could not be found. */
-	private File getExtractedFile (String dirName, String fileName) {
-		// Temp directory with username in path.
-		File idealFile = new File(
-			System.getProperty("java.io.tmpdir") + "/libgdx" + System.getProperty("user.name") + "/" + dirName, fileName);
-		if (canWrite(idealFile)) return idealFile;
+            }
+        }
+    }
 
-		// System provided temp directory.
-		try {
-			File file = File.createTempFile(dirName, null);
-			if (file.delete()) {
-				file = new File(file, fileName);
-				if (canWrite(file)) return file;
-			}
-		} catch (IOException ignored) {
-		}
+    private InputStream readFile (String path) {
+        if (nativesJar == null) {
+            InputStream input = SharedLibraryLoader.class.getResourceAsStream("/" + path);
+            if (input == null) throw new SharedLibraryLoadRuntimeException("Unable to read file for extraction: " + path);
+            return input;
+        }
 
-		// User home.
-		File file = new File(System.getProperty("user.home") + "/.libgdx/" + dirName, fileName);
-		if (canWrite(file)) return file;
+        // Read from JAR.
+        try {
+            ZipFile file = new ZipFile(nativesJar);
+            ZipEntry entry = file.getEntry(path);
+            if (entry == null) throw new SharedLibraryLoadRuntimeException("Couldn't find '" + path + "' in JAR: " + nativesJar);
+            return file.getInputStream(entry);
+        } catch (IOException ex) {
+            throw new SharedLibraryLoadRuntimeException("Error reading '" + path + "' in JAR: " + nativesJar, ex);
+        }
+    }
 
-		// Relative directory.
-		file = new File(".temp/" + dirName, fileName);
-		if (canWrite(file)) return file;
+    /** Extracts the specified file to the specified directory if it does not already exist or the CRC does not match. If file
+     * extraction fails and the file exists at java.library.path, that file is returned.
+     * @param sourcePath The file to extract from the classpath or JAR.
+     * @param dirName The name of the subdirectory where the file will be extracted. If null, the file's CRC will be used.
+     * @return The extracted file. */
+    public File extractFile (String sourcePath, String dirName) throws IOException {
+        try {
+            String sourceCrc = crc(readFile(sourcePath));
+            if (dirName == null) dirName = sourceCrc;
 
-		// We are running in the OS X sandbox.
-		if (System.getenv("APP_SANDBOX_CONTAINER_ID") != null) return idealFile;
+            File extractedFile = getExtractedFile(dirName, new File(sourcePath).getName());
+            if (extractedFile == null) {
+                extractedFile = getExtractedFile(randomUUID(), new File(sourcePath).getName());
+                if (extractedFile == null) throw new SharedLibraryLoadRuntimeException(
+                        "Unable to find writable path to extract file. Is the user home directory writable?");
+            }
+            return extractFile(sourcePath, sourceCrc, extractedFile);
+        } catch (RuntimeException ex) {
+            // Fallback to file at java.library.path location, eg for applets.
+            File file = new File(System.getProperty("java.library.path"), sourcePath);
+            if (file.exists()) return file;
+            throw ex;
+        }
+    }
 
-		return null;
-	}
+    /** Extracts the specified file into the temp directory if it does not already exist or the CRC does not match. If file
+     * extraction fails and the file exists at java.library.path, that file is returned.
+     * @param sourcePath The file to extract from the classpath or JAR.
+     * @param dir The location where the extracted file will be written. */
+    public void extractFileTo (String sourcePath, File dir) throws IOException {
+        extractFile(sourcePath, crc(readFile(sourcePath)), new File(dir, new File(sourcePath).getName()));
+    }
 
-	/** Returns true if the parent directories of the file can be created and the file can be written. */
-	private boolean canWrite (File file) {
-		File parent = file.getParentFile();
-		File testFile;
-		if (file.exists()) {
-			if (!file.canWrite() || !canExecute(file)) return false;
-			// Don't overwrite existing file just to check if we can write to directory.
-			testFile = new File(parent, UUID.randomUUID().toString());
-		} else {
-			parent.mkdirs();
-			if (!parent.isDirectory()) return false;
-			testFile = file;
-		}
-		try {
-			new FileOutputStream(testFile).close();
-			if (!canExecute(testFile)) return false;
-			return true;
-		} catch (Throwable ex) {
-			return false;
-		} finally {
-			testFile.delete();
-		}
-	}
+    /** Returns a path to a file that can be written. Tries multiple locations and verifies writing succeeds.
+     * @return null if a writable path could not be found. */
+    private File getExtractedFile (String dirName, String fileName) {
+        // Temp directory with username in path.
+        File idealFile = new File(
+                System.getProperty("java.io.tmpdir") + "/libgdx" + System.getProperty("user.name") + "/" + dirName, fileName);
+        if (canWrite(idealFile)) return idealFile;
 
-	private boolean canExecute (File file) {
-		try {
-			Method canExecute = File.class.getMethod("canExecute");
-			if ((Boolean)canExecute.invoke(file)) return true;
+        // System provided temp directory.
+        try {
+            File file = File.createTempFile(dirName, null);
+            if (file.delete()) {
+                file = new File(file, fileName);
+                if (canWrite(file)) return file;
+            }
+        } catch (IOException ignored) {
+        }
 
-			Method setExecutable = File.class.getMethod("setExecutable", boolean.class, boolean.class);
-			setExecutable.invoke(file, true, false);
+        // User home.
+        File file = new File(System.getProperty("user.home") + "/.libgdx/" + dirName, fileName);
+        if (canWrite(file)) return file;
 
-			return (Boolean)canExecute.invoke(file);
-		} catch (Exception ignored) {
-		}
-		return false;
-	}
+        // Relative directory.
+        file = new File(".temp/" + dirName, fileName);
+        if (canWrite(file)) return file;
 
-	private File extractFile (String sourcePath, String sourceCrc, File extractedFile) throws IOException {
-		String extractedCrc = null;
-		if (extractedFile.exists()) {
-			try {
-				extractedCrc = crc(new FileInputStream(extractedFile));
-			} catch (FileNotFoundException ignored) {
-			}
-		}
+        // We are running in the OS X sandbox.
+        if (System.getenv("APP_SANDBOX_CONTAINER_ID") != null) return idealFile;
 
-		// If file doesn't exist or the CRC doesn't match, extract it to the temp dir.
-		if (extractedCrc == null || !extractedCrc.equals(sourceCrc)) {
-			InputStream input = null;
-			FileOutputStream output = null;
-			try {
-				input = readFile(sourcePath);
-				extractedFile.getParentFile().mkdirs();
-				output = new FileOutputStream(extractedFile);
-				byte[] buffer = new byte[4096];
-				while (true) {
-					int length = input.read(buffer);
-					if (length == -1) break;
-					output.write(buffer, 0, length);
-				}
-			} catch (IOException ex) {
-				throw new GdxRuntimeException("Error extracting file: " + sourcePath + "\nTo: " + extractedFile.getAbsolutePath(),
-					ex);
-			} finally {
-				StreamUtils.closeQuietly(input);
-				StreamUtils.closeQuietly(output);
-			}
-		}
+        return null;
+    }
 
-		return extractedFile;
-	}
+    /** Returns true if the parent directories of the file can be created and the file can be written. */
+    private boolean canWrite (File file) {
+        File parent = file.getParentFile();
+        File testFile;
+        if (file.exists()) {
+            if (!file.canWrite() || !canExecute(file)) return false;
+            // Don't overwrite existing file just to check if we can write to directory.
+            testFile = new File(parent, randomUUID().toString());
+        } else {
+            parent.mkdirs();
+            if (!parent.isDirectory()) return false;
+            testFile = file;
+        }
+        try {
+            new FileOutputStream(testFile).close();
+            if (!canExecute(testFile)) return false;
+            return true;
+        } catch (Throwable ex) {
+            return false;
+        } finally {
+            testFile.delete();
+        }
+    }
 
-	/** Extracts the source file and calls System.load. Attemps to extract and load from multiple locations. Throws runtime
-	 * exception if all fail. */
-	private void loadFile (String sourcePath) {
-		String sourceCrc = crc(readFile(sourcePath));
+    private boolean canExecute (File file) {
+        try {
+            Method canExecute = File.class.getMethod("canExecute");
+            if ((Boolean)canExecute.invoke(file)) return true;
 
-		String fileName = new File(sourcePath).getName();
+            Method setExecutable = File.class.getMethod("setExecutable", boolean.class, boolean.class);
+            setExecutable.invoke(file, true, false);
 
-		// Temp directory with username in path.
-		File file = new File(System.getProperty("java.io.tmpdir") + "/libgdx" + System.getProperty("user.name") + "/" + sourceCrc,
-			fileName);
-		Throwable ex = loadFile(sourcePath, sourceCrc, file);
-		if (ex == null) return;
+            return (Boolean)canExecute.invoke(file);
+        } catch (Exception ignored) {
+        }
+        return false;
+    }
 
-		// System provided temp directory.
-		try {
-			file = File.createTempFile(sourceCrc, null);
-			if (file.delete() && loadFile(sourcePath, sourceCrc, file) == null) return;
-		} catch (Throwable ignored) {
-		}
+    private File extractFile (String sourcePath, String sourceCrc, File extractedFile) throws IOException {
+        String extractedCrc = null;
+        if (extractedFile.exists()) {
+            try {
+                extractedCrc = crc(new FileInputStream(extractedFile));
+            } catch (FileNotFoundException ignored) {
+            }
+        }
 
-		// User home.
-		file = new File(System.getProperty("user.home") + "/.libgdx/" + sourceCrc, fileName);
-		if (loadFile(sourcePath, sourceCrc, file) == null) return;
+        // If file doesn't exist or the CRC doesn't match, extract it to the temp dir.
+        if (extractedCrc == null || !extractedCrc.equals(sourceCrc)) {
+            InputStream input = null;
+            FileOutputStream output = null;
+            try {
+                input = readFile(sourcePath);
+                extractedFile.getParentFile().mkdirs();
+                output = new FileOutputStream(extractedFile);
+                byte[] buffer = new byte[4096];
+                while (true) {
+                    int length = input.read(buffer);
+                    if (length == -1) break;
+                    output.write(buffer, 0, length);
+                }
+            } catch (IOException ex) {
+                throw new SharedLibraryLoadRuntimeException("Error extracting file: " + sourcePath + "\nTo: " + extractedFile.getAbsolutePath(),
+                        ex);
+            } finally {
+                closeQuietly(input);
+                closeQuietly(output);
+            }
+        }
 
-		// Relative directory.
-		file = new File(".temp/" + sourceCrc, fileName);
-		if (loadFile(sourcePath, sourceCrc, file) == null) return;
+        return extractedFile;
+    }
 
-		// Fallback to java.library.path location, eg for applets.
-		file = new File(System.getProperty("java.library.path"), sourcePath);
-		if (file.exists()) {
-			System.load(file.getAbsolutePath());
-			return;
-		}
+    /** Extracts the source file and calls System.load. Attemps to extract and load from multiple locations. Throws runtime
+     * exception if all fail. */
+    private void loadFile (String sourcePath) {
+        String sourceCrc = crc(readFile(sourcePath));
 
-		throw new GdxRuntimeException(ex);
-	}
+        String fileName = new File(sourcePath).getName();
 
-	/** @return null if the file was extracted and loaded. */
-	private Throwable loadFile (String sourcePath, String sourceCrc, File extractedFile) {
-		try {
-			System.load(extractFile(sourcePath, sourceCrc, extractedFile).getAbsolutePath());
-			return null;
-		} catch (Throwable ex) {
-			return ex;
-		}
-	}
+        // Temp directory with username in path.
+        File file = new File(System.getProperty("java.io.tmpdir") + "/libgdx" + System.getProperty("user.name") + "/" + sourceCrc,
+                fileName);
+        Throwable ex = loadFile(sourcePath, sourceCrc, file);
+        if (ex == null) return;
 
-	/** Sets the library as loaded, for when application code wants to handle libary loading itself. */
-	static public synchronized void setLoaded (String libraryName) {
-		loadedLibraries.add(libraryName);
-	}
+        // System provided temp directory.
+        try {
+            file = File.createTempFile(sourceCrc, null);
+            if (file.delete() && loadFile(sourcePath, sourceCrc, file) == null) return;
+        } catch (Throwable ignored) {
+        }
 
-	static public synchronized boolean isLoaded (String libraryName) {
-		return loadedLibraries.contains(libraryName);
-	}
+        // User home.
+        file = new File(System.getProperty("user.home") + "/.libgdx/" + sourceCrc, fileName);
+        if (loadFile(sourcePath, sourceCrc, file) == null) return;
+
+        // Relative directory.
+        file = new File(".temp/" + sourceCrc, fileName);
+        if (loadFile(sourcePath, sourceCrc, file) == null) return;
+
+        // Fallback to java.library.path location, eg for applets.
+        file = new File(System.getProperty("java.library.path"), sourcePath);
+        if (file.exists()) {
+            System.load(file.getAbsolutePath());
+            return;
+        }
+
+        throw new SharedLibraryLoadRuntimeException(ex);
+    }
+
+    /** @return null if the file was extracted and loaded. */
+    private Throwable loadFile (String sourcePath, String sourceCrc, File extractedFile) {
+        try {
+            System.load(extractFile(sourcePath, sourceCrc, extractedFile).getAbsolutePath());
+            return null;
+        } catch (Throwable ex) {
+            return ex;
+        }
+    }
+
+    /** Sets the library as loaded, for when application code wants to handle libary loading itself. */
+    static public synchronized void setLoaded (String libraryName) {
+        loadedLibraries.add(libraryName);
+    }
+
+    static public synchronized boolean isLoaded (String libraryName) {
+        return loadedLibraries.contains(libraryName);
+    }
+
+    public static void closeQuietly (Closeable c) {
+        if (c != null) {
+            try {
+                c.close();
+            } catch (Throwable ignored) {
+            }
+        }
+    }
 }

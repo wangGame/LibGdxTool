@@ -16,77 +16,78 @@
 
 package com.badlogic.gdx.scenes.scene2d.ui;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.Null;
 
-/** A tooltip that shows a com.kw.gdx.label.
+/** A tooltip that shows a label.
  * @author Nathan Sweet */
 public class TextTooltip extends Tooltip<Label> {
-	public TextTooltip (String text, Skin skin) {
+	public TextTooltip (@Null String text, Skin skin) {
 		this(text, TooltipManager.getInstance(), skin.get(TextTooltipStyle.class));
 	}
 
-	public TextTooltip (String text, Skin skin, String styleName) {
+	public TextTooltip (@Null String text, Skin skin, String styleName) {
 		this(text, TooltipManager.getInstance(), skin.get(styleName, TextTooltipStyle.class));
 	}
 
-	public TextTooltip (String text, TextTooltipStyle style) {
+	public TextTooltip (@Null String text, TextTooltipStyle style) {
 		this(text, TooltipManager.getInstance(), style);
 	}
 
-	public TextTooltip (String text, TooltipManager manager, Skin skin) {
+	public TextTooltip (@Null String text, TooltipManager manager, Skin skin) {
 		this(text, manager, skin.get(TextTooltipStyle.class));
 	}
 
-	public TextTooltip (String text, TooltipManager manager, Skin skin, String styleName) {
+	public TextTooltip (@Null String text, TooltipManager manager, Skin skin, String styleName) {
 		this(text, manager, skin.get(styleName, TextTooltipStyle.class));
 	}
 
-	public TextTooltip (String text, final TooltipManager manager, TextTooltipStyle style) {
+	public TextTooltip (@Null String text, final TooltipManager manager, TextTooltipStyle style) {
 		super(null, manager);
 
-		Label label = new Label(text, style.label);
-		label.setWrap(true);
-
-		container.setActor(label);
-		container.width(new Value() {
-			public float get (Actor context) {
-				return Math.min(manager.maxWidth, container.getActor().getGlyphLayout().width);
-			}
-		});
+		container.setActor(newLabel(text, style.label));
 
 		setStyle(style);
 	}
 
+	protected Label newLabel (String text, LabelStyle style) {
+		return new Label(text, style);
+	}
+
 	public void setStyle (TextTooltipStyle style) {
 		if (style == null) throw new NullPointerException("style cannot be null");
-		if (!(style instanceof TextTooltipStyle)) throw new IllegalArgumentException("style must be a TextTooltipStyle.");
-		container.getActor().setStyle(style.label);
 		container.setBackground(style.background);
 		container.maxWidth(style.wrapWidth);
+
+		boolean wrap = style.wrapWidth != 0;
+		container.fill(wrap);
+
+		Label label = container.getActor();
+		label.setStyle(style.label);
+		label.setWrap(wrap);
 	}
 
 	/** The style for a text tooltip, see {@link TextTooltip}.
 	 * @author Nathan Sweet */
 	static public class TextTooltipStyle {
 		public LabelStyle label;
-		/** Optional. */
-		public Drawable background;
-		/** Optional, 0 means don't wrap. */
+		public @Null Drawable background;
+		/** 0 means don't wrap. */
 		public float wrapWidth;
 
 		public TextTooltipStyle () {
 		}
 
-		public TextTooltipStyle (LabelStyle label, Drawable background) {
+		public TextTooltipStyle (LabelStyle label, @Null Drawable background) {
 			this.label = label;
 			this.background = background;
 		}
 
 		public TextTooltipStyle (TextTooltipStyle style) {
-			this.label = new LabelStyle(style.label);
+			label = new LabelStyle(style.label);
 			background = style.background;
+			wrapWidth = style.wrapWidth;
 		}
 	}
 }

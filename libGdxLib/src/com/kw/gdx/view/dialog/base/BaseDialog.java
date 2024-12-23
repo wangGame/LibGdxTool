@@ -124,7 +124,7 @@ public class BaseDialog extends Group {
     private float timeScale =0.7f;
 
     public void enterAnimation() {
-        setAphlaZero();
+
         addAction(Actions.parallel(
                 Actions.sequence(
                         Actions.alpha(0,0),

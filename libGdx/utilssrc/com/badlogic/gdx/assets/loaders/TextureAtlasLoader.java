@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.TextureAtlasData;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.TextureAtlasData.Page;
 import com.badlogic.gdx.utils.Array;
-import com.ui.plist.PlistAtlas;
 
 /** {@link AssetLoader} to load {@link TextureAtlas} instances. Passing a {@link TextureAtlasParameter} to
  * {@link AssetManager#load(String, Class, AssetLoaderParameters)} allows to specify whether the atlas regions should be flipped
@@ -58,14 +57,7 @@ public class TextureAtlasLoader extends SynchronousAssetLoader<TextureAtlas, Tex
 		if (parameter != null)
 			data = new TextureAtlasData(atlasFile, imgDir, parameter.flip);
 		else {
-			if (fileName.endsWith("plist")) {
-				PlistAtlas.PlistAtlasData plistAtlasData = new PlistAtlas.PlistAtlasData(atlasFile, imgDir);
-				Array<Page> pages = plistAtlasData.getPages();
-				Array<TextureAtlasData.Region> regions = plistAtlasData.getRegions();
-				data = new TextureAtlasData(pages,regions);
-			}else {
-				data = new TextureAtlasData(atlasFile, imgDir, false);
-			}
+			data = new TextureAtlasData(atlasFile, imgDir, false);
 		}
 
 		Array<AssetDescriptor> dependencies = new Array();
@@ -83,8 +75,6 @@ public class TextureAtlasLoader extends SynchronousAssetLoader<TextureAtlas, Tex
 	static public class TextureAtlasParameter extends AssetLoaderParameters<TextureAtlas> {
 		/** whether to flip the texture atlas vertically **/
 		public boolean flip = false;
-
-
 
 		public TextureAtlasParameter () {
 		}

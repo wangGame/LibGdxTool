@@ -30,15 +30,6 @@ public class TextureMapObject extends MapObject {
 	private float scaleY = 1.0f;
 	private float rotation = 0.0f;
 	private TextureRegion textureRegion = null;
-	private String path;
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getPath() {
-		return path;
-	}
 
 	/** @return x axis coordinate */
 	public float getX () {

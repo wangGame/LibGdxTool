@@ -72,7 +72,6 @@ public class WidgetGroup extends Group implements Layout {
 	}
 
 	public void setLayoutEnabled (boolean enabled) {
-		if (layoutEnabled == enabled) return;
 		layoutEnabled = enabled;
 		setLayoutEnabled(this, enabled);
 	}
@@ -93,25 +92,27 @@ public class WidgetGroup extends Group implements Layout {
 
 		Group parent = getParent();
 		if (fillParent && parent != null) {
-			float parentWidth, parentHeight;
 			Stage stage = getStage();
-			if (stage != null && parent == stage.getRoot()) {
-				parentWidth = stage.getWidth();
-				parentHeight = stage.getHeight();
-			} else {
-				parentWidth = parent.getWidth();
-				parentHeight = parent.getHeight();
-			}
-			if (getWidth() != parentWidth || getHeight() != parentHeight) {
-				setWidth(parentWidth);
-				setHeight(parentHeight);
-				invalidate();
-			}
+			if (stage != null && parent == stage.getRoot())
+				setSize(stage.getWidth(), stage.getHeight());
+			else
+				setSize(parent.getWidth(), parent.getHeight());
 		}
 
 		if (!needsLayout) return;
 		needsLayout = false;
 		layout();
+
+		// Widgets may call invalidateHierarchy during layout (eg, a wrapped label). The root-most widget group retries layout a
+		// reasonable number of times.
+		if (needsLayout) {
+			if (parent instanceof WidgetGroup) return; // The parent widget will layout again.
+			for (int i = 0; i < 5; i++) {
+				needsLayout = false;
+				layout();
+				if (!needsLayout) break;
+			}
+		}
 	}
 
 	/** Returns true if the widget's layout has been {@link #invalidate() invalidated}. */
@@ -140,20 +141,24 @@ public class WidgetGroup extends Group implements Layout {
 	public void pack () {
 		setSize(getPrefWidth(), getPrefHeight());
 		validate();
-		// Some situations require another layout. Eg, a wrapped com.kw.gdx.label doesn't know its pref height until it knows its width, so it
-		// calls invalidateHierarchy() in layout() if its pref height has changed.
-		if (needsLayout) {
-			setSize(getPrefWidth(), getPrefHeight());
-			validate();
-		}
+		// Validating the layout may change the pref size. Eg, a wrapped label doesn't know its pref height until it knows its
+		// width, so it calls invalidateHierarchy() in layout() if its pref height has changed.
+		setSize(getPrefWidth(), getPrefHeight());
+		validate();
 	}
-
 
 	public void setFillParent (boolean fillParent) {
 		this.fillParent = fillParent;
 	}
 
 	public void layout () {
+	}
+
+	/** If this method is overridden, the super method or {@link #validate()} should be called to ensure the widget group is laid
+	 * out. */
+	public Actor hit (float x, float y, boolean touchable) {
+		validate();
+		return super.hit(x, y, touchable);
 	}
 
 	/** If this method is overridden, the super method or {@link #validate()} should be called to ensure the widget group is laid

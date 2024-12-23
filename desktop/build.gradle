@@ -7,8 +7,14 @@ sourceSets.main.resources.srcDirs = ["../android/assets"]
 sourceCompatibility = 1.8
 
 dependencies {
-    implementation files('libs/gdx-backend-lwjgl.jar')
-    implementation files('libs/gdx-backend-lwjgl-natives.jar')
+    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-backend-lwjgl
+    implementation group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl', version: '1.13.0'
+//    implementation group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl-natives', version: '1.13.0'
+// https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-platform
+    testImplementation group: 'com.badlogicgames.gdx', name: 'gdx-platform', version: '1.13.0', ext: 'pom'
+
+//    implementation files('libs/gdx-backend-lwjgl.jar')
+//    implementation files('libs/gdx-backend-lwjgl-natives.jar')
     implementation files('libs/gdx-natives.jar')
     implementation files('libs/gdx-tools.jar')
     implementation files('libs/gdx-PVR-0.2.1-b34.jar')

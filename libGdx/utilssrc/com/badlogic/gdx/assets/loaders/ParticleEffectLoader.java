@@ -26,7 +26,7 @@ import com.badlogic.gdx.utils.Array;
 
 /** {@link AssetLoader} to load {@link ParticleEffect} instances. Passing a {@link ParticleEffectParameter} to
  * {@link AssetManager#load(String, Class, AssetLoaderParameters)} allows to specify an atlas file or an image directory to be
- * used for the com.kw.gdx.animation.effect's images. Per default images are loaded from the directory in which the com.kw.gdx.animation.effect file is found. */
+ * used for the effect's images. Per default images are loaded from the directory in which the effect file is found. */
 public class ParticleEffectLoader extends SynchronousAssetLoader<ParticleEffect, ParticleEffectLoader.ParticleEffectParameter> {
 	public ParticleEffectLoader (FileHandleResolver resolver) {
 		super(resolver);

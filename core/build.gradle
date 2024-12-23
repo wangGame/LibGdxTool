@@ -13,6 +13,9 @@ dependencies {
     implementation project(":libCommon")
     implementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx
+//    implementation group: 'com.badlogicgames.gdx', name: 'gdx', version: '1.13.0'
+
 }
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");

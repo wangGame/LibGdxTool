@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.esotericsoftware.spine.SkeletonRenderer;
+import com.esotericsoftware.spine.utils.SkeletonDataLoader;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.resource.annotation.AssetResource;
 import com.kw.gdx.resource.annotation.FtResource;
@@ -31,15 +32,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Disposable;
 import com.esotericsoftware.spine.SkeletonData;
 import com.kw.gdx.constant.Configuration;
-import com.esotericsoftware.spine.loader.SkeletonDataLoader;
-import com.kw.gdx.mini.MiniTextureAtlasLoader;
 import com.kw.gdx.mini.MiniTextureLoader;
 import com.kw.gdx.utils.log.NLog;
-import com.ui.ManagerUIEditor;
-import com.ui.loader.ManagerUILoader;
-import com.ui.plist.MiniPlistAtlasLoader;
-import com.ui.plist.PlistAtlas;
-import com.ui.plist.PlistAtlasLoader;
+
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -157,17 +152,7 @@ public class Asset implements Disposable {
         }
     }
 
-    public PlistAtlas getPlist(String path){
-        return getPlist(path,Asset.assetManager);
-    }
 
-    public PlistAtlas getPlist(String path,AssetManager assetManager){
-        if (assetManager.isLoaded(path)) {
-            assetManager.load(path, PlistAtlas.class);
-            assetManager.finishLoading();
-        }
-        return assetManager.get(path,PlistAtlas.class);
-    }
 
     public TextureAtlas getAtlas(String path){
         return getAtlas(path,Asset.assetManager);
@@ -245,25 +230,16 @@ public class Asset implements Disposable {
     public AssetManager getAssetManager(){
         if (assetManager == null){
             assetManager = new AssetManager();
-            assetManager.setLoader(ManagerUIEditor.class,new ManagerUILoader(assetManager.getFileHandleResolver()));
-            assetManager.setLoader(PlistAtlas.class, new PlistAtlasLoader(assetManager.getFileHandleResolver()));
+
+
             assetManager.setLoader(SkeletonData.class,new SkeletonDataLoader(assetManager.getFileHandleResolver()));
             if (Configuration.device_state == Configuration.DeviceState.poor) {
-                assetManager.setLoader(TextureAtlas.class, new MiniTextureAtlasLoader(assetManager.getFileHandleResolver(), Configuration.scale));
+
                 assetManager.setLoader(Texture.class, new MiniTextureLoader(assetManager.getFileHandleResolver(), Configuration.scale));
-                assetManager.setLoader(PlistAtlas.class, new MiniPlistAtlasLoader(assetManager.getFileHandleResolver(), Configuration.scale));
+
             }
-            ManagerUILoader.textureParameter.genMipMaps = false;
-            ManagerUILoader.textureParameter.minFilter = Texture.TextureFilter.Linear;
-            ManagerUILoader.textureParameter.magFilter = Texture.TextureFilter.Linear;
 
-            ManagerUILoader.plistAtlasParameter.genMipMaps = false;
-            ManagerUILoader.plistAtlasParameter.minFilter = Texture.TextureFilter.Linear;
-            ManagerUILoader.plistAtlasParameter.magFilter = Texture.TextureFilter.Linear;
 
-            ManagerUILoader.bitmapFontParameter.genMipMaps = false;
-            ManagerUILoader.bitmapFontParameter.minFilter = Texture.TextureFilter.Linear;
-            ManagerUILoader.bitmapFontParameter.magFilter = Texture.TextureFilter.Linear;
         }
         return assetManager;
     }
@@ -272,25 +248,14 @@ public class Asset implements Disposable {
         if (localAssetManager == null){
             localAssetManager = new AssetManager(new LocalFileHandleResolver());
             localAssetManager.setLoader(TiledMap.class,new TmxMapLoader());
-            localAssetManager.setLoader(ManagerUIEditor.class,new ManagerUILoader(localAssetManager.getFileHandleResolver()));
-            localAssetManager.setLoader(PlistAtlas.class, new PlistAtlasLoader(localAssetManager.getFileHandleResolver()));
+
             localAssetManager.setLoader(SkeletonData.class,new SkeletonDataLoader(localAssetManager.getFileHandleResolver()));
             if (Configuration.device_state == Configuration.DeviceState.poor) {
-                localAssetManager.setLoader(TextureAtlas.class, new MiniTextureAtlasLoader(localAssetManager.getFileHandleResolver(), Configuration.scale));
+         
                 localAssetManager.setLoader(Texture.class, new MiniTextureLoader(localAssetManager.getFileHandleResolver(), Configuration.scale));
-                localAssetManager.setLoader(PlistAtlas.class, new MiniPlistAtlasLoader(localAssetManager.getFileHandleResolver(), Configuration.scale));
+
             }
-            ManagerUILoader.textureParameter.genMipMaps = false;
-            ManagerUILoader.textureParameter.minFilter = Texture.TextureFilter.Linear;
-            ManagerUILoader.textureParameter.magFilter = Texture.TextureFilter.Linear;
 
-            ManagerUILoader.plistAtlasParameter.genMipMaps = false;
-            ManagerUILoader.plistAtlasParameter.minFilter = Texture.TextureFilter.Linear;
-            ManagerUILoader.plistAtlasParameter.magFilter = Texture.TextureFilter.Linear;
-
-            ManagerUILoader.bitmapFontParameter.genMipMaps = false;
-            ManagerUILoader.bitmapFontParameter.minFilter = Texture.TextureFilter.Linear;
-            ManagerUILoader.bitmapFontParameter.magFilter = Texture.TextureFilter.Linear;
         }
         return localAssetManager;
     }
@@ -404,10 +369,7 @@ public class Asset implements Disposable {
     }
 
     public Image createNineImg(String texture,int left,int right,int top,int bottom,boolean flipX,boolean flipY){
-        return new Image(new NinePatch(
-                new TextureRegion(Asset.getAsset().getTexture(texture)),
-                left, right, top, bottom,flipX,flipY
-        ));
+        return null;
     }
 
 

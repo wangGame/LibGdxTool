@@ -42,7 +42,7 @@ public class ConvexHull {
 	/** Returns a list of points on the convex hull in counter-clockwise order. Note: the last point in the returned list is the
 	 * same as the first one. */
 	/** Returns the convex hull polygon for the given point cloud.
-	 * @param points x,y pairs describing points. Duplicate points will result in undefined behavior.
+	 * @param points x,y pairs describing points in counter-clockwise order. Duplicate points will result in undefined behavior.
 	 * @param sorted If false, the points will be sorted by the x coordinate then the y coordinate, which is required by the convex
 	 *           hull algorithm. If sorting is done the input array is not modified and count additional working memory is needed.
 	 * @return pairs of coordinates that describe the convex hull polygon in counterclockwise order. Note the returned array is
@@ -55,6 +55,7 @@ public class ConvexHull {
 			System.arraycopy(points, offset, sortedPoints, 0, count);
 			points = sortedPoints;
 			offset = 0;
+			end = count;
 			sort(points, count);
 		}
 
@@ -94,8 +95,10 @@ public class ConvexHull {
 		return computeIndices(polygon, 0, polygon.length, sorted, yDown);
 	}
 
-	/** Computes a hull the same as {@link #computePolygon(float[], int, int, boolean)} but returns indices of the specified points. */
+	/** Computes a hull the same as {@link #computePolygon(float[], int, int, boolean)} but returns indices of the specified
+	 * points. */
 	public IntArray computeIndices (float[] points, int offset, int count, boolean sorted, boolean yDown) {
+		if (count > 32767) throw new IllegalArgumentException("count must be <= " + 32767);
 		int end = offset + count;
 
 		if (!sorted) {
@@ -103,6 +106,7 @@ public class ConvexHull {
 			System.arraycopy(points, offset, sortedPoints, 0, count);
 			points = sortedPoints;
 			offset = 0;
+			end = count;
 			sortWithIndices(points, count, yDown);
 		}
 
@@ -192,7 +196,6 @@ public class ConvexHull {
 		int up = upper;
 		int down = lower;
 		float temp;
-		short tempIndex;
 		while (down < up) {
 			while (down < up && values[down] <= x)
 				down = down + 2;
@@ -208,12 +211,13 @@ public class ConvexHull {
 				values[up + 1] = temp;
 			}
 		}
-		values[lower] = values[up];
-		values[up] = x;
+		if (x > values[up] || (x == values[up] && y < values[up + 1])) {
+			values[lower] = values[up];
+			values[up] = x;
 
-		values[lower + 1] = values[up + 1];
-		values[up + 1] = y;
-
+			values[lower + 1] = values[up + 1];
+			values[up + 1] = y;
+		}
 		return up;
 	}
 
@@ -250,7 +254,8 @@ public class ConvexHull {
 		}
 	}
 
-	private int quicksortPartitionWithIndices (final float[] values, int lower, int upper, boolean yDown, short[] originalIndices) {
+	private int quicksortPartitionWithIndices (final float[] values, int lower, int upper, boolean yDown,
+		short[] originalIndices) {
 		float x = values[lower];
 		float y = values[lower + 1];
 		int up = upper;
@@ -281,16 +286,17 @@ public class ConvexHull {
 				originalIndices[up / 2] = tempIndex;
 			}
 		}
-		values[lower] = values[up];
-		values[up] = x;
+		if (x > values[up] || (x == values[up] && (yDown ? y < values[up + 1] : y > values[up + 1]))) {
+			values[lower] = values[up];
+			values[up] = x;
 
-		values[lower + 1] = values[up + 1];
-		values[up + 1] = y;
+			values[lower + 1] = values[up + 1];
+			values[up + 1] = y;
 
-		tempIndex = originalIndices[lower / 2];
-		originalIndices[lower / 2] = originalIndices[up / 2];
-		originalIndices[up / 2] = tempIndex;
-
+			tempIndex = originalIndices[lower / 2];
+			originalIndices[lower / 2] = originalIndices[up / 2];
+			originalIndices[up / 2] = tempIndex;
+		}
 		return up;
 	}
 }

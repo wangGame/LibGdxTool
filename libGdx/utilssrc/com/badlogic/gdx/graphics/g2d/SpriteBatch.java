@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,8 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.utils.NumberUtils;
+
+import java.nio.Buffer;
 
 /** Draws batched quads using indices.
  * @see Batch
@@ -62,8 +63,8 @@ public class SpriteBatch implements Batch {
 	private ShaderProgram customShader = null;
 	private boolean ownsShader;
 
-	float color = Color.WHITE.toFloatBits();
-	private Color tempColor = new Color(1, 1, 1, 1);
+	private final Color color = new Color(1, 1, 1, 1);
+	float colorPacked = Color.WHITE_FLOAT_BITS;
 
 	/** Number of render calls since the last {@link #begin()}. **/
 	public int renderCalls = 0;
@@ -87,7 +88,7 @@ public class SpriteBatch implements Batch {
 	}
 
 	/** Constructs a new SpriteBatch. Sets the projection matrix to an orthographic projection with y-axis point upwards, x-axis
-	 * point to the carRun and the origin being in the bottom left corner of the screen. The projection will be pixel perfect with
+	 * point to the right and the origin being in the bottom left corner of the screen. The projection will be pixel perfect with
 	 * respect to the current screen resolution.
 	 * <p>
 	 * The defaultShader specifies the shader to use. Note that the names for uniforms for this default shader are different than
@@ -127,6 +128,12 @@ public class SpriteBatch implements Batch {
 			ownsShader = true;
 		} else
 			shader = defaultShader;
+
+		// Pre bind the mesh to force the upload of indices data.
+		if (vertexDataType != VertexDataType.VertexArray) {
+			mesh.bind(shader);
+			mesh.unbind(shader);
+		}
 	}
 
 	/** Returns a new instance of the default shader used by SpriteBatch for GL2 when no shader is specified. */
@@ -160,7 +167,7 @@ public class SpriteBatch implements Batch {
 			+ "}";
 
 		ShaderProgram shader = new ShaderProgram(vertexShader, fragmentShader);
-		if (shader.isCompiled() == false) throw new IllegalArgumentException("Error compiling shader: " + shader.getLog());
+		if (!shader.isCompiled()) throw new IllegalArgumentException("Error compiling shader: " + shader.getLog());
 		return shader;
 	}
 
@@ -171,9 +178,9 @@ public class SpriteBatch implements Batch {
 
 		Gdx.gl.glDepthMask(false);
 		if (customShader != null)
-			customShader.begin();
+			customShader.bind();
 		else
-			shader.begin();
+			shader.bind();
 		setupMatrices();
 
 		drawing = true;
@@ -189,43 +196,34 @@ public class SpriteBatch implements Batch {
 		GL20 gl = Gdx.gl;
 		gl.glDepthMask(true);
 		if (isBlendingEnabled()) gl.glDisable(GL20.GL_BLEND);
-
-		if (customShader != null)
-			customShader.end();
-		else
-			shader.end();
 	}
 
 	@Override
 	public void setColor (Color tint) {
-		color = tint.toFloatBits();
+		color.set(tint);
+		colorPacked = tint.toFloatBits();
 	}
 
 	@Override
 	public void setColor (float r, float g, float b, float a) {
-		int intBits = (int)(255 * a) << 24 | (int)(255 * b) << 16 | (int)(255 * g) << 8 | (int)(255 * r);
-		color = NumberUtils.intToFloatColor(intBits);
-	}
-
-	@Override
-	public void setColor (float color) {
-		this.color = color;
+		color.set(r, g, b, a);
+		colorPacked = color.toFloatBits();
 	}
 
 	@Override
 	public Color getColor () {
-		int intBits = NumberUtils.floatToIntColor(color);
-		Color color = tempColor;
-		color.r = (intBits & 0xff) / 255f;
-		color.g = ((intBits >>> 8) & 0xff) / 255f;
-		color.b = ((intBits >>> 16) & 0xff) / 255f;
-		color.a = ((intBits >>> 24) & 0xff) / 255f;
 		return color;
 	}
 
 	@Override
+	public void setPackedColor (float packedColor) {
+		Color.abgr8888ToColor(color, packedColor);
+		this.colorPacked = packedColor;
+	}
+
+	@Override
 	public float getPackedColor () {
-		return color;
+		return colorPacked;
 	}
 
 	@Override
@@ -240,7 +238,7 @@ public class SpriteBatch implements Batch {
 		else if (idx == vertices.length) //
 			flush();
 
-		// bottom left and top carRun corner points relative to origin
+		// bottom left and top right corner points relative to origin
 		final float worldOriginX = x + originX;
 		final float worldOriginY = y + originY;
 		float fx = -originX;
@@ -331,7 +329,7 @@ public class SpriteBatch implements Batch {
 			v2 = tmp;
 		}
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x1;
 		vertices[idx + 1] = y1;
@@ -390,7 +388,7 @@ public class SpriteBatch implements Batch {
 			v2 = tmp;
 		}
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x;
 		vertices[idx + 1] = y;
@@ -436,7 +434,7 @@ public class SpriteBatch implements Batch {
 		final float fx2 = x + srcWidth;
 		final float fy2 = y + srcHeight;
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x;
 		vertices[idx + 1] = y;
@@ -478,7 +476,7 @@ public class SpriteBatch implements Batch {
 		final float fx2 = x + width;
 		final float fy2 = y + height;
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x;
 		vertices[idx + 1] = y;
@@ -529,7 +527,7 @@ public class SpriteBatch implements Batch {
 		final float u2 = 1;
 		final float v2 = 0;
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x;
 		vertices[idx + 1] = y;
@@ -611,7 +609,7 @@ public class SpriteBatch implements Batch {
 		final float u2 = region.u2;
 		final float v2 = region.v;
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x;
 		vertices[idx + 1] = y;
@@ -652,7 +650,7 @@ public class SpriteBatch implements Batch {
 		} else if (idx == vertices.length) //
 			flush();
 
-		// bottom left and top carRun corner points relative to origin
+		// bottom left and top right corner points relative to origin
 		final float worldOriginX = x + originX;
 		final float worldOriginY = y + originY;
 		float fx = -originX;
@@ -731,7 +729,7 @@ public class SpriteBatch implements Batch {
 		final float u2 = region.u2;
 		final float v2 = region.v;
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x1;
 		vertices[idx + 1] = y1;
@@ -772,7 +770,7 @@ public class SpriteBatch implements Batch {
 		} else if (idx == vertices.length) //
 			flush();
 
-		// bottom left and top carRun corner points relative to origin
+		// bottom left and top right corner points relative to origin
 		final float worldOriginX = x + originX;
 		final float worldOriginY = y + originY;
 		float fx = -originX;
@@ -867,7 +865,7 @@ public class SpriteBatch implements Batch {
 			v4 = region.v2;
 		}
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x1;
 		vertices[idx + 1] = y1;
@@ -923,7 +921,7 @@ public class SpriteBatch implements Batch {
 		float u2 = region.u2;
 		float v2 = region.v;
 
-		float color = this.color;
+		float color = this.colorPacked;
 		int idx = this.idx;
 		vertices[idx] = x1;
 		vertices[idx + 1] = y1;
@@ -964,8 +962,9 @@ public class SpriteBatch implements Batch {
 		lastTexture.bind();
 		Mesh mesh = this.mesh;
 		mesh.setVertices(vertices, 0, idx);
-		mesh.getIndicesBuffer().position(0);
-		mesh.getIndicesBuffer().limit(count);
+		Buffer indicesBuffer = (Buffer)mesh.getIndicesBuffer(false);
+		indicesBuffer.position(0);
+		indicesBuffer.limit(count);
 
 		if (blendingDisabled) {
 			Gdx.gl.glDisable(GL20.GL_BLEND);
@@ -999,8 +998,9 @@ public class SpriteBatch implements Batch {
 	}
 
 	@Override
-	public void setBlendFunctionSeparate(int srcFuncColor, int dstFuncColor, int srcFuncAlpha, int dstFuncAlpha) {
-		if (blendSrcFunc == srcFuncColor && blendDstFunc == dstFuncColor && blendSrcFuncAlpha == srcFuncAlpha && blendDstFuncAlpha == dstFuncAlpha) return;
+	public void setBlendFunctionSeparate (int srcFuncColor, int dstFuncColor, int srcFuncAlpha, int dstFuncAlpha) {
+		if (blendSrcFunc == srcFuncColor && blendDstFunc == dstFuncColor && blendSrcFuncAlpha == srcFuncAlpha
+			&& blendDstFuncAlpha == dstFuncAlpha) return;
 		flush();
 		blendSrcFunc = srcFuncColor;
 		blendDstFunc = dstFuncColor;
@@ -1019,12 +1019,12 @@ public class SpriteBatch implements Batch {
 	}
 
 	@Override
-	public int getBlendSrcFuncAlpha() {
+	public int getBlendSrcFuncAlpha () {
 		return blendSrcFuncAlpha;
 	}
 
 	@Override
-	public int getBlendDstFuncAlpha() {
+	public int getBlendDstFuncAlpha () {
 		return blendDstFuncAlpha;
 	}
 
@@ -1058,7 +1058,7 @@ public class SpriteBatch implements Batch {
 		if (drawing) setupMatrices();
 	}
 
-	private void setupMatrices () {
+	protected void setupMatrices () {
 		combinedMatrix.set(projectionMatrix).mul(transformMatrix);
 		if (customShader != null) {
 			customShader.setUniformMatrix("u_projTrans", combinedMatrix);
@@ -1078,19 +1078,17 @@ public class SpriteBatch implements Batch {
 
 	@Override
 	public void setShader (ShaderProgram shader) {
+		if (shader == customShader) // avoid unnecessary flushing in case we are drawing
+			return;
 		if (drawing) {
 			flush();
-			if (customShader != null)
-				customShader.end();
-			else
-				this.shader.end();
 		}
 		customShader = shader;
 		if (drawing) {
 			if (customShader != null)
-				customShader.begin();
+				customShader.bind();
 			else
-				this.shader.begin();
+				this.shader.bind();
 			setupMatrices();
 		}
 	}

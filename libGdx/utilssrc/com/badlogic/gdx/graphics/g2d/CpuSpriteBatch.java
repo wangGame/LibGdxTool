@@ -57,7 +57,8 @@ public class CpuSpriteBatch extends SpriteBatch {
 		super(size, defaultShader);
 	}
 
-	/** <p>
+	/**
+	 * <p>
 	 * Flushes the batch and realigns the real matrix on the GPU. Subsequent draws won't need adjustment and will be slightly
 	 * faster as long as the transform matrix is not {@link #setTransformMatrix(Matrix4) changed}.
 	 * </p>
@@ -174,8 +175,7 @@ public class CpuSpriteBatch extends SpriteBatch {
 		if (!adjustNeeded) {
 			super.draw(texture, x, y, srcX, srcY, srcWidth, srcHeight);
 		} else {
-			drawAdjusted(texture, x, y, 0, 0, srcWidth, srcHeight, 1, 1, 0, srcX, srcY, srcWidth, srcHeight,
-				false, false);
+			drawAdjusted(texture, x, y, 0, 0, srcWidth, srcHeight, 1, 1, 0, srcX, srcY, srcWidth, srcHeight, false, false);
 		}
 	}
 
@@ -292,7 +292,7 @@ public class CpuSpriteBatch extends SpriteBatch {
 			switchTexture(texture);
 		else if (idx == vertices.length) super.flush();
 
-		// bottom left and top carRun corner points relative to origin
+		// bottom left and top right corner points relative to origin
 		final float worldOriginX = x + originX;
 		final float worldOriginY = y + originY;
 		float fx = -originX;
@@ -381,25 +381,25 @@ public class CpuSpriteBatch extends SpriteBatch {
 
 		vertices[idx + 0] = t.m00 * x1 + t.m01 * y1 + t.m02;
 		vertices[idx + 1] = t.m10 * x1 + t.m11 * y1 + t.m12;
-		vertices[idx + 2] = color;
+		vertices[idx + 2] = colorPacked;
 		vertices[idx + 3] = u;
 		vertices[idx + 4] = v;
 
 		vertices[idx + 5] = t.m00 * x2 + t.m01 * y2 + t.m02;
 		vertices[idx + 6] = t.m10 * x2 + t.m11 * y2 + t.m12;
-		vertices[idx + 7] = color;
+		vertices[idx + 7] = colorPacked;
 		vertices[idx + 8] = u;
 		vertices[idx + 9] = v2;
 
 		vertices[idx + 10] = t.m00 * x3 + t.m01 * y3 + t.m02;
 		vertices[idx + 11] = t.m10 * x3 + t.m11 * y3 + t.m12;
-		vertices[idx + 12] = color;
+		vertices[idx + 12] = colorPacked;
 		vertices[idx + 13] = u2;
 		vertices[idx + 14] = v2;
 
 		vertices[idx + 15] = t.m00 * x4 + t.m01 * y4 + t.m02;
 		vertices[idx + 16] = t.m10 * x4 + t.m11 * y4 + t.m12;
-		vertices[idx + 17] = color;
+		vertices[idx + 17] = colorPacked;
 		vertices[idx + 18] = u2;
 		vertices[idx + 19] = v;
 
@@ -414,7 +414,7 @@ public class CpuSpriteBatch extends SpriteBatch {
 			switchTexture(region.texture);
 		else if (idx == vertices.length) super.flush();
 
-		// bottom left and top carRun corner points relative to origin
+		// bottom left and top right corner points relative to origin
 		final float worldOriginX = x + originX;
 		final float worldOriginY = y + originY;
 		float fx = -originX;
@@ -513,25 +513,25 @@ public class CpuSpriteBatch extends SpriteBatch {
 
 		vertices[idx + 0] = t.m00 * x1 + t.m01 * y1 + t.m02;
 		vertices[idx + 1] = t.m10 * x1 + t.m11 * y1 + t.m12;
-		vertices[idx + 2] = color;
+		vertices[idx + 2] = colorPacked;
 		vertices[idx + 3] = u1;
 		vertices[idx + 4] = v1;
 
 		vertices[idx + 5] = t.m00 * x2 + t.m01 * y2 + t.m02;
 		vertices[idx + 6] = t.m10 * x2 + t.m11 * y2 + t.m12;
-		vertices[idx + 7] = color;
+		vertices[idx + 7] = colorPacked;
 		vertices[idx + 8] = u2;
 		vertices[idx + 9] = v2;
 
 		vertices[idx + 10] = t.m00 * x3 + t.m01 * y3 + t.m02;
 		vertices[idx + 11] = t.m10 * x3 + t.m11 * y3 + t.m12;
-		vertices[idx + 12] = color;
+		vertices[idx + 12] = colorPacked;
 		vertices[idx + 13] = u3;
 		vertices[idx + 14] = v3;
 
 		vertices[idx + 15] = t.m00 * x4 + t.m01 * y4 + t.m02;
 		vertices[idx + 16] = t.m10 * x4 + t.m11 * y4 + t.m12;
-		vertices[idx + 17] = color;
+		vertices[idx + 17] = colorPacked;
 		vertices[idx + 18] = u4;
 		vertices[idx + 19] = v4;
 
@@ -567,25 +567,25 @@ public class CpuSpriteBatch extends SpriteBatch {
 
 		vertices[idx + 0] = t.m00 * x1 + t.m01 * y1 + t.m02;
 		vertices[idx + 1] = t.m10 * x1 + t.m11 * y1 + t.m12;
-		vertices[idx + 2] = color;
+		vertices[idx + 2] = colorPacked;
 		vertices[idx + 3] = u;
 		vertices[idx + 4] = v;
 
 		vertices[idx + 5] = t.m00 * x2 + t.m01 * y2 + t.m02;
 		vertices[idx + 6] = t.m10 * x2 + t.m11 * y2 + t.m12;
-		vertices[idx + 7] = color;
+		vertices[idx + 7] = colorPacked;
 		vertices[idx + 8] = u;
 		vertices[idx + 9] = v2;
 
 		vertices[idx + 10] = t.m00 * x3 + t.m01 * y3 + t.m02;
 		vertices[idx + 11] = t.m10 * x3 + t.m11 * y3 + t.m12;
-		vertices[idx + 12] = color;
+		vertices[idx + 12] = colorPacked;
 		vertices[idx + 13] = u2;
 		vertices[idx + 14] = v2;
 
 		vertices[idx + 15] = t.m00 * x4 + t.m01 * y4 + t.m02;
 		vertices[idx + 16] = t.m10 * x4 + t.m11 * y4 + t.m12;
-		vertices[idx + 17] = color;
+		vertices[idx + 17] = colorPacked;
 		vertices[idx + 18] = u2;
 		vertices[idx + 19] = v;
 
@@ -626,6 +626,7 @@ public class CpuSpriteBatch extends SpriteBatch {
 
 	private static boolean checkEqual (Matrix4 a, Matrix4 b) {
 		if (a == b) return true;
+
 		// matrices are assumed to be 2D transformations
 		return (a.val[Matrix4.M00] == b.val[Matrix4.M00] && a.val[Matrix4.M10] == b.val[Matrix4.M10]
 			&& a.val[Matrix4.M01] == b.val[Matrix4.M01] && a.val[Matrix4.M11] == b.val[Matrix4.M11]

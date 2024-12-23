@@ -25,8 +25,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.SnapshotArray;
 
-/** A group that lays out its children top to bottom vertically, with optional wrapping. This can be easier than using
- * {@link Table} when actors need to be inserted into or removed from the middle of the group.
+/** A group that lays out its children top to bottom vertically, with optional wrapping. {@link #getChildren()} can be sorted to
+ * change the order of the actors (eg {@link Actor#setZIndex(int)}). This can be easier than using {@link Table} when actors need
+ * to be inserted into or removed from the middle of the group. {@link #invalidate()} must be called after changing the children
+ * order.
  * <p>
  * The preferred width is the largest preferred width of any child. The preferred height is the sum of the children's preferred
  * heights plus spacing. The preferred size is slightly different when {@link #wrap() wrap} is enabled. The min size is the
@@ -81,6 +83,7 @@ public class VerticalGroup extends WidgetGroup {
 					Layout layout = (Layout)child;
 					width = layout.getPrefWidth();
 					height = layout.getPrefHeight();
+					if (height > groupHeight) height = Math.max(groupHeight, layout.getMinHeight());
 				} else {
 					width = child.getWidth();
 					height = child.getHeight();
@@ -121,8 +124,8 @@ public class VerticalGroup extends WidgetGroup {
 		}
 		prefWidth += padLeft + padRight;
 		if (round) {
-			prefWidth = Math.round(prefWidth);
-			prefHeight = Math.round(prefHeight);
+			prefWidth = (float)Math.ceil(prefWidth);
+			prefHeight = (float)Math.ceil(prefHeight);
 		}
 	}
 
@@ -191,7 +194,7 @@ public class VerticalGroup extends WidgetGroup {
 
 			y -= height + space;
 			if (round)
-				child.setBounds(Math.round(x), Math.round(y), Math.round(width), Math.round(height));
+				child.setBounds((float)Math.floor(x), (float)Math.floor(y), (float)Math.ceil(width), (float)Math.ceil(height));
 			else
 				child.setBounds(x, y, width, height);
 
@@ -243,12 +246,14 @@ public class VerticalGroup extends WidgetGroup {
 				layout = (Layout)child;
 				width = layout.getPrefWidth();
 				height = layout.getPrefHeight();
+				if (height > groupHeight) height = Math.max(groupHeight, layout.getMinHeight());
 			} else {
 				width = child.getWidth();
 				height = child.getHeight();
 			}
 
 			if (y - height - space < padBottom || r == 0) {
+				r = Math.min(r, columnSizes.size - 2); // In case an actor changed size without invalidating this layout.
 				y = yStart;
 				if ((align & Align.bottom) != 0)
 					y -= maxHeight - columnSizes.get(r);
@@ -278,7 +283,7 @@ public class VerticalGroup extends WidgetGroup {
 
 			y -= height + space;
 			if (round)
-				child.setBounds(Math.round(x), Math.round(y), Math.round(width), Math.round(height));
+				child.setBounds((float)Math.floor(x), (float)Math.floor(y), (float)Math.ceil(width), (float)Math.ceil(height));
 			else
 				child.setBounds(x, y, width, height);
 
@@ -295,6 +300,11 @@ public class VerticalGroup extends WidgetGroup {
 		if (wrap) return 0;
 		if (sizeInvalid) computeSize();
 		return prefHeight;
+	}
+
+	/** When wrapping is enabled, the number of columns may be > 1. */
+	public int getColumns () {
+		return wrap ? columnSizes.size >> 1 : 1;
 	}
 
 	/** If true (the default), positions and sizes are rounded to integers. */
@@ -473,9 +483,12 @@ public class VerticalGroup extends WidgetGroup {
 		return this;
 	}
 
-	/** If false, the widgets are arranged in a single column and the preferred height is the widget heights plus spacing. If true,
-	 * the widgets will wrap using the height of the vertical group. The preferred height of the group will be 0 as it is expected
-	 * that something external will set the height of the group. Default is false.
+	/** If false, the widgets are arranged in a single column and the preferred height is the widget heights plus spacing.
+	 * <p>
+	 * If true, the widgets will wrap using the height of the vertical group. The preferred height of the group will be 0 as it is
+	 * expected that something external will set the height of the group. Widgets are sized to their preferred height unless it is
+	 * larger than the group's height, in which case they are sized to the group's height but not less than their minimum height.
+	 * Default is false.
 	 * <p>
 	 * When wrap is enabled, the group's preferred width depends on the height of the group. In some cases the parent of the group
 	 * will need to layout twice: once to set the height of the group and a second time to adjust to the group's new preferred
@@ -494,8 +507,9 @@ public class VerticalGroup extends WidgetGroup {
 		return wrap;
 	}
 
-	/** Sets the alignment of widgets within each column of the vertical group. Set to {@link Align#center}, {@link Align#left}, or
-	 * {@link Align#right}. */
+	/** Sets the vertical alignment of each column of widgets when {@link #wrap() wrapping} is enabled and sets the horizontal
+	 * alignment of widgets within each column. Set to {@link Align#center}, {@link Align#top}, {@link Align#bottom},
+	 * {@link Align#left}, {@link Align#right}, or any combination of those. */
 	public VerticalGroup columnAlign (int columnAlign) {
 		this.columnAlign = columnAlign;
 		return this;
@@ -507,10 +521,26 @@ public class VerticalGroup extends WidgetGroup {
 		return this;
 	}
 
+	/** Adds {@link Align#top} and clears {@link Align#bottom} for the alignment of each column of widgets when {@link #wrap()
+	 * wrapping} is enabled. */
+	public VerticalGroup columnTop () {
+		columnAlign |= Align.top;
+		columnAlign &= ~Align.bottom;
+		return this;
+	}
+
 	/** Adds {@link Align#left} and clears {@link Align#right} for the alignment of widgets within each column. */
 	public VerticalGroup columnLeft () {
 		columnAlign |= Align.left;
 		columnAlign &= ~Align.right;
+		return this;
+	}
+
+	/** Adds {@link Align#bottom} and clears {@link Align#top} for the alignment of each column of widgets when {@link #wrap()
+	 * wrapping} is enabled. */
+	public VerticalGroup columnBottom () {
+		columnAlign |= Align.bottom;
+		columnAlign &= ~Align.top;
 		return this;
 	}
 
@@ -525,7 +555,7 @@ public class VerticalGroup extends WidgetGroup {
 		super.drawDebugBounds(shapes);
 		if (!getDebug()) return;
 		shapes.set(ShapeType.Line);
-		shapes.setColor(getStage().getDebugColor());
+		if (getStage() != null) shapes.setColor(getStage().getDebugColor());
 		shapes.rect(getX() + padLeft, getY() + padBottom, getOriginX(), getOriginY(), getWidth() - padLeft - padRight,
 			getHeight() - padBottom - padTop, getScaleX(), getScaleY(), getRotation());
 	}

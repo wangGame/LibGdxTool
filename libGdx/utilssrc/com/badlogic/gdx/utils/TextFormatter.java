@@ -103,7 +103,7 @@ class TextFormatter {
 	/** Formats the given {@code pattern} replacing any placeholder of the form {0}, {1}, {2} and so on with the corresponding
 	 * object from {@code args} converted to a string with {@code toString()}, so without taking into account the locale.
 	 * <p>
-	 * This method only implements a small subset of the grammar supported by {@link MessageFormat}. Especially,
+	 * This method only implements a small subset of the grammar supported by {@link java.text.MessageFormat}. Especially,
 	 * placeholder are only made up of an index; neither the type nor the style are supported.
 	 * <p>
 	 * If nothing has been replaced this implementation returns the pattern itself.
@@ -133,8 +133,7 @@ class TextFormatter {
 				}
 			} else { // processing placeholder part
 				if (ch == '}') {
-					if (placeholder >= args.length)
-						throw new IllegalArgumentException("Argument index out of bounds: " + placeholder);
+					if (placeholder >= args.length) throw new IllegalArgumentException("Argument index out of bounds: " + placeholder);
 					if (pattern.charAt(i - 1) == '{')
 						throw new IllegalArgumentException("Missing argument index after a left curly brace");
 					if (args[placeholder] == null)

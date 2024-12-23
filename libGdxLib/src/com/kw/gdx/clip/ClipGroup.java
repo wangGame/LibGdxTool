@@ -29,9 +29,7 @@ public abstract class ClipGroup extends Group {
     public void draw(Batch batch, float parentAlpha) {
         clipper.start(clippingAttachment);
         for (Actor child : getChildren()) {
-            if (child instanceof TextureRegionActor){
-                ((TextureRegionActor)child).draw(batch,clipper,parentAlpha);
-            }
+
         }
         clipper.clipEnd();
     }

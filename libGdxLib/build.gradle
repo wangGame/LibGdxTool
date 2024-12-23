@@ -5,7 +5,10 @@ group='com.github.wangGame'
 
 sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [
-        "src/","utilssrc",
+        "src/"
+//        ,"utilssrc"
+        ,"newspine"
+        ,"cocossrc"
 ]
 
 dependencies {

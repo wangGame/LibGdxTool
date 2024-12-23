@@ -21,9 +21,9 @@ import com.badlogic.gdx.math.Matrix4;
 
 /** Models a common way of rendering {@link Map} objects */
 public interface MapRenderer {
-	/** Sets the projection matrix and viewbounds from the given phyWorldCamera. If the phyWorldCamera changes, you have to call this method again.
-	 * The viewbounds are taken from the phyWorldCamera's position and viewport size as well as the scale. This method will only work if
-	 * the phyWorldCamera's direction vector is (0,0,-1) and its up vector is (0, 1, 0), which are the defaults.
+	/** Sets the projection matrix and viewbounds from the given camera. If the camera changes, you have to call this method again.
+	 * The viewbounds are taken from the camera's position and viewport size as well as the scale. This method will only work if
+	 * the camera's direction vector is (0,0,-1) and its up vector is (0, 1, 0), which are the defaults.
 	 * @param camera the {@link OrthographicCamera} */
 	public void setView (OrthographicCamera camera);
 

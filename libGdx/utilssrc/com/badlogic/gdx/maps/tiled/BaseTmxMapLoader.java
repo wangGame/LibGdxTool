@@ -1,32 +1,27 @@
 
 package com.badlogic.gdx.maps.tiled;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.ImageResolver;
-import com.badlogic.gdx.maps.MapGroupLayer;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.*;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Polyline;
-import com.badlogic.gdx.utils.Base64Coder;
-import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.StreamUtils;
-import com.badlogic.gdx.utils.XmlReader;
+import com.badlogic.gdx.utils.*;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
 import java.io.BufferedInputStream;
@@ -37,7 +32,7 @@ import java.util.StringTokenizer;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
 
-public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>> extends AsynchronousAssetLoader<TiledMap, P> {
+public abstract class BaseTmxMapLoader<P extends BaseTmxMapLoader.Parameters> extends AsynchronousAssetLoader<TiledMap, P> {
 
 	public static class Parameters extends AssetLoaderParameters<TiledMap> {
 		/** generate mipmaps? **/
@@ -48,8 +43,8 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 		public TextureFilter textureMagFilter = TextureFilter.Nearest;
 		/** Whether to convert the objects' pixel position and size to the equivalent in tile space. **/
 		public boolean convertObjectToTileSpace = false;
-		/** Whether to flip all Y coordinates so that Y positive is down. All LibGDX renderers require flipped Y coordinates, and
-		 * thus flipY set to true. This parameter is included for non-rendering related purposes of TMX files, or custom renderers. */
+		/** Whether to flip all Y coordinates so that Y positive is up. All libGDX renderers require flipped Y coordinates, and thus
+		 * flipY set to true. This parameter is included for non-rendering related purposes of TMX files, or custom renderers. */
 		public boolean flipY = true;
 	}
 
@@ -69,12 +64,158 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 	protected int mapHeightInPixels;
 
 	protected TiledMap map;
+	protected IntMap<MapObject> idToObject;
+	protected Array<Runnable> runOnEndOfLoadTiled;
 
 	public BaseTmxMapLoader (FileHandleResolver resolver) {
 		super(resolver);
 	}
 
-	protected void loadTileGroup (TiledMap map, MapLayers parentLayers, Element element, FileHandle tmxFile, ImageResolver imageResolver) {
+	@Override
+	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle tmxFile, P parameter) {
+		this.root = xml.parse(tmxFile);
+
+		TextureLoader.TextureParameter textureParameter = new TextureLoader.TextureParameter();
+		if (parameter != null) {
+			textureParameter.genMipMaps = parameter.generateMipMaps;
+			textureParameter.minFilter = parameter.textureMinFilter;
+			textureParameter.magFilter = parameter.textureMagFilter;
+		}
+
+		return getDependencyAssetDescriptors(tmxFile, textureParameter);
+	}
+
+	/** Gets a map of the object ids to the {@link MapObject} instances. Returns null if
+	 * {@link #loadTiledMap(FileHandle, Parameters, ImageResolver)} has not been called yet.
+	 *
+	 * @return the map of the ids to {@link MapObject}, or null if {@link #loadTiledMap(FileHandle, Parameters, ImageResolver)}
+	 *         method has not been called yet. */
+	public @Null IntMap<MapObject> getIdToObject () {
+		return idToObject;
+	}
+
+	protected abstract Array<AssetDescriptor> getDependencyAssetDescriptors (FileHandle tmxFile,
+		TextureLoader.TextureParameter textureParameter);
+
+	/** Loads the map data, given the XML root element
+	 *
+	 * @param tmxFile the Filehandle of the tmx file
+	 * @param parameter
+	 * @param imageResolver
+	 * @return the {@link TiledMap} */
+	protected TiledMap loadTiledMap (FileHandle tmxFile, P parameter, ImageResolver imageResolver) {
+		this.map = new TiledMap();
+		this.idToObject = new IntMap<>();
+		this.runOnEndOfLoadTiled = new Array<>();
+
+		if (parameter != null) {
+			this.convertObjectToTileSpace = parameter.convertObjectToTileSpace;
+			this.flipY = parameter.flipY;
+		} else {
+			this.convertObjectToTileSpace = false;
+			this.flipY = true;
+		}
+
+		String mapOrientation = root.getAttribute("orientation", null);
+		int mapWidth = root.getIntAttribute("width", 0);
+		int mapHeight = root.getIntAttribute("height", 0);
+		int tileWidth = root.getIntAttribute("tilewidth", 0);
+		int tileHeight = root.getIntAttribute("tileheight", 0);
+		int hexSideLength = root.getIntAttribute("hexsidelength", 0);
+		String staggerAxis = root.getAttribute("staggeraxis", null);
+		String staggerIndex = root.getAttribute("staggerindex", null);
+		String mapBackgroundColor = root.getAttribute("backgroundcolor", null);
+
+		MapProperties mapProperties = map.getProperties();
+		if (mapOrientation != null) {
+			mapProperties.put("orientation", mapOrientation);
+		}
+		mapProperties.put("width", mapWidth);
+		mapProperties.put("height", mapHeight);
+		mapProperties.put("tilewidth", tileWidth);
+		mapProperties.put("tileheight", tileHeight);
+		mapProperties.put("hexsidelength", hexSideLength);
+		if (staggerAxis != null) {
+			mapProperties.put("staggeraxis", staggerAxis);
+		}
+		if (staggerIndex != null) {
+			mapProperties.put("staggerindex", staggerIndex);
+		}
+		if (mapBackgroundColor != null) {
+			mapProperties.put("backgroundcolor", mapBackgroundColor);
+		}
+		this.mapTileWidth = tileWidth;
+		this.mapTileHeight = tileHeight;
+		this.mapWidthInPixels = mapWidth * tileWidth;
+		this.mapHeightInPixels = mapHeight * tileHeight;
+
+		if (mapOrientation != null) {
+			if ("staggered".equals(mapOrientation)) {
+				if (mapHeight > 1) {
+					this.mapWidthInPixels += tileWidth / 2;
+					this.mapHeightInPixels = mapHeightInPixels / 2 + tileHeight / 2;
+				}
+			}
+		}
+
+		Element properties = root.getChildByName("properties");
+		if (properties != null) {
+			loadProperties(map.getProperties(), properties);
+		}
+
+		Array<Element> tilesets = root.getChildrenByName("tileset");
+		for (Element element : tilesets) {
+			loadTileSet(element, tmxFile, imageResolver);
+			root.removeChild(element);
+		}
+
+		for (int i = 0, j = root.getChildCount(); i < j; i++) {
+			Element element = root.getChild(i);
+			loadLayer(map, map.getLayers(), element, tmxFile, imageResolver);
+		}
+
+		// update hierarchical parallax scrolling factors
+		// in Tiled the final parallax scrolling factor of a layer is the multiplication of its factor with all its parents
+		// 1) get top level groups
+		final Array<MapGroupLayer> groups = map.getLayers().getByType(MapGroupLayer.class);
+		while (groups.notEmpty()) {
+			final MapGroupLayer group = groups.first();
+			groups.removeIndex(0);
+
+			for (MapLayer child : group.getLayers()) {
+				child.setParallaxX(child.getParallaxX() * group.getParallaxX());
+				child.setParallaxY(child.getParallaxY() * group.getParallaxY());
+				if (child instanceof MapGroupLayer) {
+					// 2) handle any child groups
+					groups.add((MapGroupLayer)child);
+				}
+			}
+		}
+
+		for (Runnable runnable : runOnEndOfLoadTiled) {
+			runnable.run();
+		}
+		runOnEndOfLoadTiled = null;
+
+		return map;
+	}
+
+	protected void loadLayer (TiledMap map, MapLayers parentLayers, Element element, FileHandle tmxFile,
+		ImageResolver imageResolver) {
+		String name = element.getName();
+		if (name.equals("group")) {
+			loadLayerGroup(map, parentLayers, element, tmxFile, imageResolver);
+		} else if (name.equals("layer")) {
+			loadTileLayer(map, parentLayers, element);
+		} else if (name.equals("objectgroup")) {
+			loadObjectGroup(map, parentLayers, element);
+		} else if (name.equals("imagelayer")) {
+			loadImageLayer(map, parentLayers, element, tmxFile, imageResolver);
+		}
+	}
+
+	protected void loadLayerGroup (TiledMap map, MapLayers parentLayers, Element element, FileHandle tmxFile,
+		ImageResolver imageResolver) {
 		if (element.getName().equals("group")) {
 			MapGroupLayer groupLayer = new MapGroupLayer();
 			loadBasicLayerInfo(groupLayer, element);
@@ -94,20 +235,6 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 			}
 
 			parentLayers.add(groupLayer);
-		}
-	}
-
-	protected void loadLayer (TiledMap map, MapLayers parentLayers, Element element, FileHandle tmxFile, ImageResolver imageResolver) {
-		String name = element.getName();
-		if (name.equals("group")) {
-			loadTileGroup(map, parentLayers, element, tmxFile, imageResolver);
-		} else if (name.equals("layer")) {
-			loadTileLayer(map, parentLayers, element);
-		} else if (name.equals("objectgroup")) {
-			loadObjectGroup(map, parentLayers, element);
-		}
-		else if (name.equals("imagelayer")) {
-			loadImageLayer(map, parentLayers, element, tmxFile, imageResolver);
 		}
 	}
 
@@ -164,19 +291,20 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 		}
 	}
 
-	protected void loadImageLayer (TiledMap map, MapLayers parentLayers, Element element, FileHandle tmxFile, ImageResolver imageResolver) {
+	protected void loadImageLayer (TiledMap map, MapLayers parentLayers, Element element, FileHandle tmxFile,
+		ImageResolver imageResolver) {
 		if (element.getName().equals("imagelayer")) {
-			int x = 0;
-			int y = 0;
+			float x = 0;
+			float y = 0;
 			if (element.hasAttribute("offsetx")) {
-				x = Integer.parseInt(element.getAttribute("offsetx", "0"));
+				x = Float.parseFloat(element.getAttribute("offsetx", "0"));
 			} else {
-				x = Integer.parseInt(element.getAttribute("x", "0"));
+				x = Float.parseFloat(element.getAttribute("x", "0"));
 			}
 			if (element.hasAttribute("offsety")) {
-				y = Integer.parseInt(element.getAttribute("offsety", "0"));
+				y = Float.parseFloat(element.getAttribute("offsety", "0"));
 			} else {
-				y = Integer.parseInt(element.getAttribute("y", "0"));
+				y = Float.parseFloat(element.getAttribute("y", "0"));
 			}
 			if (flipY) y = mapHeightInPixels - y;
 
@@ -210,12 +338,16 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 		boolean visible = element.getIntAttribute("visible", 1) == 1;
 		float offsetX = element.getFloatAttribute("offsetx", 0);
 		float offsetY = element.getFloatAttribute("offsety", 0);
+		float parallaxX = element.getFloatAttribute("parallaxx", 1f);
+		float parallaxY = element.getFloatAttribute("parallaxy", 1f);
 
 		layer.setName(name);
 		layer.setOpacity(opacity);
 		layer.setVisible(visible);
 		layer.setOffsetX(offsetX);
 		layer.setOffsetY(offsetY);
+		layer.setParallaxX(parallaxX);
+		layer.setParallaxY(parallaxY);
 	}
 
 	protected void loadObject (TiledMap map, MapLayer layer, Element element) {
@@ -276,14 +408,14 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 
 					TiledMapTile tile = map.getTileSets().getTile(id & ~MASK_CLEAR);
 					TiledMapTileMapObject tiledMapTileMapObject = new TiledMapTileMapObject(tile, flipHorizontally, flipVertically);
-//					TextureRegion textureRegion = tiledMapTileMapObject.getTextureRegion();
+					TextureRegion textureRegion = tiledMapTileMapObject.getTextureRegion();
 					tiledMapTileMapObject.getProperties().put("gid", id);
 					tiledMapTileMapObject.setX(x);
 					tiledMapTileMapObject.setY(flipY ? y : y - height);
-//					float objectWidth = element.getFloatAttribute("width", textureRegion.getRegionWidth());
-//					float objectHeight = element.getFloatAttribute("height", textureRegion.getRegionHeight());
-//					tiledMapTileMapObject.setScaleX(scaleX * (objectWidth / textureRegion.getRegionWidth()));
-//					tiledMapTileMapObject.setScaleY(scaleY * (objectHeight / textureRegion.getRegionHeight()));
+					float objectWidth = element.getFloatAttribute("width", textureRegion.getRegionWidth());
+					float objectHeight = element.getFloatAttribute("height", textureRegion.getRegionHeight());
+					tiledMapTileMapObject.setScaleX(scaleX * (objectWidth / textureRegion.getRegionWidth()));
+					tiledMapTileMapObject.setScaleY(scaleY * (objectHeight / textureRegion.getRegionHeight()));
 					tiledMapTileMapObject.setRotation(element.getFloatAttribute("rotation", 0));
 					object = tiledMapTileMapObject;
 				} else {
@@ -304,7 +436,7 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 				object.getProperties().put("id", id);
 			}
 			object.getProperties().put("x", x);
-			
+
 			if (object instanceof TiledMapTileMapObject) {
 				object.getProperties().put("y", y);
 			} else {
@@ -317,27 +449,49 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 			if (properties != null) {
 				loadProperties(object.getProperties(), properties);
 			}
+			idToObject.put(id, object);
 			objects.add(object);
 		}
 	}
 
-	protected void loadProperties (MapProperties properties, Element element) {
+	protected void loadProperties (final MapProperties properties, Element element) {
 		if (element == null) return;
 		if (element.getName().equals("properties")) {
 			for (Element property : element.getChildrenByName("property")) {
-				String name = property.getAttribute("name", null);
+				final String name = property.getAttribute("name", null);
 				String value = property.getAttribute("value", null);
 				String type = property.getAttribute("type", null);
 				if (value == null) {
 					value = property.getText();
 				}
-				Object castValue = castProperty(name, value, type);
-				properties.put(name, castValue);
+				if (type != null && type.equals("object")) {
+					// Wait until the end of [loadTiledMap] to fetch the object
+					try {
+						// Value should be the id of the object being pointed to
+						final int id = Integer.parseInt(value);
+						// Create [Runnable] to fetch object and add it to props
+						Runnable fetch = new Runnable() {
+							@Override
+							public void run () {
+								MapObject object = idToObject.get(id);
+								properties.put(name, object);
+							}
+						};
+						// [Runnable] should not run until the end of [loadTiledMap]
+						runOnEndOfLoadTiled.add(fetch);
+					} catch (Exception exception) {
+						throw new GdxRuntimeException(
+							"Error parsing property [\" + name + \"] of type \"object\" with value: [" + value + "]", exception);
+					}
+				} else {
+					Object castValue = castProperty(name, value, type);
+					properties.put(name, castValue);
+				}
 			}
 		}
 	}
 
-	private Object castProperty (String name, String value, String type) {
+	protected Object castProperty (String name, String value, String type) {
 		if (type == null) {
 			return value;
 		} else if (type.equals("int")) {
@@ -352,8 +506,8 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 			String alpha = value.substring(1, 3);
 			return Color.valueOf(opaqueColor + alpha);
 		} else {
-			throw new GdxRuntimeException("Wrong type given for property " + name + ", given : " + type
-				+ ", supported : string, bool, int, float, color");
+			throw new GdxRuntimeException(
+				"Wrong type given for property " + name + ", given : " + type + ", supported : string, bool, int, float, color");
 		}
 	}
 
@@ -390,46 +544,45 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 			for (int i = 0; i < array.length; i++)
 				ids[i] = (int)Long.parseLong(array[i].trim());
 		} else {
-			if (true)
-				if (encoding.equals("base64")) {
-					InputStream is = null;
-					try {
-						String compression = data.getAttribute("compression", null);
-						byte[] bytes = Base64Coder.decode(data.getText());
-						if (compression == null)
-							is = new ByteArrayInputStream(bytes);
-						else if (compression.equals("gzip"))
-							is = new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(bytes), bytes.length));
-						else if (compression.equals("zlib"))
-							is = new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(bytes)));
-						else
-							throw new GdxRuntimeException("Unrecognised compression (" + compression + ") for TMX Layer Data");
+			if (true) if (encoding.equals("base64")) {
+				InputStream is = null;
+				try {
+					String compression = data.getAttribute("compression", null);
+					byte[] bytes = Base64Coder.decode(data.getText());
+					if (compression == null)
+						is = new ByteArrayInputStream(bytes);
+					else if (compression.equals("gzip"))
+						is = new BufferedInputStream(new GZIPInputStream(new ByteArrayInputStream(bytes), bytes.length));
+					else if (compression.equals("zlib"))
+						is = new BufferedInputStream(new InflaterInputStream(new ByteArrayInputStream(bytes)));
+					else
+						throw new GdxRuntimeException("Unrecognised compression (" + compression + ") for TMX Layer Data");
 
-						byte[] temp = new byte[4];
-						for (int y = 0; y < height; y++) {
-							for (int x = 0; x < width; x++) {
-								int read = is.read(temp);
-								while (read < temp.length) {
-									int curr = is.read(temp, read, temp.length - read);
-									if (curr == -1) break;
-									read += curr;
-								}
-								if (read != temp.length)
-									throw new GdxRuntimeException("Error Reading TMX Layer Data: Premature end of tile data");
-								ids[y * width + x] = unsignedByteToInt(temp[0]) | unsignedByteToInt(temp[1]) << 8
-									| unsignedByteToInt(temp[2]) << 16 | unsignedByteToInt(temp[3]) << 24;
+					byte[] temp = new byte[4];
+					for (int y = 0; y < height; y++) {
+						for (int x = 0; x < width; x++) {
+							int read = is.read(temp);
+							while (read < temp.length) {
+								int curr = is.read(temp, read, temp.length - read);
+								if (curr == -1) break;
+								read += curr;
 							}
+							if (read != temp.length)
+								throw new GdxRuntimeException("Error Reading TMX Layer Data: Premature end of tile data");
+							ids[y * width + x] = unsignedByteToInt(temp[0]) | unsignedByteToInt(temp[1]) << 8
+								| unsignedByteToInt(temp[2]) << 16 | unsignedByteToInt(temp[3]) << 24;
 						}
-					} catch (IOException e) {
-						throw new GdxRuntimeException("Error Reading TMX Layer Data - IOException: " + e.getMessage());
-					} finally {
-						StreamUtils.closeQuietly(is);
 					}
-				} else {
-					// any other value of 'encoding' is one we're not aware of, probably a feature of a future version of Tiled
-					// or another editor
-					throw new GdxRuntimeException("Unrecognised encoding (" + encoding + ") for TMX Layer Data");
+				} catch (IOException e) {
+					throw new GdxRuntimeException("Error Reading TMX Layer Data - IOException: " + e.getMessage());
+				} finally {
+					StreamUtils.closeQuietly(is);
 				}
+			} else {
+				// any other value of 'encoding' is one we're not aware of, probably a feature of a future version of Tiled
+				// or another editor
+				throw new GdxRuntimeException("Unrecognised encoding (" + encoding + ") for TMX Layer Data");
+			}
 		}
 		return ids;
 	}
@@ -452,4 +605,149 @@ public abstract class BaseTmxMapLoader<P extends AssetLoaderParameters<TiledMap>
 		return result;
 	}
 
+	protected void loadTileSet (Element element, FileHandle tmxFile, ImageResolver imageResolver) {
+		if (element.getName().equals("tileset")) {
+			int firstgid = element.getIntAttribute("firstgid", 1);
+			String imageSource = "";
+			int imageWidth = 0;
+			int imageHeight = 0;
+			FileHandle image = null;
+
+			String source = element.getAttribute("source", null);
+			if (source != null) {
+				FileHandle tsx = getRelativeFileHandle(tmxFile, source);
+				try {
+					element = xml.parse(tsx);
+					Element imageElement = element.getChildByName("image");
+					if (imageElement != null) {
+						imageSource = imageElement.getAttribute("source");
+						imageWidth = imageElement.getIntAttribute("width", 0);
+						imageHeight = imageElement.getIntAttribute("height", 0);
+						image = getRelativeFileHandle(tsx, imageSource);
+					}
+				} catch (SerializationException e) {
+					throw new GdxRuntimeException("Error parsing external tileset.");
+				}
+			} else {
+				Element imageElement = element.getChildByName("image");
+				if (imageElement != null) {
+					imageSource = imageElement.getAttribute("source");
+					imageWidth = imageElement.getIntAttribute("width", 0);
+					imageHeight = imageElement.getIntAttribute("height", 0);
+					image = getRelativeFileHandle(tmxFile, imageSource);
+				}
+			}
+			String name = element.get("name", null);
+			int tilewidth = element.getIntAttribute("tilewidth", 0);
+			int tileheight = element.getIntAttribute("tileheight", 0);
+			int spacing = element.getIntAttribute("spacing", 0);
+			int margin = element.getIntAttribute("margin", 0);
+
+			Element offset = element.getChildByName("tileoffset");
+			int offsetX = 0;
+			int offsetY = 0;
+			if (offset != null) {
+				offsetX = offset.getIntAttribute("x", 0);
+				offsetY = offset.getIntAttribute("y", 0);
+			}
+			TiledMapTileSet tileSet = new TiledMapTileSet();
+
+			// TileSet
+			tileSet.setName(name);
+			final MapProperties tileSetProperties = tileSet.getProperties();
+			Element properties = element.getChildByName("properties");
+			if (properties != null) {
+				loadProperties(tileSetProperties, properties);
+			}
+			tileSetProperties.put("firstgid", firstgid);
+
+			// Tiles
+			Array<Element> tileElements = element.getChildrenByName("tile");
+
+			addStaticTiles(tmxFile, imageResolver, tileSet, element, tileElements, name, firstgid, tilewidth, tileheight, spacing,
+				margin, source, offsetX, offsetY, imageSource, imageWidth, imageHeight, image);
+
+			Array<AnimatedTiledMapTile> animatedTiles = new Array<AnimatedTiledMapTile>();
+
+			for (Element tileElement : tileElements) {
+				int localtid = tileElement.getIntAttribute("id", 0);
+				TiledMapTile tile = tileSet.getTile(firstgid + localtid);
+				if (tile != null) {
+					AnimatedTiledMapTile animatedTile = createAnimatedTile(tileSet, tile, tileElement, firstgid);
+					if (animatedTile != null) {
+						animatedTiles.add(animatedTile);
+						tile = animatedTile;
+					}
+					addTileProperties(tile, tileElement);
+					addTileObjectGroup(tile, tileElement);
+				}
+			}
+
+			// replace original static tiles by animated tiles
+			for (AnimatedTiledMapTile animatedTile : animatedTiles) {
+				tileSet.putTile(animatedTile.getId(), animatedTile);
+			}
+
+			map.getTileSets().addTileSet(tileSet);
+		}
+	}
+
+	protected abstract void addStaticTiles (FileHandle tmxFile, ImageResolver imageResolver, TiledMapTileSet tileset,
+		Element element, Array<Element> tileElements, String name, int firstgid, int tilewidth, int tileheight, int spacing,
+		int margin, String source, int offsetX, int offsetY, String imageSource, int imageWidth, int imageHeight, FileHandle image);
+
+	protected void addTileProperties (TiledMapTile tile, Element tileElement) {
+		String terrain = tileElement.getAttribute("terrain", null);
+		if (terrain != null) {
+			tile.getProperties().put("terrain", terrain);
+		}
+		String probability = tileElement.getAttribute("probability", null);
+		if (probability != null) {
+			tile.getProperties().put("probability", probability);
+		}
+		String type = tileElement.getAttribute("type", null);
+		if (type != null) {
+			tile.getProperties().put("type", type);
+		}
+		Element properties = tileElement.getChildByName("properties");
+		if (properties != null) {
+			loadProperties(tile.getProperties(), properties);
+		}
+	}
+
+	protected void addTileObjectGroup (TiledMapTile tile, Element tileElement) {
+		Element objectgroupElement = tileElement.getChildByName("objectgroup");
+		if (objectgroupElement != null) {
+			for (Element objectElement : objectgroupElement.getChildrenByName("object")) {
+				loadObject(map, tile, objectElement);
+			}
+		}
+	}
+
+	protected AnimatedTiledMapTile createAnimatedTile (TiledMapTileSet tileSet, TiledMapTile tile, Element tileElement,
+		int firstgid) {
+		Element animationElement = tileElement.getChildByName("animation");
+		if (animationElement != null) {
+			Array<StaticTiledMapTile> staticTiles = new Array<StaticTiledMapTile>();
+			IntArray intervals = new IntArray();
+			for (Element frameElement : animationElement.getChildrenByName("frame")) {
+				staticTiles.add((StaticTiledMapTile)tileSet.getTile(firstgid + frameElement.getIntAttribute("tileid")));
+				intervals.add(frameElement.getIntAttribute("duration"));
+			}
+
+			AnimatedTiledMapTile animatedTile = new AnimatedTiledMapTile(intervals, staticTiles);
+			animatedTile.setId(tile.getId());
+			return animatedTile;
+		}
+		return null;
+	}
+
+	protected void addStaticTiledMapTile (TiledMapTileSet tileSet, TextureRegion textureRegion, int tileId, float offsetX,
+		float offsetY) {
+		TiledMapTile tile = new StaticTiledMapTile(textureRegion);
+		tile.setId(tileId);
+		tile.setOffsetX(offsetX);
+		tile.setOffsetY(flipY ? -offsetY : offsetY);
+		tileSet.putTile(tileId, tile);
+	}
 }

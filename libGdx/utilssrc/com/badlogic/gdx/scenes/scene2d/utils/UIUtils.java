@@ -4,11 +4,18 @@ package com.badlogic.gdx.scenes.scene2d.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.utils.Os;
+import com.badlogic.gdx.utils.SharedLibraryLoader;
 
-public class UIUtils {
-	static public boolean isMac = System.getProperty("os.name").contains("OS X");
+public final class UIUtils {
+	private UIUtils () {
+	}
+
 	static public boolean isWindows = System.getProperty("os.name").contains("Windows");
 	static public boolean isLinux = System.getProperty("os.name").contains("Linux");
+	static public boolean isMac = System.getProperty("os.name").contains("Mac");
+	static public boolean isIos = false;
+	static public boolean isAndroid = false;
 
 	static public boolean left () {
 		return Gdx.input.isButtonPressed(Buttons.LEFT);

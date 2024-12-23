@@ -41,19 +41,8 @@ public class AnimatedTiledMapTile implements TiledMapTile {
 	private StaticTiledMapTile[] frameTiles;
 
 	private int[] animationIntervals;
-	private int frameCount = 0;
 	private int loopDuration;
 	private static final long initialTimeOffset = TimeUtils.millis();
-
-	@Override
-	public String getPath() {
-		return null;
-	}
-
-	@Override
-	public void setPath(String path) {
-
-	}
 
 	@Override
 	public int getId () {
@@ -136,8 +125,8 @@ public class AnimatedTiledMapTile implements TiledMapTile {
 			}
 
 		} else {
-			throw new GdxRuntimeException("Cannot set " + intervals.length
-				+ " frame intervals. The given int[] must have a size of " + animationIntervals.length + ".");
+			throw new GdxRuntimeException("Cannot set " + intervals.length + " frame intervals. The given int[] must have a size of "
+				+ animationIntervals.length + ".");
 		}
 	}
 
@@ -150,7 +139,7 @@ public class AnimatedTiledMapTile implements TiledMapTile {
 	}
 
 	@Override
-	public MapObjects getObjects() {
+	public MapObjects getObjects () {
 		if (objects == null) {
 			objects = new MapObjects();
 		}
@@ -169,7 +158,6 @@ public class AnimatedTiledMapTile implements TiledMapTile {
 	 * @param frameTiles An array of {@link StaticTiledMapTile}s that make up the animation. */
 	public AnimatedTiledMapTile (float interval, Array<StaticTiledMapTile> frameTiles) {
 		this.frameTiles = new StaticTiledMapTile[frameTiles.size];
-		this.frameCount = frameTiles.size;
 
 		this.loopDuration = frameTiles.size * (int)(interval * 1000f);
 		this.animationIntervals = new int[frameTiles.size];
@@ -185,7 +173,6 @@ public class AnimatedTiledMapTile implements TiledMapTile {
 	 * @param frameTiles An array of {@link StaticTiledMapTile}s that make up the animation. */
 	public AnimatedTiledMapTile (IntArray intervals, Array<StaticTiledMapTile> frameTiles) {
 		this.frameTiles = new StaticTiledMapTile[frameTiles.size];
-		this.frameCount = frameTiles.size;
 
 		this.animationIntervals = intervals.toArray();
 		this.loopDuration = 0;

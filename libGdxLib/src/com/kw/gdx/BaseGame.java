@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.CpuPolygonSpriteBatch;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -99,7 +99,8 @@ public class BaseGame extends Game {
     protected void loadingView(){}
 
     protected void catchBackKey(){
-        Gdx.input.setCatchBackKey(true);
+//        Gdx.input.setCatchBackKey(true);
+//        Gdx.input.
     }
 
     protected void initViewport() {
@@ -148,11 +149,7 @@ public class BaseGame extends Game {
             NLog.i("FramesPerSecond",Gdx.app.getGraphics().getFramesPerSecond());
         }
         super.render();
-        if (Constant.SHOWRENDERCALL) {
-            if (batch instanceof CpuPolygonSpriteBatch){
-                System.out.println(((CpuPolygonSpriteBatch) (batch)).renderCalls);
-            }
-        }
+
     }
     public Viewport getStageViewport() {
         return stageViewport;
@@ -160,13 +157,7 @@ public class BaseGame extends Game {
 
     public Batch getBatch() {
         if (batch==null) {
-            if (Constant.batchType == Constant.COUPOLYGONBATCH) {
-                batch = new CpuPolygonSpriteBatch();
-            }else if (Constant.batchType == Constant.SPRITEBATCH){
-                batch = new SpriteBatch();
-            }else {
-                batch = new CpuPolygonSpriteBatch();
-            }
+            batch = new SpriteBatch();
         }
         return batch;
     }

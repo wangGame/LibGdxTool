@@ -118,8 +118,7 @@ public class FileTextureData implements TextureData {
 		throw new GdxRuntimeException("This TextureData implementation does not upload data itself");
 	}
 
-	@Override
-	public String toString() {
-		return file.name();
+	public String toString () {
+		return file.toString();
 	}
 }

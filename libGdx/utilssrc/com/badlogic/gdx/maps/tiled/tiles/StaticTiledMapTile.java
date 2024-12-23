@@ -38,14 +38,6 @@ public class StaticTiledMapTile implements TiledMapTile {
 
 	private float offsetY;
 
-	private String path;
-
-
-	@Override
-	public void setPath(String path) {
-		this.path = path;
-	}
-
 	@Override
 	public int getId () {
 		return id;
@@ -75,7 +67,7 @@ public class StaticTiledMapTile implements TiledMapTile {
 	}
 
 	@Override
-	public MapObjects getObjects() {
+	public MapObjects getObjects () {
 		if (objects == null) {
 			objects = new MapObjects();
 		}
@@ -88,7 +80,7 @@ public class StaticTiledMapTile implements TiledMapTile {
 	}
 
 	@Override
-	public void setTextureRegion(TextureRegion textureRegion) {
+	public void setTextureRegion (TextureRegion textureRegion) {
 		this.textureRegion = textureRegion;
 	}
 
@@ -119,13 +111,6 @@ public class StaticTiledMapTile implements TiledMapTile {
 		this.textureRegion = textureRegion;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public StaticTiledMapTile(String path){
-		this.path = path;
-	}
 	/** Copy constructor
 	 * 
 	 * @param copy the StaticTiledMapTile to copy. */
