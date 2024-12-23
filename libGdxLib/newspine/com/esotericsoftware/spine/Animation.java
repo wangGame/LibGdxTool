@@ -359,20 +359,25 @@ public class Animation {
 		 * @param i The index of the Bezier segments. See {@link #getCurveType(int)}. */
 		public float getBezierValue (float time, int frameIndex, int valueOffset, int i) {
 			float[] curves = this.curves;
+
+			System.out.println(time);
 			if (curves[i] > time) {
 				float x = frames[frameIndex], y = frames[frameIndex + valueOffset];
-				return y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
+				float v = y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
+				return v;
 			}
 			int n = i + BEZIER_SIZE;
 			for (i += 2; i < n; i += 2) {
 				if (curves[i] >= time) {
 					float x = curves[i - 2], y = curves[i - 1];
-					return y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
+					float v = y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
+					return v;
 				}
 			}
 			frameIndex += getFrameEntries();
 			float x = curves[n - 2], y = curves[n - 1];
-			return y + (time - x) / (frames[frameIndex] - x) * (frames[frameIndex + valueOffset] - y);
+			float v = y + (time - x) / (frames[frameIndex] - x) * (frames[frameIndex + valueOffset] - y);
+			return v;
 		}
 	}
 
@@ -559,6 +564,7 @@ public class Animation {
 			case replace:
 				bone.x += (bone.data.x + x - bone.x) * alpha;
 				bone.y += (bone.data.y + y - bone.y) * alpha;
+
 				break;
 			case add:
 				bone.x += x * alpha;
