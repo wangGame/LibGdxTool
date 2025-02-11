@@ -234,6 +234,10 @@ public class ShaderProgram implements Disposable {
 		return program != 0 ? program : -1;
 	}
 
+	public int getProgram() {
+		return program;
+	}
+
 	private int linkProgram (int program) {
 		GL20 gl = Gdx.gl20;
 		if (program == -1) return -1;

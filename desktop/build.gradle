@@ -12,6 +12,7 @@ dependencies {
     implementation files('libs/gdx-natives.jar')
     implementation files('libs/gdx-tools.jar')
     implementation files('libs/gdx-PVR-0.2.1-b34.jar')
+    implementation files('libs/solvitaire.jar')
     implementation project (':libGdxLib')
     implementation project (':libGdx')
     implementation project(":libCommon")
@@ -21,6 +22,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation project(':libgdxbox2d')
+
 
 //    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-core
 //    implementation 'org.deeplearning4j:rl4j-core:1.0.0-M1.1'

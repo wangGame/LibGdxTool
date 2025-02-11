@@ -30,11 +30,11 @@ public class Constant {
     //
     public static double gameDensity = 2;
     //设计尺寸
-    public static float WIDTH = 1080;
-    public static float HIGHT = 1920;
+    public static float WIDTH = 11;
+    public static float HIGHT = 11;
     //标准尺寸
-    public static final float STDWIDTH = 1080;
-    public static final float STDHIGHT = 1920;
+    public static final float STDWIDTH = 11;
+    public static final float STDHIGHT = 11;
     //实际使用
     public static float GAMEWIDTH = 1080;
     public static float GAMEHIGHT = 1920;

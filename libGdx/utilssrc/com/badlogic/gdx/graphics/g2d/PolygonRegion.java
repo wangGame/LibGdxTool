@@ -47,11 +47,7 @@ public class PolygonRegion {
         float uvHeight = region.v2 - v;
         int width = region.regionWidth;
         int height = region.regionHeight;
-//		for (int i = 0, n = vertices.length; i < n; i++) {
-//			textureCoords[i] = u + uvWidth * (vertices[i] / width);
-//			i++;
-//			textureCoords[i] = v + uvHeight * (1 - (vertices[i] / height));
-//		}
+
         for (int i = 0; i < this.textureCoords.length; ) {
             if (i >= textureCoords.length) break;
             textureCoords[i] = u + uvWidth * (vertices[i] / width);
