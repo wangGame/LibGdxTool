@@ -11,35 +11,32 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.*;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
+import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.JsonReader;
 
 public class MyGdxGame2 extends ApplicationAdapter {
     public Environment environment;//可以包含点光源集合和线光源集合
     public OrthographicCamera cam;//3D视角
     public CameraInputController camController;//视角控制器
-
     public Array<ModelInstance> instances = new Array<ModelInstance>();
     public ModelBatch modelBatch;
-
     public boolean loading;
-
-    private Texture texture = new Texture(Gdx.files.internal("path/to/your/texture.png"));
 
 
     @Override
     public void create () {
         environment = new Environment();
-        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));//环境光
-        environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));//直线光源
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.9f, 0.9f, 0.9f, 1f));//环境光
+
 
         modelBatch = new ModelBatch();
         cam = new OrthographicCamera(  Gdx.graphics.getWidth(), Gdx.graphics.getHeight());//67可以理解成一个定值，视角宽度（67度）
-        cam.position.set(10f, 10f, -70f);
+        cam.position.set(0f, 0f, 170f);
         cam.lookAt(0,0,0);
         cam.near = 1f;
         cam.far = 1300f;
@@ -50,12 +47,31 @@ public class MyGdxGame2 extends ApplicationAdapter {
 
         loading = true;
         doneLoading();
+
+
+
     }
 
+
     private void doneLoading() {
-        Model model = new ObjLoader().loadModel(Gdx.files.internal("model/Cube1.obj"));
-//        Model ship = new Model("model/invaderscene.g3db", Model.class);
-        ModelInstance shipInstance = new ModelInstance(model);
+        Model modelUp = new ObjLoader().loadModel(Gdx.files.internal("model/Cube_0.obj"));
+        Texture texture = new Texture(Gdx.files.internal("textures/1.png"));
+        TextureAttribute diffuse = TextureAttribute.createDiffuse(texture);
+        Material material1 = new Material(
+                diffuse);
+        Material material2 = new Material(
+                TextureAttribute.createDiffuse(texture));
+
+        ModelInstance shipInstance = new ModelInstance(modelUp);
+
+        shipInstance.transform.translate(0,0,0);
+        // 遍历并为所有Node的NodePart应用材质
+        Node node1 = shipInstance.nodes.get(0);
+        node1.parts.get(0).material = material1;
+
+        Node node2 = shipInstance.nodes.get(1);
+        node2.parts.get(0).material = material2;
+
         instances.add(shipInstance);
         loading = false;
         shipInstance.transform.scale(3000,6000,1000);
@@ -79,7 +95,6 @@ public class MyGdxGame2 extends ApplicationAdapter {
     public void dispose() {
         modelBatch.dispose();
         instances.clear();
-
         super.dispose();
     }
 
