@@ -1541,6 +1541,32 @@ public class Matrix4 implements Serializable {
 		return this;
 	}
 
+	public Matrix4 scale1(float scaleX,float scaleY,float scaleZ){
+		tmp[M00] = scaleX;
+		tmp[M01] = 0;
+		tmp[M02] = 0;
+		tmp[M03] = 0;
+		tmp[M10] = 0;
+		tmp[M11] = scaleY;
+		tmp[M12] = 0;
+		tmp[M13] = 0;
+		tmp[M20] = 0;
+		tmp[M21] = 0;
+		tmp[M22] = scaleZ;
+		tmp[M23] = 0;
+		tmp[M30] = 0;
+		tmp[M31] = 0;
+		tmp[M32] = 0;
+		tmp[M33] = 1;
+
+		mul1(val, tmp);
+		return this;
+	}
+
+	private void mul1(float[] val, float[] tmp) {
+
+	}
+
 	/** Copies the 4x3 upper-left sub-matrix into float array. The destination array is supposed to be a column major matrix.
 	 * @param dst the destination matrix */
 	public void extract4x3Matrix (float[] dst) {

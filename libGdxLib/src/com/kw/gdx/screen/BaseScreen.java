@@ -114,7 +114,7 @@ public class BaseScreen implements Screen {
     }
 
     public void touchEnable(){
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
@@ -281,5 +281,8 @@ public class BaseScreen implements Screen {
         }
     }
 
+    public InputMultiplexer getMultiplexer() {
+        return multiplexer;
+    }
 }
 

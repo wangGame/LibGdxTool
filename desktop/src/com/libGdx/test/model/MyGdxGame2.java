@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 public class MyGdxGame2 extends ApplicationAdapter {
@@ -26,13 +27,12 @@ public class MyGdxGame2 extends ApplicationAdapter {
     public Array<ModelInstance> instances = new Array<ModelInstance>();
     public ModelBatch modelBatch;
     public boolean loading;
-
+    private ModelInstance shipInstance;
 
     @Override
     public void create () {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.9f, 0.9f, 0.9f, 1f));//环境光
-
 
         modelBatch = new ModelBatch();
         cam = new OrthographicCamera(  Gdx.graphics.getWidth(), Gdx.graphics.getHeight());//67可以理解成一个定值，视角宽度（67度）
@@ -47,9 +47,6 @@ public class MyGdxGame2 extends ApplicationAdapter {
 
         loading = true;
         doneLoading();
-
-
-
     }
 
 
@@ -61,30 +58,30 @@ public class MyGdxGame2 extends ApplicationAdapter {
                 diffuse);
         Material material2 = new Material(
                 TextureAttribute.createDiffuse(texture));
-
-        ModelInstance shipInstance = new ModelInstance(modelUp);
-
+        shipInstance = new ModelInstance(modelUp);
         shipInstance.transform.translate(0,0,0);
         // 遍历并为所有Node的NodePart应用材质
         Node node1 = shipInstance.nodes.get(0);
         node1.parts.get(0).material = material1;
-
         Node node2 = shipInstance.nodes.get(1);
         node2.parts.get(0).material = material2;
-
         instances.add(shipInstance);
         loading = false;
-        shipInstance.transform.scale(3000,6000,1000);
 
+        shipInstance.transform.scale(1000,1000,1000);
+        shipInstance.nodes.get(0).scale.set(new Vector3(3,6,1));
+        shipInstance.nodes.get(1).scale.set(new Vector3(3,6,1));
+        shipInstance.calculateTransforms();
     }
 
     @Override
     public void render () {
-
-
+        super.render();
         camController.update();
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+
+        shipInstance.transform.rotate(new Vector3(1,0,0), (float) Math.toRadians(30));
 
         modelBatch.begin(cam);
         modelBatch.render(instances,environment);

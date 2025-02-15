@@ -25,6 +25,7 @@ public class InputMultiplexer implements InputProcessor {
 	private Array<InputProcessor> processors = new Array(4);
 
 	public InputMultiplexer () {
+		System.out.println("-=");
 	}
 
 	public InputMultiplexer (InputProcessor... processors) {

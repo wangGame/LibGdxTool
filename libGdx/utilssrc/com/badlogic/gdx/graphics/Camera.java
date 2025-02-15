@@ -48,7 +48,7 @@ public abstract class Camera {
 	/** the near clipping plane distance, has to be positive **/
 	public float near = 1;
 	/** the far clipping plane distance, has to be positive **/
-	public float far = 100;
+	public float far = 1000;
 
 	/** the viewport width **/
 	public float viewportWidth = 0;
