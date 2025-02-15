@@ -15,6 +15,9 @@ import com.libGdx.test.model.g3.math.GdxMath;
 public class GameObject extends ModelBase{
     public GameObject(ModelInstance modelInstance) {
         super(modelInstance);
+        BoundingBox boundingBox = boundingBox();
+        setBounds(boundingBox.min.x,boundingBox.min.y,boundingBox.getWidth(),boundingBox.getHeight());
+        setDebug(true);
     }
 
     private static final int MATRIX_DIRECTION_X = 8;
@@ -102,6 +105,8 @@ public class GameObject extends ModelBase{
         transform().setToTranslation(location);
         setRotation(rotation);
         setScale(scale);
+        setPosition(location.x - boundingBox().getWidth()/2.f,
+                location.y - boundingBox().getHeight()/2.f);
     }
 
     public Vector3 originalSize()

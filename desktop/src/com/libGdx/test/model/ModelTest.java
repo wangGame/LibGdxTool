@@ -42,13 +42,15 @@ public class ModelTest extends LibGdxTestMain {
                 super.clicked(event, x, y);
             }
         });
-        Image image1 = new Image(texture);
-        image1.setPosition(500,100);
 
         for (int i = 0; i < 10; i++) {
             TileGameObject tileGameObject = new TileGameObject();
             tileGameObject.moveTo(new Vector3(i*180,500,-300));
             addActor(tileGameObject);
         }
+
+        Image image1 = new Image(texture);
+        image1.setPosition(500,100);
+        addActor(image1);
     }
 }

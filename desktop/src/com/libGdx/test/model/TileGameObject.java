@@ -7,7 +7,7 @@ import com.libGdx.test.model.g3.GameObject;
 
 public class TileGameObject extends GameObject {
     private Vector3 vector3 = new Vector3();
-    private float speed = 10;
+    private float speed = 40;
     public TileGameObject() {
         super(ModelUtils.createInstance());
     }
@@ -16,7 +16,6 @@ public class TileGameObject extends GameObject {
     public void act(float delta) {
         super.act(delta);
         vector3.set(vector3.x+delta*speed,vector3.y+delta*speed,vector3.z+delta*speed);
-
         setRotation(vector3);
     }
 }
