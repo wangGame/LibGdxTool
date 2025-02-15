@@ -1,5 +1,6 @@
 package com.kw.gdx.constant;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kw.gdx.resource.annotation.GameInfo;
@@ -46,6 +47,7 @@ public class Constant {
     public static float soundV = 1;
     public static boolean isMusic = true;
     public static BaseScreen currentActiveScreen;
+    public static Camera camera;
 
     public static void updateInfo(GameInfo info){
         if (info == null)return;

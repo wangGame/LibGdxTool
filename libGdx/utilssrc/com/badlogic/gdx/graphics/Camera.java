@@ -46,7 +46,7 @@ public abstract class Camera {
 	public final Matrix4 invProjectionView = new Matrix4();
 
 	/** the near clipping plane distance, has to be positive **/
-	public float near = 1;
+	public float near = 0;
 	/** the far clipping plane distance, has to be positive **/
 	public float far = 1000;
 

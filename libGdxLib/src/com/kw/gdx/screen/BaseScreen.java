@@ -62,6 +62,7 @@ public class BaseScreen implements Screen {
             this.offsetY = (Constant.GAMEHIGHT - Constant.HIGHT) / 2;
             this.offsetX = (Constant.GAMEWIDTH - Constant.WIDTH) / 2;
         }
+        Constant.camera = stage.getCamera();
         this.bannerManager = new BannerManager(stage);
         this.bannerManager.init(offsetY);
         if (Constant.DEBUG) {
