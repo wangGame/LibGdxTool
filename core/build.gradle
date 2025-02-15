@@ -1,4 +1,5 @@
 apply plugin: "java"
+
 //apply plugin: 'com.github.dcendents.android-maven'
 //group='com.github.wangGame'
 
@@ -11,6 +12,7 @@ dependencies {
     implementation project (':libGdx')
     implementation project(":libCommon")
     implementation 'junit:junit:4.12'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
@@ -26,3 +28,16 @@ task dist(type: Jar) {
     }
     with jar
 }
+buildscript {
+    ext.kotlin_version = '1.9.24'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+

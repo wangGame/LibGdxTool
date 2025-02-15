@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.kw.gdx.constant.Constant;
@@ -310,6 +312,20 @@ public class Asset implements Disposable {
 
     public BitmapFont loadBitFont(String path){
         return loadBitFont(path,Asset.assetManager);
+    }
+
+    public Label loadLabel(String path){
+        Label label = new Label("",new Label.LabelStyle(){
+            {
+                font  = loadBitFont(path);
+            }
+        });
+        label.setAlignment(Align.center);
+        return label;
+    }
+
+    public Image getImage(String path){
+        return new Image(Asset.getAsset().getTexture(path));
     }
 
     public BitmapFont loadBitFont(String path,AssetManager assetManager) {

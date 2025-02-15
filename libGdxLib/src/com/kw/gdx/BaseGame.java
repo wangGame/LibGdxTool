@@ -25,6 +25,7 @@ import com.kw.gdx.crash.CrashUtils;
 import com.kw.gdx.resource.annotation.AnnotationInfo;
 import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
+import com.kw.gdx.shader.ShaderUtils;
 import com.kw.gdx.utils.log.NLog;
 
 import java.lang.reflect.Constructor;
@@ -85,7 +86,9 @@ public class BaseGame extends Game {
     }
 
     private void initExtends() {
-        Asset.getAsset();
+        //enter clear old resource !!!
+        Asset.getAsset().dispose();
+        ShaderUtils.dispose();
     }
 
     protected void gameInfoConfig() {

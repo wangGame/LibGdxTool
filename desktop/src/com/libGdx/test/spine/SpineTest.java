@@ -22,25 +22,33 @@ public class SpineTest extends LibGdxTestMain {
 //        stage.addActor(spineActor);
 //        spineActor.setAnimation("animation", true);
 //        spineActor.setPosition(400, 400);
+//        {
+//            SpineActor spineActor = new SpineActor("spine/0_loading");
+//            stage.addActor(spineActor);
+//            spineActor.setAnimation("animation", true);
+//            spineActor.setPosition(400, 400);
+//        }
+//        {
+//            SpineActor spineActor = new SpineActor("spine/0_loading");
+//            stage.addActor(spineActor);
+//            spineActor.setAnimation("animation", true);
+//            spineActor.setPosition(400, 800);
+//
+//            spineActor.setClip(true);
+//            //中心便宜距离
+//            spineActor.setBeginX(-140);
+//            spineActor.setBeginY(-140);
+//            //裁剪的宽高
+//            spineActor.setW(280);
+//            spineActor.setH(280);
+//        }
         {
-            SpineActor spineActor = new SpineActor("spine/0_loading");
-            stage.addActor(spineActor);
-            spineActor.setAnimation("animation", true);
-            spineActor.setPosition(400, 400);
-        }
-        {
-            SpineActor spineActor = new SpineActor("spine/0_loading");
-            stage.addActor(spineActor);
-            spineActor.setAnimation("animation", true);
-            spineActor.setPosition(400, 800);
+            SpineActor actor = new SpineActor("assets/xxxx/piggg_coin");
+            actor.setAnimation("animation",true);
+            actor.setSkin("1");
+            addActor(actor);
+            actor.setPosition(450,400);
 
-            spineActor.setClip(true);
-            //中心便宜距离
-            spineActor.setBeginX(-140);
-            spineActor.setBeginY(-140);
-            //裁剪的宽高
-            spineActor.setW(280);
-            spineActor.setH(280);
         }
     }
 }

@@ -1,9 +1,12 @@
 package com.kw.gdx.utils;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.kw.gdx.asset.Asset;
 
 /**
  * 居中
@@ -24,5 +27,14 @@ public class LabelCenter {
         float x = coin_bg.getX(Align.center);
         coin_label.setX(x+20,Align.center);
         coinGroup.setWidth(v+20);
+    }
+
+    public Actor imageLabel(TextureRegion region,String labelpath){
+        Image image = new Image(region);
+        Group group = new Group();
+        group.setSize(image.getWidth(),image.getHeight());
+        Label label = Asset.getAsset().loadLabel(labelpath);
+        group.addActor(label);
+        return group;
     }
 }
