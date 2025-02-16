@@ -53,6 +53,7 @@ public class ModelTest extends LibGdxTestMain {
                 super.act(delta);
             }
         };
+
         tileGameObject.moveTo(new Vector3(180,500,-300));
         addActor(tileGameObject);
         tileGameObject.addListener(new ActorGestureListener(){
@@ -78,6 +79,7 @@ public class ModelTest extends LibGdxTestMain {
         });
 //        }
 
+        tileGameObject.rotate(Vector3.Z,90);
         Image image1 = new Image(texture);
         image1.setPosition(500,100);
         addActor(image1);

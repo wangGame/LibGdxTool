@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.libGdx.test.model.g3.math.Circle;
 import com.libGdx.test.model.g3.math.GdxMath;
 
@@ -246,5 +247,11 @@ public class GameObject extends ModelBase{
 
     public void translateABS(Vector3 translation) {
         transform().trn(translation);
+    }
+
+    @Override
+    public Actor hit(float x, float y, boolean touchable) {
+        Ray ray = ray(location());
+        return super.hit(x, y, touchable);
     }
 }
