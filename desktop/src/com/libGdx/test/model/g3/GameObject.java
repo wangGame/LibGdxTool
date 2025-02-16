@@ -100,11 +100,14 @@ public class GameObject extends ModelBase{
     }
 
     public void moveTo(Vector3 location) {
+        //优化
         Vector3 scale = scale();
         Quaternion rotation = rotationQuaternion();
         transform().setToTranslation(location);
         setRotation(rotation);
         setScale(scale);
+
+
         setPosition(location.x - boundingBox().getWidth()/2.f,
                 location.y - boundingBox().getHeight()/2.f);
     }

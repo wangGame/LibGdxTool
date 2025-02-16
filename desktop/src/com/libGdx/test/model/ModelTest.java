@@ -13,11 +13,13 @@ import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.libGdx.test.base.LibGdxTestMain;
@@ -43,14 +45,44 @@ public class ModelTest extends LibGdxTestMain {
             }
         });
 
-        for (int i = 0; i < 10; i++) {
-            TileGameObject tileGameObject = new TileGameObject();
-            tileGameObject.moveTo(new Vector3(i*180,500,-300));
-            addActor(tileGameObject);
-        }
+
+//        for (int i = 1; i < 2; i++) {
+        tileGameObject = new TileGameObject(){
+            @Override
+            public void act(float delta) {
+                super.act(delta);
+            }
+        };
+        tileGameObject.moveTo(new Vector3(180,500,-300));
+        addActor(tileGameObject);
+        tileGameObject.addListener(new ActorGestureListener(){
+            private float speed;
+            @Override
+            public void pan(InputEvent event, float x, float y, float deltaX, float deltaY) {
+                super.pan(event, x, y, deltaX, deltaY);
+                tileGameObject.rotate(deltaX,-deltaY,0);
+//                tileGameObject.rotate(new Vector3(1,0,0),deltaX);
+            }
+
+            @Override
+            public void fling(InputEvent event, float velocityX, float velocityY, int button) {
+                super.fling(event, velocityX, velocityY, button);
+
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+                touchx = true;
+            }
+        });
+//        }
 
         Image image1 = new Image(texture);
         image1.setPosition(500,100);
         addActor(image1);
     }
+
+    private TileGameObject tileGameObject;
+    private boolean touchx = false;
 }
