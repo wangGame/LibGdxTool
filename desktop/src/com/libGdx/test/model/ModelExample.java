@@ -2,6 +2,7 @@ package com.libGdx.test.model;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Camera;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.utils.Array;
@@ -73,6 +75,12 @@ public class ModelExample extends ApplicationAdapter {
         shipInstance.nodes.get(0).scale.set(new Vector3(3,6,1));
         shipInstance.nodes.get(1).scale.set(new Vector3(3,6,1));
         shipInstance.calculateTransforms();
+
+//
+//        Vector3 vector3 = new Vector3();
+//        shipInstance.transform.getTranslation(vector3);
+//        shipInstance.transform.
+
     }
 
     @Override
@@ -81,10 +89,15 @@ public class ModelExample extends ApplicationAdapter {
         camController.update();
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-        shipInstance.transform.rotate(new Vector3(1,0,0), (float) Math.toRadians(30));
+//        shipInstance.transform.rotate(new Vector3(1,0,0), (float) Math.toRadians(30));
         modelBatch.begin(cam);
         modelBatch.render(instances,environment);
         modelBatch.end();
+//
+//        float accelerometerX = Gdx.input.getAccelerometerX();
+//        float accelerometerY = Gdx.input.getAccelerometerY();
+//        float accelerometerZ = Gdx.input.getAccelerometerZ();
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.libGdx.test.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.Environment;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.kw.gdx.constant.Constant;
 import com.libGdx.test.base.LibGdxTestMain;
 import com.libGdx.test.model.g3.GameObject;
 
@@ -35,6 +37,7 @@ public class ModelTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
+        Constant.viewColor = new Color(49/255.0f,77/255.0f,121/255.0f,1.f/255.0f);
         Texture texture = new Texture(Gdx.files.internal("0_1_41_512.jpg"));
         Image image = new Image(texture);
         addActor(image);
@@ -47,12 +50,7 @@ public class ModelTest extends LibGdxTestMain {
 
 
 //        for (int i = 1; i < 2; i++) {
-        tileGameObject = new TileGameObject(){
-            @Override
-            public void act(float delta) {
-                super.act(delta);
-            }
-        };
+        tileGameObject = new TileGameObject();
 
         tileGameObject.moveTo(new Vector3(180,500,-300));
         addActor(tileGameObject);

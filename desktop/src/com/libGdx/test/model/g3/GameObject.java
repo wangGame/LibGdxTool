@@ -152,8 +152,7 @@ public class GameObject extends ModelBase{
                 .getDimensions(new Vector3());
     }
 
-    public void rotate(float yaw, float pitch, float roll)
-    {
+    public void rotate(float yaw, float pitch, float roll) {
         rotate(Vector3.Y, yaw);
         rotate(Vector3.X, pitch);
         rotate(Vector3.Z, roll);

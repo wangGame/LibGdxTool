@@ -52,7 +52,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
 
     private void doneLoading() {
         Model modelUp = new ObjLoader().loadModel(Gdx.files.internal("model/Cube_0.obj"));
-        Texture texture = new Texture(Gdx.files.internal("textures/1.png"));
+        Texture texture = new Texture(Gdx.files.internal("textures/d1.png"));
         TextureAttribute diffuse = TextureAttribute.createDiffuse(texture);
         Material material1 = new Material(
                 diffuse);

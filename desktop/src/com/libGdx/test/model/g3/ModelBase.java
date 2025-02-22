@@ -21,7 +21,7 @@ public abstract class ModelBase extends Actor implements Disposable {
         batch.flush();
         batch.end();
         modelBatchUtils.begin();
-        modelBatchUtils.render(modelInstance);
+        modelBatchUtils.draw(modelInstance);
         modelBatchUtils.end();
         batch.begin();
     }
