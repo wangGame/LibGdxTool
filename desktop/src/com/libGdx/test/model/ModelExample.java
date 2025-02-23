@@ -27,6 +27,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.utils.Array;
+import com.kw.gdx.ModelActor;
 
 public class ModelExample extends ApplicationAdapter {
     public Environment environment;//可以包含点光源集合和线光源集合
@@ -71,15 +72,17 @@ public class ModelExample extends ApplicationAdapter {
         node2.parts.get(0).material = material2;
         instances.add(shipInstance);
         loading = false;
-        shipInstance.transform.scale(1,1,1);
-        shipInstance.nodes.get(0).scale.set(new Vector3(3,6,1));
-        shipInstance.nodes.get(1).scale.set(new Vector3(3,6,1));
-        shipInstance.calculateTransforms();
+//        shipInstance.transform.scale(1,1,1);
+//        shipInstance.nodes.get(0).scale.set(new Vector3(3,6,1));
+//        shipInstance.nodes.get(1).scale.set(new Vector3(3,6,1));
+//        shipInstance.calculateTransforms();
 
 //
 //        Vector3 vector3 = new Vector3();
 //        shipInstance.transform.getTranslation(vector3);
 //        shipInstance.transform.
+
+        ModelActor modelActor = new ModelActor();
 
     }
 
