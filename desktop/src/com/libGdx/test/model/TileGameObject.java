@@ -11,6 +11,7 @@ public class TileGameObject extends GameObject {
     public TileGameObject() {
         super(ModelUtils.createInstance());
     }
+
 //
 //    public static Vector3 transformDirection(Vector3 localDirection, Matrix4 transformationMatrix) {
 //        // 需要调用 transformDirection() 方法，而不是 simple transform()，以确保方向向量的长度不变

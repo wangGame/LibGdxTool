@@ -77,7 +77,6 @@ public class ModelTest extends LibGdxTestMain {
         });
 //        }
 
-        tileGameObject.rotate(Vector3.Z,90);
         Image image1 = new Image(texture);
         image1.setPosition(500,100);
         addActor(image1);
@@ -85,4 +84,13 @@ public class ModelTest extends LibGdxTestMain {
 
     private TileGameObject tileGameObject;
     private boolean touchx = false;
+
+    @Override
+    public void render() {
+        super.render();
+
+//        if (tileGameObject!=null) {
+//            tileGameObject.rotateTo(Vector3.Z, 90);
+//        }
+    }
 }

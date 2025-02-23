@@ -1,25 +1,21 @@
-package com.libGdx.test.model.g3;
+package com.kw.gdx.g3;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.libGdx.test.model.g3.math.Circle;
-import com.libGdx.test.model.g3.math.GdxMath;
+import com.badlogic.gdx.utils.Align;
+import com.kw.gdx.g3.math.Circle;
+import com.kw.gdx.g3.math.GdxMath;
 
 public class GameObject extends ModelBase{
-    public GameObject(ModelInstance modelInstance) {
-        super(modelInstance);
-        BoundingBox boundingBox = boundingBox();
-        setBounds(boundingBox.min.x,boundingBox.min.y,boundingBox.getWidth(),boundingBox.getHeight());
-        setDebug(true);
-    }
 
     private static final int MATRIX_DIRECTION_X = 8;
     private static final int MATRIX_DIRECTION_Y = 9;
@@ -28,6 +24,11 @@ public class GameObject extends ModelBase{
     private static final int ROOT_NODE_LOCATION = 0;
     private static final float FORWARD_DIRECTION = 0f;
     private static final float BACKWARD_DIRECTION = 180f;
+    public GameObject(ModelInstance modelInstance) {
+        super(modelInstance);
+        BoundingBox boundingBox = boundingBox();
+        setBounds(boundingBox.min.x,boundingBox.min.y,boundingBox.getWidth(),boundingBox.getHeight());
+    }
 
     public Ray backwardRay() {
         return ray(BACKWARD_DIRECTION);
@@ -102,15 +103,9 @@ public class GameObject extends ModelBase{
 
     public void moveTo(Vector3 location) {
         //优化
-        Vector3 scale = scale();
         Quaternion rotation = rotationQuaternion();
         transform().setToTranslation(location);
         setRotation(rotation);
-        setScale(scale);
-
-
-        setPosition(location.x - boundingBox().getWidth()/2.f,
-                location.y - boundingBox().getHeight()/2.f);
     }
 
     public Vector3 originalSize()
@@ -152,7 +147,8 @@ public class GameObject extends ModelBase{
                 .getDimensions(new Vector3());
     }
 
-    public void rotate(float yaw, float pitch, float roll) {
+    public void rotate(float yaw, float pitch, float roll)
+    {
         rotate(Vector3.Y, yaw);
         rotate(Vector3.X, pitch);
         rotate(Vector3.Z, roll);
@@ -207,8 +203,18 @@ public class GameObject extends ModelBase{
         calculateTransforms();
     }
 
-    public void setRotation(float yaw, float pitch, float roll)
-    {
+    private Vector2 tempV2 = new Vector2();
+    private Vector3 moveTo = new Vector3();
+    @Override
+    protected void positionChanged() {
+        super.positionChanged();
+        tempV2.set(getX(Align.center),getY(Align.center));
+        localToStageCoordinates(tempV2);
+        moveTo.set(tempV2.x,tempV2.y,-400);
+        moveTo(moveTo);
+    }
+
+    public void setRotation(float yaw, float pitch, float roll) {
         Vector3 location = location();
         transform().setFromEulerAngles(yaw, pitch, roll);
         moveTo(location);
@@ -249,13 +255,26 @@ public class GameObject extends ModelBase{
     }
 
     @Override
-    public Actor hit(float x, float y, boolean touchable) {
-        Ray ray = ray(location());
-        return super.hit(x, y, touchable);
+    public void act(float delta) {
+        super.act(delta);
+        tempV2.set(getX(Align.center),getY(Align.center));
+        getParent().localToStageCoordinates(tempV2);
+        moveTo.set(tempV2.x,tempV2.y,-60);
+        moveTo(moveTo);
     }
 
 
-    public void rotateTo(Vector3 z, int i) {
-        transform().setToRotation(z,50);
+    private Vector3 scaleV3 = new Vector3();
+    private Quaternion q = new Quaternion();
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        batch.getTransformMatrix().getScale(scaleV3);
+
+        for (Node node : modelInstance.nodes) {
+            node.scale.set(3*700*scaleV3.x,6*700*scaleV3.y,1*700*scaleV3.x);
+        }
+        modelInstance.calculateTransforms();
+        super.draw(batch, parentAlpha);
     }
 }
