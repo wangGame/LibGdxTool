@@ -1590,4 +1590,8 @@ public class Matrix4 implements Serializable {
 			&& MathUtils.isZero(val[M01]) && MathUtils.isZero(val[M02]) && MathUtils.isZero(val[M10]) && MathUtils.isZero(val[M12])
 			&& MathUtils.isZero(val[M20]) && MathUtils.isZero(val[M21]));
 	}
+
+	public static Matrix4 copy(Matrix4 outMatrix4,Matrix4 s){
+		return outMatrix4.set(s);
+	}
 }

@@ -63,6 +63,33 @@ public class Quaternion implements Serializable {
 		this.set(axis, angle);
 	}
 
+	public static void normalize(Vector4 out, Quaternion a) {
+		float len = a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w;
+		if (len > 0) {
+			len = (float) (1.f / Math.sqrt(len));
+			out.x = a.x * len;
+			out.y = a.y * len;
+			out.z = a.z * len;
+			out.w = a.w * len;
+		} else {
+			out.x = 0;
+			out.y = 0;
+			out.z = 0;
+			out.w = 0;
+		}
+	}
+
+	public static void multiply(Quaternion out, Quaternion a, Vector4 b) {
+		float x = a.x * b.w + a.w * b.x + a.y * b.z - a.z * b.y;
+        float y = a.y * b.w + a.w * b.y + a.z * b.x - a.x * b.z;
+        float z = a.z * b.w + a.w * b.z + a.x * b.y - a.y * b.x;
+        float w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
+		out.x = x;
+		out.y = y;
+		out.z = z;
+		out.w = w;
+	}
+
 	/** Sets the components of the quaternion
 	 * @param x The x-component
 	 * @param y The y-component
@@ -868,5 +895,17 @@ public class Quaternion implements Serializable {
 	 * @return the angle in degrees of the rotation around the specified axis */
 	public float getAngleAround (final Vector3 axis) {
 		return getAngleAround(axis.x, axis.y, axis.z);
+	}
+
+	public static void invert(Vector4 out, Vector4 a) {
+		float dot = a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w;
+		float invDot = dot>0 ? 1.0f / dot : 0.0f;
+
+		// TODO: Would be faster to return [0,0,0,0] immediately if dot == 0
+
+		out.x = -a.x * invDot;
+		out.y = -a.y * invDot;
+		out.z = -a.z * invDot;
+		out.w = a.w * invDot;
 	}
 }

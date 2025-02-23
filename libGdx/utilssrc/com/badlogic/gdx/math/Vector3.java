@@ -720,4 +720,24 @@ public class Vector3 implements Serializable, Vector<Vector3> {
 		this.z = 0;
 		return this;
 	}
+
+//	向量四元数乘法：q*a*q^{-1}。
+	public static void transformQuat (Vector3 out,Vector3 a,  Quaternion q) {
+		// benchmarks: http://jsperf.com/quaternion-transform-Vec3-implementations
+
+		// calculate quat * vec
+        float ix = q.w * a.x + q.y * a.z - q.z * a.y;
+        float iy = q.w * a.y + q.z * a.x - q.x * a.z;
+        float iz = q.w * a.z + q.x * a.y - q.y * a.x;
+        float iw = -q.x * a.x - q.y * a.y - q.z * a.z;
+
+		// calculate result * inverse quat
+		out.x = ix * q.w + iw * -q.x + iy * -q.z - iz * -q.y;
+		out.y = iy * q.w + iw * -q.y + iz * -q.x - ix * -q.z;
+		out.z = iz * q.w + iw * -q.z + ix * -q.y - iy * -q.x;
+	}
+
+	public static void copy(Vector3 out,Vector3 s){
+		out.set(s);
+	}
 }
