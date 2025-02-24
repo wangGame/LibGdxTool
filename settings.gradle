@@ -3,5 +3,13 @@ pluginManagement {
         id 'org.jetbrains.kotlin.jvm' version '1.9.24'
     }
 }
-include 'libGdxLib','libGdx','desktop','libGdxMultDown','android' ,
-        'mylibrary',"libgdxbox2d","libCommon","core"
+include 'libGdxLib',
+        'libGdx',
+        'desktop',
+        'libGdxMultDown',
+        'android' ,
+        'mylibrary',
+        "libgdxbox2d",
+        "libCommon",
+        "core",
+        "libGdxLib3D"

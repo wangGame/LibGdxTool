@@ -16,6 +16,8 @@ dependencies {
     implementation project (':libGdxLib')
     implementation project (':libGdx')
     implementation project(":libCommon")
+    implementation project(":libGdxLib3D")
+
     implementation 'junit:junit:4.12'
     implementation "com.badlogicgames.gdx:gdx-freetype-platform:1.9.8:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-freetype:1.9.8"

@@ -28,7 +28,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.screen.BaseScreen;
-import com.libGdx.test.A;
 
 public class ThreeActor extends Actor {
     public Environment environment;//可以包含点光源集合和线光源集合
