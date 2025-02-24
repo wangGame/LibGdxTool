@@ -15,12 +15,16 @@ import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.libGdx.test.base.LibGdxTestMain;
 import com.libGdx.test.model.g3.GameObject;
@@ -46,6 +50,8 @@ public class ModelTest extends LibGdxTestMain {
         });
 
 
+        Group group = new Group();
+        addActor(group);
 //        for (int i = 1; i < 2; i++) {
         tileGameObject = new TileGameObject(){
             @Override
@@ -53,8 +59,13 @@ public class ModelTest extends LibGdxTestMain {
                 super.act(delta);
             }
         };
-        tileGameObject.moveTo(new Vector3(180,500,-300));
-        addActor(tileGameObject);
+
+        tileGameObject.addAction(Actions.moveToAligned(199,599, Align.center,1.4f));
+
+        group.setOrigin(0,-100);
+        group.setScale(0.4f);
+        tileGameObject.moveTo(new Vector3(0,0,-300));
+        group.addActor(tileGameObject);
         tileGameObject.addListener(new ActorGestureListener(){
             private float speed;
             @Override
@@ -77,7 +88,7 @@ public class ModelTest extends LibGdxTestMain {
             }
         });
 //        }
-
+        group.setPosition(100,100);
         Image image1 = new Image(texture);
         image1.setPosition(500,100);
         addActor(image1);

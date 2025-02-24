@@ -51,6 +51,7 @@ public class MyGdxGame2 extends ApplicationAdapter {
 
 
     private void doneLoading() {
+
         Model modelUp = new ObjLoader().loadModel(Gdx.files.internal("model/Cube_0.obj"));
         Texture texture = new Texture(Gdx.files.internal("textures/1.png"));
         TextureAttribute diffuse = TextureAttribute.createDiffuse(texture);
@@ -96,13 +97,21 @@ public class MyGdxGame2 extends ApplicationAdapter {
     }
 
     public static void main(String[] args) {
-        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        config.x = 1000;
-        config.stencil=8;
-        config.y = 0;
-        config.height = (int) (1920 * 0.25f);
-        config.width = (int) (1080 * 0.5f);
-        Gdx.isJiami = true;
-        new LwjglApplication(new MyGdxGame2(), config);
+//        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+//        config.x = 1000;
+//        config.stencil=8;
+//        config.y = 0;
+//        config.height = (int) (1920 * 0.25f);
+//        config.width = (int) (1080 * 0.5f);
+//        Gdx.isJiami = true;
+//        new LwjglApplication(new MyGdxGame2(), config);
+        int index = 0;
+        for (int i = 0; i <= 6; i++) {
+            for (int i1 = i; i1 <= 6; i1++) {
+                System.out.println(i+ "  " +i1);
+                index++;
+            }
+        }
+        System.out.println(index);
     }
 }
