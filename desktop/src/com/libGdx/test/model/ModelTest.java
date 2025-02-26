@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
@@ -25,6 +26,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.BaseJsonReader;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.UBJsonReader;
 import com.kw.gdx.ModelActor;
 import com.kw.gdx.constant.Constant;
 import com.libGdx.test.base.LibGdxTestMain;
@@ -37,18 +41,24 @@ public class ModelTest extends LibGdxTestMain {
         ModelTest modelTest = new ModelTest();
         modelTest.start();
     }
-
-    @Override
+//    convertedModel.g3db
+    private Model mModel;
     public void useShow(Stage stage) {
         super.useShow(stage);
+
+         mModel = new G3dModelLoader(new UBJsonReader()).loadModel(Gdx.files.internal("convertedModel.g3db"));
+
+//        Model modelUp = new G3dModelLoader(new BaseJsonReader).loadModel(Gdx.files.internal("model/Cube_0.obj"));
+
         Constant.viewColor = new Color(49/255.0f,77/255.0f,121/255.0f,1.f/255.0f);
-        this.modelActor = new ModelActor(ModelUtils.createInstance());
+        ModelUtils.createInstance();
+        this.modelActor = new ModelActor(new ModelInstance(mModel));
         addActor(modelActor);
-        modelActor.setPosition(new Vector3(100,500,-400));
+        modelActor.setPosition(new Vector3(500,500,-400));
         Vector3 rotation = new Vector3();
         rotation.set(3,0,0);
         modelActor.rotation(rotation);
-        modelActor.setScale(new Vector3(2,2,6));
+        modelActor.setScale(new Vector3(200,200,60));
         modelActor.setDebug(true);
     }
 
