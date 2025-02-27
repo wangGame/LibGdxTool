@@ -1,30 +1,17 @@
 package com.libGdx.test.lib3d;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.ModelActor;
 import com.kw.gdx.animation3d.RotationAction;
 import com.libGdx.test.base.LibGdxTestMain;
-import com.libGdx.test.model.ModelExample;
 import com.libGdx.test.model.ModelUtils;
 
 public class App extends LibGdxTestMain{
@@ -44,20 +31,26 @@ public class App extends LibGdxTestMain{
 //        rotation();
 //        scaleAction();
 //        rotationAction();
+//        scaleActor();
         scaleActor();
     }
 
     private void scaleActor() {
         Group group = new Group();
-        ModelInstance instance = ModelUtils.createInstance();
+
+
+
+        ModelInstance instance = ModelUtils.createInstance(1);
         actor = new ModelActor(instance);
         actor.setSize(100,100);
         actor.setDebug(true);
         group.addActor(actor);
-        actor.setPosition(new Vector3(0,0,-200));
+        actor.setPosition(new Vector3(0,0,-700));
         actor.setOrigin(Align.center);
         addActor(group);
-        group.setPosition(100,100);
+        group.setPosition(400,400);
+        actor.rotation(20,30,20);
+        actor.setScale(1.4f);
 
 //        group.addAction(Actions.rotateTo(100,4));
 //        group.addAction(Actions.sequence(
@@ -65,13 +58,13 @@ public class App extends LibGdxTestMain{
 //                Actions.scaleTo(3,3,4)
 //                ));
 //
-        group.addAction(Actions.forever(
-                Actions.rotateBy(19,0.1f)
-        ));
+//        group.addAction(Actions.forever(
+//                Actions.rotateBy(19,0.1f)
+//        ));
     }
 
     private void rotationAction() {
-        ModelInstance instance = ModelUtils.createInstance();
+        ModelInstance instance = ModelUtils.createInstance(0);
         actor = new ModelActor(instance);
         actor.setSize(100,100);
         actor.setDebug(true);
@@ -100,7 +93,7 @@ public class App extends LibGdxTestMain{
 
 
     private void scaleAction() {
-        ModelInstance instance = ModelUtils.createInstance();
+        ModelInstance instance = ModelUtils.createInstance(0);
         actor = new ModelActor(instance);
         actor.setSize(100,100);
         actor.setDebug(true);
@@ -131,7 +124,7 @@ public class App extends LibGdxTestMain{
 */
 
     private void rotation() {
-        ModelInstance instance = ModelUtils.createInstance();
+        ModelInstance instance = ModelUtils.createInstance(0);
         actor = new ModelActor(instance){
             @Override
             public void act(float delta) {

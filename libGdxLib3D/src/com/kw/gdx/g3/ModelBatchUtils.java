@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.kw.gdx.constant.Constant;
 
 public class ModelBatchUtils extends ModelBatch {
@@ -43,7 +44,9 @@ public class ModelBatchUtils extends ModelBatch {
 
     public void initLight(){
         environment = new Environment();
-        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.9f, 0.9f, 0.9f, 1f));//环境光
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.3f, 0.3f, 0.3f, 1f));//环境光
+        DirectionalLight directionalLight = new DirectionalLight().set(0.7f, 0.7f,0.7f, -0, -0, -1);
+        environment.add(directionalLight);
     }
 
 }
