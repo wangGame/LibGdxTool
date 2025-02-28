@@ -30,9 +30,9 @@ public class App extends LibGdxTestMain{
         super.useShow(stage);
 //        rotation();
 //        scaleAction();
-//        rotationAction();
+        rotationAction();
 //        scaleActor();
-        scaleActor();
+//        scaleActor();
     }
 
     private void scaleActor() {
@@ -50,7 +50,7 @@ public class App extends LibGdxTestMain{
         addActor(group);
         group.setPosition(400,400);
         actor.rotation(20,30,20);
-        actor.setScale(1.4f);
+
 
 //        group.addAction(Actions.rotateTo(100,4));
 //        group.addAction(Actions.sequence(
@@ -69,26 +69,38 @@ public class App extends LibGdxTestMain{
         actor.setSize(100,100);
         actor.setDebug(true);
         addActor(actor);
-        actor.setPosition(new Vector3(300,300,-200));
+        actor.setPosition(new Vector3(0,0,-200));
         actor.setOrigin(Align.center);
 
         RotationAction action = new RotationAction();
         action.setDuration(1f);
-        action.setEndX(53.37f);
-        action.setEndY(-27.74F);
-        action.setEndZ(-134.67F);
+        action.setEndX(83.37f);
+        action.setEndY(-57.74F);
+        action.setEndZ(-164.67F);
 
         RotationAction action1 = new RotationAction();
         action1.setDuration(1f);
-        action1.setEndX(0F);
+        action1.setEndX(180F);
         action1.setEndY(0F);
-        action1.setEndZ(-180.67F);
+        action1.setEndZ(-180F);
 
         actor.addAction(Actions.sequence(
                 action
-//                ,
-//                action1
+                ,
+                action1
         ));
+
+//        addActor(actor);
+        Group group = new Group();
+        group.addActor(actor);
+        addActor(group);
+        Group g = new Group();
+        g.setScale(3);
+        g.addActor(group);
+        addActor(g);
+
+        group.addAction(Actions.moveToAligned(100,100,Align.center,1));
+
     }
 
 

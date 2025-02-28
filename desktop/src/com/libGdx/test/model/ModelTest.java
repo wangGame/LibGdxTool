@@ -21,14 +21,14 @@ public class ModelTest extends LibGdxTestMain {
         Constant.viewColor = new Color(49/255.0f,77/255.0f,121/255.0f,1.f/255.0f);
         this.modelActor = new ModelActor(ModelUtils.createInstance(0));
         addActor(modelActor);
-        modelActor.setPosition(new Vector3(100,500,-400));
+        modelActor.setPosition(new Vector3(100,500,-800));
         Vector3 rotation = new Vector3();
         rotation.set(3,0,0);
         modelActor.rotation(rotation);
-        modelActor.setScale(new Vector3(2,2,6));
+        modelActor.setScale(new Vector3(200,200,600));
+        modelActor.rotation(180,0,0);
         modelActor.setDebug(true);
     }
-
 
     @Override
     public void render() {

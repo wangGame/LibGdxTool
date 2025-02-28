@@ -130,11 +130,15 @@ public class ModelActor extends Actor {
         return modelInstance.calculateBoundingBox(new BoundingBox());
     }
 
+
+
     public void calMatr(Batch batch){
+        //必须先平移在旋转   不知道这是什么丑毛病
         if (  isDrity ) {
             isDrity = false;
             _mat.idt();
 
+            _mat.mul(batch.getTransformMatrix());
             //获取父类位置加过来
             //本地位置
             _mat.translate(_lpos.x, _lpos.y, _lpos.z);
@@ -146,9 +150,10 @@ public class ModelActor extends Actor {
             //缩放
             //获取父类的乘过来
             _mat.scale(_lscale.x, _lscale.y, _lscale.z);
+
+            useMat.set(_mat);
         }
-        useMat.set(_mat);
-        useMat.mul(batch.getTransformMatrix());
+
         modelInstance.transform.set(useMat);
     }
 
