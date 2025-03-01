@@ -82,7 +82,7 @@ public class ModelExample extends ApplicationAdapter {
 //        shipInstance.transform.getTranslation(vector3);
 //        shipInstance.transform.
 
-        ModelActor modelActor = new ModelActor();
+//        ModelActor modelActor = new ModelActor();
 
     }
 
