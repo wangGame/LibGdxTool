@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Align;
-import com.kw.gdx.ModelActor;
+import com.kw.gdx.group.ModelActor;
 import com.libGdx.test.model.ModelUtils;
 
 public class ModelGroup extends Group {

@@ -3,15 +3,12 @@ package com.libGdx.test.lib3d;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.utils.Align;
-import com.kw.gdx.ModelActor;
-import com.kw.gdx.ModelGroup;
+import com.kw.gdx.group.ModelActor;
+import com.kw.gdx.group.ModelActorManager;
 import com.kw.gdx.animation3d.RotationAction;
 import com.libGdx.test.base.LibGdxTestMain;
 import com.libGdx.test.model.ModelUtils;
@@ -64,14 +61,11 @@ public class App extends LibGdxTestMain{
         ModelInstance instance = ModelUtils.createInstance(0);
         ModelActor actor = new ModelActor(instance);
         actor.setPosition(new Vector3(0,0,-100));
-        ModelGroup modelGroup = new ModelGroup();
-        addActor(modelGroup);
-        modelGroup.addActor(actor);
-        modelGroup.setSize(actor.getWidth(),actor.getHeight());
-        modelGroup.setPosition(400,500,Align.center);
-        modelGroup.setRotation(10);
-        modelGroup.setDebug(true);
-        actor.setPosition(modelGroup.getWidth()/2.f,modelGroup.getHeight()/2.f,Align.center);
+        ModelActorManager modelActorManager = new ModelActorManager(actor);
+        addActor(modelActorManager);
+        modelActorManager.setPosition(400,500,Align.center);
+        modelActorManager.setRotation(10);
+        modelActorManager.setDebug(true);
 //        actor.addAction(Actions.forever(Actions.rotateBy(10,1)));
 
         RotationAction rotationAction = new RotationAction();
@@ -79,8 +73,7 @@ public class App extends LibGdxTestMain{
         rotationAction.setEndY(100);
         rotationAction.setEndZ(100);
         rotationAction.setDuration(1);
-
-        modelGroup.addAction(rotationAction);
+        modelActorManager.setOrigin(Align.center);
 
 
         RotationAction action = new RotationAction();
@@ -95,26 +88,21 @@ public class App extends LibGdxTestMain{
         action1.setEndY(0F);
         action1.setEndZ(-180F);
 
-        modelGroup.addAction(Actions.sequence(
-                action,action1
+        modelActorManager.addAction(Actions.sequence(
+                Actions.scaleTo(2,2,0.4f),
+                Actions.scaleTo(0.2f,0.2f,0.4f)
+                ));
+
+//        modelActorManager.addAction(Actions.rotateTo(150,0.3f));
+        modelActorManager.addAction(Actions.sequence(
+                action, Actions.delay(0.3f),action1
         ));
+//
 
-//        actor.addAction(Actions.sequence(
-//                action
-//                ,
-//                action1
-//        ));
 
-//        addActor(actor);
-        Group group = new Group();
-//        group.addActor(actor);
-        addActor(group);
-        Group g = new Group();
-        g.setScale(2);
-        g.addActor(group);
-        addActor(g);
+//        modelActorManager.addAction();
 
-        group.addAction(Actions.moveToAligned(100,400,Align.center,2));
+
 
     }
 
