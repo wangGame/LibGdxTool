@@ -37,5 +37,7 @@ public class AssetLoadingTest extends LibGdxTestMain {
                 System.out.println("-");
             }
         }
+
+
     }
 }

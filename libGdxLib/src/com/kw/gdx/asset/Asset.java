@@ -9,9 +9,14 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.kw.gdx.constant.Constant;
+import com.kw.gdx.loader.CsvLoader;
+import com.kw.gdx.loader.bean.ArrayResult;
+import com.kw.gdx.loader.bean.CsvBean;
+import com.kw.gdx.loader.bean.CsvBeanParamter;
 import com.kw.gdx.resource.annotation.AssetResource;
 import com.kw.gdx.resource.annotation.FtResource;
 import com.kw.gdx.resource.annotation.I18BundleAnnotation;
@@ -248,6 +253,7 @@ public class Asset implements Disposable {
             assetManager.setLoader(ManagerUIEditor.class,new ManagerUILoader(assetManager.getFileHandleResolver()));
             assetManager.setLoader(PlistAtlas.class, new PlistAtlasLoader(assetManager.getFileHandleResolver()));
             assetManager.setLoader(SkeletonData.class,new SkeletonDataLoader(assetManager.getFileHandleResolver()));
+            assetManager.setLoader(ArrayResult.class,new CsvLoader(assetManager.getFileHandleResolver()));
             if (Configuration.device_state == Configuration.DeviceState.poor) {
                 assetManager.setLoader(TextureAtlas.class, new MiniTextureAtlasLoader(assetManager.getFileHandleResolver(), Configuration.scale));
                 assetManager.setLoader(Texture.class, new MiniTextureLoader(assetManager.getFileHandleResolver(), Configuration.scale));
@@ -322,6 +328,13 @@ public class Asset implements Disposable {
         });
         label.setAlignment(Align.center);
         return label;
+    }
+
+    public void loadCsv(String name, CsvBeanParamter csvBeanParamter){
+        if (assetManager!=null) {
+            assetManager.load(name, ArrayResult.class,csvBeanParamter);
+            assetManager.finishLoading();
+        }
     }
 
     public Image getImage(String path){
@@ -427,5 +440,10 @@ public class Asset implements Disposable {
             frameBuffer.dispose();
         }
         frameBuffer = null;
+    }
+
+    public <T> Array<? extends CsvBean> getCsv(String s) {
+        ArrayResult result = assetManager.get(s, ArrayResult.class);
+        return result.array;
     }
 }

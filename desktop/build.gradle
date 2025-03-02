@@ -25,6 +25,7 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
     implementation project(':libgdxbox2d')
+    implementation project(":libGdxLibTool3D")
 
 
 //    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-core

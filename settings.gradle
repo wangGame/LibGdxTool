@@ -12,4 +12,5 @@ include 'libGdxLib',
         "libgdxbox2d",
         "libCommon",
         "core",
-        "libGdxLib3D"
+        "libGdxLib3D",
+        "libGdxLibTool3D"

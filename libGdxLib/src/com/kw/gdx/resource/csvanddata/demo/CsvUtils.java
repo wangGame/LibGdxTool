@@ -1,6 +1,7 @@
 package com.kw.gdx.resource.csvanddata.demo;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.resource.annotation.ExecuteMathod;
 import com.kw.gdx.resource.csvanddata.CsvResource;
@@ -21,6 +22,11 @@ public class CsvUtils {
         return array;
     }
 
+    public static <T> Array<T> common(FileHandle fileHandle,Class<T> tClass){
+        Array<T> array = new Array<>();
+        readCvs.readMethodMethod(array, new BufferedReader(fileHandle.reader()), tClass);
+        return array;
+    }
 
     public static <T> Array<T> common(String path, Class<T> tClass) {
         Array<T> array = new Array<>();
