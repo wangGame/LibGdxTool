@@ -2,8 +2,7 @@ package com.kw.gdx.animation3d;
 
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
-import com.badlogic.gdx.utils.Align;
-import com.kw.gdx.ModelActor;
+import com.kw.gdx.group.ModelActorManager;
 
 public class RotationAction  extends TemporalAction {
     private float startX, startY,startZ;
@@ -11,8 +10,8 @@ public class RotationAction  extends TemporalAction {
 
 
     protected void begin () {
-        if (target instanceof ModelActor) {
-            ModelActor target1 = (ModelActor) (target);
+        if (target instanceof ModelActorManager) {
+            ModelActorManager target1 = (ModelActorManager) (target);
             Vector3 lrot = target1.get_lrot();
             startX = lrot.x;
             startY = lrot.y;
@@ -21,8 +20,8 @@ public class RotationAction  extends TemporalAction {
     }
 
     protected void update (float percent) {
-        if (target instanceof ModelActor) {
-            ((ModelActor) target).rotation(startX + (endX - startX) * percent, startY + (endY - startY) * percent, startZ + (endZ - startZ) * percent);
+        if (target instanceof ModelActorManager) {
+            ((ModelActorManager) target).rotation(startX + (endX - startX) * percent, startY + (endY - startY) * percent, startZ + (endZ - startZ) * percent);
         }
     }
 

@@ -1,15 +1,12 @@
-package com.kw.gdx;
+package com.kw.gdx.group;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.Vector4;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.g3.ModelBatchUtils;
 import com.kw.gdx.lib.NodeSpace;
@@ -48,13 +45,10 @@ public class ModelActor extends Actor {
 //    @serializable
     protected Vector3 _lscale = new Vector3(1, 1, 1);
 
-    public ModelActor(){
-
-    }
-
     public ModelActor(ModelInstance instance){
         this.modelInstance = instance;
-        setSize(0,0);
+        BoundingBox boundingBox = boundingBox();
+        setSize(boundingBox.getWidth(),boundingBox.getHeight());
         setDebug(true);
     }
 
@@ -134,7 +128,7 @@ public class ModelActor extends Actor {
 
     public void calMatr(Batch batch){
         //必须先平移在旋转   不知道这是什么丑毛病
-        if (  isDrity ) {
+        if (  true ) {
             isDrity = false;
             _mat.idt();
 
@@ -153,17 +147,6 @@ public class ModelActor extends Actor {
 
             useMat.set(_mat);
         }
-
         modelInstance.transform.set(useMat);
-    }
-
-
-
-    float o = 0;
-    @Override
-    public void act(float delta) {
-//        o += delta * 20;
-//        rotation(new Vector3(0,o,50));
-        super.act(delta);
     }
 }

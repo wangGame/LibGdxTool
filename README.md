@@ -25,6 +25,10 @@ git add .
 
 git commit -m "xx"
 
+## 3d部分已经拆出去了
+
+[3D部分](https://github.com/wangGame/LibgdxTool3D)
+
 ## 仓库使用方法
 
 ```
