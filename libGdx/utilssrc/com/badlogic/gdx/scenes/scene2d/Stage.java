@@ -182,6 +182,13 @@ public class Stage extends InputAdapter implements Disposable {
 		}
 	}
 
+
+	public boolean touchCancelled (int screenX, int screenY, int pointer, int button) {
+		cancelTouchFocus();
+		return false;
+	}
+
+
 	/** Calls {@link #act(float)} with {@link Graphics#getDeltaTime()}, limited to a minimum of 30fps. */
 	public void act () {
 		act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
