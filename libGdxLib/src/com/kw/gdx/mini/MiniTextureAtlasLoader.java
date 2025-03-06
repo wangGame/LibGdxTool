@@ -44,8 +44,8 @@ public class MiniTextureAtlasLoader extends SynchronousAssetLoader<TextureAtlas,
         Array<TextureAtlas.AtlasRegion> regions=atlas.getRegions();
 
         for (TextureAtlas.AtlasRegion region:regions){
-            if(region.splits!=null)
-                continue;
+//            if(region.splits!=null)
+//                continue;
 
             float wid=region.getTexture().getWidth();
             float height=region.getTexture().getHeight();

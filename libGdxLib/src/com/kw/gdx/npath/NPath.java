@@ -48,25 +48,25 @@ public class NPath extends Group {
 
             vertices[idx] = 0 + xx;
             vertices[idx + 1] = textureRegion.getRegionHeight() + yy;
-            vertices[idx + 2] = color.toFloatBits();
+            vertices[idx + 2] = getColor().toFloatBits();
             vertices[idx + 3] = textureRegion.getU();
             vertices[idx + 4] = textureRegion.getV();
 
             vertices[idx + 5] = 0 + xx;
             vertices[idx + 6] = 0 + yy;
-            vertices[idx + 7] = color.toFloatBits();
+            vertices[idx + 7] =  getColor().toFloatBits();
             vertices[idx + 8] = textureRegion.getU();
             vertices[idx + 9] = textureRegion.getV2();
 
             vertices[idx + 10] = textureRegion.getRegionWidth() + xx;
             vertices[idx + 11] = 0 + yy;
-            vertices[idx + 12] = color.toFloatBits();
+            vertices[idx + 12] =  getColor().toFloatBits();
             vertices[idx + 13] = textureRegion.getU2();
             vertices[idx + 14] = textureRegion.getV2();
 
             vertices[idx + 15] = textureRegion.getRegionWidth() + xx;
             vertices[idx + 16] = textureRegion.getRegionHeight() + yy;
-            vertices[idx + 17] = color.toFloatBits();
+            vertices[idx + 17] =  getColor().toFloatBits();
             vertices[idx + 18] = textureRegion.getU2();
             vertices[idx + 19] = textureRegion.getV();
             idx+=20;

@@ -7,6 +7,9 @@ sourceSets.main.java.srcDirs = [
         "utilssrc"
 ]
 
+dependencies {
+    implementation project(":libGdxJnigenLoader")
+}
 
 // 指定编码
 tasks.withType(JavaCompile) {

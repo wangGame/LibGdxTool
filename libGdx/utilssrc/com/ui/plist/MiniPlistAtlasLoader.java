@@ -30,8 +30,6 @@ public class MiniPlistAtlasLoader extends SynchronousAssetLoader<PlistAtlas, Pli
 		PlistAtlas atlas = new PlistAtlas(data);
 		for (TextureAtlas.AtlasRegion region : atlas.getRegions()) {
 
-			if(region.splits!=null)
-				continue;
 
 			float wid=region.getTexture().getWidth();
 			float height=region.getTexture().getHeight();

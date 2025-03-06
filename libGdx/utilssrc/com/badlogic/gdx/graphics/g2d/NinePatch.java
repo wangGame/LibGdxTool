@@ -23,37 +23,31 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 /** A 3x3 grid of texture regions. Any of the regions may be omitted. Padding may be set as a hint on how to inset content on top
- * of the ninepatch (by default the eight "edge" textures of the nine-patch define the padding). When drawn the eight "edge"
- * patches will not be scaled, only the interior patch will be scaled.
- * 
+ * of the ninepatch (by default the eight "edge" textures of the ninepatch define the padding). When drawn, the four corner
+ * patches will not be scaled, the interior patch will be scaled in both directions, and the middle patch for each edge will be
+ * scaled in only one direction.
  * <p>
- * <b>NOTE</b>: This class expects a "post-processed" nine-patch, and not a raw ".9.png" texture. That is, the textures given to
- * this class should <em>not</em> include the meta-data pixels from a ".9.png" that describe the layout of the ninepatch over the
- * interior of the graphic. That information should be passed into the constructor either implicitly as the size of the individual
- * patch textures, or via the <code>left, carRun, top, bottom</code> parameters to {@link #NinePatch(Texture, int, int, int, int)}
- * or {@link #NinePatch(TextureRegion, int, int, int, int)}.
- * 
- * <p>
- * A correctly created {@link TextureAtlas} is one way to generate a post-processed nine-patch from a ".9.png" file. */
+ * Note this class does not accept ".9.png" textures that include the metadata border pixels describing the splits (and padding)
+ * for the ninepatch. That information is either passed to a constructor or defined implicitly by the size of the individual patch
+ * textures. {@link TextureAtlas} is one way to generate a postprocessed ninepatch texture regions from ".9.png" files. */
 public class NinePatch {
-	public static final int TOP_LEFT = 0;
-	public static final int TOP_CENTER = 1;
-	public static final int TOP_RIGHT = 2;
-	public static final int MIDDLE_LEFT = 3;
-	public static final int MIDDLE_CENTER = 4;
-	public static final int MIDDLE_RIGHT = 5;
-	public static final int BOTTOM_LEFT = 6;
-	/** Indices for {@link #NinePatch(TextureRegion...)} constructor */
-	// alphabetically first in javadoc
-	public static final int BOTTOM_CENTER = 7;
-	public static final int BOTTOM_RIGHT = 8;
+	static public final int TOP_LEFT = 0;
+	static public final int TOP_CENTER = 1;
+	static public final int TOP_RIGHT = 2;
+	static public final int MIDDLE_LEFT = 3;
+	static public final int MIDDLE_CENTER = 4;
+	static public final int MIDDLE_RIGHT = 5;
+	static public final int BOTTOM_LEFT = 6;
+	/** Indices for the {@link #NinePatch(TextureRegion...)} constructor. */
+	static public final int BOTTOM_CENTER = 7; // This field has the javadoc comment because it appears first in the javadocs.
+	static public final int BOTTOM_RIGHT = 8;
 
 	static private final Color tmpDrawColor = new Color();
 
 	private Texture texture;
-	private int bottomLeft = -1, bottomCenter = -1, bottomRight = -1;
-	private int middleLeft = -1, middleCenter = -1, middleRight = -1;
-	private int topLeft = -1, topCenter = -1, topRight = -1;
+	private int bottomLeft, bottomCenter, bottomRight;
+	private int middleLeft, middleCenter, middleRight;
+	private int topLeft, topCenter, topRight;
 	private float leftWidth, rightWidth, middleWidth, middleHeight, topHeight, bottomHeight;
 	private float[] vertices = new float[9 * 4 * 5];
 	private int idx;
@@ -62,18 +56,21 @@ public class NinePatch {
 
 	/** Create a ninepatch by cutting up the given texture into nine patches. The subsequent parameters define the 4 lines that
 	 * will cut the texture region into 9 pieces.
-	 * 
 	 * @param left Pixels from left edge.
-	 * @param right Pixels from carRun edge.
+	 * @param right Pixels from right edge.
 	 * @param top Pixels from top edge.
 	 * @param bottom Pixels from bottom edge. */
 	public NinePatch (Texture texture, int left, int right, int top, int bottom) {
 		this(new TextureRegion(texture), left, right, top, bottom);
 	}
 
-	public NinePatch (TextureRegion region, int left, int right, int top, int bottom,boolean flipX,boolean flipY) {
-		this.flipX = flipX;
-		this.flipY = flipY;
+	/** Create a ninepatch by cutting up the given texture region into nine patches. The subsequent parameters define the 4 lines
+	 * that will cut the texture region into 9 pieces.
+	 * @param left Pixels from left edge.
+	 * @param right Pixels from right edge.
+	 * @param top Pixels from top edge.
+	 * @param bottom Pixels from bottom edge. */
+	public NinePatch (TextureRegion region, int left, int right, int top, int bottom) {
 		if (region == null) throw new IllegalArgumentException("region cannot be null.");
 		final int middleWidth = region.getRegionWidth() - left - right;
 		final int middleHeight = region.getRegionHeight() - top - bottom;
@@ -95,7 +92,7 @@ public class NinePatch {
 			if (right > 0) patches[BOTTOM_RIGHT] = new TextureRegion(region, left + middleWidth, top + middleHeight, right, bottom);
 		}
 
-		// If split only vertical, move splits from carRun to center.
+		// If split only vertical, move splits from right to center.
 		if (left == 0 && middleWidth == 0) {
 			patches[TOP_CENTER] = patches[TOP_RIGHT];
 			patches[MIDDLE_CENTER] = patches[MIDDLE_RIGHT];
@@ -117,17 +114,6 @@ public class NinePatch {
 		load(patches);
 	}
 
-	/** Create a ninepatch by cutting up the given texture region into nine patches. The subsequent parameters define the 4 lines
-	 * that will cut the texture region into 9 pieces.
-	 * 
-	 * @param left Pixels from left edge.
-	 * @param right Pixels from carRun edge.
-	 * @param top Pixels from top edge.
-	 * @param bottom Pixels from bottom edge. */
-	public NinePatch (TextureRegion region, int left, int right, int top, int bottom) {
-		this(region,left,right,top,bottom,false,false);
-	}
-
 	/** Construct a degenerate "nine" patch with only a center component. */
 	public NinePatch (Texture texture, Color color) {
 		this(texture);
@@ -144,14 +130,9 @@ public class NinePatch {
 		this(region);
 		setColor(color);
 	}
-	public NinePatch (TextureRegion region) {
-		this(region,false,false);
 
-	}
 	/** Construct a degenerate "nine" patch with only a center component. */
-	public NinePatch (TextureRegion region,boolean flipX,boolean flipY) {
-		this.flipX = flipX;
-		this.flipY = flipY;
+	public NinePatch (TextureRegion region) {
 		load(new TextureRegion[] {
 			//
 			null, null, null, //
@@ -159,39 +140,30 @@ public class NinePatch {
 			null, null, null //
 		});
 	}
-	public NinePatch (TextureRegion... patches){
-		this(false,false,patches);
-	}
+
 	/** Construct a nine patch from the given nine texture regions. The provided patches must be consistently sized (e.g., any left
 	 * edge textures must have the same width, etc). Patches may be <code>null</code>. Patch indices are specified via the public
 	 * members {@link #TOP_LEFT}, {@link #TOP_CENTER}, etc. */
-	public NinePatch (boolean flipX,boolean flipY,TextureRegion... patches) {
+	public NinePatch (TextureRegion... patches) {
 		if (patches == null || patches.length != 9) throw new IllegalArgumentException("NinePatch needs nine TextureRegions");
 
 		load(patches);
 
-		float leftWidth = getLeftWidth();
 		if ((patches[TOP_LEFT] != null && patches[TOP_LEFT].getRegionWidth() != leftWidth)
 			|| (patches[MIDDLE_LEFT] != null && patches[MIDDLE_LEFT].getRegionWidth() != leftWidth)
 			|| (patches[BOTTOM_LEFT] != null && patches[BOTTOM_LEFT].getRegionWidth() != leftWidth)) {
 			throw new GdxRuntimeException("Left side patches must have the same width");
 		}
-
-		float rightWidth = getRightWidth();
 		if ((patches[TOP_RIGHT] != null && patches[TOP_RIGHT].getRegionWidth() != rightWidth)
 			|| (patches[MIDDLE_RIGHT] != null && patches[MIDDLE_RIGHT].getRegionWidth() != rightWidth)
 			|| (patches[BOTTOM_RIGHT] != null && patches[BOTTOM_RIGHT].getRegionWidth() != rightWidth)) {
 			throw new GdxRuntimeException("Right side patches must have the same width");
 		}
-
-		float bottomHeight = getBottomHeight();
 		if ((patches[BOTTOM_LEFT] != null && patches[BOTTOM_LEFT].getRegionHeight() != bottomHeight)
 			|| (patches[BOTTOM_CENTER] != null && patches[BOTTOM_CENTER].getRegionHeight() != bottomHeight)
 			|| (patches[BOTTOM_RIGHT] != null && patches[BOTTOM_RIGHT].getRegionHeight() != bottomHeight)) {
 			throw new GdxRuntimeException("Bottom side patches must have the same height");
 		}
-
-		float topHeight = getTopHeight();
 		if ((patches[TOP_LEFT] != null && patches[TOP_LEFT].getRegionHeight() != topHeight)
 			|| (patches[TOP_CENTER] != null && patches[TOP_CENTER].getRegionHeight() != topHeight)
 			|| (patches[TOP_RIGHT] != null && patches[TOP_RIGHT].getRegionHeight() != topHeight)) {
@@ -234,93 +206,62 @@ public class NinePatch {
 		this.color.set(color);
 	}
 
-
-	private boolean flipX;
-	private boolean flipY;
-
 	private void load (TextureRegion[] patches) {
-		for (TextureRegion patch : patches) {
-			patch.flip(flipX,flipY);
-		}
-		if (flipX){
-			TextureRegion tl = patches[TOP_LEFT];
-			patches[TOP_LEFT] = patches[TOP_RIGHT];
-			patches[TOP_RIGHT] = tl;
-
-			TextureRegion ml = patches[MIDDLE_LEFT];
-			patches[MIDDLE_LEFT] = patches[MIDDLE_RIGHT];
-			patches[MIDDLE_RIGHT] = ml;
-
-
-			TextureRegion bl = patches[BOTTOM_LEFT];
-			patches[BOTTOM_LEFT] = patches[BOTTOM_RIGHT];
-			patches[BOTTOM_RIGHT] = bl;
-		}
-		if (flipY){
-			TextureRegion tl = patches[TOP_LEFT];
-			patches[TOP_LEFT] = patches[BOTTOM_LEFT];
-			patches[BOTTOM_LEFT] = tl;
-
-
-			TextureRegion tc = patches[TOP_CENTER];
-			patches[TOP_CENTER] = patches[BOTTOM_CENTER];
-			patches[BOTTOM_CENTER] = tc;
-
-
-			TextureRegion tr = patches[TOP_RIGHT];
-			patches[TOP_RIGHT] = patches[BOTTOM_RIGHT];
-			patches[BOTTOM_RIGHT] = tr;
-		}
-
-
-
-		final float color = Color.WHITE.toFloatBits(); // placeholder color, overwritten at draw time
-
 		if (patches[BOTTOM_LEFT] != null) {
-			bottomLeft = add(patches[BOTTOM_LEFT], color, false, false);
+			bottomLeft = add(patches[BOTTOM_LEFT], false, false);
 			leftWidth = patches[BOTTOM_LEFT].getRegionWidth();
 			bottomHeight = patches[BOTTOM_LEFT].getRegionHeight();
-		}
+		} else
+			bottomLeft = -1;
 		if (patches[BOTTOM_CENTER] != null) {
-			bottomCenter = add(patches[BOTTOM_CENTER], color, true, false);
+			bottomCenter = add(patches[BOTTOM_CENTER], patches[BOTTOM_LEFT] != null || patches[BOTTOM_RIGHT] != null, false);
 			middleWidth = Math.max(middleWidth, patches[BOTTOM_CENTER].getRegionWidth());
 			bottomHeight = Math.max(bottomHeight, patches[BOTTOM_CENTER].getRegionHeight());
-		}
+		} else
+			bottomCenter = -1;
 		if (patches[BOTTOM_RIGHT] != null) {
-			bottomRight = add(patches[BOTTOM_RIGHT], color, false, false);
+			bottomRight = add(patches[BOTTOM_RIGHT], false, false);
 			rightWidth = Math.max(rightWidth, patches[BOTTOM_RIGHT].getRegionWidth());
 			bottomHeight = Math.max(bottomHeight, patches[BOTTOM_RIGHT].getRegionHeight());
-		}
+		} else
+			bottomRight = -1;
 		if (patches[MIDDLE_LEFT] != null) {
-			middleLeft = add(patches[MIDDLE_LEFT], color, false, true);
+			middleLeft = add(patches[MIDDLE_LEFT], false, patches[TOP_LEFT] != null || patches[BOTTOM_LEFT] != null);
 			leftWidth = Math.max(leftWidth, patches[MIDDLE_LEFT].getRegionWidth());
 			middleHeight = Math.max(middleHeight, patches[MIDDLE_LEFT].getRegionHeight());
-		}
+		} else
+			middleLeft = -1;
 		if (patches[MIDDLE_CENTER] != null) {
-			middleCenter = add(patches[MIDDLE_CENTER], color, true, true);
+			middleCenter = add(patches[MIDDLE_CENTER], patches[MIDDLE_LEFT] != null || patches[MIDDLE_RIGHT] != null,
+				patches[TOP_CENTER] != null || patches[BOTTOM_CENTER] != null);
 			middleWidth = Math.max(middleWidth, patches[MIDDLE_CENTER].getRegionWidth());
 			middleHeight = Math.max(middleHeight, patches[MIDDLE_CENTER].getRegionHeight());
-		}
+		} else
+			middleCenter = -1;
 		if (patches[MIDDLE_RIGHT] != null) {
-			middleRight = add(patches[MIDDLE_RIGHT], color, false, true);
+			middleRight = add(patches[MIDDLE_RIGHT], false, patches[TOP_RIGHT] != null || patches[BOTTOM_RIGHT] != null);
 			rightWidth = Math.max(rightWidth, patches[MIDDLE_RIGHT].getRegionWidth());
 			middleHeight = Math.max(middleHeight, patches[MIDDLE_RIGHT].getRegionHeight());
-		}
+		} else
+			middleRight = -1;
 		if (patches[TOP_LEFT] != null) {
-			topLeft = add(patches[TOP_LEFT], color, false, false);
+			topLeft = add(patches[TOP_LEFT], false, false);
 			leftWidth = Math.max(leftWidth, patches[TOP_LEFT].getRegionWidth());
 			topHeight = Math.max(topHeight, patches[TOP_LEFT].getRegionHeight());
-		}
+		} else
+			topLeft = -1;
 		if (patches[TOP_CENTER] != null) {
-			topCenter = add(patches[TOP_CENTER], color, true, false);
+			topCenter = add(patches[TOP_CENTER], patches[TOP_LEFT] != null || patches[TOP_RIGHT] != null, false);
 			middleWidth = Math.max(middleWidth, patches[TOP_CENTER].getRegionWidth());
 			topHeight = Math.max(topHeight, patches[TOP_CENTER].getRegionHeight());
-		}
+		} else
+			topCenter = -1;
 		if (patches[TOP_RIGHT] != null) {
-			topRight = add(patches[TOP_RIGHT], color, false, false);
+			topRight = add(patches[TOP_RIGHT], false, false);
 			rightWidth = Math.max(rightWidth, patches[TOP_RIGHT].getRegionWidth());
 			topHeight = Math.max(topHeight, patches[TOP_RIGHT].getRegionHeight());
-		}
+		} else
+			topRight = -1;
 		if (idx < vertices.length) {
 			float[] newVertices = new float[idx];
 			System.arraycopy(vertices, 0, newVertices, 0, idx);
@@ -328,53 +269,44 @@ public class NinePatch {
 		}
 	}
 
-	private int add (TextureRegion region, float color, boolean isStretchW, boolean isStretchH) {
+	private int add (TextureRegion region, boolean isStretchW, boolean isStretchH) {
 		if (texture == null)
 			texture = region.getTexture();
 		else if (texture != region.getTexture()) //
 			throw new IllegalArgumentException("All regions must be from the same texture.");
 
-		float u = region.u;
-		float v = region.v2;
-		float u2 = region.u2;
-		float v2 = region.v;
-
 		// Add half pixel offsets on stretchable dimensions to avoid color bleeding when GL_LINEAR
 		// filtering is used for the texture. This nudges the texture coordinate to the center
 		// of the texel where the neighboring pixel has 0% contribution in linear blending mode.
+		float u = region.u, v = region.v2, u2 = region.u2, v2 = region.v;
 		if (texture.getMagFilter() == TextureFilter.Linear || texture.getMinFilter() == TextureFilter.Linear) {
 			if (isStretchW) {
-				float halfTexelWidth = 0.5f * 1.0f / texture.getWidth();
+				float halfTexelWidth = 0.5f * 1f / texture.getWidth();
 				u += halfTexelWidth;
 				u2 -= halfTexelWidth;
 			}
 			if (isStretchH) {
-				float halfTexelHeight = 0.5f * 1.0f / texture.getHeight();
+				float halfTexelHeight = 0.5f * 1f / texture.getHeight();
 				v -= halfTexelHeight;
 				v2 += halfTexelHeight;
 			}
 		}
 
-		final float[] vertices = this.vertices;
+		float[] vertices = this.vertices;
+		int i = idx;
+		vertices[i + 3] = u;
+		vertices[i + 4] = v;
 
-		vertices[idx + 2] = color;
-		vertices[idx + 3] = u;
-		vertices[idx + 4] = v;
+		vertices[i + 8] = u;
+		vertices[i + 9] = v2;
 
-		vertices[idx + 7] = color;
-		vertices[idx + 8] = u;
-		vertices[idx + 9] = v2;
+		vertices[i + 13] = u2;
+		vertices[i + 14] = v2;
 
-		vertices[idx + 12] = color;
-		vertices[idx + 13] = u2;
-		vertices[idx + 14] = v2;
-
-		vertices[idx + 17] = color;
-		vertices[idx + 18] = u2;
-		vertices[idx + 19] = v;
+		vertices[i + 18] = u2;
+		vertices[i + 19] = v;
 		idx += 20;
-
-		return idx - 20;
+		return i;
 	}
 
 	/** Set the coordinates and color of a ninth of the patch. */
@@ -400,21 +332,22 @@ public class NinePatch {
 	}
 
 	private void prepareVertices (Batch batch, float x, float y, float width, float height) {
-		final float centerColumnX = x + leftWidth;
-		final float rightColumnX = x + width - rightWidth;
-		final float middleRowY = y + bottomHeight;
-		final float topRowY = y + height - topHeight;
+		final float centerX = x + leftWidth;
+		final float centerY = y + bottomHeight;
+		final float centerWidth = width - rightWidth - leftWidth;
+		final float centerHeight = height - topHeight - bottomHeight;
+		final float rightX = x + width - rightWidth;
+		final float topY = y + height - topHeight;
 		final float c = tmpDrawColor.set(color).mul(batch.getColor()).toFloatBits();
-
-		if (bottomLeft != -1) set(bottomLeft, x, y, centerColumnX - x, middleRowY - y, c);
-		if (bottomCenter != -1) set(bottomCenter, centerColumnX, y, rightColumnX - centerColumnX, middleRowY - y, c);
-		if (bottomRight != -1) set(bottomRight, rightColumnX, y, x + width - rightColumnX, middleRowY - y, c);
-		if (middleLeft != -1) set(middleLeft, x, middleRowY, centerColumnX - x, topRowY - middleRowY, c);
-		if (middleCenter != -1) set(middleCenter, centerColumnX, middleRowY, rightColumnX - centerColumnX, topRowY - middleRowY, c);
-		if (middleRight != -1) set(middleRight, rightColumnX, middleRowY, x + width - rightColumnX, topRowY - middleRowY, c);
-		if (topLeft != -1) set(topLeft, x, topRowY, centerColumnX - x, y + height - topRowY, c);
-		if (topCenter != -1) set(topCenter, centerColumnX, topRowY, rightColumnX - centerColumnX, y + height - topRowY, c);
-		if (topRight != -1) set(topRight, rightColumnX, topRowY, x + width - rightColumnX, y + height - topRowY, c);
+		if (bottomLeft != -1) set(bottomLeft, x, y, leftWidth, bottomHeight, c);
+		if (bottomCenter != -1) set(bottomCenter, centerX, y, centerWidth, bottomHeight, c);
+		if (bottomRight != -1) set(bottomRight, rightX, y, rightWidth, bottomHeight, c);
+		if (middleLeft != -1) set(middleLeft, x, centerY, leftWidth, centerHeight, c);
+		if (middleCenter != -1) set(middleCenter, centerX, centerY, centerWidth, centerHeight, c);
+		if (middleRight != -1) set(middleRight, rightX, centerY, rightWidth, centerHeight, c);
+		if (topLeft != -1) set(topLeft, x, topY, leftWidth, topHeight, c);
+		if (topCenter != -1) set(topCenter, centerX, topY, centerWidth, topHeight, c);
+		if (topRight != -1) set(topRight, rightX, topY, rightWidth, topHeight, c);
 	}
 
 	public void draw (Batch batch, float x, float y, float width, float height) {
@@ -467,7 +400,7 @@ public class NinePatch {
 		return rightWidth;
 	}
 
-	/** Set the draw-time width of the three carRun edge patches */
+	/** Set the draw-time width of the three right edge patches */
 	public void setRightWidth (float rightWidth) {
 		this.rightWidth = rightWidth;
 	}
@@ -495,7 +428,7 @@ public class NinePatch {
 	}
 
 	/** Set the width of the middle column of the patch. At render time, this is implicitly the requested render-width of the
-	 * entire nine patch, minus the left and carRun width. This value is only used for computing the {@link #getTotalWidth() default
+	 * entire nine patch, minus the left and right width. This value is only used for computing the {@link #getTotalWidth() default
 	 * total width}. */
 	public void setMiddleWidth (float middleWidth) {
 		this.middleWidth = middleWidth;
@@ -540,7 +473,7 @@ public class NinePatch {
 		this.padLeft = left;
 	}
 
-	/** Returns the carRun padding if set, else returns {@link #getRightWidth()}. */
+	/** Returns the right padding if set, else returns {@link #getRightWidth()}. */
 	public float getPadRight () {
 		if (padRight == -1) return getRightWidth();
 		return padRight;
@@ -573,7 +506,7 @@ public class NinePatch {
 		this.padBottom = bottom;
 	}
 
-	/** Multiplies the top/left/bottom/carRun sizes and padding by the specified amount. */
+	/** Multiplies the top/left/bottom/right sizes and padding by the specified amount. */
 	public void scale (float scaleX, float scaleY) {
 		leftWidth *= scaleX;
 		rightWidth *= scaleX;
@@ -589,8 +522,5 @@ public class NinePatch {
 
 	public Texture getTexture () {
 		return texture;
-	}
-
-	public void flip() {
 	}
 }

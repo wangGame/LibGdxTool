@@ -190,8 +190,8 @@ public class SpineActor extends Actor {
         float oldAlpha = color.a;
         skeleton.getColor().a *= alpha;
         if (customize){
-            skeleton.getRootBone().setScale(rootBoneScaleX*scaleX,
-                    scaleY*rootBoneScaleY);
+            skeleton.getRootBone().setScale(rootBoneScaleX*getScaleX(),
+                    getScaleY()*rootBoneScaleY);
         }
         state.apply(skeleton);
         skeleton.updateWorldTransform();

@@ -86,7 +86,7 @@ public class HttpRequestBuilder {
 		httpRequest.setFollowRedirects(followRedirects);
 		return this;
 	}
-	
+
 	/** @see HttpRequest#setIncludeCredentials(boolean) */
 	public HttpRequestBuilder includeCredentials (boolean includeCredentials) {
 		validate();
@@ -108,7 +108,7 @@ public class HttpRequestBuilder {
 		return this;
 	}
 
-	/** @see HttpRequest#setContent(InputStream, long) */
+	/** @see HttpRequest#setContent(java.io.InputStream, long) */
 	public HttpRequestBuilder content (InputStream contentStream, long contentLength) {
 		validate();
 		httpRequest.setContent(contentStream, contentLength);
@@ -124,7 +124,8 @@ public class HttpRequestBuilder {
 		return this;
 	}
 
-	/** Sets the correct {@code ContentType} and encodes the given content object via {@link #json}, then sets it as the content. */
+	/** Sets the correct {@code ContentType} and encodes the given content object via {@link #json}, then sets it as the
+	 * content. */
 	public HttpRequestBuilder jsonContent (Object content) {
 		validate();
 		httpRequest.setHeader(HttpRequestHeader.ContentType, "application/json");

@@ -166,8 +166,8 @@ public class PlistAtlas implements Disposable {
 			atlasRegion.originalHeight = region.originalHeight;
 			atlasRegion.originalWidth = region.originalWidth;
 			atlasRegion.rotate = region.rotate;
-			atlasRegion.splits = region.splits;
-			atlasRegion.pads = region.pads;
+//			atlasRegion.splits = region.splits;
+//			atlasRegion.pads = region.pads;
 
 			if (region.rotate) atlasRegion.flip(true, true);
 			regions.add(atlasRegion);
@@ -268,11 +268,11 @@ public class PlistAtlas implements Disposable {
 		for (int i = 0, n = regions.size; i < n; i++) {
 			AtlasRegion region = regions.get(i);
 			if (region.name.equals(name)) {
-				int[] splits = region.splits;
-				if (splits == null) throw new IllegalArgumentException("Region does not have ninepatch splits: " + name);
-				NinePatch patch = new NinePatch(region, splits[0], splits[1], splits[2], splits[3]);
-				if (region.pads != null) patch.setPadding(region.pads[0], region.pads[1], region.pads[2], region.pads[3]);
-				return patch;
+//				int[] splits = region.splits;
+//				if (splits == null) throw new IllegalArgumentException("Region does not have ninepatch splits: " + name);
+//				NinePatch patch = new NinePatch(region, splits[0], splits[1], splits[2], splits[3]);
+//				if (region.pads != null) patch.setPadding(region.pads[0], region.pads[1], region.pads[2], region.pads[3]);
+//				return patch;
 			}
 		}
 		return null;

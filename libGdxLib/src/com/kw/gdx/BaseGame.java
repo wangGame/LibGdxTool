@@ -2,6 +2,7 @@ package com.kw.gdx;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -99,7 +100,7 @@ public class BaseGame extends Game {
     protected void loadingView(){}
 
     protected void catchBackKey(){
-        Gdx.input.setCatchBackKey(true);
+        Gdx.input.setCatchKey(Input.Keys.BUTTON_CIRCLE,true);
     }
 
     protected void initViewport() {

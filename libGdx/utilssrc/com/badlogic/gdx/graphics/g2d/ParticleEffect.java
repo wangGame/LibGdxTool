@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
-import java.util.HashMap;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -30,9 +29,11 @@ import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.StreamUtils;
 
-/** See <a href="http://www.badlogicgames.com/wordpress/?p=1255">http://www.badlogicgames.com/wordpress/?p=1255</a>
+/** See <a href=
+ * "https://web.archive.org/web/20200427191041/http://www.badlogicgames.com/wordpress/?p=12555">http://www.badlogicgames.com/wordpress/?p=12555</a>
  * @author mzechner */
 public class ParticleEffect implements Disposable {
 	private final Array<ParticleEmitter> emitters;
@@ -57,19 +58,27 @@ public class ParticleEffect implements Disposable {
 			emitters.get(i).start();
 	}
 
-	/** Resets the com.kw.gdx.animation.effect so it can be started again like a new com.kw.gdx.animation.effect. Any changes to
-	 * scale are reverted. See {@link #reset(boolean)}.*/
+	/** Resets the effect so it can be started again like a new effect. Any changes to scale are reverted. See
+	 * {@link #reset(boolean)}. */
 	public void reset () {
-		reset(true);
+		reset(true, true);
 	}
-	
-	/** Resets the com.kw.gdx.animation.effect so it can be started again like a new com.kw.gdx.animation.effect.
-	 * @param resetScaling Whether to restore the original size and motion parameters if they were scaled. Repeated scaling
-	 * and resetting may introduce error. */
-	public void reset (boolean resetScaling){
+
+	/** Resets the effect so it can be started again like a new effect.
+	 * @param resetScaling Whether to restore the original size and motion parameters if they were scaled. Repeated scaling and
+	 *           resetting may introduce error. */
+	public void reset (boolean resetScaling) {
+		reset(resetScaling, true);
+	}
+
+	/** Resets the effect so it can be started again like a new effect.
+	 * @param resetScaling Whether to restore the original size and motion parameters if they were scaled. Repeated scaling and
+	 *           resetting may introduce error.
+	 * @param start Whether to start the effect after resetting. */
+	public void reset (boolean resetScaling, boolean start) {
 		for (int i = 0, n = emitters.size; i < n; i++)
-			emitters.get(i).reset();
-		if (resetScaling && (xSizeScale != 1f || ySizeScale != 1f || motionScale != 1f)){
+			emitters.get(i).reset(start);
+		if (resetScaling && (xSizeScale != 1f || ySizeScale != 1f || motionScale != 1f)) {
 			scaleEffect(1f / xSizeScale, 1f / ySizeScale, 1f / motionScale);
 			xSizeScale = ySizeScale = motionScale = 1f;
 		}
@@ -85,15 +94,9 @@ public class ParticleEffect implements Disposable {
 			emitters.get(i).draw(spriteBatch);
 	}
 
-	public void draw (Batch spriteBatch, float delta,float pa) {
+	public void draw (Batch spriteBatch, float delta) {
 		for (int i = 0, n = emitters.size; i < n; i++)
-			emitters.get(i).draw(spriteBatch, delta,pa);
-	}
-
-	public void setStop(){
-		for (int i = 0, n = emitters.size; i < n; i++) {
-			emitters.get(i).setEndAddParticles(false);
-		}
+			emitters.get(i).draw(spriteBatch, delta);
 	}
 
 	public void allowCompletion () {
@@ -123,14 +126,14 @@ public class ParticleEffect implements Disposable {
 			emitters.get(i).setPosition(x, y);
 	}
 
+	public void setFlip (boolean flipX, boolean flipY) {
+		for (int i = 0, n = emitters.size; i < n; i++)
+			emitters.get(i).setFlip(flipX, flipY);
+	}
+
 	public void flipY () {
 		for (int i = 0, n = emitters.size; i < n; i++)
 			emitters.get(i).flipY();
-	}
-
-	public void flipX () {
-		for (int i = 0, n = emitters.size; i < n; i++)
-			emitters.get(i).flipX();
 	}
 
 	public Array<ParticleEmitter> getEmitters () {
@@ -144,6 +147,13 @@ public class ParticleEffect implements Disposable {
 			if (emitter.getName().equals(name)) return emitter;
 		}
 		return null;
+	}
+
+	/** Allocates all emitters particles. See {@link com.badlogic.gdx.graphics.g2d.ParticleEmitter#preAllocateParticles()} */
+	public void preAllocateParticles () {
+		for (ParticleEmitter emitter : emitters) {
+			emitter.preAllocateParticles();
+		}
 	}
 
 	public void save (Writer output) throws IOException {
@@ -181,7 +191,7 @@ public class ParticleEffect implements Disposable {
 				if (reader.readLine() == null) break;
 			}
 		} catch (IOException ex) {
-			throw new GdxRuntimeException("Error loading com.kw.gdx.animation.effect: " + effectFile, ex);
+			throw new GdxRuntimeException("Error loading effect: " + effectFile, ex);
 		} finally {
 			StreamUtils.closeQuietly(reader);
 		}
@@ -202,7 +212,7 @@ public class ParticleEffect implements Disposable {
 				if (lastDotIndex != -1) imageName = imageName.substring(0, lastDotIndex);
 				if (atlasPrefix != null) imageName = atlasPrefix + imageName;
 				Sprite sprite = atlas.createSprite(imageName);
-				if (sprite == null) throw new IllegalArgumentException("SpriteSheet missing image: " + imageName);
+				if (sprite == null) throw new IllegalArgumentException("Atlas is missing region: " + imageName);
 				sprites.add(sprite);
 			}
 			emitter.setSprites(sprites);
@@ -211,7 +221,7 @@ public class ParticleEffect implements Disposable {
 
 	public void loadEmitterImages (FileHandle imagesDir) {
 		ownsTexture = true;
-		HashMap<String, Sprite> loadedSprites = new HashMap<String, Sprite>(emitters.size);
+		ObjectMap<String, Sprite> loadedSprites = new ObjectMap<String, Sprite>(emitters.size);
 		for (int i = 0, n = emitters.size; i < n; i++) {
 			ParticleEmitter emitter = emitters.get(i);
 			if (emitter.getImagePaths().size == 0) continue;
@@ -263,19 +273,19 @@ public class ParticleEffect implements Disposable {
 		return bounds;
 	}
 
-	/** Permanently scales all the size and motion parameters of all the emitters in this com.kw.gdx.animation.effect. If this com.kw.gdx.animation.effect originated from a
+	/** Permanently scales all the size and motion parameters of all the emitters in this effect. If this effect originated from a
 	 * {@link ParticleEffectPool}, the scale will be reset when it is returned to the pool. */
 	public void scaleEffect (float scaleFactor) {
 		scaleEffect(scaleFactor, scaleFactor, scaleFactor);
 	}
-	
-	/** Permanently scales all the size and motion parameters of all the emitters in this com.kw.gdx.animation.effect. If this com.kw.gdx.animation.effect originated from a
+
+	/** Permanently scales all the size and motion parameters of all the emitters in this effect. If this effect originated from a
 	 * {@link ParticleEffectPool}, the scale will be reset when it is returned to the pool. */
 	public void scaleEffect (float scaleFactor, float motionScaleFactor) {
 		scaleEffect(scaleFactor, scaleFactor, motionScaleFactor);
 	}
 
-	/** Permanently scales all the size and motion parameters of all the emitters in this com.kw.gdx.animation.effect. If this com.kw.gdx.animation.effect originated from a
+	/** Permanently scales all the size and motion parameters of all the emitters in this effect. If this effect originated from a
 	 * {@link ParticleEffectPool}, the scale will be reset when it is returned to the pool. */
 	public void scaleEffect (float xSizeScaleFactor, float ySizeScaleFactor, float motionScaleFactor) {
 		xSizeScale *= xSizeScaleFactor;
@@ -287,8 +297,8 @@ public class ParticleEffect implements Disposable {
 		}
 	}
 
-	/** Sets the {@link ParticleEmitter#setCleansUpBlendFunction(boolean) cleansUpBlendFunction}
-	 * parameter on all {@link ParticleEmitter ParticleEmitters} currently in this ParticleEffect.
+	/** Sets the {@link com.badlogic.gdx.graphics.g2d.ParticleEmitter#setCleansUpBlendFunction(boolean) cleansUpBlendFunction}
+	 * parameter on all {@link com.badlogic.gdx.graphics.g2d.ParticleEmitter ParticleEmitters} currently in this ParticleEffect.
 	 * <p>
 	 * IMPORTANT: If set to false and if the next object to use this Batch expects alpha blending, you are responsible for setting
 	 * the Batch's blend function to (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA) before that next object is drawn.

@@ -419,7 +419,7 @@ public class Asset implements Disposable {
     public Image createNineImg(String texture,int left,int right,int top,int bottom,boolean flipX,boolean flipY){
         return new Image(new NinePatch(
                 new TextureRegion(Asset.getAsset().getTexture(texture)),
-                left, right, top, bottom,flipX,flipY
+                left, right, top, bottom
         ));
     }
 

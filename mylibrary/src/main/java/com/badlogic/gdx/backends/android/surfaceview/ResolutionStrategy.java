@@ -22,7 +22,7 @@ package com.badlogic.gdx.backends.android.surfaceview;
  * @author christoph widulle */
 public interface ResolutionStrategy {
 
-	public MeasuredDimension calcMeasures(final int widthMeasureSpec, final int heightMeasureSpec);
+	public MeasuredDimension calcMeasures (final int widthMeasureSpec, final int heightMeasureSpec);
 
 	public static class MeasuredDimension {
 		public final int width;

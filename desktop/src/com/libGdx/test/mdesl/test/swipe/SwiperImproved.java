@@ -27,7 +27,6 @@ public class SwiperImproved implements ApplicationListener {
 		config.y = 0;
 		config.height = (int) (1920 * 0.25f);
 		config.width = (int) (1080 * 0.3f);
-		Gdx.isJiami = true;
 		SwiperImproved swiperImproved =  new SwiperImproved();
 		new LwjglApplication(swiperImproved, config);
 	}

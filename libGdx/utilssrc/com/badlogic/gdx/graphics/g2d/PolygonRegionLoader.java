@@ -19,7 +19,6 @@ package com.badlogic.gdx.graphics.g2d;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
@@ -34,7 +33,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.StreamUtils;
 
-/** loads {@link PolygonRegion PolygonRegions} using a {@link PolygonRegionLoader}
+/** loads {@link PolygonRegion PolygonRegions} using a {@link com.badlogic.gdx.graphics.g2d.PolygonRegionLoader}
  * @author dermetfan */
 public class PolygonRegionLoader extends SynchronousAssetLoader<PolygonRegion, PolygonRegionParameters> {
 
@@ -56,11 +55,11 @@ public class PolygonRegionLoader extends SynchronousAssetLoader<PolygonRegion, P
 	private PolygonRegionParameters defaultParameters = new PolygonRegionParameters();
 
 	private EarClippingTriangulator triangulator = new EarClippingTriangulator();
-	
-	public PolygonRegionLoader() {
+
+	public PolygonRegionLoader () {
 		this(new InternalFileHandleResolver());
 	}
-	
+
 	public PolygonRegionLoader (FileHandleResolver resolver) {
 		super(resolver);
 	}
@@ -110,7 +109,7 @@ public class PolygonRegionLoader extends SynchronousAssetLoader<PolygonRegion, P
 	 * <p>
 	 * s 200.0, 100.0, ...
 	 * <p>
-	 * Lines not prefixed with "s" are ignored. PSH files can be created with external com.tool.tools, eg: <br>
+	 * Lines not prefixed with "s" are ignored. PSH files can be created with external tools, eg: <br>
 	 * https://code.google.com/p/libgdx-polygoneditor/ <br>
 	 * http://www.codeandweb.com/physicseditor/
 	 * @param file file handle to the shape definition file */
@@ -137,5 +136,5 @@ public class PolygonRegionLoader extends SynchronousAssetLoader<PolygonRegion, P
 		}
 		throw new GdxRuntimeException("Polygon shape not found: " + file);
 	}
-	
+
 }

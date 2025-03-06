@@ -497,10 +497,18 @@ public class StringBuilder implements Appendable, CharSequence {
 	/** Returns the current String representation.
 	 * 
 	 * @return a String containing the characters in this instance. */
-	@Override
 	public String toString () {
 		if (length == 0) return "";
 		return new String(chars, 0, length);
+	}
+
+	/** Returns the current String representation and clears the StringBuilder.
+	 * 
+	 * @return a String containing the characters in this instance. */
+	public String toStringAndClear () {
+		final String s = toString();
+		clear();
+		return s;
 	}
 
 	/** Returns a {@code CharSequence} of the subsequence from the {@code start} index to the {@code end} index.
@@ -539,34 +547,67 @@ public class StringBuilder implements Appendable, CharSequence {
 			start = 0;
 		}
 		int subCount = subString.length();
-		if (subCount > 0) {
-			if (subCount + start > length) {
-				return -1;
+		if (subCount == 0) return start < length || start == 0 ? start : length;
+		int maxIndex = length - subCount;
+		if (start > maxIndex) return -1;
+		char firstChar = subString.charAt(0);
+		while (true) {
+			int i = start;
+			boolean found = false;
+			for (; i <= maxIndex; i++) {
+				if (chars[i] == firstChar) {
+					found = true;
+					break;
+				}
 			}
-			char firstChar = subString.charAt(0);
-			while (true) {
-				int i = start;
-				boolean found = false;
-				for (; i < length; i++) {
-					if (chars[i] == firstChar) {
-						found = true;
-						break;
-					}
-				}
-				if (!found || subCount + i > length) {
-					return -1; // handles subCount > count || start >= count
-				}
-				int o1 = i, o2 = 0;
-				while (++o2 < subCount && chars[++o1] == subString.charAt(o2)) {
-					// Intentionally empty
-				}
-				if (o2 == subCount) {
-					return i;
-				}
-				start = i + 1;
+			if (!found) return -1;
+			int o1 = i, o2 = 0;
+			while (++o2 < subCount && chars[++o1] == subString.charAt(o2)) {
+				// Intentionally empty
 			}
+			if (o2 == subCount) return i;
+			start = i + 1;
 		}
-		return start < length || start == 0 ? start : length;
+	}
+
+	public int indexOfIgnoreCase (String subString, int start) {
+		if (start < 0) {
+			start = 0;
+		}
+		int subCount = subString.length();
+		if (subCount == 0) return start < length || start == 0 ? start : length;
+		int maxIndex = length - subCount;
+		if (start > maxIndex) return -1;
+		char firstUpper = Character.toUpperCase(subString.charAt(0));
+		char firstLower = Character.toLowerCase(firstUpper);
+		while (true) {
+			int i = start;
+			boolean found = false;
+			for (; i <= maxIndex; i++) {
+				char c = chars[i];
+				if (c == firstUpper || c == firstLower) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) return -1;
+			int o1 = i, o2 = 0;
+			while (++o2 < subCount) {
+				char c = chars[++o1];
+				char upper = Character.toUpperCase(subString.charAt(o2));
+				if (c != upper && c != Character.toLowerCase(upper)) break;
+			}
+			if (o2 == subCount) return i;
+			start = i + 1;
+		}
+	}
+
+	public boolean contains (String subString) {
+		return indexOf(subString, 0) != -1;
+	}
+
+	public boolean containsIgnoreCase (String subString) {
+		return indexOfIgnoreCase(subString, 0) != -1;
 	}
 
 	/** Searches for the last index of the specified character. The search for the character starts at the end and moves towards
@@ -575,7 +616,7 @@ public class StringBuilder implements Appendable, CharSequence {
 	 * @param string the string to find.
 	 * @return the index of the specified character, -1 if the character isn't found.
 	 * @throws NullPointerException if {@code string} is {@code null}.
-	 * @see String#lastIndexOf(String)
+	 * @see String#lastIndexOf(java.lang.String)
 	 * @since 1.4 */
 	public int lastIndexOf (String string) {
 		return lastIndexOf(string, length);
@@ -886,6 +927,13 @@ public class StringBuilder implements Appendable, CharSequence {
 		return this;
 	}
 
+	/** Appends the specified separator if the builder is not empty, then the specified string. */
+	public StringBuilder append (String str, String separator) {
+		if (length > 0) append0(separator);
+		append0(str);
+		return this;
+	}
+
 	/** Appends the contents of the specified string, then create a new line. If the string is {@code null}, then the string
 	 * {@code "null"} is appended.
 	 * 
@@ -1001,6 +1049,11 @@ public class StringBuilder implements Appendable, CharSequence {
 	public StringBuilder deleteCharAt (int index) {
 		deleteCharAt0(index);
 		return this;
+	}
+
+	/** Sets length to 0. */
+	public void clear () {
+		length = 0;
 	}
 
 	/** Inserts the string representation of the specified {@code boolean} value at the specified {@code offset}. The
@@ -1216,11 +1269,18 @@ public class StringBuilder implements Appendable, CharSequence {
 		return this;
 	}
 
+	public boolean isEmpty () {
+		return length == 0;
+	}
+
+	public boolean notEmpty () {
+		return length != 0;
+	}
+
 	public int hashCode () {
-		final int prime = 31;
-		int result = 1;
-		result = prime + length;
-		result = prime * result + Arrays.hashCode(chars);
+		int result = 31 + length;
+		for (int index = 0; index < length; ++index)
+			result = 31 * result + chars[index];
 		return result;
 	}
 
@@ -1231,12 +1291,36 @@ public class StringBuilder implements Appendable, CharSequence {
 		StringBuilder other = (StringBuilder)obj;
 		int length = this.length;
 		if (length != other.length) return false;
-		char[] chars = this.chars;
-		char[] chars2 = other.chars;
-		if (chars == chars2) return true;
-		if (chars == null || chars2 == null) return false;
+		char[] chars = this.chars, chars2 = other.chars;
 		for (int i = 0; i < length; i++)
 			if (chars[i] != chars2[i]) return false;
+		return true;
+	}
+
+	public boolean equalsIgnoreCase (@Null StringBuilder other) {
+		if (this == other) return true;
+		if (other == null) return false;
+		int length = this.length;
+		if (length != other.length) return false;
+		char[] chars = this.chars, chars2 = other.chars;
+		for (int i = 0; i < length; i++) {
+			char c = chars[i];
+			char upper = Character.toUpperCase(chars2[i]);
+			if (c != upper && c != Character.toLowerCase(upper)) return false;
+		}
+		return true;
+	}
+
+	public boolean equalsIgnoreCase (@Null String other) {
+		if (other == null) return false;
+		int length = this.length;
+		if (length != other.length()) return false;
+		char[] chars = this.chars;
+		for (int i = 0; i < length; i++) {
+			char c = chars[i];
+			char upper = Character.toUpperCase(other.charAt(i));
+			if (c != upper && c != Character.toLowerCase(upper)) return false;
+		}
 		return true;
 	}
 }

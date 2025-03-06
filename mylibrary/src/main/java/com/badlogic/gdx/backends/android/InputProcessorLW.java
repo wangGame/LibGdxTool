@@ -20,6 +20,6 @@ import com.badlogic.gdx.InputProcessor;
 
 public interface InputProcessorLW extends InputProcessor {
 
-	public void touchDrop(int x, int y);
+	public void touchDrop (int x, int y);
 
 }

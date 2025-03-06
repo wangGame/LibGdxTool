@@ -123,6 +123,10 @@ public class BaseDialog extends Group {
 
     private float timeScale =0.7f;
 
+    public void setAphlaZero(){
+        getColor().a = 0;
+    }
+
     public void enterAnimation() {
         setAphlaZero();
         addAction(Actions.parallel(

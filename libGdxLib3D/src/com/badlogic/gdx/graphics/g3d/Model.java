@@ -247,9 +247,9 @@ public class Model implements Disposable {
 		meshes.add(mesh);
 		disposables.add(mesh);
 
-		BufferUtils.copy(modelMesh.vertices, mesh.getVerticesBuffer(), modelMesh.vertices.length, 0);
+		BufferUtils.copy(modelMesh.vertices, mesh.getVerticesBuffer(true), modelMesh.vertices.length, 0);
 		int offset = 0;
-		ShortBuffer indicesBuffer = mesh.getIndicesBuffer();
+		ShortBuffer indicesBuffer = mesh.getIndicesBuffer(true);
 		((Buffer)indicesBuffer).clear();
 		for (ModelMeshPart part : modelMesh.parts) {
 			MeshPart meshPart = new MeshPart();

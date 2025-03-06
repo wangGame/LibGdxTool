@@ -99,7 +99,7 @@ public class EffectTool extends Actor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        effect.setPosition(x,y);
+        effect.setPosition(getX(),getY());
         if (effect.isComplete()) {
             if (loop){
                 play();
@@ -122,12 +122,12 @@ public class EffectTool extends Actor {
         if (isClip) {
             batch.flush();
             if (clipBegin(0, 0, clipW, clipH)) {
-                effect.draw(batch, Gdx.graphics.getDeltaTime(),parentAlpha);
+                effect.draw(batch, Gdx.graphics.getDeltaTime());
                 batch.flush();
                 clipEnd();
             }
         }else {
-            effect.draw(batch, Gdx.graphics.getDeltaTime(),parentAlpha);
+            effect.draw(batch, Gdx.graphics.getDeltaTime());
         }
 
 
@@ -155,7 +155,7 @@ public class EffectTool extends Actor {
      * 水平反转
      */
     public void setFlipX(){
-        effect.flipX();
+//        effect.flipY();
     }
 
     /**
@@ -166,7 +166,7 @@ public class EffectTool extends Actor {
     }
 
     public void stop(){
-        effect.setStop();
+//        effect.setStop();
     }
 }
 

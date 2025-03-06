@@ -32,7 +32,7 @@ public abstract class StageScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clearScreen(0,0,0,1);
+        ScreenUtils.clear(0,0,0,1);
         mStage.act(delta);
         if (isBackKeyPressed()) {
             onBackPressed();

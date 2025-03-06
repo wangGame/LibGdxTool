@@ -13,4 +13,5 @@ include 'libGdxLib',
         "libCommon",
         "core",
         "libGdxLib3D",
-        "libGdxLibTool3D"
+        "libGdxLibTool3D",
+        "libGdxJnigenLoader"

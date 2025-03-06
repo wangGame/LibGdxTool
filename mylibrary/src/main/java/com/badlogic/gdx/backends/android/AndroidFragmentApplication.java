@@ -1,42 +1,22 @@
 
 package com.badlogic.gdx.backends.android;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Debug;
 import android.os.Handler;
-//import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.ApplicationLogger;
-import com.badlogic.gdx.Audio;
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.LifecycleListener;
-import com.badlogic.gdx.Net;
-import com.badlogic.gdx.Preferences;
+import androidx.fragment.app.Fragment;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.backends.android.surfaceview.FillResolutionStrategy;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Clipboard;
-import com.badlogic.gdx.utils.GdxNativesLoader;
-import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.SnapshotArray;
-
-import java.lang.reflect.Method;
-import java.util.Arrays;
+import com.badlogic.gdx.utils.*;
 
 /** Implementation of the {@link AndroidApplicationBase} that is based on the {@link Fragment} class. This class is similar in use
  * to the {@link AndroidApplication} class, which is based on an {@link Activity}.
@@ -48,11 +28,7 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 	 * 
 	 * @author Bartol Karuza (me@bartolkaruza.com) */
 	public interface Callbacks {
-		void exit();
-	}
-
-	static {
-		GdxNativesLoader.load();
+		void exit ();
 	}
 
 	protected AndroidGraphics graphics;
@@ -66,7 +42,8 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 	protected boolean firstResume = true;
 	protected final Array<Runnable> runnables = new Array<Runnable>();
 	protected final Array<Runnable> executedRunnables = new Array<Runnable>();
-	protected final SnapshotArray<LifecycleListener> lifecycleListeners = new SnapshotArray<LifecycleListener>(LifecycleListener.class);
+	protected final SnapshotArray<LifecycleListener> lifecycleListeners = new SnapshotArray<LifecycleListener>(
+		LifecycleListener.class);
 	private final Array<AndroidEventListener> androidEventListeners = new Array<AndroidEventListener>();
 	protected int logLevel = LOG_INFO;
 	protected ApplicationLogger applicationLogger;
@@ -107,22 +84,16 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 		}
 	}
 
-	@TargetApi(19)
 	@Override
 	public void useImmersiveMode (boolean use) {
-		if (!use || getVersion() < Build.VERSION_CODES.KITKAT) return;
-		
-		try {
-			View view = this.graphics.getView();
+		if (!use) return;
 
-			Method m = View.class.getMethod("setSystemUiVisibility", int.class);
-			int code = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-				| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN
-				| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-			m.invoke(view, code);
-		} catch (Exception e) {
-			log("AndroidApplication", "Failed to setup immersive mode, a throwable has occurred.", e);
-		}
+		View view = this.graphics.getView();
+
+		int code = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+			| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN
+			| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+		view.setSystemUiVisibility(code);
 	}
 
 	/** This method has to be called in the
@@ -153,15 +124,16 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 	 * @return the GLSurfaceView of the application */
 	public View initializeForView (ApplicationListener listener, AndroidApplicationConfiguration config) {
 		if (this.getVersion() < MINIMUM_SDK) {
-			throw new GdxRuntimeException("LibGDX requires Android API Level " + MINIMUM_SDK + " or later.");
+			throw new GdxRuntimeException("libGDX requires Android API Level " + MINIMUM_SDK + " or later.");
 		}
+		GdxNativesLoader.load();
 		setApplicationLogger(new AndroidApplicationLogger());
-		graphics = new AndroidGraphics(this, config, config.resolutionStrategy == null ? new FillResolutionStrategy()
-			: config.resolutionStrategy);
-		input = AndroidInputFactory.newAndroidInput(this, getActivity(), graphics.view, config);
-		audio = new AndroidAudio(getActivity(), config);
-		files = new AndroidFiles(getResources().getAssets(), getActivity().getFilesDir().getAbsolutePath());
-		net = new AndroidNet(this);
+		graphics = new AndroidGraphics(this, config,
+			config.resolutionStrategy == null ? new FillResolutionStrategy() : config.resolutionStrategy);
+		input = createInput(this, getActivity(), graphics.view, config);
+		audio = createAudio(getActivity(), config);
+		files = createFiles();
+		net = new AndroidNet(this, config);
 		this.listener = listener;
 		this.handler = new Handler();
 		this.clipboard = new AndroidClipboard(getActivity());
@@ -193,16 +165,13 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 		Gdx.net = this.getNet();
 		createWakeLock(config.useWakelock);
 		useImmersiveMode(config.useImmersiveMode);
-		if (config.useImmersiveMode && getVersion() >= Build.VERSION_CODES.KITKAT) {
-			try {
-				Class<?> vlistener = Class.forName("com.badlogic.gdx.backends.android.AndroidVisibilityListener");
-				Object o = vlistener.newInstance();
-				Method method = vlistener.getDeclaredMethod("createListener", AndroidApplicationBase.class);
-				method.invoke(o, this);
-			} catch (Exception e) {
-				log("AndroidApplication", "Failed to create AndroidVisibilityListener", e);
-			}
+		if (config.useImmersiveMode) {
+			AndroidVisibilityListener vlistener = new AndroidVisibilityListener();
+			vlistener.createListener(this);
 		}
+
+		// detect an already connected bluetooth keyboardAvailable
+		if (getResources().getConfiguration().keyboard != Configuration.KEYBOARD_NOKEYS) input.setKeyboardAvailable(true);
 		return graphics.getView();
 	}
 
@@ -221,7 +190,8 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 		input.onPause();
 
 		// davebaol & mobidevelop:
-		// This fragment (or one of the parent)  is currently being removed from its activity or the activity is in the process of finishing
+		// This fragment (or one of the parent) is currently being removed from its activity or the activity is in the process of
+		// finishing
 		if (isRemoving() || isAnyParentFragmentRemoving() || getActivity().isFinishing()) {
 			graphics.clearManagedCaches();
 			graphics.destroy();
@@ -294,7 +264,7 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 
 	@Override
 	public int getVersion () {
-		return Build.VERSION.SDK_INT;
+		return android.os.Build.VERSION.SDK_INT;
 	}
 
 	@Override
@@ -330,7 +300,7 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 		super.onConfigurationChanged(config);
 		boolean keyboardAvailable = false;
 		if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) keyboardAvailable = true;
-		input.keyboardAvailable = keyboardAvailable;
+		input.setKeyboardAvailable(keyboardAvailable);
 	}
 
 	@Override
@@ -473,21 +443,35 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 	}
 
 	@Override
+	public AndroidAudio createAudio (Context context, AndroidApplicationConfiguration config) {
+		if (!config.disableAudio)
+			return new DefaultAndroidAudio(context, config);
+		else
+			return new DisabledAndroidAudio();
+	}
+
+	@Override
+	public AndroidInput createInput (Application activity, Context context, Object view, AndroidApplicationConfiguration config) {
+		return new DefaultAndroidInput(this, getActivity(), graphics.view, config);
+	}
+
+	protected AndroidFiles createFiles () {
+		return new DefaultAndroidFiles(getResources().getAssets(), getActivity(), true);
+	}
+
+	@Override
 	public WindowManager getWindowManager () {
 		return (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
 	}
 
-	/**
-	* Iterates over nested fragments hierarchy and returns true if one of the fragment is in the removal process
-	*
-	* @return true - one of the parent fragments is being removed
-	*/
-	private boolean isAnyParentFragmentRemoving() {
+	/** Iterates over nested fragments hierarchy and returns true if one of the fragment is in the removal process
+	 *
+	 * @return true - one of the parent fragments is being removed */
+	private boolean isAnyParentFragmentRemoving () {
 		Fragment fragment = getParentFragment();
 
-		 while (fragment != null) {
-			if (fragment.isRemoving())
-				return true;
+		while (fragment != null) {
+			if (fragment.isRemoving()) return true;
 
 			fragment = fragment.getParentFragment();
 		}

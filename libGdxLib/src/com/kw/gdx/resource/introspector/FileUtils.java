@@ -14,29 +14,29 @@ public class FileUtils {
     public static String appName = "unnamed";
     private static FileHandle sExtraAssetsHandle;
 
-    public static FileHandle getUserWritableFile(String name) {
-        FileHandle handle;
-        if (PlatformUtils.isDesktop()) {
-            handle = Gdx.files.external(".local/share/" + appName + "/" + name);
-        } else {
-            handle = Gdx.files.local(name);
-        }
-        return handle;
-    }
-
-    public static FileHandle getCacheDir() {
-        FileHandle handle;
-        if (PlatformUtils.isDesktop()) {
-            handle = Gdx.files.external(".cache/" + appName);
-        } else {
-            if (!Gdx.files.isExternalStorageAvailable()) {
-                return null;
-            }
-            handle = Gdx.files.absolute(Gdx.files.getExternalStoragePath() + "/" + appName);
-        }
-        handle.mkdirs();
-        return handle;
-    }
+//    public static FileHandle getUserWritableFile(String name) {
+//        FileHandle handle;
+//        if (PlatformUtils.isDesktop()) {
+//            handle = Gdx.files.external(".local/share/" + appName + "/" + name);
+//        } else {
+//            handle = Gdx.files.local(name);
+//        }
+//        return handle;
+//    }
+//
+//    public static FileHandle getCacheDir() {
+//        FileHandle handle;
+//        if (PlatformUtils.isDesktop()) {
+//            handle = Gdx.files.external(".cache/" + appName);
+//        } else {
+//            if (!Gdx.files.isExternalStorageAvailable()) {
+//                return null;
+//            }
+//            handle = Gdx.files.absolute(Gdx.files.getExternalStoragePath() + "/" + appName);
+//        }
+//        handle.mkdirs();
+//        return handle;
+//    }
 
     public static void setExtraAssetsDir(String dir) {
         FileHandle handle = Gdx.files.absolute(dir);

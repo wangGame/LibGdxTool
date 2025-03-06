@@ -212,7 +212,7 @@ public class CameraInputController extends GestureDetector {
 		return process(deltaX, deltaY, button);
 	}
 
-
+	@Override
 	public boolean scrolled (float amountX, float amountY) {
 		return zoom(amountY * scrollFactor * translateUnits);
 	}

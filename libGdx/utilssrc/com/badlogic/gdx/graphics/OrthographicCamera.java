@@ -21,11 +21,11 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-/** A phyWorldCamera with orthographic projection.
+/** A camera with orthographic projection.
  * 
  * @author mzechner */
 public class OrthographicCamera extends Camera {
-	/** the zoom of the phyWorldCamera **/
+	/** the zoom of the camera **/
 	public float zoom = 1;
 
 	public OrthographicCamera () {
@@ -33,7 +33,7 @@ public class OrthographicCamera extends Camera {
 	}
 
 	/** Constructs a new OrthographicCamera, using the given viewport width and height. For pixel perfect 2D rendering just supply
-	 * the screen size, for other unit scales (e.g. meters for box2d) proceed accordingly. The phyWorldCamera will show the region
+	 * the screen size, for other unit scales (e.g. meters for box2d) proceed accordingly. The camera will show the region
 	 * [-viewportWidth/2, -(viewportHeight/2-1)] - [(viewportWidth/2-1), viewportHeight/2]
 	 * @param viewportWidth the viewport width
 	 * @param viewportHeight the viewport height */
@@ -53,9 +53,10 @@ public class OrthographicCamera extends Camera {
 
 	@Override
 	public void update (boolean updateFrustum) {
-		projection.setToOrtho(zoom * -viewportWidth / 2, zoom * (viewportWidth / 2), zoom * -(viewportHeight / 2), zoom
-			* viewportHeight / 2, near, far);
-		view.setToLookAt(position, tmp.set(position).add(direction), up);
+		projection.setToOrtho(zoom * -viewportWidth / 2, zoom * (viewportWidth / 2), zoom * -(viewportHeight / 2),
+			zoom * viewportHeight / 2, near, far);
+		view.setToLookAt(direction, up);
+		view.translate(-position.x, -position.y, -position.z);
 		combined.set(projection);
 		Matrix4.mul(combined.val, view.val);
 
@@ -66,15 +67,15 @@ public class OrthographicCamera extends Camera {
 		}
 	}
 
-	/** Sets this phyWorldCamera to an orthographic projection using a viewport fitting the screen resolution, centered at
+	/** Sets this camera to an orthographic projection using a viewport fitting the screen resolution, centered at
 	 * (Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2), with the y-axis pointing up or down.
 	 * @param yDown whether y should be pointing down */
 	public void setToOrtho (boolean yDown) {
 		setToOrtho(yDown, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
-	/** Sets this phyWorldCamera to an orthographic projection, centered at (viewportWidth/2, viewportHeight/2), with the y-axis pointing up
-	 * or down.
+	/** Sets this camera to an orthographic projection, centered at (viewportWidth/2, viewportHeight/2), with the y-axis pointing
+	 * up or down.
 	 * @param yDown whether y should be pointing down.
 	 * @param viewportWidth
 	 * @param viewportHeight */
@@ -92,20 +93,20 @@ public class OrthographicCamera extends Camera {
 		update();
 	}
 
-	/** Rotates the phyWorldCamera by the given angle around the direction vector. The direction and up vector will not be orthogonalized.
+	/** Rotates the camera by the given angle around the direction vector. The direction and up vector will not be orthogonalized.
 	 * @param angle */
 	public void rotate (float angle) {
 		rotate(direction, angle);
 	}
 
-	/** Moves the phyWorldCamera by the given amount on each axis.
+	/** Moves the camera by the given amount on each axis.
 	 * @param x the displacement on the x-axis
 	 * @param y the displacement on the y-axis */
 	public void translate (float x, float y) {
 		translate(x, y, 0);
 	}
 
-	/** Moves the phyWorldCamera by the given vector.
+	/** Moves the camera by the given vector.
 	 * @param vec the displacement vector */
 	public void translate (Vector2 vec) {
 		translate(vec.x, vec.y, 0);

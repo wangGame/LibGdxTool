@@ -30,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Null;
 
 /** A table that can be dragged and act as a modal window. The top padding is used as the window's title height.
  * <p>
@@ -48,7 +49,7 @@ public class Window extends Table {
 	Label titleLabel;
 	Table titleTable;
 	boolean drawTitleTable;
-	
+
 	protected int edge;
 	protected boolean dragging;
 
@@ -67,7 +68,7 @@ public class Window extends Table {
 		setTouchable(Touchable.enabled);
 		setClip(true);
 
-		titleLabel = new Label(title, new LabelStyle(style.titleFont, style.titleFontColor));
+		titleLabel = newLabel(title, new LabelStyle(style.titleFont, style.titleFontColor));
 		titleLabel.setEllipsis(true);
 
 		titleTable = new Table() {
@@ -75,7 +76,7 @@ public class Window extends Table {
 				if (drawTitleTable) super.draw(batch, parentAlpha);
 			}
 		};
-		titleTable.add(titleLabel).expandX().fillX().minWidth(0);
+		titleTable.add(titleLabel).growX().minWidth(0);
 		addActor(titleTable);
 
 		setStyle(style);
@@ -133,7 +134,7 @@ public class Window extends Table {
 				float minWidth = getMinWidth(), maxWidth = getMaxWidth();
 				float minHeight = getMinHeight(), maxHeight = getMaxHeight();
 				Stage stage = getStage();
-				boolean clampPosition = keepWithinStage && getParent() == stage.getRoot();
+				boolean clampPosition = keepWithinStage && stage != null && getParent() == stage.getRoot();
 
 				if ((edge & MOVE) != 0) {
 					float amountX = x - startX, amountY = y - startY;
@@ -193,23 +194,29 @@ public class Window extends Table {
 		});
 	}
 
+	protected Label newLabel (String text, LabelStyle style) {
+		return new Label(text, style);
+	}
+
 	public void setStyle (WindowStyle style) {
 		if (style == null) throw new IllegalArgumentException("style cannot be null.");
 		this.style = style;
+
 		setBackground(style.background);
 		titleLabel.setStyle(new LabelStyle(style.titleFont, style.titleFontColor));
 		invalidateHierarchy();
 	}
 
-	/** Returns the window's style. Modifying the returned style may not have an com.kw.gdx.animation.effect until {@link #setStyle(WindowStyle)} is
+	/** Returns the window's style. Modifying the returned style may not have an effect until {@link #setStyle(WindowStyle)} is
 	 * called. */
 	public WindowStyle getStyle () {
 		return style;
 	}
 
-	void keepWithinStage () {
+	public void keepWithinStage () {
 		if (!keepWithinStage) return;
 		Stage stage = getStage();
+		if (stage == null) return;
 		Camera camera = stage.getCamera();
 		if (camera instanceof OrthographicCamera) {
 			OrthographicCamera orthographicCamera = (OrthographicCamera)camera;
@@ -235,17 +242,18 @@ public class Window extends Table {
 
 	public void draw (Batch batch, float parentAlpha) {
 		Stage stage = getStage();
-		if (stage.getKeyboardFocus() == null) stage.setKeyboardFocus(this);
+		if (stage != null) {
+			if (stage.getKeyboardFocus() == null) stage.setKeyboardFocus(this);
 
-		keepWithinStage();
+			keepWithinStage();
 
-		if (style.stageBackground != null) {
-			stageToLocalCoordinates(tmpPosition.set(0, 0));
-			stageToLocalCoordinates(tmpSize.set(stage.getWidth(), stage.getHeight()));
-			drawStageBackground(batch, parentAlpha, getX() + tmpPosition.x, getY() + tmpPosition.y, getX() + tmpSize.x,
-				getY() + tmpSize.y);
+			if (style.stageBackground != null) {
+				stageToLocalCoordinates(tmpPosition.set(0, 0));
+				stageToLocalCoordinates(tmpSize.set(stage.getWidth(), stage.getHeight()));
+				drawStageBackground(batch, parentAlpha, getX() + tmpPosition.x, getY() + tmpPosition.y, getX() + tmpSize.x,
+					getY() + tmpSize.y);
+			}
 		}
-
 		super.draw(batch, parentAlpha);
 	}
 
@@ -268,7 +276,8 @@ public class Window extends Table {
 		drawTitleTable = false; // Avoid drawing the title table again in drawChildren.
 	}
 
-	public Actor hit (float x, float y, boolean touchable) {
+	public @Null Actor hit (float x, float y, boolean touchable) {
+		if (!isVisible()) return null;
 		Actor hit = super.hit(x, y, touchable);
 		if (hit == null && isModal && (!touchable || getTouchable() == Touchable.enabled)) return this;
 		float height = getHeight();
@@ -334,27 +343,25 @@ public class Window extends Table {
 	/** The style for a window, see {@link Window}.
 	 * @author Nathan Sweet */
 	static public class WindowStyle {
-		/** Optional. */
-		public Drawable background;
+		public @Null Drawable background;
 		public BitmapFont titleFont;
-		/** Optional. */
-		public Color titleFontColor = new Color(1, 1, 1, 1);
-		/** Optional. */
-		public Drawable stageBackground;
+		public @Null Color titleFontColor = new Color(1, 1, 1, 1);
+		public @Null Drawable stageBackground;
 
 		public WindowStyle () {
 		}
 
-		public WindowStyle (BitmapFont titleFont, Color titleFontColor, Drawable background) {
-			this.background = background;
+		public WindowStyle (BitmapFont titleFont, Color titleFontColor, @Null Drawable background) {
 			this.titleFont = titleFont;
 			this.titleFontColor.set(titleFontColor);
+			this.background = background;
 		}
 
 		public WindowStyle (WindowStyle style) {
-			this.background = style.background;
-			this.titleFont = style.titleFont;
-			this.titleFontColor = new Color(style.titleFontColor);
+			titleFont = style.titleFont;
+			if (style.titleFontColor != null) titleFontColor = new Color(style.titleFontColor);
+			background = style.background;
+			stageBackground = style.stageBackground;
 		}
 	}
 }

@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.regex.Pattern;
 
-/** Builder style API for emitting JSON.
+/** Builder API for emitting JSON to a {@link Writer}.
  * @author Nathan Sweet */
 public class JsonWriter extends Writer {
 	final Writer writer;
@@ -40,7 +40,7 @@ public class JsonWriter extends Writer {
 		return writer;
 	}
 
-	/** Sets the type of JSON output. Default is {@link OutputType#minimal}. */
+	/** Sets the type of JSON output. Default is {@link OutputType#json}. */
 	public void setOutputType (OutputType outputType) {
 		this.outputType = outputType;
 	}
@@ -75,7 +75,7 @@ public class JsonWriter extends Writer {
 		return this;
 	}
 
-	public JsonWriter value (Object value) throws IOException {
+	public JsonWriter value (@Null Object value) throws IOException {
 		if (quoteLongValues
 			&& (value instanceof Long || value instanceof Double || value instanceof BigDecimal || value instanceof BigInteger)) {
 			value = value.toString();
@@ -175,14 +175,15 @@ public class JsonWriter extends Writer {
 		 * <code>false</code> , or <code>null</code>.
 		 * <li>Newlines are treated as commas, making commas optional in many cases.
 		 * <li>C style comments may be used: <code>//...</code> or <code>/*...*<b></b>/</code>
-		 * </ul> */
+		 * </ul>
+		 */
 		minimal;
 
 		static private Pattern javascriptPattern = Pattern.compile("^[a-zA-Z_$][a-zA-Z_$0-9]*$");
 		static private Pattern minimalNamePattern = Pattern.compile("^[^\":,}/ ][^:]*$");
 		static private Pattern minimalValuePattern = Pattern.compile("^[^\":,{\\[\\]/ ][^}\\],]*$");
 
-		public String quoteValue (Object value) {
+		public String quoteValue (@Null Object value) {
 			if (value == null) return "null";
 			String string = value.toString();
 			if (value instanceof Number || value instanceof Boolean) return string;

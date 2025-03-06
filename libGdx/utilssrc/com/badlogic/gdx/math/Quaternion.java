@@ -16,9 +16,9 @@
 
 package com.badlogic.gdx.math;
 
-import com.badlogic.gdx.utils.NumberUtils;
-
 import java.io.Serializable;
+
+import com.badlogic.gdx.utils.NumberUtils;
 
 /** A simple quaternion class.
  * @see <a href="http://en.wikipedia.org/wiki/Quaternion">http://en.wikipedia.org/wiki/Quaternion</a>
@@ -61,33 +61,6 @@ public class Quaternion implements Serializable {
 	 * @param angle The angle in degrees. */
 	public Quaternion (Vector3 axis, float angle) {
 		this.set(axis, angle);
-	}
-
-	public static void normalize(Vector4 out, Quaternion a) {
-		float len = a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w;
-		if (len > 0) {
-			len = (float) (1.f / Math.sqrt(len));
-			out.x = a.x * len;
-			out.y = a.y * len;
-			out.z = a.z * len;
-			out.w = a.w * len;
-		} else {
-			out.x = 0;
-			out.y = 0;
-			out.z = 0;
-			out.w = 0;
-		}
-	}
-
-	public static void multiply(Quaternion out, Quaternion a, Vector4 b) {
-		float x = a.x * b.w + a.w * b.x + a.y * b.z - a.z * b.y;
-        float y = a.y * b.w + a.w * b.y + a.z * b.x - a.x * b.z;
-        float z = a.z * b.w + a.w * b.z + a.x * b.y - a.y * b.x;
-        float w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
-		out.x = x;
-		out.y = y;
-		out.z = z;
-		out.w = w;
 	}
 
 	/** Sets the components of the quaternion
@@ -146,8 +119,8 @@ public class Quaternion implements Serializable {
 	 * @param roll the rotation around the z axis degrees
 	 * @return this quaternion */
 	public Quaternion setEulerAngles (float yaw, float pitch, float roll) {
-		return setEulerAnglesRad(yaw * MathUtils.degreesToRadians, pitch * MathUtils.degreesToRadians, roll
-			* MathUtils.degreesToRadians);
+		return setEulerAnglesRad(yaw * MathUtils.degreesToRadians, pitch * MathUtils.degreesToRadians,
+			roll * MathUtils.degreesToRadians);
 	}
 
 	/** Sets the quaternion to the given euler angles in radians.
@@ -188,8 +161,8 @@ public class Quaternion implements Serializable {
 	 * @return the rotation around the z axis in radians (between -PI and +PI) */
 	public float getRollRad () {
 		final int pole = getGimbalPole();
-		return pole == 0 ? MathUtils.atan2(2f * (w * z + y * x), 1f - 2f * (x * x + z * z)) : (float)pole * 2f
-			* MathUtils.atan2(y, w);
+		return pole == 0 ? MathUtils.atan2(2f * (w * z + y * x), 1f - 2f * (x * x + z * z))
+			: (float)pole * 2f * MathUtils.atan2(y, w);
 	}
 
 	/** Get the roll euler angle in degrees, which is the rotation around the z axis. Requires that this quaternion is normalized.
@@ -479,7 +452,8 @@ public class Quaternion implements Serializable {
 		return setFromMatrix(false, matrix);
 	}
 
-	/** <p>
+	/**
+	 * <p>
 	 * Sets the Quaternion from the given x-, y- and z-axis which have to be orthonormal.
 	 * </p>
 	 * 
@@ -501,7 +475,8 @@ public class Quaternion implements Serializable {
 		return setFromAxes(false, xx, xy, xz, yx, yy, yz, zx, zy, zz);
 	}
 
-	/** <p>
+	/**
+	 * <p>
 	 * Sets the Quaternion from the given x-, y- and z-axis.
 	 * </p>
 	 * 
@@ -592,7 +567,8 @@ public class Quaternion implements Serializable {
 	 * @param y2 The target vector y value, which should be normalized.
 	 * @param z2 The target vector z value, which should be normalized.
 	 * @return This quaternion for chaining */
-	public Quaternion setFromCross (final float x1, final float y1, final float z1, final float x2, final float y2, final float z2) {
+	public Quaternion setFromCross (final float x1, final float y1, final float z1, final float x2, final float y2,
+		final float z2) {
 		final float dot = MathUtils.clamp(Vector3.dot(x1, y1, z1, x2, y2, z2), -1f, 1f);
 		final float angle = (float)Math.acos(dot);
 		return setFromAxisRad(y1 * z2 - z1 * y2, z1 * x2 - x1 * z2, x1 * y2 - y1 * x2, angle);
@@ -652,9 +628,9 @@ public class Quaternion implements Serializable {
 		return this;
 	}
 
-	/** Spherical linearly interpolates multiple quaternions by the given weights and stores the result in this Quaternion. Will not
-	 * destroy the data previously inside the elements of q or w. result = (q_1^w_1)*(q_2^w_2)* ... *(q_n^w_n) where the sum of w_i
-	 * is 1. Lists must be equal in length.
+	/** Spherical linearly interpolates multiple quaternions by the given weights and stores the result in this Quaternion. Will
+	 * not destroy the data previously inside the elements of q or w. result = (q_1^w_1)*(q_2^w_2)* ... *(q_n^w_n) where the sum of
+	 * w_i is 1. Lists must be equal in length.
 	 * @param q List of quaternions
 	 * @param w List of weights
 	 * @return This quaternion for chaining */
@@ -775,9 +751,10 @@ public class Quaternion implements Serializable {
 
 	/** Get the axis angle representation of the rotation in degrees. The supplied vector will receive the axis (x, y and z values)
 	 * of the rotation and the value returned is the angle in degrees around that axis. Note that this method will alter the
-	 * supplied vector, the existing value of the vector is ignored. </p> This will normalize this quaternion if needed. The
-	 * received axis is a unit vector. However, if this is an identity quaternion (no rotation), then the length of the axis may be
-	 * zero.
+	 * supplied vector, the existing value of the vector is ignored.
+	 * </p>
+	 * This will normalize this quaternion if needed. The received axis is a unit vector. However, if this is an identity
+	 * quaternion (no rotation), then the length of the axis may be zero.
 	 * 
 	 * @param axis vector which will receive the axis
 	 * @return the angle in degrees
@@ -789,9 +766,10 @@ public class Quaternion implements Serializable {
 
 	/** Get the axis-angle representation of the rotation in radians. The supplied vector will receive the axis (x, y and z values)
 	 * of the rotation and the value returned is the angle in radians around that axis. Note that this method will alter the
-	 * supplied vector, the existing value of the vector is ignored. </p> This will normalize this quaternion if needed. The
-	 * received axis is a unit vector. However, if this is an identity quaternion (no rotation), then the length of the axis may be
-	 * zero.
+	 * supplied vector, the existing value of the vector is ignored.
+	 * </p>
+	 * This will normalize this quaternion if needed. The received axis is a unit vector. However, if this is an identity
+	 * quaternion (no rotation), then the length of the axis may be zero.
 	 * 
 	 * @param axis vector which will receive the axis
 	 * @return the angle in radians
@@ -823,8 +801,8 @@ public class Quaternion implements Serializable {
 		return (float)(2.0 * Math.acos((this.w > 1) ? (this.w / len()) : this.w));
 	}
 
-	/** Get the angle in degrees of the rotation this quaternion represents. Use {@link #getAxisAngle(Vector3)} to get both the axis
-	 * and the angle of this rotation. Use {@link #getAngleAround(Vector3)} to get the angle around a specific axis.
+	/** Get the angle in degrees of the rotation this quaternion represents. Use {@link #getAxisAngle(Vector3)} to get both the
+	 * axis and the angle of this rotation. Use {@link #getAngleAround(Vector3)} to get the angle around a specific axis.
 	 * @return the angle in degrees of the rotation */
 	public float getAngle () {
 		return getAngleRad() * MathUtils.radiansToDegrees;
@@ -832,8 +810,9 @@ public class Quaternion implements Serializable {
 
 	/** Get the swing rotation and twist rotation for the specified axis. The twist rotation represents the rotation around the
 	 * specified axis. The swing rotation represents the rotation of the specified axis itself, which is the rotation around an
-	 * axis perpendicular to the specified axis. </p> The swing and twist rotation can be used to reconstruct the original
-	 * quaternion: this = swing * twist
+	 * axis perpendicular to the specified axis.
+	 * </p>
+	 * The swing and twist rotation can be used to reconstruct the original quaternion: this = swing * twist
 	 * 
 	 * @param axisX the X component of the normalized axis for which to get the swing and twist rotation
 	 * @param axisY the Y component of the normalized axis for which to get the swing and twist rotation
@@ -851,8 +830,9 @@ public class Quaternion implements Serializable {
 
 	/** Get the swing rotation and twist rotation for the specified axis. The twist rotation represents the rotation around the
 	 * specified axis. The swing rotation represents the rotation of the specified axis itself, which is the rotation around an
-	 * axis perpendicular to the specified axis. </p> The swing and twist rotation can be used to reconstruct the original
-	 * quaternion: this = swing * twist
+	 * axis perpendicular to the specified axis.
+	 * </p>
+	 * The swing and twist rotation can be used to reconstruct the original quaternion: this = swing * twist
 	 * 
 	 * @param axis the normalized axis for which to get the swing and twist rotation
 	 * @param swing will receive the swing rotation: the rotation around an axis perpendicular to the specified axis
@@ -870,8 +850,8 @@ public class Quaternion implements Serializable {
 	public float getAngleAroundRad (final float axisX, final float axisY, final float axisZ) {
 		final float d = Vector3.dot(this.x, this.y, this.z, axisX, axisY, axisZ);
 		final float l2 = Quaternion.len2(axisX * d, axisY * d, axisZ * d, this.w);
-		return MathUtils.isZero(l2) ? 0f : (float)(2.0 * Math.acos(MathUtils.clamp(
-			(float)((d < 0 ? -this.w : this.w) / Math.sqrt(l2)), -1f, 1f)));
+		return MathUtils.isZero(l2) ? 0f
+			: (float)(2.0 * Math.acos(MathUtils.clamp((float)((d < 0 ? -this.w : this.w) / Math.sqrt(l2)), -1f, 1f)));
 	}
 
 	/** Get the angle in radians of the rotation around the specified axis. The axis must be normalized.
@@ -895,17 +875,5 @@ public class Quaternion implements Serializable {
 	 * @return the angle in degrees of the rotation around the specified axis */
 	public float getAngleAround (final Vector3 axis) {
 		return getAngleAround(axis.x, axis.y, axis.z);
-	}
-
-	public static void invert(Vector4 out, Vector4 a) {
-		float dot = a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w;
-		float invDot = dot>0 ? 1.0f / dot : 0.0f;
-
-		// TODO: Would be faster to return [0,0,0,0] immediately if dot == 0
-
-		out.x = -a.x * invDot;
-		out.y = -a.y * invDot;
-		out.z = -a.z * invDot;
-		out.w = a.w * invDot;
 	}
 }

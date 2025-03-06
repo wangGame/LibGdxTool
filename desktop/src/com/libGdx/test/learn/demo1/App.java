@@ -13,7 +13,6 @@ public class App extends LibGdxTestMain {
         config.y = 0;
         config.height = (int) (1920 * 0.25f);
         config.width = (int) (1080 * 0.5f);
-        Gdx.isJiami = true;
         new LwjglApplication(new IciclesGame(), config);
     }
 }

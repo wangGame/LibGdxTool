@@ -20,7 +20,6 @@ class Desk implements ApplicationListener {
         config.y = 0;
         config.height = (int) (1920);
         config.width = (int) (1080);
-        Gdx.isJiami = true;
         Desk dekstop = new Desk();
         new LwjglApplication(dekstop, config);
     }

@@ -23,7 +23,6 @@ public class Dekstop implements ApplicationListener {
         config.y = 0;
         config.height = (int) (1920 );
         config.width = (int) (1080  );
-        Gdx.isJiami = true;
         Dekstop dekstop = new Dekstop();
         new LwjglApplication(dekstop, config);
     }

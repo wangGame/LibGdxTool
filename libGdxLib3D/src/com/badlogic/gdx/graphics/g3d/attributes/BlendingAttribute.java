@@ -37,7 +37,6 @@ public class BlendingAttribute extends Attribute {
 	/** Specifies how the (existing) red, green, blue, and alpha destination blending factors are computed (default:
 	 * GL_ONE_MINUS_SRC_ALPHA) */
 	public int destFunction;
-//	select用作源alpha值的不透明度，范围从0（完全透明）到1（完全不透明）（默认值：1）。
 	/** The opacity used as source alpha value, ranging from 0 (fully transparent) to 1 (fully opaque), (default: 1). */
 	public float opacity = 1.f;
 

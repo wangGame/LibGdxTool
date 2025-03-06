@@ -148,14 +148,13 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	}
 
 	@Override
-	public void setColor(float color) {
-		this.lightPacked = color;
-	}
-
-
-	@Override
 	public Color getColor () {
 		return light;
+	}
+
+	@Override
+	public void setPackedColor(float packedColor) {
+		this.lightPacked = packedColor;
 	}
 
 	@Override

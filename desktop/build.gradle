@@ -7,9 +7,13 @@ sourceSets.main.resources.srcDirs = ["../android/assets"]
 sourceCompatibility = 1.8
 
 dependencies {
+//    implementation files('libs/gdx-backend-lwjgl.jar')
+//    implementation files('libs/gdx-backend-lwjgl-natives.jar')
+//    implementation files('libs/gdx-natives.jar')
     implementation files('libs/gdx-backend-lwjgl.jar')
-    implementation files('libs/gdx-backend-lwjgl-natives.jar')
-    implementation files('libs/gdx-natives.jar')
+    implementation files('libs/gdx-platform-1.13.1-natives-desktop.jar')
+//    implementation files('libs/gdx-natives.jar')
+
     implementation files('libs/gdx-tools.jar')
     implementation files('libs/gdx-PVR-0.2.1-b34.jar')
     implementation files('libs/solvitaire.jar')
@@ -42,6 +46,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
 //    implementation 'org.slf4j:slf4j-simple:2.1.0-alpha1'
+// https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-platform
+    implementation group: 'com.badlogicgames.gdx', name: 'gdx-platform', version: '1.13.1', ext: 'pom'
+// https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-backend-lwjgl
+    implementation group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl', version: '1.13.1'
 
 
 }

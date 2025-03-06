@@ -85,7 +85,6 @@ public class MyGdxGame3 extends ApplicationAdapter {
         config.y = 0;
         config.height = (int) (1920 * 0.25f);
         config.width = (int) (1080 * 0.5f);
-        Gdx.isJiami = true;
         new LwjglApplication(new MyGdxGame3(), config);
     }
 }

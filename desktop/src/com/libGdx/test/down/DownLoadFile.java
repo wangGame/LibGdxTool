@@ -17,11 +17,11 @@ public class DownLoadFile extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        Texture texture = Asset.getAsset().getTexture("shape1.png");
-        TextureRegion region = new TextureRegion(texture);
-        NinePatch ninePatch = new NinePatch(region,100,100,10,10,false,false);
-        Image image = new Image(ninePatch);
-        image.setWidth(1999);
-        addActor(image);
+//        Texture texture = Asset.getAsset().getTexture("shape1.png");
+//        TextureRegion region = new TextureRegion(texture);
+//        NinePatch ninePatch = new NinePatch(region,100,100,10,10,false,false);
+//        Image image = new Image(ninePatch);
+//        image.setWidth(1999);
+//        addActor(image);
     }
 }

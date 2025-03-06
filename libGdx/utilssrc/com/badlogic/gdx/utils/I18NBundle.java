@@ -17,20 +17,20 @@
 package com.badlogic.gdx.utils;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
+import java.util.Set;
 
 import com.badlogic.gdx.files.FileHandle;
 
-/** A {@code I18NBundle} provides {@code Locale}-specific resources loaded from property files. A bundle contains a number of named
- * resources, whose names and values are {@code Strings}. A bundle may have a parent bundle, and when a resource is not found in a
- * bundle, the parent bundle is searched for the resource. If the fallback mechanism reaches the base bundle and still can't find
- * the resource it throws a {@code MissingResourceException}.
+/** A {@code I18NBundle} provides {@code Locale}-specific resources loaded from property files. A bundle contains a number of
+ * named resources, whose names and values are {@code Strings}. A bundle may have a parent bundle, and when a resource is not
+ * found in a bundle, the parent bundle is searched for the resource. If the fallback mechanism reaches the base bundle and still
+ * can't find the resource it throws a {@code MissingResourceException}.
  * 
  * <ul>
  * <li>All bundles for the same group of resources share a common base bundle. This base bundle acts as the root and is the last
@@ -92,7 +92,8 @@ public class I18NBundle {
 	}
 
 	/** Sets the flag indicating whether to use the simplified message pattern. The flag must be set before calling the factory
-	 * methods {@code createBundle}. Notice that this method has no effect on the GWT backend where it's always assumed to be true. */
+	 * methods {@code createBundle}. Notice that this method has no effect on the GWT backend where it's always assumed to be
+	 * true. */
 	public static void setSimpleFormatter (boolean enabled) {
 		simpleFormatter = enabled;
 	}
@@ -136,7 +137,7 @@ public class I18NBundle {
 	/** Creates a new bundle using the specified <code>baseFileHandle</code> and <code>encoding</code>; the default locale is used.
 	 * 
 	 * @param baseFileHandle the file handle to the base of the bundle
-	 * @param encoding the charter encoding
+	 * @param encoding the character encoding
 	 * @return a bundle for the given base file handle and locale
 	 * @exception NullPointerException if <code>baseFileHandle</code> or <code>encoding</code> is <code>null</code>
 	 * @exception MissingResourceException if no bundle for the specified base file handle can be found */
@@ -148,7 +149,7 @@ public class I18NBundle {
 	 * 
 	 * @param baseFileHandle the file handle to the base of the bundle
 	 * @param locale the locale for which a bundle is desired
-	 * @param encoding the charter encoding
+	 * @param encoding the character encoding
 	 * @return a bundle for the given base file handle and locale
 	 * @exception NullPointerException if <code>baseFileHandle</code>, <code>locale</code> or <code>encoding</code> is
 	 *               <code>null</code>
@@ -197,8 +198,9 @@ public class I18NBundle {
 		if (bundle == null) {
 			if (baseBundle == null) {
 				// No bundle found
-				throw new MissingResourceException("Can't find bundle for base file handle " + baseFileHandle.path() + ", locale "
-					+ locale, baseFileHandle + "_" + locale, "");
+				throw new MissingResourceException(
+					"Can't find bundle for base file handle " + baseFileHandle.path() + ", locale " + locale,
+					baseFileHandle + "_" + locale, "");
 			}
 			// Set the base bundle to be returned
 			bundle = baseBundle;
@@ -265,10 +267,10 @@ public class I18NBundle {
 			locales.add(locale);
 		}
 		if (country.length() > 0) {
-			locales.add((locales.size() == 0) ? locale : new Locale(language, country));
+			locales.add(locales.isEmpty() ? locale : new Locale(language, country));
 		}
 		if (language.length() > 0) {
-			locales.add((locales.size() == 0) ? locale : new Locale(language));
+			locales.add(locales.isEmpty() ? locale : new Locale(language));
 		}
 		locales.add(ROOT_LOCALE);
 		return locales;
@@ -329,8 +331,7 @@ public class I18NBundle {
 			}
 		} catch (IOException e) {
 			throw new GdxRuntimeException(e);
-		} 
-		finally {
+		} finally {
 			StreamUtils.closeQuietly(reader);
 		}
 		if (bundle != null) {
@@ -427,7 +428,7 @@ public class I18NBundle {
 	 *               returns {@code true}
 	 * @return the string for the given key or the key surrounded by {@code ???} if it cannot be found and
 	 *         {@link #getExceptionOnMissingKey()} returns {@code false} */
-	public final String get (String key) {
+	public String get (String key) {
 		String result = properties.get(key);
 		if (result == null) {
 			if (parent != null) result = parent.get(key);
@@ -436,6 +437,20 @@ public class I18NBundle {
 					throw new MissingResourceException("Can't find bundle key " + key, this.getClass().getName(), key);
 				else
 					return "???" + key + "???";
+			}
+		}
+		return result;
+	}
+
+	/** Gets a key set of loaded properties. Keys will be copied into a new set and returned.
+	 *
+	 * @return a key set of loaded properties. Never null, might be an empty set */
+	public Set<String> keys () {
+		Set<String> result = new LinkedHashSet<>();
+		ObjectMap.Keys<String> keys = properties.keys();
+		if (keys != null) {
+			for (String key : keys) {
+				result.add(key);
 			}
 		}
 		return result;
@@ -453,4 +468,16 @@ public class I18NBundle {
 		return formatter.format(get(key), args);
 	}
 
+	/** Sets the value of all localized strings to String placeholder so hardcoded, unlocalized values can be easily spotted. The
+	 * I18NBundle won't be able to reset values after calling debug and should only be using during testing.
+	 * 
+	 * @param placeholder */
+	public void debug (String placeholder) {
+		ObjectMap.Keys<String> keys = properties.keys();
+		if (keys == null) return;
+
+		for (String s : keys) {
+			properties.put(s, placeholder);
+		}
+	}
 }

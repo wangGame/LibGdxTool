@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.libGdx.test.base.LibGdxTestMain;
 
-import org.lwjgl.openal.AL;
 
 public class Appp extends LibGdxTestMain {
     public static void main(String[] args) {

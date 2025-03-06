@@ -2,7 +2,6 @@ package com.libGdx.test.format;
 
 import com.libGdx.test.base.LibGdxTestMain;
 
-import org.lwjgl.Sys;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 See AUTHORS file.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
+ * 
  *   http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,19 +33,19 @@ import com.badlogic.gdx.utils.Disposable;
  * screen resolution changes, the projection matrix may need to be updated.
  * <p>
  * Shapes are rendered in batches to increase performance. Standard usage pattern looks as follows:
- *
+ * 
  * <pre>
  * {@code
- * phyWorldCamera.update();
- * shapeRenderer.setProjectionMatrix(phyWorldCamera.combined);
- *
+ * camera.update();
+ * shapeRenderer.setProjectionMatrix(camera.combined);
+ * 
  * shapeRenderer.begin(ShapeType.Line);
  * shapeRenderer.setColor(1, 1, 0, 1);
  * shapeRenderer.line(x, y, x2, y2);
  * shapeRenderer.rect(x, y, width, height);
  * shapeRenderer.circle(x, y, radius);
  * shapeRenderer.end();
- *
+ * 
  * shapeRenderer.begin(ShapeType.Filled);
  * shapeRenderer.setColor(0, 1, 0, 1);
  * shapeRenderer.rect(x, y, width, height);
@@ -53,11 +53,11 @@ import com.badlogic.gdx.utils.Disposable;
  * shapeRenderer.end();
  * }
  * </pre>
- *
+ * 
  * ShapeRenderer has a second matrix called the transformation matrix which is used to rotate, scale and translate shapes in a
  * more flexible manner. The following example shows how to rotate a rectangle around its center using the z-axis as the rotation
  * axis and placing it's center at (20, 12, 2):
- *
+ * 
  * <pre>
  * shapeRenderer.begin(ShapeType.Line);
  * shapeRenderer.identity();
@@ -66,7 +66,7 @@ import com.badlogic.gdx.utils.Disposable;
  * shapeRenderer.rect(-width / 2, -height / 2, width, height);
  * shapeRenderer.end();
  * </pre>
- *
+ * 
  * Matrix operations all use postmultiplication and work just like glTranslate, glScale and glRotate. The last transformation
  * specified will be the first that is applied to a shape (rotate then translate in the above example).
  * <p>
@@ -277,10 +277,7 @@ public class ShapeRenderer implements Disposable {
 	}
 
 	/** Draws a curve using {@link ShapeType#Line}. */
-	public void curve (float x1, float y1,
-					   float cx1, float cy1,
-					   float cx2, float cy2,
-					   float x2, float y2, int segments) {
+	public void curve (float x1, float y1, float cx1, float cy1, float cx2, float cy2, float x2, float y2, int segments) {
 		check(ShapeType.Line, null, segments * 2 + 2);
 		float colorBits = color.toFloatBits();
 
@@ -477,7 +474,7 @@ public class ShapeRenderer implements Disposable {
 	/** Draws a rectangle in the x/y plane using {@link ShapeType#Line} or {@link ShapeType#Filled}. The x and y specify the lower
 	 * left corner. The originX and originY specify the point about which to rotate the rectangle. */
 	public void rect (float x, float y, float originX, float originY, float width, float height, float scaleX, float scaleY,
-					  float degrees) {
+		float degrees) {
 		rect(x, y, originX, originY, width, height, scaleX, scaleY, degrees, color, color, color, color);
 	}
 
@@ -488,7 +485,7 @@ public class ShapeRenderer implements Disposable {
 	 * @param col3 The color at (x + width, y + height)
 	 * @param col4 The color at (x, y + height) */
 	public void rect (float x, float y, float originX, float originY, float width, float height, float scaleX, float scaleY,
-					  float degrees, Color col1, Color col2, Color col3, Color col4) {
+		float degrees, Color col1, Color col2, Color col3, Color col4) {
 		check(ShapeType.Line, ShapeType.Filled, 8);
 
 		float cos = MathUtils.cosDeg(degrees);
@@ -558,7 +555,8 @@ public class ShapeRenderer implements Disposable {
 
 	}
 
-	/** Draws a line using a rotated rectangle, where with one edge is centered at x1, y1 and the opposite edge centered at x2, y2. */
+	/** Draws a line using a rotated rectangle, where with one edge is centered at x1, y1 and the opposite edge centered at x2,
+	 * y2. */
 	public void rectLine (float x1, float y1, float x2, float y2, float width) {
 		check(ShapeType.Line, ShapeType.Filled, 8);
 		float colorBits = color.toFloatBits();
@@ -603,7 +601,8 @@ public class ShapeRenderer implements Disposable {
 		}
 	}
 
-	/** Draws a line using a rotated rectangle, where with one edge is centered at x1, y1 and the opposite edge centered at x2, y2. */
+	/** Draws a line using a rotated rectangle, where with one edge is centered at x1, y1 and the opposite edge centered at x2,
+	 * y2. */
 	public void rectLine (float x1, float y1, float x2, float y2, float width, Color c1, Color c2) {
 		check(ShapeType.Line, ShapeType.Filled, 8);
 		float col1Bits = c1.toFloatBits();
@@ -654,8 +653,8 @@ public class ShapeRenderer implements Disposable {
 		rectLine(p1.x, p1.y, p2.x, p2.y, width);
 	}
 
-	/** Draws a cube using {@link ShapeType#Line} or {@link ShapeType#Filled}. The x, y and z specify the bottom, left, front corner
-	 * of the rectangle. */
+	/** Draws a cube using {@link ShapeType#Line} or {@link ShapeType#Filled}. The x, y and z specify the bottom, left, front
+	 * corner of the rectangle. */
 	public void box (float x, float y, float z, float width, float height, float depth) {
 		depth = -depth;
 		float colorBits = color.toFloatBits();
@@ -748,11 +747,11 @@ public class ShapeRenderer implements Disposable {
 			renderer.vertex(x + width, y + height, z + depth);
 
 			renderer.color(colorBits);
-			renderer.vertex(x, y + height, z + depth);
+			renderer.vertex(x + width, y + height, z + depth);
 			renderer.color(colorBits);
 			renderer.vertex(x, y, z + depth);
 			renderer.color(colorBits);
-			renderer.vertex(x + width, y + height, z + depth);
+			renderer.vertex(x, y + height, z + depth);
 
 			// Left
 			renderer.color(colorBits);
@@ -816,8 +815,6 @@ public class ShapeRenderer implements Disposable {
 		}
 
 	}
-
-
 
 	/** Draws two crossed lines using {@link ShapeType#Line} or {@link ShapeType#Filled}. */
 	public void x (float x, float y, float size) {
@@ -945,7 +942,8 @@ public class ShapeRenderer implements Disposable {
 		renderer.vertex(x + cx, y + cy, 0);
 	}
 
-	/** Calls {@link #ellipse(float, float, float, float, int)} by estimating the number of segments needed for a smooth ellipse. */
+	/** Calls {@link #ellipse(float, float, float, float, int)} by estimating the number of segments needed for a smooth
+	 * ellipse. */
 	public void ellipse (float x, float y, float width, float height) {
 		ellipse(x, y, width, height, Math.max(1, (int)(12 * (float)Math.cbrt(Math.max(width * 0.5f, height * 0.5f)))));
 	}
@@ -965,7 +963,7 @@ public class ShapeRenderer implements Disposable {
 
 				renderer.color(colorBits);
 				renderer.vertex(cx + (width * 0.5f * MathUtils.cos((i + 1) * angle)),
-						cy + (height * 0.5f * MathUtils.sin((i + 1) * angle)), 0);
+					cy + (height * 0.5f * MathUtils.sin((i + 1) * angle)), 0);
 			}
 		} else {
 			for (int i = 0; i < segments; i++) {
@@ -977,12 +975,13 @@ public class ShapeRenderer implements Disposable {
 
 				renderer.color(colorBits);
 				renderer.vertex(cx + (width * 0.5f * MathUtils.cos((i + 1) * angle)),
-						cy + (height * 0.5f * MathUtils.sin((i + 1) * angle)), 0);
+					cy + (height * 0.5f * MathUtils.sin((i + 1) * angle)), 0);
 			}
 		}
 	}
 
-	/** Calls {@link #ellipse(float, float, float, float, float, int)} by estimating the number of segments needed for a smooth ellipse. */
+	/** Calls {@link #ellipse(float, float, float, float, float, int)} by estimating the number of segments needed for a smooth
+	 * ellipse. */
 	public void ellipse (float x, float y, float width, float height, float rotation) {
 		ellipse(x, y, width, height, rotation, Math.max(1, (int)(12 * (float)Math.cbrt(Math.max(width * 0.5f, height * 0.5f)))));
 	}
@@ -1104,7 +1103,8 @@ public class ShapeRenderer implements Disposable {
 		}
 	}
 
-	/** Draws a polygon in the x/y plane using {@link ShapeType#Line}. The vertices must contain at least 3 points (6 floats x,y). */
+	/** Draws a polygon in the x/y plane using {@link ShapeType#Line}. The vertices must contain at least 3 points (6 floats
+	 * x,y). */
 	public void polygon (float[] vertices, int offset, int count) {
 		if (count < 6) throw new IllegalArgumentException("Polygons must contain at least 3 points.");
 		if (count % 2 != 0) throw new IllegalArgumentException("Polygons must have an even number of vertices.");
@@ -1141,7 +1141,8 @@ public class ShapeRenderer implements Disposable {
 		polygon(vertices, 0, vertices.length);
 	}
 
-	/** Draws a polyline in the x/y plane using {@link ShapeType#Line}. The vertices must contain at least 2 points (4 floats x,y). */
+	/** Draws a polyline in the x/y plane using {@link ShapeType#Line}. The vertices must contain at least 2 points (4 floats
+	 * x,y). */
 	public void polyline (float[] vertices, int offset, int count) {
 		if (count < 4) throw new IllegalArgumentException("Polylines must contain at least 2 points.");
 		if (count % 2 != 0) throw new IllegalArgumentException("Polylines must have an even number of vertices.");
@@ -1170,8 +1171,13 @@ public class ShapeRenderer implements Disposable {
 		polyline(vertices, 0, vertices.length);
 	}
 
-	/** @param other May be null. */
-	private void check (ShapeType preferred, ShapeType other, int newVertices) {
+	/** Checks whether the correct ShapeType was set. If not and autoShapeType is enabled, it flushes the batch and changes the
+	 * shape type. The batch is also flushed, when the matrix has been changed or not enough vertices remain.
+	 *
+	 * @param preferred usually ShapeType.Line
+	 * @param other usually ShapeType.Filled. May be null.
+	 * @param newVertices vertices count of geometric figure you want to draw */
+	protected final void check (ShapeType preferred, ShapeType other, int newVertices) {
 		if (shapeType == null) throw new IllegalStateException("begin must be called first.");
 
 		if (shapeType != preferred && shapeType != other) {
@@ -1205,6 +1211,7 @@ public class ShapeRenderer implements Disposable {
 
 	public void flush () {
 		ShapeType type = shapeType;
+		if (type == null) return;
 		end();
 		begin(type);
 	}

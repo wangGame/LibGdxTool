@@ -16,6 +16,7 @@
 
 package com.badlogic.gdx.backends.android;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,40 +26,23 @@ import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.ApplicationLogger;
-import com.badlogic.gdx.Audio;
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
-import com.badlogic.gdx.LifecycleListener;
-import com.badlogic.gdx.Net;
-import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.backends.android.keyboardheight.AndroidXKeyboardHeightProvider;
+import com.badlogic.gdx.backends.android.keyboardheight.KeyboardHeightProvider;
+import com.badlogic.gdx.backends.android.keyboardheight.StandardKeyboardHeightProvider;
 import com.badlogic.gdx.backends.android.surfaceview.FillResolutionStrategy;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Clipboard;
-import com.badlogic.gdx.utils.GdxNativesLoader;
-import com.badlogic.gdx.utils.GdxRuntimeException;
-import com.badlogic.gdx.utils.SnapshotArray;
+import com.badlogic.gdx.utils.*;
 
-import java.lang.reflect.Method;
-
-/** An implementation of the {@link Application} interface for Android. Create an {@link Activity} that derives from this class. In
- * the {@link Activity#onCreate(Bundle)} method call the {@link #initialize(ApplicationListener)} method specifying the
+/** An implementation of the {@link Application} interface for Android. Create an {@link Activity} that derives from this class.
+ * In the {@link Activity#onCreate(Bundle)} method call the {@link #initialize(ApplicationListener)} method specifying the
  * configuration for the GLSurfaceView.
  * 
  * @author mzechner */
 public class AndroidApplication extends Activity implements AndroidApplicationBase {
-	static {
-		GdxNativesLoader.load();
-	}
 
 	protected AndroidGraphics graphics;
 	protected AndroidInput input;
@@ -71,14 +55,17 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	protected boolean firstResume = true;
 	protected final Array<Runnable> runnables = new Array<Runnable>();
 	protected final Array<Runnable> executedRunnables = new Array<Runnable>();
-	protected final SnapshotArray<LifecycleListener> lifecycleListeners = new SnapshotArray<LifecycleListener>(LifecycleListener.class);
+	protected final SnapshotArray<LifecycleListener> lifecycleListeners = new SnapshotArray<LifecycleListener>(
+		LifecycleListener.class);
 	private final Array<AndroidEventListener> androidEventListeners = new Array<AndroidEventListener>();
 	protected int logLevel = LOG_INFO;
 	protected ApplicationLogger applicationLogger;
 	protected boolean useImmersiveMode = false;
-	protected boolean hideStatusBar = false;
 	private int wasFocusChanged = -1;
 	private boolean isWaitingForAudio = false;
+	private KeyboardHeightProvider keyboardHeightProvider;
+
+	protected boolean renderUnderCutout = false;
 
 	/** This method has to be called in the {@link Activity#onCreate(Bundle)} method. It sets up all the things necessary to get
 	 * input, render via OpenGL and so on. Uses a default {@link AndroidApplicationConfiguration}.
@@ -103,7 +90,7 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	/** This method has to be called in the {@link Activity#onCreate(Bundle)} method. It sets up all the things necessary to get
 	 * input, render via OpenGL and so on. Uses a default {@link AndroidApplicationConfiguration}.
 	 * <p>
-	 * Note: you have to add the returned view to your update!
+	 * Note: you have to add the returned view to your layout!
 	 * 
 	 * @param listener the {@link ApplicationListener} implementing the program logic
 	 * @return the GLSurfaceView of the application */
@@ -116,7 +103,7 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	 * input, render via OpenGL and so on. You can configure other aspects of the application with the rest of the fields in the
 	 * {@link AndroidApplicationConfiguration} instance.
 	 * <p>
-	 * Note: you have to add the returned view to your update!
+	 * Note: you have to add the returned view to your layout!
 	 * 
 	 * @param listener the {@link ApplicationListener} implementing the program logic
 	 * @param config the {@link AndroidApplicationConfiguration}, defining various settings of the application (use accelerometer,
@@ -129,21 +116,21 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 
 	private void init (ApplicationListener listener, AndroidApplicationConfiguration config, boolean isForView) {
 		if (this.getVersion() < MINIMUM_SDK) {
-			throw new GdxRuntimeException("LibGDX requires Android API Level " + MINIMUM_SDK + " or later.");
+			throw new GdxRuntimeException("libGDX requires Android API Level " + MINIMUM_SDK + " or later.");
 		}
+		config.nativeLoader.load();
 		setApplicationLogger(new AndroidApplicationLogger());
-		graphics = new AndroidGraphics(this, config, config.resolutionStrategy == null ? new FillResolutionStrategy()
-			: config.resolutionStrategy);
-		input = AndroidInputFactory.newAndroidInput(this, this, graphics.view, config);
-		audio = new AndroidAudio(this, config);
-		this.getFilesDir(); // workaround for Android bug #10515463
-		files = new AndroidFiles(this.getAssets(), this.getFilesDir().getAbsolutePath());
-		net = new AndroidNet(this);
+		graphics = new AndroidGraphics(this, config,
+			config.resolutionStrategy == null ? new FillResolutionStrategy() : config.resolutionStrategy);
+		input = createInput(this, this, graphics.view, config);
+		audio = createAudio(this, config);
+		files = createFiles();
+		net = new AndroidNet(this, config);
 		this.listener = listener;
 		this.handler = new Handler();
 		this.useImmersiveMode = config.useImmersiveMode;
-		this.hideStatusBar = config.hideStatusBar;
 		this.clipboard = new AndroidClipboard(this);
+		this.renderUnderCutout = config.renderUnderCutout;
 
 		// Add a specialized audio lifecycle listener
 		addLifecycleListener(new LifecycleListener() {
@@ -183,17 +170,23 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 		}
 
 		createWakeLock(config.useWakelock);
-		hideStatusBar(this.hideStatusBar);
 		useImmersiveMode(this.useImmersiveMode);
-		if (this.useImmersiveMode && getVersion() >= Build.VERSION_CODES.KITKAT) {
-			try {
-				Class<?> vlistener = Class.forName("com.badlogic.gdx.backends.android.AndroidVisibilityListener");
-				Object o = vlistener.newInstance();
-				Method method = vlistener.getDeclaredMethod("createListener", AndroidApplicationBase.class);
-				method.invoke(o, this);
-			} catch (Exception e) {
-				log("AndroidApplication", "Failed to create AndroidVisibilityListener", e);
-			}
+		if (this.useImmersiveMode) {
+			AndroidVisibilityListener vlistener = new AndroidVisibilityListener();
+			vlistener.createListener(this);
+		}
+
+		// detect an already connected bluetooth keyboardAvailable
+		if (getResources().getConfiguration().keyboard != Configuration.KEYBOARD_NOKEYS) input.setKeyboardAvailable(true);
+
+		setLayoutInDisplayCutoutMode(this.renderUnderCutout);
+
+		// As per the docs, it might work unreliable < 23 https://developer.android.com/jetpack/androidx/releases/core#1.5.0-alpha02
+		// So, I guess since 23 is pretty rare we can use the old API for the users
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+			keyboardHeightProvider = new AndroidXKeyboardHeightProvider(this);
+		} else {
+			keyboardHeightProvider = new StandardKeyboardHeightProvider(this);
 		}
 	}
 
@@ -210,17 +203,11 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 		}
 	}
 
-	protected void hideStatusBar (boolean hide) {
-		if (!hide || getVersion() < 11) return;
-
-		View rootView = getWindow().getDecorView();
-
-		try {
-			Method m = View.class.getMethod("setSystemUiVisibility", int.class);
-			if (getVersion() <= 13) m.invoke(rootView, 0x0);
-			m.invoke(rootView, 0x1);
-		} catch (Exception e) {
-			log("AndroidApplication", "Can't hide status bar", e);
+	@TargetApi(Build.VERSION_CODES.P)
+	private void setLayoutInDisplayCutoutMode (boolean render) {
+		if (render && getVersion() >= Build.VERSION_CODES.P) {
+			WindowManager.LayoutParams lp = getWindow().getAttributes();
+			lp.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
 		}
 	}
 
@@ -228,7 +215,6 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	public void onWindowFocusChanged (boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		useImmersiveMode(this.useImmersiveMode);
-		hideStatusBar(this.hideStatusBar);
 		if (hasFocus) {
 			this.wasFocusChanged = 1;
 			if (this.isWaitingForAudio) {
@@ -242,21 +228,13 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 
 	@Override
 	public void useImmersiveMode (boolean use) {
-		if (!use || getVersion() < Build.VERSION_CODES.KITKAT) return;
+		if (!use) return;
 
 		View view = getWindow().getDecorView();
-		try {
-			Method m = View.class.getMethod("setSystemUiVisibility", int.class);
-			int code = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-					| View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-					| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-					| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-					| View.SYSTEM_UI_FLAG_FULLSCREEN
-					| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
-			m.invoke(view, code);
-		} catch (Exception e) {
-			log("AndroidApplication", "Can't set immersive mode", e);
-		}
+		int code = View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+			| View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN
+			| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+		view.setSystemUiVisibility(code);
 	}
 
 	@Override
@@ -284,6 +262,7 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 		graphics.onPauseGLSurfaceView();
 
 		super.onPause();
+		keyboardHeightProvider.setKeyboardHeightObserver(null);
 	}
 
 	@Override
@@ -312,11 +291,19 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 			this.isWaitingForAudio = false;
 		}
 		super.onResume();
+		keyboardHeightProvider.setKeyboardHeightObserver((DefaultAndroidInput)Gdx.input);
+		((AndroidGraphics)getGraphics()).getView().post(new Runnable() {
+			@Override
+			public void run () {
+				keyboardHeightProvider.start();
+			}
+		});
 	}
 
 	@Override
 	protected void onDestroy () {
 		super.onDestroy();
+		keyboardHeightProvider.close();
 	}
 
 	@Override
@@ -330,6 +317,11 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	}
 
 	@Override
+	public AndroidInput getInput () {
+		return input;
+	}
+
+	@Override
 	public Files getFiles () {
 		return files;
 	}
@@ -337,11 +329,6 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	@Override
 	public Graphics getGraphics () {
 		return graphics;
-	}
-
-	@Override
-	public AndroidInput getInput () {
-		return input;
 	}
 
 	@Override
@@ -356,7 +343,7 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 
 	@Override
 	public int getVersion () {
-		return Build.VERSION.SDK_INT;
+		return android.os.Build.VERSION.SDK_INT;
 	}
 
 	@Override
@@ -373,7 +360,6 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	public Preferences getPreferences (String name) {
 		return new AndroidPreferences(getSharedPreferences(name, Context.MODE_PRIVATE));
 	}
-
 
 	@Override
 	public Clipboard getClipboard () {
@@ -393,19 +379,17 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 		super.onConfigurationChanged(config);
 		boolean keyboardAvailable = false;
 		if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) keyboardAvailable = true;
-		input.keyboardAvailable = keyboardAvailable;
+		input.setKeyboardAvailable(keyboardAvailable);
 	}
 
 	@Override
 	public void exit () {
-		if (handler!=null) {
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					AndroidApplication.this.finish();
-				}
-			});
-		}
+		handler.post(new Runnable() {
+			@Override
+			public void run () {
+				AndroidApplication.this.finish();
+			}
+		});
 	}
 
 	@Override
@@ -528,26 +512,25 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 		return this.handler;
 	}
 
-	public int getSafeInsetLeft (){
-		return graphics.getSafeInsetLeft();
-	}
-
-	public int getSafeInsetTop (){
-		return graphics.getSafeInsetLeft();
-	}
-
-	public int getSafeInsetBottom (){
-		return graphics.getSafeInsetLeft();
-	}
-
-	public int getSafeInsetRight (){
-		return graphics.getSafeInsetLeft();
-	}
-
-	//后台回来失去焦点  无法进行键盘操作
 	@Override
-	public boolean dispatchKeyEvent(KeyEvent event) {
-		graphics.getView().requestFocus();
-		return super.dispatchKeyEvent(event);
+	public AndroidAudio createAudio (Context context, AndroidApplicationConfiguration config) {
+		if (!config.disableAudio)
+			return new DefaultAndroidAudio(context, config);
+		else
+			return new DisabledAndroidAudio();
+	}
+
+	@Override
+	public AndroidInput createInput (Application activity, Context context, Object view, AndroidApplicationConfiguration config) {
+		return new DefaultAndroidInput(this, this, graphics.view, config);
+	}
+
+	protected AndroidFiles createFiles () {
+		this.getFilesDir(); // workaround for Android bug #10515463
+		return new DefaultAndroidFiles(this.getAssets(), this, true);
+	}
+
+	public KeyboardHeightProvider getKeyboardHeightProvider () {
+		return keyboardHeightProvider;
 	}
 }

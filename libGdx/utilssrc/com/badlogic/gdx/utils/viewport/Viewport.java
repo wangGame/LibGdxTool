@@ -58,22 +58,23 @@ public abstract class Viewport {
 		update(screenWidth, screenHeight, false);
 	}
 
-	/** Configures this viewport's screen bounds using the specified screen size and calls {@link #apply(boolean)}. Typically called
-	 * from {@link ApplicationListener#resize(int, int)} or {@link Screen#resize(int, int)}.
+	/** Configures this viewport's screen bounds using the specified screen size and calls {@link #apply(boolean)}. Typically
+	 * called from {@link ApplicationListener#resize(int, int)} or {@link Screen#resize(int, int)}.
 	 * <p>
 	 * The default implementation only calls {@link #apply(boolean)}. */
 	public void update (int screenWidth, int screenHeight, boolean centerCamera) {
 		apply(centerCamera);
 	}
 
-	/** Transforms the specified screen coordinate to world coordinates.
+	/** Transforms the specified touch coordinate to world coordinates. The x- and y-coordinate of vec are assumed to be in touch
+	 * coordinates (origin is the top left corner, y * pointing down, x pointing to the right)
 	 * @return The vector that was passed in, transformed to world coordinates.
 	 * @see Camera#unproject(Vector3) */
-	public Vector2 unproject (Vector2 screenCoords) {
-		tmp.set(screenCoords.x, screenCoords.y, 1);
+	public Vector2 unproject (Vector2 touchCoords) {
+		tmp.set(touchCoords.x, touchCoords.y, 1);
 		camera.unproject(tmp, screenX, screenY, screenWidth, screenHeight);
-		screenCoords.set(tmp.x, tmp.y);
-		return screenCoords;
+		touchCoords.set(tmp.x, tmp.y);
+		return touchCoords;
 	}
 
 	/** Transforms the specified world coordinate to screen coordinates.
@@ -103,8 +104,8 @@ public abstract class Viewport {
 	}
 
 	/** @see Camera#getPickRay(float, float, float, float, float, float) */
-	public Ray getPickRay (float screenX, float screenY) {
-		return camera.getPickRay(screenX, screenY, this.screenX, this.screenY, screenWidth, screenHeight);
+	public Ray getPickRay (float touchX, float touchY) {
+		return camera.getPickRay(touchX, touchY, this.screenX, this.screenY, screenWidth, screenHeight);
 	}
 
 	/** @see ScissorStack#calculateScissors(Camera, float, float, float, float, Matrix4, Rectangle, Rectangle) */
@@ -117,7 +118,7 @@ public abstract class Viewport {
 	public Vector2 toScreenCoordinates (Vector2 worldCoords, Matrix4 transformMatrix) {
 		tmp.set(worldCoords.x, worldCoords.y, 0);
 		tmp.mul(transformMatrix);
-		camera.project(tmp);
+		camera.project(tmp, screenX, screenY, screenWidth, screenHeight);
 		tmp.y = Gdx.graphics.getHeight() - tmp.y;
 		worldCoords.x = tmp.x;
 		worldCoords.y = tmp.y;
@@ -159,7 +160,8 @@ public abstract class Viewport {
 		return screenX;
 	}
 
-	/** Sets the viewport's offset from the left edge of the screen. This is typically set by {@link #update(int, int, boolean)}. */
+	/** Sets the viewport's offset from the left edge of the screen. This is typically set by
+	 * {@link #update(int, int, boolean)}. */
 	public void setScreenX (int screenX) {
 		this.screenX = screenX;
 	}
@@ -168,7 +170,8 @@ public abstract class Viewport {
 		return screenY;
 	}
 
-	/** Sets the viewport's offset from the bottom edge of the screen. This is typically set by {@link #update(int, int, boolean)}. */
+	/** Sets the viewport's offset from the bottom edge of the screen. This is typically set by
+	 * {@link #update(int, int, boolean)}. */
 	public void setScreenY (int screenY) {
 		this.screenY = screenY;
 	}

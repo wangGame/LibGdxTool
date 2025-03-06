@@ -73,8 +73,8 @@ public class CCTextureAtlasLoader extends SynchronousAssetLoader<TextureAtlas, T
             atlasRegion.originalHeight = region.originalHeight;
             atlasRegion.originalWidth = region.originalWidth;
             atlasRegion.rotate = region.rotate;
-            atlasRegion.splits = region.splits;
-            atlasRegion.pads = region.pads;
+//            atlasRegion.splits = region.splits;
+//            atlasRegion.pads = region.pads;
             if (region.flip) {
                 atlasRegion.flip(false, true);
             }

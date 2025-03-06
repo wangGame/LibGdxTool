@@ -20,7 +20,6 @@ class QxDesktop implements ApplicationListener {
         config.y = 0;
         config.height = (int) (1920/3.0f);
         config.width = (int) (1080/3.0f);
-        Gdx.isJiami = true;
         QxDesktop dekstop = new QxDesktop();
         new LwjglApplication(dekstop, config);
     }

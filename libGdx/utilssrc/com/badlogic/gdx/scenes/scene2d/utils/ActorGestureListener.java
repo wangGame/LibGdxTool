@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.utils.Null;
 
 /** Detects tap, long press, fling, pan, zoom, and pinch gestures on an actor. If there is only a need to detect tap, use
  * {@link ClickListener}.
@@ -35,12 +36,12 @@ public class ActorGestureListener implements EventListener {
 	InputEvent event;
 	Actor actor, touchDownTarget;
 
-	/** @see GestureDetector#GestureDetector(GestureDetector.GestureListener) */
+	/** @see GestureDetector#GestureDetector(com.badlogic.gdx.input.GestureDetector.GestureListener) */
 	public ActorGestureListener () {
-		this(20, 0.4f, 1.1f, 0.15f);
+		this(20, 0.4f, 1.1f, Integer.MAX_VALUE);
 	}
 
-	/** @see GestureDetector#GestureDetector(float, float, float, float, GestureDetector.GestureListener) */
+	/** @see GestureDetector#GestureDetector(float, float, float, float, com.badlogic.gdx.input.GestureDetector.GestureListener) */
 	public ActorGestureListener (float halfTapSquareSize, float tapCountInterval, float longPressDuration, float maxFlingDelay) {
 		detector = new GestureDetector(halfTapSquareSize, tapCountInterval, longPressDuration, maxFlingDelay, new GestureAdapter() {
 			private final Vector2 initialPointer1 = new Vector2(), initialPointer2 = new Vector2();
@@ -69,6 +70,12 @@ public class ActorGestureListener implements EventListener {
 				deltaY = tmpCoords.y;
 				actor.stageToLocalCoordinates(tmpCoords.set(stageX, stageY));
 				ActorGestureListener.this.pan(event, tmpCoords.x, tmpCoords.y, deltaX, deltaY);
+				return true;
+			}
+
+			public boolean panStop (float stageX, float stageY, int pointer, int button) {
+				actor.stageToLocalCoordinates(tmpCoords.set(stageX, stageY));
+				ActorGestureListener.this.panStop(event, tmpCoords.x, tmpCoords.y, pointer, button);
 				return true;
 			}
 
@@ -105,15 +112,24 @@ public class ActorGestureListener implements EventListener {
 			detector.touchDown(event.getStageX(), event.getStageY(), event.getPointer(), event.getButton());
 			actor.stageToLocalCoordinates(tmpCoords.set(event.getStageX(), event.getStageY()));
 			touchDown(event, tmpCoords.x, tmpCoords.y, event.getPointer(), event.getButton());
+			if (event.getTouchFocus()) event.getStage().addTouchFocus(this, event.getListenerActor(), event.getTarget(),
+				event.getPointer(), event.getButton());
 			return true;
 		case touchUp:
-			if (event.isTouchFocusCancel()) return false;
-			this.event = event;
-			actor = event.getListenerActor();
-			detector.touchUp(event.getStageX(), event.getStageY(), event.getPointer(), event.getButton());
-			actor.stageToLocalCoordinates(tmpCoords.set(event.getStageX(), event.getStageY()));
-			touchUp(event, tmpCoords.x, tmpCoords.y, event.getPointer(), event.getButton());
-			return true;
+			boolean touchFocusCancel = event.isTouchFocusCancel();
+			if (touchFocusCancel)
+				detector.reset();
+			else {
+				this.event = event;
+				actor = event.getListenerActor();
+				detector.touchUp(event.getStageX(), event.getStageY(), event.getPointer(), event.getButton());
+				actor.stageToLocalCoordinates(tmpCoords.set(event.getStageX(), event.getStageY()));
+				touchUp(event, tmpCoords.x, tmpCoords.y, event.getPointer(), event.getButton());
+			}
+			this.event = null;
+			actor = null;
+			touchDownTarget = null;
+			return !touchFocusCancel;
 		case touchDragged:
 			this.event = event;
 			actor = event.getListenerActor();
@@ -132,8 +148,8 @@ public class ActorGestureListener implements EventListener {
 	public void tap (InputEvent event, float x, float y, int count, int button) {
 	}
 
-	/** If true is returned, additional gestures will not be triggered. No event is provided because this event is triggered by time
-	 * passing, not by an InputEvent. */
+	/** If true is returned, additional gestures will not be triggered. No event is provided because this event is triggered by
+	 * time passing, not by an InputEvent. */
 	public boolean longPress (Actor actor, float x, float y) {
 		return false;
 	}
@@ -143,6 +159,9 @@ public class ActorGestureListener implements EventListener {
 
 	/** The delta is the difference in stage coordinates since the last pan. */
 	public void pan (InputEvent event, float x, float y, float deltaX, float deltaY) {
+	}
+
+	public void panStop (InputEvent event, float x, float y, int pointer, int button) {
 	}
 
 	public void zoom (InputEvent event, float initialDistance, float distance) {
@@ -155,7 +174,7 @@ public class ActorGestureListener implements EventListener {
 		return detector;
 	}
 
-	public Actor getTouchDownTarget () {
+	public @Null Actor getTouchDownTarget () {
 		return touchDownTarget;
 	}
 }

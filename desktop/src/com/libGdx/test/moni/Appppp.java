@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
 
-import org.lwjgl.openal.AL;
 
 public class Appppp extends LibGdxTestMain {
     public static void main(String[] args) {

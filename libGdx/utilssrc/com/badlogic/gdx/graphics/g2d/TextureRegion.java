@@ -17,10 +17,9 @@
 package com.badlogic.gdx.graphics.g2d;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.kw.gdx.utils.log.NLog;
 
 /** Defines a rectangular area of a texture. The coordinate system used has its origin in the upper left corner with the x-axis
- * pointing to the carRun and the y axis pointing downwards.
+ * pointing to the right and the y axis pointing downwards.
  * @author mzechner
  * @author Nathan Sweet */
 public class TextureRegion {
@@ -29,7 +28,7 @@ public class TextureRegion {
 	float u2, v2;
 	int regionWidth, regionHeight;
 
-	/** Constructs a region with no texture and no coordinates defined. */
+	/** Constructs a region that cannot be used until a texture and texture coordinates are set. */
 	public TextureRegion () {
 	}
 
@@ -64,7 +63,8 @@ public class TextureRegion {
 		setRegion(region);
 	}
 
-	/** Constructs a region with the same texture as the specified region and sets the coordinates relative to the specified region.
+	/** Constructs a region with the same texture as the specified region and sets the coordinates relative to the specified
+	 * region.
 	 * @param width The width of the texture region. May be negative to flip the sprite when drawn.
 	 * @param height The height of the texture region. May be negative to flip the sprite when drawn. */
 	public TextureRegion (TextureRegion region, int x, int y, int width, int height) {
@@ -110,7 +110,6 @@ public class TextureRegion {
 
 	/** Sets the texture and coordinates to the specified region. */
 	public void setRegion (TextureRegion region) {
-		if (region == null) NLog.e("region is null,you look a fool?");
 		texture = region.texture;
 		setRegion(region.u, region.v, region.u2, region.v2);
 	}
@@ -201,7 +200,7 @@ public class TextureRegion {
 
 	public void setRegionHeight (int height) {
 		if (isFlipY()) {
-			setV(v2 + height / (float)texture.getHeight());			
+			setV(v2 + height / (float)texture.getHeight());
 		} else {
 			setV2(v + height / (float)texture.getHeight());
 		}
@@ -245,9 +244,9 @@ public class TextureRegion {
 		}
 	}
 
-	/** Helper function to create tiles out of this TextureRegion starting from the top left corner going to the carRun and ending at
-	 * the bottom carRun corner. Only complete tiles will be returned so if the region's width or height are not a multiple of the
-	 * tile width and height not all of the region will be used. This will not work on texture regions returned form a TextureAtlas
+	/** Helper method to create tiles out of this TextureRegion starting from the top left corner going to the right and ending at
+	 * the bottom right corner. Only complete tiles will be returned so if the region's width or height are not a multiple of the
+	 * tile width and height not all of the region will be used. This will not work on texture regions returned from a TextureAtlas
 	 * that either have whitespace removed or where flipped before the region is split.
 	 * 
 	 * @param tileWidth a tile's width in pixels
@@ -274,8 +273,8 @@ public class TextureRegion {
 		return tiles;
 	}
 
-	/** Helper function to create tiles out of the given {@link Texture} starting from the top left corner going to the carRun and
-	 * ending at the bottom carRun corner. Only complete tiles will be returned so if the texture's width or height are not a
+	/** Helper method to create tiles out of the given {@link Texture} starting from the top left corner going to the right and
+	 * ending at the bottom right corner. Only complete tiles will be returned so if the texture's width or height are not a
 	 * multiple of the tile width and height not all of the texture will be used.
 	 * 
 	 * @param texture the Texture

@@ -18,7 +18,8 @@ package com.badlogic.gdx;
 
 import com.badlogic.gdx.utils.Clipboard;
 
-/** <p>
+/**
+ * <p>
  * An <code>Application</code> is the main entry point of your project. It sets up a window and rendering surface and manages the
  * different aspects of your application, namely {@link Graphics}, {@link Audio}, {@link Input} and {@link Files}. Think of an
  * Application being equivalent to Swing's <code>JFrame</code> or Android's <code>Activity</code>.
@@ -37,7 +38,7 @@ import com.badlogic.gdx.utils.Clipboard;
  * </p>
  * 
  * <p>
- * While game programmers are used to having a main loop, libgdx employs a different concept to accommodate the event based nature
+ * While game programmers are used to having a main loop, libGDX employs a different concept to accommodate the event based nature
  * of Android applications a little more. You application logic must be implemented in a {@link ApplicationListener} which has
  * methods that get called by the Application when the application is created, resumed, paused, disposed or rendered. As a
  * developer you will simply implement the ApplicationListener interface and fill in the functionality accordingly. The
@@ -85,7 +86,7 @@ import com.badlogic.gdx.utils.Clipboard;
  * <p>
  * The <code>Application</code> also has a set of methods that you can use to query specific information such as the operating
  * system the application is currently running on and so forth. This allows you to have operating system dependent code paths. It
- * is however not recommended to use this facilities.
+ * is however not recommended to use these facilities.
  * </p>
  * 
  * <p>
@@ -108,96 +109,97 @@ public interface Application {
 	public static final int LOG_ERROR = 1;
 
 	/** @return the {@link ApplicationListener} instance */
-	public ApplicationListener getApplicationListener();
+	public ApplicationListener getApplicationListener ();
 
 	/** @return the {@link Graphics} instance */
-	public Graphics getGraphics();
+	public Graphics getGraphics ();
 
 	/** @return the {@link Audio} instance */
-	public Audio getAudio();
+	public Audio getAudio ();
 
 	/** @return the {@link Input} instance */
-	public Input getInput();
+	public Input getInput ();
 
 	/** @return the {@link Files} instance */
-	public Files getFiles();
+	public Files getFiles ();
 
 	/** @return the {@link Net} instance */
-	public Net getNet();
+	public Net getNet ();
 
 	/** Logs a message to the console or logcat */
-	public void log(String tag, String message);
+	public void log (String tag, String message);
 
 	/** Logs a message to the console or logcat */
-	public void log(String tag, String message, Throwable exception);
+	public void log (String tag, String message, Throwable exception);
 
 	/** Logs an error message to the console or logcat */
-	public void error(String tag, String message);
+	public void error (String tag, String message);
 
 	/** Logs an error message to the console or logcat */
-	public void error(String tag, String message, Throwable exception);
+	public void error (String tag, String message, Throwable exception);
 
 	/** Logs a debug message to the console or logcat */
-	public void debug(String tag, String message);
+	public void debug (String tag, String message);
 
 	/** Logs a debug message to the console or logcat */
-	public void debug(String tag, String message, Throwable exception);
+	public void debug (String tag, String message, Throwable exception);
 
-	/** Sets the log level1. {@link #LOG_NONE} will mute all log output. {@link #LOG_ERROR} will only let error messages through.
+	/** Sets the log level. {@link #LOG_NONE} will mute all log output. {@link #LOG_ERROR} will only let error messages through.
 	 * {@link #LOG_INFO} will let all non-debug messages through, and {@link #LOG_DEBUG} will let all messages through.
 	 * @param logLevel {@link #LOG_NONE}, {@link #LOG_ERROR}, {@link #LOG_INFO}, {@link #LOG_DEBUG}. */
-	public void setLogLevel(int logLevel);
+	public void setLogLevel (int logLevel);
 
-	/** Gets the log level1. */
-	public int getLogLevel();
+	/** Gets the log level. */
+	public int getLogLevel ();
 
-	/** Sets the current Application logger. Calls to {@link #log(String, String)} are delegated to this {@link ApplicationLogger} */
-	public void setApplicationLogger(ApplicationLogger applicationLogger);
+	/** Sets the current Application logger. Calls to {@link #log(String, String)} are delegated to this
+	 * {@link ApplicationLogger} */
+	public void setApplicationLogger (ApplicationLogger applicationLogger);
 
 	/** @return the current {@link ApplicationLogger} */
-	public ApplicationLogger getApplicationLogger();
+	public ApplicationLogger getApplicationLogger ();
 
 	/** @return what {@link ApplicationType} this application has, e.g. Android or Desktop */
-	public ApplicationType getType();
+	public ApplicationType getType ();
 
-	/** @return the Android API level1 on Android, the major OS version on iOS (5, 6, 7, ..), or 0 on the desktop. */
-	public int getVersion();
+	/** @return the Android API level on Android, the major OS version on iOS (5, 6, 7, ..), or 0 on the desktop. */
+	public int getVersion ();
 
 	/** @return the Java heap memory use in bytes */
-	public long getJavaHeap();
+	public long getJavaHeap ();
 
 	/** @return the Native heap memory use in bytes */
-	public long getNativeHeap();
+	public long getNativeHeap ();
 
 	/** Returns the {@link Preferences} instance of this Application. It can be used to store application settings across runs.
 	 * @param name the name of the preferences, must be useable as a file name.
 	 * @return the preferences. */
-	public Preferences getPreferences(String name);
+	public Preferences getPreferences (String name);
 
-	public Clipboard getClipboard();
+	public Clipboard getClipboard ();
 
 	/** Posts a {@link Runnable} on the main loop thread.
 	 * 
-	 * In a multi-window application, the {@linkplain Gdx#graphics} and {@linkplain Gdx#input} values may be
-	 * unpredictable at the time the Runnable is executed. If graphics or input are needed, they can be copied
-	 * to a variable to be used in the Runnable. For example:
-	 * <p><code>
-	 * final Graphics graphics = Gdx.graphics;
+	 * In a multi-window application, the {@linkplain Gdx#graphics} and {@linkplain Gdx#input} values may be unpredictable at the
+	 * time the Runnable is executed. If graphics or input are needed, they can be copied to a variable to be used in the Runnable.
+	 * For example:
+	 * <p>
+	 * <code> final Graphics graphics = Gdx.graphics;
 	 * 
 	 * @param runnable the runnable. */
-	public void postRunnable(Runnable runnable);
+	public void postRunnable (Runnable runnable);
 
 	/** Schedule an exit from the application. On android, this will cause a call to pause() and dispose() some time in the future,
-	 * it will not immediately finish your application.
-	 * On iOS this should be avoided in production as it breaks Apples guidelines*/
-	public void exit();
+	 * it will not immediately finish your application. On iOS this should be avoided in production as it breaks Apples
+	 * guidelines */
+	public void exit ();
 
 	/** Adds a new {@link LifecycleListener} to the application. This can be used by extensions to hook into the lifecycle more
-	 * easily. The {@link ApplicationListener} methods are sufficient for application level1 development.
+	 * easily. The {@link ApplicationListener} methods are sufficient for application level development.
 	 * @param listener */
-	public void addLifecycleListener(LifecycleListener listener);
+	public void addLifecycleListener (LifecycleListener listener);
 
 	/** Removes the {@link LifecycleListener}.
 	 * @param listener */
-	public void removeLifecycleListener(LifecycleListener listener);
+	public void removeLifecycleListener (LifecycleListener listener);
 }

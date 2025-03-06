@@ -31,7 +31,7 @@ public class GlyphLayout4 extends GlyphLayout {
 		if (truncate != null)
 			wrap = true; // Causes truncate code to run, doesn't actually cause wrapping.
 //		else if (targetWidth <= font.getData().spaceXadvance) //
-		else if (targetWidth <= font.getData().spaceWidth) //
+		else if (targetWidth <= font.getData().spaceXadvance) //
 			wrap = false; // Avoid one line per character, which is very inefficient.
 
 		BitmapFont.BitmapFontData fontData = font.getData();
@@ -89,7 +89,7 @@ public class GlyphLayout4 extends GlyphLayout {
 				if (runEnd != runStart) { // Can happen (eg) when a myColorAction tag is at text start or a line is "\n".
 					// Store the run that has ended.
 					GlyphRun run = glyphRunPool.obtain();
-					run.color.set(color);
+
 					run.x = x;
 					run.y = y;
 					getGlyphs(str, fontData, runStart, runEnd, colorRun, run);
@@ -282,7 +282,7 @@ public class GlyphLayout4 extends GlyphLayout {
 
 	private GlyphRun wrap (BitmapFont.BitmapFontData fontData, GlyphRun first, Pool<GlyphRun> glyphRunPool, int wrapIndex, int widthIndex) {
 		GlyphRun second = glyphRunPool.obtain();
-		second.color.set(first.color);
+
 		int glyphCount = first.glyphs.size;
 
 		// Increase first run width up to the end index.

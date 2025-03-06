@@ -25,4 +25,5 @@ artifacts {
 
 dependencies {
     implementation project(':libGdx')
+    implementation project(":libGdxJnigenLoader")
 }

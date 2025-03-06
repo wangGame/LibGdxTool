@@ -23,7 +23,7 @@ class QUx extends ApplicationAdapter {
         config.y = 0;
         config.height = (int) (900 );
         config.width = (int) (980  );
-        Gdx.isJiami = true;
+
         QUx dekstop = new QUx();
         new LwjglApplication(dekstop, config);
     }

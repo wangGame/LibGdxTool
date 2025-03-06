@@ -19,6 +19,7 @@ package com.badlogic.gdx.backends.android;
 import android.opengl.GLES30;
 
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	@Override
@@ -37,16 +38,32 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 	@Override
+	public void glTexImage2D (int target, int level, int internalformat, int width, int height, int border, int format, int type,
+		int offset) {
+		if (offset != 0) throw new GdxRuntimeException("non zero offset is not supported");
+		GLES30.glTexImage2D(target, level, internalformat, width, height, border, format, type, null);
+	}
+
+	@Override
 	public void glTexImage3D (int target, int level, int internalformat, int width, int height, int depth, int border, int format,
 		int type, java.nio.Buffer pixels) {
-		if (pixels == null) GLES30.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, 0);
-		else GLES30.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels);
+		if (pixels == null)
+			GLES30.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, 0);
+		else
+			GLES30.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, pixels);
 	}
 
 	@Override
 	public void glTexImage3D (int target, int level, int internalformat, int width, int height, int depth, int border, int format,
 		int type, int offset) {
 		GLES30.glTexImage3D(target, level, internalformat, width, height, depth, border, format, type, offset);
+	}
+
+	@Override
+	public void glTexSubImage2D (int target, int level, int xoffset, int yoffset, int width, int height, int format, int type,
+		int offset) {
+		if (offset != 0) throw new GdxRuntimeException("non zero offset is not supported");
+		GLES30.glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, null);
 	}
 
 	@Override
@@ -69,27 +86,27 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 
 //
 // @Override
-// public void glCompressedTexImage3D(int target, int id, int internalformat, int width, int height, int depth, int border, int
+// public void glCompressedTexImage3D(int target, int level, int internalformat, int width, int height, int depth, int border, int
 // imageSize, java.nio.Buffer data) {
-// GLES30.glCompressedTexImage3D(target, id, internalformat, width, height, depth, border, imageSize, data);
+// GLES30.glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, data);
 // }
 //
 // @Override
-// public void glCompressedTexImage3D(int target, int id, int internalformat, int width, int height, int depth, int border, int
-// imageSize, int offsetY) {
-// GLES30.glCompressedTexImage3D(target, id, internalformat, width, height, depth, border, imageSize, offsetY);
+// public void glCompressedTexImage3D(int target, int level, int internalformat, int width, int height, int depth, int border, int
+// imageSize, int offset) {
+// GLES30.glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, offset);
 // }
 //
 // @Override
-// public void glCompressedTexSubImage3D(int target, int id, int xoffset, int yoffset, int zoffset, int width, int height, int
+// public void glCompressedTexSubImage3D(int target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int
 // depth, int format, int imageSize, java.nio.Buffer data) {
-// GLES30.glCompressedTexSubImage3D(target, id, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
+// GLES30.glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 // }
 //
 // @Override
-// public void glCompressedTexSubImage3D(int target, int id, int xoffset, int yoffset, int zoffset, int width, int height, int
-// depth, int format, int imageSize, int offsetY) {
-// GLES30.glCompressedTexSubImage3D(target, id, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, offsetY);
+// public void glCompressedTexSubImage3D(int target, int level, int xoffset, int yoffset, int zoffset, int width, int height, int
+// depth, int format, int imageSize, int offset) {
+// GLES30.glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, offset);
 // }
 
 	@Override
@@ -128,8 +145,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glGetQueryiv(int target, int pname, int[] params, int offsetY) {
-// GLES30.glGetQueryiv(target, pname, params, offsetY);
+// public void glGetQueryiv(int target, int pname, int[] params, int offset) {
+// GLES30.glGetQueryiv(target, pname, params, offset);
 // }
 
 	@Override
@@ -138,8 +155,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glGetQueryObjectuiv(int id, int pname, int[] params, int offsetY) {
-// GLES30.glGetQueryObjectuiv(id, pname, params, offsetY);
+// public void glGetQueryObjectuiv(int id, int pname, int[] params, int offset) {
+// GLES30.glGetQueryObjectuiv(id, pname, params, offset);
 // }
 
 	@Override
@@ -158,8 +175,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glDrawBuffers(int n, int[] bufs, int offsetY) {
-// GLES30.glDrawBuffers(n, bufs, offsetY);
+// public void glDrawBuffers(int n, int[] bufs, int offset) {
+// GLES30.glDrawBuffers(n, bufs, offset);
 // }
 
 	@Override
@@ -168,8 +185,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glUniformMatrix2x3fv(int location, int count, boolean transpose, float[] value, int offsetY) {
-// GLES30.glUniformMatrix2x3fv(location, count, transpose, value, offsetY);
+// public void glUniformMatrix2x3fv(int location, int count, boolean transpose, float[] value, int offset) {
+// GLES30.glUniformMatrix2x3fv(location, count, transpose, value, offset);
 // }
 
 	@Override
@@ -178,8 +195,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glUniformMatrix3x2fv(int location, int count, boolean transpose, float[] value, int offsetY) {
-// GLES30.glUniformMatrix3x2fv(location, count, transpose, value, offsetY);
+// public void glUniformMatrix3x2fv(int location, int count, boolean transpose, float[] value, int offset) {
+// GLES30.glUniformMatrix3x2fv(location, count, transpose, value, offset);
 // }
 
 	@Override
@@ -188,8 +205,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glUniformMatrix2x4fv(int location, int count, boolean transpose, float[] value, int offsetY) {
-// GLES30.glUniformMatrix2x4fv(location, count, transpose, value, offsetY);
+// public void glUniformMatrix2x4fv(int location, int count, boolean transpose, float[] value, int offset) {
+// GLES30.glUniformMatrix2x4fv(location, count, transpose, value, offset);
 // }
 
 	@Override
@@ -198,8 +215,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glUniformMatrix4x2fv(int location, int count, boolean transpose, float[] value, int offsetY) {
-// GLES30.glUniformMatrix4x2fv(location, count, transpose, value, offsetY);
+// public void glUniformMatrix4x2fv(int location, int count, boolean transpose, float[] value, int offset) {
+// GLES30.glUniformMatrix4x2fv(location, count, transpose, value, offset);
 // }
 
 	@Override
@@ -208,8 +225,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glUniformMatrix3x4fv(int location, int count, boolean transpose, float[] value, int offsetY) {
-// GLES30.glUniformMatrix3x4fv(location, count, transpose, value, offsetY);
+// public void glUniformMatrix3x4fv(int location, int count, boolean transpose, float[] value, int offset) {
+// GLES30.glUniformMatrix3x4fv(location, count, transpose, value, offset);
 // }
 
 	@Override
@@ -218,8 +235,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glUniformMatrix4x3fv(int location, int count, boolean transpose, float[] value, int offsetY) {
-// GLES30.glUniformMatrix4x3fv(location, count, transpose, value, offsetY);
+// public void glUniformMatrix4x3fv(int location, int count, boolean transpose, float[] value, int offset) {
+// GLES30.glUniformMatrix4x3fv(location, count, transpose, value, offset);
 // }
 
 	@Override
@@ -243,10 +260,10 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 		GLES30.glFramebufferTextureLayer(target, attachment, texture, level, layer);
 	}
 
-// @Override
-// public java.nio.Buffer glMapBufferRange(int target, int offsetY, int length, int access) {
-// return GLES30.glMapBufferRange(target, offsetY, length, access);
-// }
+	@Override
+	public java.nio.Buffer glMapBufferRange (int target, int offset, int length, int access) {
+		return GLES30.glMapBufferRange(target, offset, length, access);
+	}
 
 	@Override
 	public void glFlushMappedBufferRange (int target, int offset, int length) {
@@ -284,8 +301,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glGetIntegeri_v(int target, int index, int[] data, int offsetY) {
-// GLES30.glGetIntegeri_v(target, index, data, offsetY);
+// public void glGetIntegeri_v(int target, int index, int[] data, int offset) {
+// GLES30.glGetIntegeri_v(target, index, data, offset);
 // }
 
 // @Override
@@ -347,8 +364,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glGetVertexAttribIiv(int index, int pname, int[] params, int offsetY) {
-// GLES30.glGetVertexAttribIiv(index, pname, params, offsetY);
+// public void glGetVertexAttribIiv(int index, int pname, int[] params, int offset) {
+// GLES30.glGetVertexAttribIiv(index, pname, params, offset);
 // }
 
 	@Override
@@ -357,8 +374,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glGetVertexAttribIuiv(int index, int pname, int[] params, int offsetY) {
-// GLES30.glGetVertexAttribIuiv(index, pname, params, offsetY);
+// public void glGetVertexAttribIuiv(int index, int pname, int[] params, int offset) {
+// GLES30.glGetVertexAttribIuiv(index, pname, params, offset);
 // }
 
 	@Override
@@ -377,8 +394,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glVertexAttribI4iv(int index, int[] v, int offsetY) {
-// GLES30.glVertexAttribI4iv(index, v, offsetY);
+// public void glVertexAttribI4iv(int index, int[] v, int offset) {
+// GLES30.glVertexAttribI4iv(index, v, offset);
 // }
 //
 // @Override
@@ -387,8 +404,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 // }
 //
 // @Override
-// public void glVertexAttribI4uiv(int index, int[] v, int offsetY) {
-// GLES30.glVertexAttribI4uiv(index, v, offsetY);
+// public void glVertexAttribI4uiv(int index, int[] v, int offset) {
+// GLES30.glVertexAttribI4uiv(index, v, offset);
 // }
 //
 // @Override
@@ -397,8 +414,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 // }
 //
 // @Override
-// public void glGetUniformuiv(int program, int location, int[] params, int offsetY) {
-// GLES30.glGetUniformuiv(program, location, params, offsetY);
+// public void glGetUniformuiv(int program, int location, int[] params, int offset) {
+// GLES30.glGetUniformuiv(program, location, params, offset);
 // }
 
 	@Override
@@ -432,8 +449,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 // }
 //
 // @Override
-// public void glUniform1uiv(int location, int count, int[] value, int offsetY) {
-// GLES30.glUniform1uiv(location, count, value, offsetY);
+// public void glUniform1uiv(int location, int count, int[] value, int offset) {
+// GLES30.glUniform1uiv(location, count, value, offset);
 // }
 
 	@Override
@@ -442,8 +459,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glUniform2uiv(int location, int count, int[] value, int offsetY) {
-// GLES30.glUniform2uiv(location, count, value, offsetY);
+// public void glUniform2uiv(int location, int count, int[] value, int offset) {
+// GLES30.glUniform2uiv(location, count, value, offset);
 // }
 //
 // @Override
@@ -452,8 +469,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 // }
 //
 // @Override
-// public void glUniform3uiv(int location, int count, int[] value, int offsetY) {
-// GLES30.glUniform3uiv(location, count, value, offsetY);
+// public void glUniform3uiv(int location, int count, int[] value, int offset) {
+// GLES30.glUniform3uiv(location, count, value, offset);
 // }
 
 	@Override
@@ -462,8 +479,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glUniform4uiv(int location, int count, int[] value, int offsetY) {
-// GLES30.glUniform4uiv(location, count, value, offsetY);
+// public void glUniform4uiv(int location, int count, int[] value, int offset) {
+// GLES30.glUniform4uiv(location, count, value, offset);
 // }
 
 	@Override
@@ -472,8 +489,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glClearBufferiv(int buffer, int drawbuffer, int[] value, int offsetY) {
-// GLES30.glClearBufferiv(buffer, drawbuffer, value, offsetY);
+// public void glClearBufferiv(int buffer, int drawbuffer, int[] value, int offset) {
+// GLES30.glClearBufferiv(buffer, drawbuffer, value, offset);
 // }
 
 	@Override
@@ -482,8 +499,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glClearBufferuiv(int buffer, int drawbuffer, int[] value, int offsetY) {
-// GLES30.glClearBufferuiv(buffer, drawbuffer, value, offsetY);
+// public void glClearBufferuiv(int buffer, int drawbuffer, int[] value, int offset) {
+// GLES30.glClearBufferuiv(buffer, drawbuffer, value, offset);
 // }
 
 	@Override
@@ -493,8 +510,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 
 //
 // @Override
-// public void glClearBufferfv(int buffer, int drawbuffer, float[] value, int offsetY) {
-// GLES30.glClearBufferfv(buffer, drawbuffer, value, offsetY);
+// public void glClearBufferfv(int buffer, int drawbuffer, float[] value, int offset) {
+// GLES30.glClearBufferfv(buffer, drawbuffer, value, offset);
 // }
 
 	@Override
@@ -547,8 +564,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 
 //
 // @Override
-// public void glGetActiveUniformBlockiv(int program, int uniformBlockIndex, int pname, int[] params, int offsetY) {
-// GLES30.glGetActiveUniformBlockiv(program, uniformBlockIndex, pname, params, offsetY);
+// public void glGetActiveUniformBlockiv(int program, int uniformBlockIndex, int pname, int[] params, int offset) {
+// GLES30.glGetActiveUniformBlockiv(program, uniformBlockIndex, pname, params, offset);
 // }
 
 	@Override
@@ -621,8 +638,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 // }
 //
 // @Override
-// public void glGetInteger64v(int pname, long[] params, int offsetY) {
-// GLES30.glGetInteger64v(pname, params, offsetY);
+// public void glGetInteger64v(int pname, long[] params, int offset) {
+// GLES30.glGetInteger64v(pname, params, offset);
 // }
 
 	@Override
@@ -641,8 +658,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 // }
 //
 // @Override
-// public void glGetInteger64i_v(int target, int index, long[] data, int offsetY) {
-// GLES30.glGetInteger64i_v(target, index, data, offsetY);
+// public void glGetInteger64i_v(int target, int index, long[] data, int offset) {
+// GLES30.glGetInteger64i_v(target, index, data, offset);
 // }
 //
 // @Override
@@ -651,8 +668,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 // }
 //
 // @Override
-// public void glGetBufferParameteri64v(int target, int pname, long[] params, int offsetY) {
-// GLES30.glGetBufferParameteri64v(target, pname, params, offsetY);
+// public void glGetBufferParameteri64v(int target, int pname, long[] params, int offset) {
+// GLES30.glGetBufferParameteri64v(target, pname, params, offset);
 // }
 
 	@Override
@@ -697,8 +714,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 
 //
 // @Override
-// public void glSamplerParameteriv(int sampler, int pname, int[] param, int offsetY) {
-// GLES30.glSamplerParameteriv(sampler, pname, param, offsetY);
+// public void glSamplerParameteriv(int sampler, int pname, int[] param, int offset) {
+// GLES30.glSamplerParameteriv(sampler, pname, param, offset);
 // }
 
 	@Override
@@ -712,8 +729,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glSamplerParameterfv(int sampler, int pname, float[] param, int offsetY) {
-// GLES30.glSamplerParameterfv(sampler, pname, param, offsetY);
+// public void glSamplerParameterfv(int sampler, int pname, float[] param, int offset) {
+// GLES30.glSamplerParameterfv(sampler, pname, param, offset);
 // }
 
 	@Override
@@ -723,8 +740,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 
 //
 // @Override
-// public void glGetSamplerParameteriv(int sampler, int pname, int[] params, int offsetY) {
-// GLES30.glGetSamplerParameteriv(sampler, pname, params, offsetY);
+// public void glGetSamplerParameteriv(int sampler, int pname, int[] params, int offset) {
+// GLES30.glGetSamplerParameteriv(sampler, pname, params, offset);
 // }
 
 	@Override
@@ -733,8 +750,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glGetSamplerParameterfv(int sampler, int pname, float[] params, int offsetY) {
-// GLES30.glGetSamplerParameterfv(sampler, pname, params, offsetY);
+// public void glGetSamplerParameterfv(int sampler, int pname, float[] params, int offset) {
+// GLES30.glGetSamplerParameterfv(sampler, pname, params, offset);
 // }
 
 	@Override
@@ -810,8 +827,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 	}
 
 // @Override
-// public void glInvalidateFramebuffer(int target, int numAttachments, int[] attachments, int offsetY) {
-// GLES30.glInvalidateFramebuffer(target, numAttachments, attachments, offsetY);
+// public void glInvalidateFramebuffer(int target, int numAttachments, int[] attachments, int offset) {
+// GLES30.glInvalidateFramebuffer(target, numAttachments, attachments, offset);
 // }
 
 	@Override
@@ -821,9 +838,9 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 
 //
 // @Override
-// public void glInvalidateSubFramebuffer(int target, int numAttachments, int[] attachments, int offsetY, int x, int y, int width,
+// public void glInvalidateSubFramebuffer(int target, int numAttachments, int[] attachments, int offset, int x, int y, int width,
 // int height) {
-// GLES30.glInvalidateSubFramebuffer(target, numAttachments, attachments, offsetY, x, y, width, height);
+// GLES30.glInvalidateSubFramebuffer(target, numAttachments, attachments, offset, x, y, width, height);
 // }
 
 	@Override
@@ -843,8 +860,8 @@ public class AndroidGL30 extends AndroidGL20 implements GL30 {
 // }
 //
 // @Override
-// public void glGetInternalformativ(int target, int internalformat, int pname, int bufSize, int[] params, int offsetY) {
-// GLES30.glGetInternalformativ(target, internalformat, pname, bufSize, params, offsetY);
+// public void glGetInternalformativ(int target, int internalformat, int pname, int bufSize, int[] params, int offset) {
+// GLES30.glGetInternalformativ(target, internalformat, pname, bufSize, params, offset);
 // }
 //
 // @Override
