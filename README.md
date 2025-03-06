@@ -3,6 +3,9 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/wangGame/LibGdxTool/gradle.yml?branch=master)](https://github.com/wangGame/LibGdxTool/actions)
 [![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool)
 
+## 1.13.1
+
+已经更新1.13.1版本，切换分支
 
 ## 添加忽略
 
