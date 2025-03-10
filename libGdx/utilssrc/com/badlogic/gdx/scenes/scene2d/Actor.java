@@ -1107,5 +1107,9 @@ public class Actor {
         this.baseY = baseY;
     }
 
+    //this set actor middle
+    public void setPointActorCenter(Actor actor){
+        setPosition(actor.getWidth()/2.0f,actor.getHeight()/2.f,Align.center);
+    }
 }
 
