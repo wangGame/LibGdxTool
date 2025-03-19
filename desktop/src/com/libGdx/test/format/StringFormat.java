@@ -1,5 +1,10 @@
 package com.libGdx.test.format;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
 
 import org.lwjgl.Sys;
@@ -24,12 +29,45 @@ public class StringFormat extends LibGdxTestMain {
 //        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 //        String dateString = sdf.format(date);
 //        System.out.println(dateString);
-        Date date = new Date();
+//        Date date = new Date();
+//
+//        date.setHours(3);
+//        date.setMinutes(14);
+//        date.setSeconds(3);
+//        System.out.println(String.format("%tT", date));
+//
 
-        date.setHours(3);
-        date.setMinutes(14);
-        date.setSeconds(3);
-        System.out.println(String.format("%tT", date));
+        StringFormat stringFormat = new StringFormat();
+        stringFormat.start();
+    }
+
+    @Override
+    public void useShow(Stage stage) {
+        super.useShow(stage);
+        stage.addActor(new Table(){{
+
+            {
+                BitmapFont bitmapFont = Asset.getAsset().loadBitFont("assets/font/Krub-Bold_52_1.fnt");
+                Label label = new Label("ABVCD", new Label.LabelStyle() {{
+                    font = bitmapFont;
+                }});
+
+                add(label);
+            }
+            {
+                BitmapFont bitmapFont = Asset.getAsset().loadBitFont("assets/font/Krub-Bold_redStroke_52.fnt");
+                Label label = new Label("ABVCD",new Label.LabelStyle(){{
+                    font = bitmapFont;
+                }});
+                add(label);
+                label.setFontScale(1.0f/1.5f);
+            }
+            pack();
+        }});
+
+
+
+
 
     }
 }
