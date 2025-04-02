@@ -5,12 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.*;
+import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
@@ -73,8 +76,28 @@ public class MyGdxGame2 extends ApplicationAdapter {
         shipInstance.nodes.get(0).scale.set(new Vector3(3,6,1));
         shipInstance.nodes.get(1).scale.set(new Vector3(3,6,1));
         shipInstance.calculateTransforms();
+
+
+
+        material1.set(
+                ColorAttribute.createDiffuse(1, 1, 1, 1.0f)
+        );
+
+        ColorAttribute attribute = (ColorAttribute) material1.get(ColorAttribute.Diffuse);
+
+        colorTemp = attribute.color;
+        colorTemp.a = 0.1f;  // 设置透明度为50%
+
+        // 设置透明混合
+        material1.set(new BlendingAttribute(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA));
+
+
+
     }
 
+    private Color colorTemp;
+
+    private float xx = 0;
     @Override
     public void render () {
         super.render();
@@ -87,6 +110,11 @@ public class MyGdxGame2 extends ApplicationAdapter {
         modelBatch.begin(cam);
         modelBatch.render(instances,environment);
         modelBatch.end();
+
+        xx += Gdx.graphics.getDeltaTime();
+        if (colorTemp!=null) {
+            colorTemp.a = xx*0.3f;
+        }
     }
 
     @Override
@@ -97,21 +125,21 @@ public class MyGdxGame2 extends ApplicationAdapter {
     }
 
     public static void main(String[] args) {
-//        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-//        config.x = 1000;
-//        config.stencil=8;
-//        config.y = 0;
-//        config.height = (int) (1920 * 0.25f);
-//        config.width = (int) (1080 * 0.5f);
-//        Gdx.isJiami = true;
-//        new LwjglApplication(new MyGdxGame2(), config);
-        int index = 0;
-        for (int i = 0; i <= 6; i++) {
-            for (int i1 = i; i1 <= 6; i1++) {
-                System.out.println(i+ "  " +i1);
-                index++;
-            }
-        }
-        System.out.println(index);
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        config.x = 1000;
+        config.stencil=8;
+        config.y = 0;
+        config.height = (int) (1920 * 0.25f);
+        config.width = (int) (1080 * 0.5f);
+        Gdx.isJiami = true;
+        new LwjglApplication(new MyGdxGame2(), config);
+//        int index = 0;
+//        for (int i = 0; i <= 6; i++) {
+//            for (int i1 = i; i1 <= 6; i1++) {
+//                System.out.println(i+ "  " +i1);
+//                index++;
+//            }
+//        }
+//        System.out.println(index);
     }
 }
