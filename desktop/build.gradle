@@ -27,6 +27,8 @@ dependencies {
     implementation project(':libgdxbox2d')
     implementation project(":libGdxLibTool3D")
 
+    implementation "com.kotcrab.vis:vis-ui:1.2.3"
+
 
 //    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-core
 //    implementation 'org.deeplearning4j:rl4j-core:1.0.0-M1.1'

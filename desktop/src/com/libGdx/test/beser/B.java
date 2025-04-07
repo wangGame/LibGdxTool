@@ -1,6 +1,7 @@
 package com.libGdx.test.beser;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
@@ -16,7 +17,7 @@ public class B extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        Image image = new Image(Asset.getAsset().getTexture("assets/7.png")){
+        Actor image = new Actor(){
             @Override
             public void setPosition(float x, float y) {
                 super.setPosition(x, y);
