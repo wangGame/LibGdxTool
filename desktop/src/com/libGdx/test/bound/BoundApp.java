@@ -22,6 +22,7 @@ public class BoundApp extends LibGdxTestMain {
 //            }
 //
 //            @Override
+
 //            public void canceled() {
 //            }
 //        }, "Enter name", "");
