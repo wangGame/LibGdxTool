@@ -11,4 +11,5 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE})
 public @interface Null {
+
 }
