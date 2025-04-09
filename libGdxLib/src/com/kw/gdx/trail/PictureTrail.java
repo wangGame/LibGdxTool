@@ -37,8 +37,6 @@ public class PictureTrail extends Actor implements Pool.Poolable {
             indices[i * 6 + 5] = (short) (start + 1);
         }
         setSize(200,200);
-        setDebug(true);
-
     }
 
     public void setRegion(TextureRegion region) {

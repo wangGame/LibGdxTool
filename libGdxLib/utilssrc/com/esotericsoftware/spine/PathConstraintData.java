@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -41,7 +41,7 @@ public class PathConstraintData extends ConstraintData {
 	SpacingMode spacingMode;
 	RotateMode rotateMode;
 	float offsetRotation;
-	float position, spacing, rotateMix, translateMix;
+	float position, spacing, mixRotate, mixX, mixY;
 
 	public PathConstraintData (String name) {
 		super(name);
@@ -119,22 +119,31 @@ public class PathConstraintData extends ConstraintData {
 		this.spacing = spacing;
 	}
 
-	/** A percentage (0-1) that controls the mix between the constrained and unconstrained rotations. */
-	public float getRotateMix () {
-		return rotateMix;
+	/** A percentage (0-1) that controls the mix between the constrained and unconstrained rotation. */
+	public float getMixRotate () {
+		return mixRotate;
 	}
 
-	public void setRotateMix (float rotateMix) {
-		this.rotateMix = rotateMix;
+	public void setMixRotate (float mixRotate) {
+		this.mixRotate = mixRotate;
 	}
 
-	/** A percentage (0-1) that controls the mix between the constrained and unconstrained translations. */
-	public float getTranslateMix () {
-		return translateMix;
+	/** A percentage (0-1) that controls the mix between the constrained and unconstrained translation X. */
+	public float getMixX () {
+		return mixX;
 	}
 
-	public void setTranslateMix (float translateMix) {
-		this.translateMix = translateMix;
+	public void setMixX (float mixX) {
+		this.mixX = mixX;
+	}
+
+	/** A percentage (0-1) that controls the mix between the constrained and unconstrained translation Y. */
+	public float getMixY () {
+		return mixY;
+	}
+
+	public void setMixY (float mixY) {
+		this.mixY = mixY;
 	}
 
 	/** Controls how the first bone is positioned along the path.
@@ -150,7 +159,7 @@ public class PathConstraintData extends ConstraintData {
 	 * <p>
 	 * See <a href="http://esotericsoftware.com/spine-path-constraints#Spacing-mode">Spacing mode</a> in the Spine User Guide. */
 	static public enum SpacingMode {
-		length, fixed, percent;
+		length, fixed, percent, proportional;
 
 		static public final SpacingMode[] values = SpacingMode.values();
 	}
@@ -159,7 +168,10 @@ public class PathConstraintData extends ConstraintData {
 	 * <p>
 	 * See <a href="http://esotericsoftware.com/spine-path-constraints#Rotate-mode">Rotate mode</a> in the Spine User Guide. */
 	static public enum RotateMode {
-		tangent, chain, chainScale;
+		tangent, chain,
+		/** When chain scale, constrained bones should all have the same parent. That way when the path constraint scales a bone, it
+		 * doesn't affect other constrained bones. */
+		chainScale;
 
 		static public final RotateMode[] values = RotateMode.values();
 	}

@@ -13,6 +13,7 @@ public class Constant {
     public static boolean SHOWFRAMESPERSECOND = false; //展示fps
     public static boolean DEBUG = false;
     public static boolean realseDebug = true;
+    public static String TAG = "DOMINOES";
 //    viewport
     public static final int EXTENDVIEWPORT = 0;
     public static final int FITVIEWPORT = 1;
@@ -31,16 +32,16 @@ public class Constant {
     //
     public static double gameDensity = 2;
     //设计尺寸
-    public static float WIDTH = 11;
-    public static float HIGHT = 11;
+    public static float WIDTH = 1080;
+    public static float HIGHT = 1920;
     //标准尺寸
-    public static final float STDWIDTH = 11;
-    public static final float STDHIGHT = 11;
+    public static final float STDWIDTH = 1080;
+    public static final float STDHIGHT = 1920;
     //实际使用
     public static float GAMEWIDTH = 1080;
     public static float GAMEHIGHT = 1920;
 
-    public static Color viewColor = new Color(1,1,0,1);
+    public static Color viewColor = new Color(0,0,0,1);
     public static int batchType = 0;
     public static int viewportType = 0;
     public static boolean isSound = true;
@@ -49,6 +50,10 @@ public class Constant {
     public static BaseScreen currentActiveScreen;
     public static Camera camera;
 
+    public static float offsetBottom;
+    public static float offsetTop;
+    public static float offsetLeft;
+    public static float offsetRight;
     public static void updateInfo(GameInfo info){
         if (info == null)return;
         Constant.WIDTH = info.width();

@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -37,6 +37,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Null;
 
 import com.esotericsoftware.spine.SkeletonBinary;
 import com.esotericsoftware.spine.SkeletonData;
@@ -67,8 +68,7 @@ public class SkeletonDataLoader extends AsynchronousAssetLoader<SkeletonData, Sk
 		super(resolver);
 	}
 
-	/** @param parameter May be null. */
-	public void loadAsync (AssetManager manager, String fileName, FileHandle file, SkeletonDataParameter parameter) {
+	public void loadAsync (AssetManager manager, String fileName, FileHandle file, @Null SkeletonDataParameter parameter) {
 		float scale = 1;
 		AttachmentLoader attachmentLoader = null;
 		if (parameter != null) {
@@ -92,15 +92,13 @@ public class SkeletonDataLoader extends AsynchronousAssetLoader<SkeletonData, Sk
 		}
 	}
 
-	/** @param parameter May be null. */
-	public SkeletonData loadSync (AssetManager manager, String fileName, FileHandle file, SkeletonDataParameter parameter) {
+	public SkeletonData loadSync (AssetManager manager, String fileName, FileHandle file, @Null SkeletonDataParameter parameter) {
 		SkeletonData skeletonData = this.skeletonData;
 		this.skeletonData = null;
 		return skeletonData;
 	}
 
-	/** @param parameter May be null. */
-	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, SkeletonDataParameter parameter) {
+	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, @Null SkeletonDataParameter parameter) {
 		if (parameter == null) return null;
 		if (parameter.attachmentLoader != null) return null;
 		Array<AssetDescriptor> dependencies = new Array();

@@ -8,12 +8,8 @@ import com.kw.gdx.utils.log.StringUtils;
  * @Date 2024/1/2 15:49
  */
 public class TimeUtils {
-    /**
-     * 秒->时分秒
-     * @param diff
-     * @return
-     */
-    public String secToHms(int diff){
+
+    public String timeStringHMS(int diff){
         int sec = diff % 60;
         int min = diff / 60 % 60;
         int hour = diff / 3600;
@@ -23,7 +19,7 @@ public class TimeUtils {
         return StringUtils.format("%s%02d:%02d:%02d", hour, min, sec);
     }
 
-    public String secToDhms (int diff){
+    public String timeStringDHMS(int diff){
         int sec = diff % 60;
         int min = diff / 60 % 60;
         int hour = diff / 3600;

@@ -16,6 +16,7 @@ public class Layer {
             }
         }
         Image shadow= new Image(new Texture(pixmap));
+
         shadow.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
         return shadow;
     }

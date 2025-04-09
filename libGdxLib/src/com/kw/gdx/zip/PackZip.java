@@ -37,7 +37,7 @@ public class PackZip {
                 getZipFile(out, listFile, "");
                 out.close();
                 long end = System.currentTimeMillis();
-                NLog.i(listFile.getName() + " use time " + (end - start) +" ms");
+                NLog.e(listFile.getName() + " use time " + (end - start) +" ms");
             }
           } catch (IOException e) {
             throw new RuntimeException("创建zip文件失败", e);
@@ -163,6 +163,7 @@ public class PackZip {
         }catch (Exception e){
             e.printStackTrace();
         }
+        NLog.i("genMd5 end from %s",from);
     }
 
     /**
@@ -196,10 +197,12 @@ public class PackZip {
                 unpackZip(listFile.getPath(),to);
             }
         }
+        NLog.i("unpackZip end from %from to %to");
         return true;
     }
 
     public static boolean check(FileHandle handle){
+        NLog.i("source %s",handle.path());
         FileHandle fileHandle;
         if (handle.type() == Files.FileType.Internal) {
             fileHandle = Gdx.files.internal(handle.path()+"/md5apkold.txt");
@@ -220,7 +223,7 @@ public class PackZip {
                 if (tempFile.name().endsWith(".csv"))continue;
                 String md5ByFile = TestMD5.getMd5ByFile(tempFile);
                 if (!md5ByFile.equals(s1[1])) {
-                    NLog.e("%s check error!",s1[0]);
+                    NLog.i("%s check error!",s1[0]);
                     return false;
                 }
             }
@@ -232,6 +235,7 @@ public class PackZip {
     }
 
     public static boolean check(String source){
+        NLog.i("source %s",source);
         File file = new File(source+"/md5apkold.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(file));){
             String lineContent = null;
@@ -239,7 +243,7 @@ public class PackZip {
                 String[] contentSplit = lineContent.split("\\t");
                 String md5ByFile = TestMD5.getMd5ByFile(new File(source+"/"+contentSplit[0]));
                 if (!md5ByFile.equals(contentSplit[1])) {
-                    NLog.e("%s check error!",contentSplit[0]);
+                    NLog.i("%s check error!",contentSplit[0]);
                     return false;
                 }
             }
@@ -263,6 +267,7 @@ public class PackZip {
             for (FileHandle fileHandle : inputFile.list()) {
                 if (fileHandle == null)continue;
                 boolean success = deleteDir(fileHandle);
+                NLog.i("delate %s is %s",fileHandle.name(),success);
                 if (!success){
                     NLog.i(fileHandle.name()+"delele error!");
                 }
@@ -284,8 +289,9 @@ public class PackZip {
             String[] childrenFilePath = inputFile.list();
             for (int i = 0; i < childrenFilePath.length; i++) {
                 boolean success = deleteDir(new File(inputFile, childrenFilePath[i]));
+                NLog.i("delate %s is %s",childrenFilePath[i],success);
                 if (!success){
-                    NLog.e(childrenFilePath[i]+" delele error!");
+                    NLog.i(childrenFilePath[i]+"delele error!");
                 }
             }
         }

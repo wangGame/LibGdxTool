@@ -22,7 +22,6 @@ import java.util.Comparator;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -492,18 +491,6 @@ public class TextureAtlas implements Disposable {
 			public TextureFilter minFilter = TextureFilter.Nearest, magFilter = TextureFilter.Nearest;
 			public TextureWrap uWrap = TextureWrap.ClampToEdge, vWrap = TextureWrap.ClampToEdge;
 			public boolean pma;
-			public Page(){}
-			public Page(FileHandle file, float textureWidth, float textureHeight, boolean mipMap, Format format, TextureFilter min, TextureFilter max, TextureWrap repeatX, TextureWrap repeatY) {
-				this.textureFile = file;
-				this.width = textureWidth;
-				this.height = textureHeight;
-				this.useMipMaps = mipMap;
-				this.format = format;
-				this.minFilter = min;
-				this.magFilter = max;
-				this.uWrap = repeatX;
-				this.vWrap = repeatY;
-			}
 		}
 
 		static public class Region {

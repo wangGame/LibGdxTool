@@ -36,7 +36,12 @@ import net.mwplay.cocostudio.ui.model.objectdata.widget.ImageViewObjectData;
 import net.mwplay.cocostudio.ui.model.objectdata.widget.SpriteObjectData;
 import net.mwplay.cocostudio.ui.model.objectdata.widget.TextBMFontObjectData;
 import net.mwplay.cocostudio.ui.model.objectdata.widget.TextObjectData;
+import net.mwplay.cocostudio.ui.model.timelines.CCIntFrameData;
+import net.mwplay.cocostudio.ui.model.timelines.CCPointFrameData;
+import net.mwplay.cocostudio.ui.model.timelines.CCScaleValueFrameData;
 import net.mwplay.cocostudio.ui.model.timelines.CCTimelineActionData;
+import net.mwplay.cocostudio.ui.model.timelines.CCTimelineData;
+import net.mwplay.cocostudio.ui.model.timelines.CCTimelineFrame;
 import net.mwplay.cocostudio.ui.parser.group.*;
 import net.mwplay.cocostudio.ui.parser.widget.*;
 import net.mwplay.cocostudio.ui.widget.TTFLabelStyle;
@@ -95,6 +100,10 @@ public abstract class BaseCocoStudioUIEditor {
 		jj.addClassTag("CheckBoxObjectData", CheckBoxObjectData.class);
 		jj.addClassTag("ScrollViewObjectData", ScrollViewObjectData.class);
 		jj.addClassTag("TextBMFontObjectData", TextBMFontObjectData.class);
+		jj.addClassTag("TimelineData", CCTimelineData.class);
+		jj.addClassTag("PointFrameData", CCTimelineFrame.class);
+		jj.addClassTag("ScaleValueFrameData", CCTimelineFrame.class);
+		jj.addClassTag("IntFrameData", CCIntFrameData.class);
 		jj.setIgnoreUnknownFields(true);
 		export = jj.fromJson(CCExport.class, json);
 	}

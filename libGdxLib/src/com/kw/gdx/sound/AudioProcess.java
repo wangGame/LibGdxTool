@@ -21,13 +21,19 @@ public class AudioProcess {
     private static HashSet<String> currSoundLoop = new HashSet<>();
     private static boolean onFocus = true;
     private static boolean prepared = false;
-    private static HashMap<String,Long> currentAudioLastPlayTime = new HashMap<>();
-    private static Array<SoundAsset> soundAssetTemp = new Array<>();
+
+//    private static Array<SoundAsset> soundAssetTemp = new Array<>();
     private static Array<Long> soundLong = new Array<>();
     private static AssetManager assetManager;
+//    private static AsyncExecutor asyncExecutor;
 
     public static void prepare(Class clazz) { // 准备哪些资源将要加载
         clear();
+//        if (asyncExecutor!=null) {
+//            asyncExecutor.dispose();
+//            asyncExecutor = null;
+//        }
+//        asyncExecutor = new AsyncExecutor(1);
         assetManager = Asset.getAsset().getAssetManager();
         Field[] declaredFields = clazz.getDeclaredFields();
         for (Field declaredField : declaredFields) {
@@ -86,13 +92,14 @@ public class AudioProcess {
 
     public static void loadFinished(){
         Iterator<SoundAsset> iterator = soundAssets.values().iterator();
+        assetManager.finishLoading();
         while (iterator.hasNext()) {
             iterator.next().finished(assetManager);
         }
     }
 
     public static void playSoundLoop(String name,float v) {
-//        if(!Constant.is)return;
+        if(!Constant.isSound)return;
         SoundAsset sa = getSoundAsset(name);
         if (sa!=null) {
             if (sa.isPlaying()) {
@@ -124,7 +131,6 @@ public class AudioProcess {
     public static void stopSound(String name){
         if (name != null) {
             if (soundAssets.get(name) != null) {
-                SoundAsset soundAsset = soundAssets.get(name);
                 soundAssets.get(name).stop();
             }
         }
@@ -177,28 +183,37 @@ public class AudioProcess {
         }
     }
 
+    public static void playsound1(String name,float v,boolean isLoop) {
+        if (!Constant.isSound)return;
+        SoundAsset sa = getSoundAsset(name);
+        if (sa!=null) {
+            long play;
+            if (isLoop) {
+                play = sa.loop(v);
+            } else {
+                play = sa.play(v);
+            }
+        }
+    }
+
     public static void playsound(String name,float v,boolean isLoop) {
         NLog.e(name +" is ogg name ！");
         if (!Constant.isSound)return;
         SoundAsset sa = getSoundAsset(name);
         if (sa!=null) {
-            if (currentAudioLastPlayTime.containsKey(name)) {
-                currentAudioLastPlayTime.remove(name);
-            }
-            currentAudioLastPlayTime.put(name, System.currentTimeMillis());
             long play;
             if (isLoop){
                 play = sa.loop(v);
             }else {
                 play = sa.play(v);
             }
-            soundAssetTemp.add(sa);
-            soundLong.add(play);
-            if (soundLong.size>12){
-                Long aLong = soundLong.removeIndex(0);
-                SoundAsset soundAsset = soundAssetTemp.removeIndex(0);
-                soundAsset.stop(aLong);
-            }
+//            soundAssetTemp.add(sa);
+//            soundLong.add(play);
+//            if (soundLong.size>12){
+//                Long aLong = soundLong.removeIndex(0);
+//                SoundAsset soundAsset = soundAssetTemp.removeIndex(0);
+//                soundAsset.stop(aLong);
+//            }
         }
     }
 
@@ -276,19 +291,54 @@ public class AudioProcess {
         if(musicName.equals(currMusic)) return;
         stopmusic(currMusic);
         currMusic = musicName;
-//        if (musicName != AudioType.MENU_MUSIC2){
-//            musicAssets.get(musicName).playMusicLoop(0.7F);
-//        }else {
-//            musicAssets.get(musicName).playMusicLoop(1F);
-//        }
+        musicAssets.get(musicName).playMusicLoop(1F);
+    }
+
+    public static void setMusicValue(float value){
+        try {
+            MusicAsset musicAsset = musicAssets.get(currMusic);
+            if (musicAsset == null){
+                System.out.println("gun ");
+            }else {
+                musicAssets.get(currMusic).setVolume(value);
+
+            }
+        }catch (Exception e){
+            System.out.println("merr");
+        }
     }
 
     public static void playSound(String name) {
         playsound(name,Constant.soundV,false);
     }
 
+    public static void playSound(String name,float v) {
+        playsound(name,v,false);
+    }
+
+
+    public static void playSound(String name,boolean loop) {
+        playsound1(name,Constant.soundV,loop);
+    }
+
     public static void setSoundAssetVolumn(String name, float volumn) {
         SoundAsset soundAsset = soundAssets.get(name);
         soundAsset.setVolume(volumn);
+    }
+
+
+    static long lastTime = 0;
+    public static void playSoundWoodImpact(String woodImpact, float soundV) {
+        long v = System.currentTimeMillis() - lastTime;
+
+        if (v<250) {
+            return;
+        }
+        lastTime = System.currentTimeMillis();
+        if (!Constant.isSound)return;
+        SoundAsset sa = getSoundAsset(woodImpact);
+        if (sa!=null) {
+            sa.play(soundV);
+        }
     }
 }

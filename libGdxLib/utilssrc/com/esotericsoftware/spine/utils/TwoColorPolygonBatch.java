@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -47,6 +47,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.NumberUtils;
 
 /** A batch that renders polygons and performs tinting using a light and dark color.
@@ -66,10 +67,13 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	private final Matrix4 projectionMatrix = new Matrix4();
 	private final Matrix4 combinedMatrix = new Matrix4();
 	private boolean blendingDisabled;
-	private final ShaderProgram defaultShader;
+
+	private ShaderProgram defaultShader;
+	private boolean ownsDefaultShader;
 	private ShaderProgram shader;
+
 	private int vertexIndex, triangleIndex;
-	private Texture lastTexture;
+	private @Null Texture lastTexture;
 	private float invTexWidth = 0, invTexHeight = 0;
 	private boolean drawing;
 	private int blendSrcFunc = GL20.GL_SRC_ALPHA;
@@ -83,18 +87,27 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	private float lightPacked = Color.WHITE.toFloatBits();
 	private float darkPacked = Color.BLACK.toFloatBits();
 
-	/** Number of rendering calls, ever. Will not be reset unless set manually. **/
+	/** Number of rendering calls, ever. Will not be reset unless set manually. */
 	public int totalRenderCalls = 0;
 
+	/** Constructs a new batch with 2000 max vertices, 4000 max triangles, and the default shader. */
 	public TwoColorPolygonBatch () {
 		this(2000);
 	}
 
+	/** Constructs a new batch with the specified max vertices, twice that for the max triangles, and the default shader. */
 	public TwoColorPolygonBatch (int size) {
-		this(size, size * 2);
+		this(size, size << 1, null);
 	}
 
+	/** Constructs a new batch with the specified max vertices and max triangles and the default shader. */
 	public TwoColorPolygonBatch (int maxVertices, int maxTriangles) {
+		this(maxTriangles, maxTriangles, null);
+	}
+
+	/** Constructs a new batch with the specified max vertices, max triangles, and shader. The shader will not be disposed
+	 * automatically when the batch is disposed. */
+	public TwoColorPolygonBatch (int maxVertices, int maxTriangles, @Null ShaderProgram defaultShader) {
 		// 32767 is max vertex index.
 		if (maxVertices > 32767)
 			throw new IllegalArgumentException("Can't have more than 32767 vertices per batch: " + maxTriangles);
@@ -109,8 +122,12 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 
 		vertices = new float[maxVertices * 6];
 		triangles = new short[maxTriangles * 3];
-		defaultShader = createDefaultShader();
+
+		ownsDefaultShader = defaultShader == null;
+		if (ownsDefaultShader) defaultShader = createDefaultShader();
+		this.defaultShader = defaultShader;
 		shader = defaultShader;
+
 		projectionMatrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 
@@ -127,9 +144,8 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	public void end () {
 		if (!drawing) throw new IllegalStateException("begin must be called before end.");
 		if (vertexIndex > 0) flush();
-		shader.end();
 		Gdx.gl.glDepthMask(true);
-		if (isBlendingEnabled()) Gdx.gl.glDisable(GL20.GL_BLEND);
+		if (!blendingDisabled) Gdx.gl.glDisable(GL20.GL_BLEND);
 
 		lastTexture = null;
 		drawing = false;
@@ -147,6 +163,10 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 		lightPacked = light.toFloatBits();
 	}
 
+
+
+
+
 	@Override
 	public Color getColor () {
 		return light;
@@ -154,7 +174,8 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 
 	@Override
 	public void setPackedColor(float packedColor) {
-		this.lightPacked = packedColor;
+		Color.rgba8888ToColor(light, NumberUtils.floatToIntColor(packedColor));
+		lightPacked = packedColor;
 	}
 
 	@Override
@@ -1300,16 +1321,24 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 
 		totalRenderCalls++;
 
-		lastTexture.bind();
+		bind(lastTexture);
 		Mesh mesh = this.mesh;
 		mesh.setVertices(vertices, 0, vertexIndex);
 		mesh.setIndices(triangles, 0, triangleIndex);
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-		if (blendSrcFunc != -1) Gdx.gl.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
+		if (blendingDisabled)
+			Gdx.gl.glDisable(GL20.GL_BLEND);
+		else {
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+			if (blendSrcFunc != -1) Gdx.gl.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
+		}
 		mesh.render(shader, GL20.GL_TRIANGLES, 0, triangleIndex);
 
 		vertexIndex = 0;
 		triangleIndex = 0;
+	}
+
+	protected void bind (Texture texture) {
+		texture.bind();
 	}
 
 	@Override
@@ -1327,7 +1356,7 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	@Override
 	public void dispose () {
 		mesh.dispose();
-		shader.dispose();
+		if (ownsDefaultShader) defaultShader.dispose();
 	}
 
 	@Override
@@ -1365,7 +1394,11 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 		if (drawing) setupMatrices();
 	}
 
-	private void setupMatrices () {
+	public boolean getPremultipliedAlpha () {
+		return premultipliedAlpha;
+	}
+
+	protected void setupMatrices () {
 		combinedMatrix.set(projectionMatrix).mul(transformMatrix);
 		shader.setUniformf("u_pma", premultipliedAlpha ? 1 : 0);
 		shader.setUniformMatrix("u_projTrans", combinedMatrix);
@@ -1380,14 +1413,27 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	}
 
 	/** Flushes the batch if the shader was changed. */
-	@Override
-	public void setShader (ShaderProgram newShader) {
-		if (shader == newShader) return;
-		if (drawing) {
-			flush();
-			shader.end();
+	public void setDefaultShader (ShaderProgram newDefaultShader) {
+		boolean current = shader == defaultShader;
+		boolean flush = current && drawing;
+		if (flush) flush();
+		if (ownsDefaultShader) defaultShader.dispose();
+		defaultShader = newDefaultShader;
+		if (current) shader = newDefaultShader;
+		if (flush) {
+			newDefaultShader.begin();
+			setupMatrices();
 		}
-		shader = newShader == null ? defaultShader : newShader;
+	}
+
+	/** Flushes the batch if the shader was changed.
+	 * @param newShader If null, the default shader is used. */
+	@Override
+	public void setShader (@Null ShaderProgram newShader) {
+		if (newShader == null) newShader = defaultShader;
+		if (shader == newShader) return;
+		if (drawing) flush();
+		shader = newShader;
 		if (drawing) {
 			shader.begin();
 			setupMatrices();
@@ -1397,6 +1443,10 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	@Override
 	public ShaderProgram getShader () {
 		return shader;
+	}
+
+	public ShaderProgram getDefaultShader () {
+		return defaultShader;
 	}
 
 	@Override
@@ -1447,7 +1497,7 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 		return blendDstFuncAlpha;
 	}
 
-	private ShaderProgram createDefaultShader () {
+	static public ShaderProgram createDefaultShader () {
 		String vertexShader = "attribute vec4 a_position;\n" //
 			+ "attribute vec4 a_light;\n" //
 			+ "attribute vec4 a_dark;\n" //

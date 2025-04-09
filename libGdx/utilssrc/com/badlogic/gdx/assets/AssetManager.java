@@ -42,6 +42,9 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.PolygonRegionLoader;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+//import com.badlogic.gdx.graphics.g3d.Model;
+//import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
+//import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
@@ -107,8 +110,13 @@ public class AssetManager implements Disposable {
 			setLoader(Texture.class, new TextureLoader(resolver));
 			setLoader(Skin.class, new SkinLoader(resolver));
 			setLoader(ParticleEffect.class, new ParticleEffectLoader(resolver));
+//			setLoader(com.badlogic.gdx.graphics.g3d.particles.ParticleEffect.class,
+//				new com.badlogic.gdx.graphics.g3d.particles.ParticleEffectLoader(resolver));
 			setLoader(PolygonRegion.class, new PolygonRegionLoader(resolver));
 			setLoader(I18NBundle.class, new I18NBundleLoader(resolver));
+//			setLoader(Model.class, ".g3dj", new G3dModelLoader(new JsonReader(), resolver));
+//			setLoader(Model.class, ".g3db", new G3dModelLoader(new UBJsonReader(), resolver));
+//			setLoader(Model.class, ".obj", new ObjLoader(resolver));
 			setLoader(ShaderProgram.class, new ShaderProgramLoader(resolver));
 			setLoader(Cubemap.class, new CubemapLoader(resolver));
 		}

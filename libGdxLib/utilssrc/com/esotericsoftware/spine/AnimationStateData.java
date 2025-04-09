@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -30,6 +30,7 @@
 package com.esotericsoftware.spine;
 
 import com.badlogic.gdx.utils.ObjectFloatMap;
+
 import com.esotericsoftware.spine.AnimationState.TrackEntry;
 
 /** Stores mix (crossfade) durations to be applied when {@link AnimationState} animations are changed. */

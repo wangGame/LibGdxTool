@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -29,29 +29,33 @@
 
 package com.esotericsoftware.spine.attachments;
 
+import com.badlogic.gdx.utils.Null;
+
 import com.esotericsoftware.spine.Skeleton;
 
 /** Attachment that displays a skeleton. */
 public class SkeletonAttachment extends Attachment {
-	private Skeleton skeleton;
+	private @Null Skeleton skeleton;
 
 	public SkeletonAttachment (String name) {
 		super(name);
 	}
 
-	/** @return May return null. */
-	public Skeleton getSkeleton () {
+	/** Copy constructor. */
+	protected SkeletonAttachment (SkeletonAttachment other) {
+		super(other);
+		skeleton = other.skeleton;
+	}
+
+	public @Null Skeleton getSkeleton () {
 		return skeleton;
 	}
 
-	/** @param skeleton May be null. */
-	public void setSkeleton (Skeleton skeleton) {
+	public void setSkeleton (@Null Skeleton skeleton) {
 		this.skeleton = skeleton;
 	}
 
-	public Attachment copy () {
-		SkeletonAttachment copy = new SkeletonAttachment(name);
-		copy.skeleton = skeleton;
-		return copy;
+	public SkeletonAttachment copy () {
+		return new SkeletonAttachment(this);
 	}
 }

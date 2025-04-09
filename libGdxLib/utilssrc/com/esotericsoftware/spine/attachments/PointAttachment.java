@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -29,12 +29,11 @@
 
 package com.esotericsoftware.spine.attachments;
 
-import static com.badlogic.gdx.math.MathUtils.cosDeg;
-import static com.badlogic.gdx.math.MathUtils.radDeg;
-import static com.badlogic.gdx.math.MathUtils.sinDeg;
+import static com.badlogic.gdx.math.MathUtils.*;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+
 import com.esotericsoftware.spine.Bone;
 
 /** An attachment which is a single point and a rotation. This can be used to spawn projectiles, particles, etc. A bone can be
@@ -50,6 +49,15 @@ public class PointAttachment extends Attachment {
 
 	public PointAttachment (String name) {
 		super(name);
+	}
+
+	/** Copy constructor. */
+	protected PointAttachment (PointAttachment other) {
+		super(other);
+		x = other.x;
+		y = other.y;
+		rotation = other.rotation;
+		color.set(other.color);
 	}
 
 	public float getX () {
@@ -76,8 +84,8 @@ public class PointAttachment extends Attachment {
 		this.rotation = rotation;
 	}
 
-	/** The color of the point attachment as it was in Spine. Available only when nonessential data was exported. Point attachments
-	 * are not usually rendered at runtime. */
+	/** The color of the point attachment as it was in Spine, or a default clor if nonessential data was not exported. Point
+	 * attachments are not usually rendered at runtime. */
 	public Color getColor () {
 		return color;
 	}
@@ -95,12 +103,7 @@ public class PointAttachment extends Attachment {
 		return (float)Math.atan2(y, x) * radDeg;
 	}
 
-	public Attachment copy () {
-		PointAttachment copy = new PointAttachment(name);
-		copy.x = x;
-		copy.y = y;
-		copy.rotation = rotation;
-		copy.color.set(color);
-		return copy;
+	public PointAttachment copy () {
+		return new PointAttachment(this);
 	}
 }

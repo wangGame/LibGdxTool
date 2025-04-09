@@ -28,6 +28,16 @@ public class MusicAsset extends AAsset {
             e.printStackTrace();
         }
     }
+
+    public void setVolume(float volume){
+        if (music==null) {
+            return;
+        }
+        if (music.isPlaying()) {
+            music.setVolume(volume);
+        }
+    }
+
     public void playMusicLoop1(float v) {
         load(name);
         try {

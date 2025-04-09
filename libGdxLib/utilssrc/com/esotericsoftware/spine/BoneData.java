@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -30,6 +30,7 @@
 package com.esotericsoftware.spine;
 
 import com.badlogic.gdx.graphics.Color;
+ 
 
 /** Stores the setup pose for a {@link Bone}. */
 public class BoneData {
@@ -44,7 +45,6 @@ public class BoneData {
 	// Nonessential.
 	final Color color = new Color(0.61f, 0.61f, 0.61f, 1); // 9b9b9bff
 
-	/** @param parent May be null. */
 	public BoneData (int index, String name, BoneData parent) {
 		if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
 		if (name == null) throw new IllegalArgumentException("name cannot be null.");
@@ -53,8 +53,7 @@ public class BoneData {
 		this.parent = parent;
 	}
 
-	/** Copy constructor.
-	 * @param parent May be null. */
+	/** Copy constructor. */
 	public BoneData (BoneData bone, BoneData parent) {
 		if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
 		index = bone.index;
@@ -80,7 +79,6 @@ public class BoneData {
 		return name;
 	}
 
-	/** @return May be null. */
 	public BoneData getParent () {
 		return parent;
 	}
@@ -179,7 +177,8 @@ public class BoneData {
 
 	/** When true, {@link Skeleton#updateWorldTransform()} only updates this bone if the {@link Skeleton#getSkin()} contains this
 	 * bone.
-	 * @see Skin#getBones() */
+	 * <p>
+	 * See {@link Skin#getBones()}. */
 	public boolean getSkinRequired () {
 		return skinRequired;
 	}
@@ -188,7 +187,7 @@ public class BoneData {
 		this.skinRequired = skinRequired;
 	}
 
-	/** The color of the bone as it was in Spine. Available only when nonessential data was exported. Bones are not usually
+	/** The color of the bone as it was in Spine, or a default color if nonessential data was not exported. Bones are not usually
 	 * rendered at runtime. */
 	public Color getColor () {
 		return color;

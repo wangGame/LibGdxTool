@@ -1,4 +1,5 @@
 package com.kw.gdx.anr;
+
 import com.kw.gdx.utils.log.NLog;
 
 import java.io.Serializable;

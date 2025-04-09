@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -34,25 +34,29 @@ import static com.esotericsoftware.spine.Animation.MixDirection.*;
 import static com.esotericsoftware.spine.utils.SpineUtils.*;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
-import com.badlogic.gdx.utils.IntSet;
+ 
+import com.badlogic.gdx.utils.ObjectSet;
 
 import com.esotericsoftware.spine.attachments.Attachment;
+import com.esotericsoftware.spine.attachments.HasTextureRegion;
+import com.esotericsoftware.spine.attachments.Sequence;
+import com.esotericsoftware.spine.attachments.Sequence.SequenceMode;
 import com.esotericsoftware.spine.attachments.VertexAttachment;
 
-/** A simple container for a list of timelines and a name. */
+/** Stores a list of timelines to animate a skeleton's pose over time. */
 public class Animation {
 	final String name;
 	Array<Timeline> timelines;
-	final IntSet timelineIDs = new IntSet();
+	final ObjectSet<String> timelineIds;
 	float duration;
 
 	public Animation (String name, Array<Timeline> timelines, float duration) {
 		if (name == null) throw new IllegalArgumentException("name cannot be null.");
 		this.name = name;
 		this.duration = duration;
+		timelineIds = new ObjectSet(timelines.size);
 		setTimelines(timelines);
 	}
 
@@ -65,17 +69,22 @@ public class Animation {
 		if (timelines == null) throw new IllegalArgumentException("timelines cannot be null.");
 		this.timelines = timelines;
 
-		timelineIDs.clear();
-		for (Timeline timeline : timelines)
-			timelineIDs.add(timeline.getPropertyId());
+		int n = timelines.size;
+		timelineIds.clear(n);
+		Object[] items = timelines.items;
+		for (int i = 0; i < n; i++)
+			timelineIds.addAll(((Timeline)items[i]).getPropertyIds());
 	}
 
-	/** Return true if this animation contains a timeline with the specified property ID. **/
-	public boolean hasTimeline (int id) {
-		return timelineIDs.contains(id);
+	/** Returns true if this animation contains a timeline with any of the specified property IDs. */
+	public boolean hasTimeline (String[] propertyIds) {
+		for (String id : propertyIds)
+			if (timelineIds.contains(id)) return true;
+		return false;
 	}
 
-	/** The duration of the animation in seconds, which is the highest time of all keys in the timeline. */
+	/** The duration of the animation in seconds, which is usually the highest time of all frames in the timeline. The duration is
+	 * used to know when it has completed and when it should loop back to the start. */
 	public float getDuration () {
 		return duration;
 	}
@@ -84,11 +93,26 @@ public class Animation {
 		this.duration = duration;
 	}
 
-	/** Applies all the animation's timelines to the specified skeleton.
+	/** Applies the animation's timelines to the specified skeleton.
 	 * <p>
 	 * See Timeline {@link Timeline#apply(Skeleton, float, float, Array, float, MixBlend, MixDirection)}.
-	 * @param loop If true, the animation repeats after {@link #getDuration()}.
-	 * @param events May be null to ignore fired events. */
+	 * @param skeleton The skeleton the animation is being applied to. This provides access to the bones, slots, and other skeleton
+	 *           components the timelines may change.
+	 * @param lastTime The last time in seconds this animation was applied. Some timelines trigger only at specific times rather
+	 *           than every frame. Pass -1 the first time an animation is applied to ensure frame 0 is triggered.
+	 * @param time The time in seconds the skeleton is being posed for. Most timelines find the frame before and the frame after
+	 *           this time and interpolate between the frame values. If beyond the {@link #getDuration()} and <code>loop</code> is
+	 *           true then the animation will repeat, else the last frame will be applied.
+	 * @param loop If true, the animation repeats after the {@link #getDuration()}.
+	 * @param events If any events are fired, they are added to this list. Can be null to ignore fired events or if no timelines
+	 *           fire events.
+	 * @param alpha 0 applies the current or setup values (depending on <code>blend</code>). 1 applies the timeline values. Between
+	 *           0 and 1 applies values between the current or setup values and the timeline values. By adjusting
+	 *           <code>alpha</code> over time, an animation can be mixed in or out. <code>alpha</code> can also be useful to apply
+	 *           animations on top of each other (layering).
+	 * @param blend Controls how mixing is applied when <code>alpha</code> < 1.
+	 * @param direction Indicates whether the timelines are mixing in or out. Used by timelines which perform instant transitions,
+	 *           such as {@link DrawOrderTimeline} or {@link AttachmentTimeline}. */
 	public void apply (Skeleton skeleton, float lastTime, float time, boolean loop, Array<Event> events, float alpha,
 		MixBlend blend, MixDirection direction) {
 		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
@@ -98,9 +122,9 @@ public class Animation {
 			if (lastTime > 0) lastTime %= duration;
 		}
 
-		Array<Timeline> timelines = this.timelines;
-		for (int i = 0, n = timelines.size; i < n; i++)
-			timelines.get(i).apply(skeleton, lastTime, time, events, alpha, blend, direction);
+		Object[] timelines = this.timelines.items;
+		for (int i = 0, n = this.timelines.size; i < n; i++)
+			((Timeline)timelines[i]).apply(skeleton, lastTime, time, events, alpha, blend, direction);
 	}
 
 	/** The animation's name, which is unique across all animations in the skeleton. */
@@ -112,56 +136,98 @@ public class Animation {
 		return name;
 	}
 
-	/** @param target After the first and before the last value.
-	 * @return index of first value greater than the target. */
-	static int binarySearch (float[] values, float target, int step) {
-		int low = 0;
-		int high = values.length / step - 2;
-		if (high == 0) return step;
-		int current = high >>> 1;
-		while (true) {
-			if (values[(current + 1) * step] <= target)
-				low = current + 1;
-			else
-				high = current;
-			if (low == high) return (low + 1) * step;
-			current = (low + high) >>> 1;
+	/** Controls how timeline values are mixed with setup pose values or current pose values when a timeline is applied with
+	 * <code>alpha</code> < 1.
+	 * <p>
+	 * See Timeline {@link Timeline#apply(Skeleton, float, float, Array, float, MixBlend, MixDirection)}. */
+	static public enum MixBlend {
+		/** Transitions from the setup value to the timeline value (the current value is not used). Before the first frame, the
+		 * setup value is set. */
+		setup,
+		/** Transitions from the current value to the timeline value. Before the first frame, transitions from the current value to
+		 * the setup value. Timelines which perform instant transitions, such as {@link DrawOrderTimeline} or
+		 * {@link AttachmentTimeline}, use the setup value before the first frame.
+		 * <p>
+		 * <code>first</code> is intended for the first animations applied, not for animations layered on top of those. */
+		first,
+		/** Transitions from the current value to the timeline value. No change is made before the first frame (the current value is
+		 * kept until the first frame).
+		 * <p>
+		 * <code>replace</code> is intended for animations layered on top of others, not for the first animations applied. */
+		replace,
+		/** Transitions from the current value to the current value plus the timeline value. No change is made before the first
+		 * frame (the current value is kept until the first frame).
+		 * <p>
+		 * <code>add</code> is intended for animations layered on top of others, not for the first animations applied. Properties
+		 * set by additive animations must be set manually or by another animation before applying the additive animations, else the
+		 * property values will increase each time the additive animations are applied. */
+		add
+	}
+
+	/** Indicates whether a timeline's <code>alpha</code> is mixing out over time toward 0 (the setup or current pose value) or
+	 * mixing in toward 1 (the timeline's value). Some timelines use this to decide how values are applied.
+	 * <p>
+	 * See Timeline {@link Timeline#apply(Skeleton, float, float, Array, float, MixBlend, MixDirection)}. */
+	static public enum MixDirection {
+		in, out
+	}
+
+	static private enum Property {
+		rotate, x, y, scaleX, scaleY, shearX, shearY, //
+		rgb, alpha, rgb2, //
+		attachment, deform, //
+		event, drawOrder, //
+		ikConstraint, transformConstraint, //
+		pathConstraintPosition, pathConstraintSpacing, pathConstraintMix, //
+		sequence
+	}
+
+	/** The base class for all timelines. */
+	static public abstract class Timeline {
+		private final String[] propertyIds;
+		final float[] frames;
+
+		/** @param propertyIds Unique identifiers for the properties the timeline modifies. */
+		public Timeline (int frameCount, String... propertyIds) {
+			if (propertyIds == null) throw new IllegalArgumentException("propertyIds cannot be null.");
+			this.propertyIds = propertyIds;
+			frames = new float[frameCount * getFrameEntries()];
 		}
-	}
 
-	/** @param target After the first and before the last value.
-	 * @return index of first value greater than the target. */
-	static int binarySearch (float[] values, float target) {
-		int low = 0;
-		int high = values.length - 2;
-		if (high == 0) return 1;
-		int current = high >>> 1;
-		while (true) {
-			if (values[current + 1] <= target)
-				low = current + 1;
-			else
-				high = current;
-			if (low == high) return low + 1;
-			current = (low + high) >>> 1;
+		/** Uniquely encodes both the type of this timeline and the skeleton properties that it affects. */
+		public String[] getPropertyIds () {
+			return propertyIds;
 		}
-	}
 
-	static int linearSearch (float[] values, float target, int step) {
-		for (int i = 0, last = values.length - step; i <= last; i += step)
-			if (values[i] > target) return i;
-		return -1;
-	}
+		/** The time in seconds and any other values for each frame. */
+		public float[] getFrames () {
+			return frames;
+		}
 
-	/** The interface for all timelines. */
-	static public interface Timeline {
+		/** The number of entries stored per frame. */
+		public int getFrameEntries () {
+			return 1;
+		}
+
+		/** The number of frames for this timeline. */
+		public int getFrameCount () {
+			return frames.length / getFrameEntries();
+		}
+
+		public float getDuration () {
+			return frames[frames.length - getFrameEntries()];
+		}
+
 		/** Applies this timeline to the skeleton.
-		 * @param skeleton The skeleton the timeline is being applied to. This provides access to the bones, slots, and other
-		 *           skeleton components the timeline may change.
-		 * @param lastTime The time this timeline was last applied. Timelines such as {@link EventTimeline} trigger only at specific
-		 *           times rather than every frame. In that case, the timeline triggers everything between <code>lastTime</code>
-		 *           (exclusive) and <code>time</code> (inclusive).
-		 * @param time The time within the animation. Most timelines find the key before and the key after this time so they can
-		 *           interpolate between the keys.
+		 * @param skeleton The skeleton to which the timeline is being applied. This provides access to the bones, slots, and other
+		 *           skeleton components that the timeline may change.
+		 * @param lastTime The last time in seconds this timeline was applied. Timelines such as {@link EventTimeline} trigger only
+		 *           at specific times rather than every frame. In that case, the timeline triggers everything between
+		 *           <code>lastTime</code> (exclusive) and <code>time</code> (inclusive). Pass -1 the first time an animation is
+		 *           applied to ensure frame 0 is triggered.
+		 * @param time The time in seconds that the skeleton is being posed for. Most timelines find the frame before and the frame
+		 *           after this time and interpolate between the frame values. If beyond the last frame, the last frame will be
+		 *           applied.
 		 * @param events If any events are fired, they are added to this list. Can be null to ignore fired events or if the timeline
 		 *           does not fire events.
 		 * @param alpha 0 applies the current or setup value (depending on <code>blend</code>). 1 applies the timeline value.
@@ -170,206 +236,231 @@ public class Animation {
 		 *           apply animations on top of each other (layering).
 		 * @param blend Controls how mixing is applied when <code>alpha</code> < 1.
 		 * @param direction Indicates whether the timeline is mixing in or out. Used by timelines which perform instant transitions,
-		 *           such as {@link DrawOrderTimeline} or {@link AttachmentTimeline}, and other such as {@link ScaleTimeline}. */
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
-			MixDirection direction);
+		 *           such as {@link DrawOrderTimeline} or {@link AttachmentTimeline}, and others such as {@link ScaleTimeline}. */
+		abstract public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha,
+			MixBlend blend, MixDirection direction);
 
-		/** Uniquely encodes both the type of this timeline and the skeleton property that it affects. */
-		public int getPropertyId ();
-	}
+		/** Linear search using a stride of 1.
+		 * @param time Must be >= the first value in <code>frames</code>.
+		 * @return The index of the first value <= <code>time</code>. */
+		static int search (float[] frames, float time) {
+			int n = frames.length;
+			for (int i = 1; i < n; i++)
+				if (frames[i] > time) return i - 1;
+			return n - 1;
+		}
 
-	/** Controls how a timeline value is mixed with the setup pose value or current pose value when a timeline's <code>alpha</code>
-	 * < 1.
-	 * <p>
-	 * See Timeline {@link Timeline#apply(Skeleton, float, float, Array, float, MixBlend, MixDirection)}. */
-	static public enum MixBlend {
-		/** Transitions from the setup value to the timeline value (the current value is not used). Before the first key, the setup
-		 * value is set. */
-		setup,
-		/** Transitions from the current value to the timeline value. Before the first key, transitions from the current value to
-		 * the setup value. Timelines which perform instant transitions, such as {@link DrawOrderTimeline} or
-		 * {@link AttachmentTimeline}, use the setup value before the first key.
-		 * <p>
-		 * <code>first</code> is intended for the first animations applied, not for animations layered on top of those. */
-		first,
-		/** Transitions from the current value to the timeline value. No change is made before the first key (the current value is
-		 * kept until the first key).
-		 * <p>
-		 * <code>replace</code> is intended for animations layered on top of others, not for the first animations applied. */
-		replace,
-		/** Transitions from the current value to the current value plus the timeline value. No change is made before the first key
-		 * (the current value is kept until the first key).
-		 * <p>
-		 * <code>add</code> is intended for animations layered on top of others, not for the first animations applied. Properties
-		 * keyed by additive animations must be set manually or by another animation before applying the additive animations, else
-		 * the property values will increase continually. */
-		add
-	}
-
-	/** Indicates whether a timeline's <code>alpha</code> is mixing out over time toward 0 (the setup or current pose value) or
-	 * mixing in toward 1 (the timeline's value).
-	 * <p>
-	 * See Timeline {@link Timeline#apply(Skeleton, float, float, Array, float, MixBlend, MixDirection)}. */
-	static public enum MixDirection {
-		in, out
-	}
-
-	static private enum TimelineType {
-		rotate, translate, scale, shear, //
-		attachment, color, deform, //
-		event, drawOrder, //
-		ikConstraint, transformConstraint, //
-		pathConstraintPosition, pathConstraintSpacing, pathConstraintMix, //
-		twoColor
+		/** Linear search using the specified stride.
+		 * @param time Must be >= the first value in <code>frames</code>.
+		 * @return The index of the first value <= <code>time</code>. */
+		static int search (float[] frames, float time, int step) {
+			int n = frames.length;
+			for (int i = step; i < n; i += step)
+				if (frames[i] > time) return i - step;
+			return n - step;
+		}
 	}
 
 	/** An interface for timelines which change the property of a bone. */
-	static public interface BoneTimeline extends Timeline {
-		public void setBoneIndex (int index);
-
-		/** The index of the bone in {@link Skeleton#getBones()} that will be changed. */
+	static public interface BoneTimeline {
+		/** The index of the bone in {@link Skeleton#getBones()} that will be changed when this timeline is applied. */
 		public int getBoneIndex ();
 	}
 
 	/** An interface for timelines which change the property of a slot. */
-	static public interface SlotTimeline extends Timeline {
-		public void setSlotIndex (int index);
-
-		/** The index of the slot in {@link Skeleton#getSlots()} that will be changed. */
+	static public interface SlotTimeline {
+		/** The index of the slot in {@link Skeleton#getSlots()} that will be changed when this timeline is applied. */
 		public int getSlotIndex ();
 	}
 
-	/** The base class for timelines that use interpolation between key frame values. */
-	abstract static public class CurveTimeline implements Timeline {
-		static public final float LINEAR = 0, STEPPED = 1, BEZIER = 2;
-		static private final int BEZIER_SIZE = 10 * 2 - 1;
+	/** The base class for timelines that interpolate between frame values using stepped, linear, or a Bezier curve. */
+	static public abstract class CurveTimeline extends Timeline {
+		static public final int LINEAR = 0, STEPPED = 1, BEZIER = 2, BEZIER_SIZE = 18;
 
-		private final float[] curves; // type, x, y, ...
+		float[] curves;
 
-		public CurveTimeline (int frameCount) {
-			if (frameCount <= 0) throw new IllegalArgumentException("frameCount must be > 0: " + frameCount);
-			curves = new float[(frameCount - 1) * BEZIER_SIZE];
+		/** @param bezierCount The maximum number of Bezier curves. See {@link #shrink(int)}.
+		 * @param propertyIds Unique identifiers for the properties the timeline modifies. */
+		public CurveTimeline (int frameCount, int bezierCount, String... propertyIds) {
+			super(frameCount, propertyIds);
+			curves = new float[frameCount + bezierCount * BEZIER_SIZE];
+			curves[frameCount - 1] = STEPPED;
 		}
 
-		/** The number of key frames for this timeline. */
-		public int getFrameCount () {
-			return curves.length / BEZIER_SIZE + 1;
+		/** Sets the specified frame to linear interpolation.
+		 * @param frame Between 0 and <code>frameCount - 1</code>, inclusive. */
+		public void setLinear (int frame) {
+			curves[frame] = LINEAR;
 		}
 
-		/** Sets the specified key frame to linear interpolation. */
-		public void setLinear (int frameIndex) {
-			curves[frameIndex * BEZIER_SIZE] = LINEAR;
+		/** Sets the specified frame to stepped interpolation.
+		 * @param frame Between 0 and <code>frameCount - 1</code>, inclusive. */
+		public void setStepped (int frame) {
+			curves[frame] = STEPPED;
 		}
 
-		/** Sets the specified key frame to stepped interpolation. */
-		public void setStepped (int frameIndex) {
-			curves[frameIndex * BEZIER_SIZE] = STEPPED;
+		/** Returns the interpolation type for the specified frame.
+		 * @param frame Between 0 and <code>frameCount - 1</code>, inclusive.
+		 * @return {@link #LINEAR}, {@link #STEPPED}, or {@link #BEZIER} + the index of the Bezier segments. */
+		public int getCurveType (int frame) {
+			return (int)curves[frame];
 		}
 
-		/** Returns the interpolation type for the specified key frame.
-		 * @return Linear is 0, stepped is 1, Bezier is 2. */
-		public float getCurveType (int frameIndex) {
-			int index = frameIndex * BEZIER_SIZE;
-			if (index == curves.length) return LINEAR;
-			float type = curves[index];
-			if (type == LINEAR) return LINEAR;
-			if (type == STEPPED) return STEPPED;
-			return BEZIER;
+		/** Shrinks the storage for Bezier curves, for use when <code>bezierCount</code> (specified in the constructor) was larger
+		 * than the actual number of Bezier curves. */
+		public void shrink (int bezierCount) {
+			int size = getFrameCount() + bezierCount * BEZIER_SIZE;
+			if (curves.length > size) {
+				float[] newCurves = new float[size];
+				arraycopy(curves, 0, newCurves, 0, size);
+				curves = newCurves;
+			}
 		}
 
-		/** Sets the specified key frame to Bezier interpolation. <code>cx1</code> and <code>cx2</code> are from 0 to 1,
-		 * representing the percent of time between the two key frames. <code>cy1</code> and <code>cy2</code> are the percent of the
-		 * difference between the key frame's values. */
-		public void setCurve (int frameIndex, float cx1, float cy1, float cx2, float cy2) {
-			float tmpx = (-cx1 * 2 + cx2) * 0.03f, tmpy = (-cy1 * 2 + cy2) * 0.03f;
-			float dddfx = ((cx1 - cx2) * 3 + 1) * 0.006f, dddfy = ((cy1 - cy2) * 3 + 1) * 0.006f;
-			float ddfx = tmpx * 2 + dddfx, ddfy = tmpy * 2 + dddfy;
-			float dfx = cx1 * 0.3f + tmpx + dddfx * 0.16666667f, dfy = cy1 * 0.3f + tmpy + dddfy * 0.16666667f;
-
-			int i = frameIndex * BEZIER_SIZE;
+		/** Stores the segments for the specified Bezier curve. For timelines that modify multiple values, there may be more than
+		 * one curve per frame.
+		 * @param bezier The ordinal of this Bezier curve for this timeline, between 0 and <code>bezierCount - 1</code> (specified
+		 *           in the constructor), inclusive.
+		 * @param frame Between 0 and <code>frameCount - 1</code>, inclusive.
+		 * @param value The index of the value for the frame this curve is used for.
+		 * @param time1 The time for the first key.
+		 * @param value1 The value for the first key.
+		 * @param cx1 The time for the first Bezier handle.
+		 * @param cy1 The value for the first Bezier handle.
+		 * @param cx2 The time of the second Bezier handle.
+		 * @param cy2 The value for the second Bezier handle.
+		 * @param time2 The time for the second key.
+		 * @param value2 The value for the second key. */
+		public void setBezier (int bezier, int frame, int value, float time1, float value1, float cx1, float cy1, float cx2,
+			float cy2, float time2, float value2) {
 			float[] curves = this.curves;
-			curves[i++] = BEZIER;
-
-			float x = dfx, y = dfy;
-			for (int n = i + BEZIER_SIZE - 1; i < n; i += 2) {
+			int i = getFrameCount() + bezier * BEZIER_SIZE;
+			if (value == 0) curves[frame] = BEZIER + i;
+			float tmpx = (time1 - cx1 * 2 + cx2) * 0.03f, tmpy = (value1 - cy1 * 2 + cy2) * 0.03f;
+			float dddx = ((cx1 - cx2) * 3 - time1 + time2) * 0.006f, dddy = ((cy1 - cy2) * 3 - value1 + value2) * 0.006f;
+			float ddx = tmpx * 2 + dddx, ddy = tmpy * 2 + dddy;
+			float dx = (cx1 - time1) * 0.3f + tmpx + dddx * 0.16666667f, dy = (cy1 - value1) * 0.3f + tmpy + dddy * 0.16666667f;
+			float x = time1 + dx, y = value1 + dy;
+			for (int n = i + BEZIER_SIZE; i < n; i += 2) {
 				curves[i] = x;
 				curves[i + 1] = y;
-				dfx += ddfx;
-				dfy += ddfy;
-				ddfx += dddfx;
-				ddfy += dddfy;
-				x += dfx;
-				y += dfy;
+				dx += ddx;
+				dy += ddy;
+				ddx += dddx;
+				ddy += dddy;
+				x += dx;
+				y += dy;
 			}
-
-			System.out.println("----------------------");
 		}
 
-		/** Returns the interpolated percentage for the specified key frame and linear percentage. */
-		public float getCurvePercent (int frameIndex, float percent) {
-			percent = MathUtils.clamp(percent, 0, 1);
+		/** Returns the Bezier interpolated value for the specified time.
+		 * @param frameIndex The index into {@link #getFrames()} for the values of the frame before <code>time</code>.
+		 * @param valueOffset The offset from <code>frameIndex</code> to the value this curve is used for.
+		 * @param i The index of the Bezier segments. See {@link #getCurveType(int)}. */
+		public float getBezierValue (float time, int frameIndex, int valueOffset, int i) {
 			float[] curves = this.curves;
-			int i = frameIndex * BEZIER_SIZE;
-			float type = curves[i];
-			if (type == LINEAR) return percent;
-			if (type == STEPPED) return 0;
-			i++;
-			float x = 0;
-			for (int start = i, n = i + BEZIER_SIZE - 1; i < n; i += 2) {
-				x = curves[i];
-				if (x >= percent) {
-					if (i == start) return curves[i + 1] * percent / x; // First point is 0,0.
-					float prevX = curves[i - 2], prevY = curves[i - 1];
-					return prevY + (curves[i + 1] - prevY) * (percent - prevX) / (x - prevX);
+			if (curves[i] > time) {
+				float x = frames[frameIndex], y = frames[frameIndex + valueOffset];
+				return y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
+			}
+			int n = i + BEZIER_SIZE;
+			for (i += 2; i < n; i += 2) {
+				if (curves[i] >= time) {
+					float x = curves[i - 2], y = curves[i - 1];
+					return y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
 				}
 			}
-			float y = curves[i - 1];
-			float v = y + (1 - y) * (percent - x) / (1 - x);
+			frameIndex += getFrameEntries();
+			float x = curves[n - 2], y = curves[n - 1];
+			return y + (time - x) / (frames[frameIndex] - x) * (frames[frameIndex + valueOffset] - y);
+		}
+	}
 
-			System.out.println(v);
+	/** The base class for a {@link CurveTimeline} that sets one property. */
+	static public abstract class CurveTimeline1 extends CurveTimeline {
+		static public final int ENTRIES = 2;
+		static final int VALUE = 1;
 
-			return v; // Last point is 1,1.
+		/** @param bezierCount The maximum number of Bezier curves. See {@link #shrink(int)}.
+		 * @param propertyId Unique identifier for the property the timeline modifies. */
+		public CurveTimeline1 (int frameCount, int bezierCount, String propertyId) {
+			super(frameCount, bezierCount, propertyId);
+		}
+
+		public int getFrameEntries () {
+			return ENTRIES;
+		}
+
+		/** Sets the time and value for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, float value) {
+			frame <<= 1;
+			frames[frame] = time;
+			frames[frame + VALUE] = value;
+		}
+
+		/** Returns the interpolated value for the specified time. */
+		public float getCurveValue (float time) {
+			float[] frames = this.frames;
+			int i = frames.length - 2;
+			for (int ii = 2; ii <= i; ii += 2) {
+				if (frames[ii] > time) {
+					i = ii - 2;
+					break;
+				}
+			}
+
+			int curveType = (int)curves[i >> 1];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i], value = frames[i + VALUE];
+				return value + (time - before) / (frames[i + ENTRIES] - before) * (frames[i + ENTRIES + VALUE] - value);
+			case STEPPED:
+				return frames[i + VALUE];
+			}
+			return getBezierValue(time, i, VALUE, curveType - BEZIER);
+		}
+	}
+
+	/** The base class for a {@link CurveTimeline} which sets two properties. */
+	static public abstract class CurveTimeline2 extends CurveTimeline {
+		static public final int ENTRIES = 3;
+		static final int VALUE1 = 1, VALUE2 = 2;
+
+		/** @param bezierCount The maximum number of Bezier curves. See {@link #shrink(int)}.
+		 * @param propertyId1 Unique identifier for the first property the timeline modifies.
+		 * @param propertyId2 Unique identifier for the second property the timeline modifies. */
+		public CurveTimeline2 (int frameCount, int bezierCount, String propertyId1, String propertyId2) {
+			super(frameCount, bezierCount, propertyId1, propertyId2);
+		}
+
+		public int getFrameEntries () {
+			return ENTRIES;
+		}
+
+		/** Sets the time and values for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, float value1, float value2) {
+			frame *= ENTRIES;
+			frames[frame] = time;
+			frames[frame + VALUE1] = value1;
+			frames[frame + VALUE2] = value2;
 		}
 	}
 
 	/** Changes a bone's local {@link Bone#getRotation()}. */
-	static public class RotateTimeline extends CurveTimeline implements BoneTimeline {
-		static public final int ENTRIES = 2;
-		static final int PREV_TIME = -2, PREV_ROTATION = -1;
-		static final int ROTATION = 1;
+	static public class RotateTimeline extends CurveTimeline1 implements BoneTimeline {
+		final int boneIndex;
 
-		int boneIndex;
-		final float[] frames; // time, degrees, ...
-
-		public RotateTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount << 1];
+		public RotateTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, Property.rotate.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.rotate.ordinal() << 24) + boneIndex;
-		}
-
-		public void setBoneIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.boneIndex = index;
-		}
-
-		/** The index of the bone in {@link Skeleton#getBones()} that will be changed. */
 		public int getBoneIndex () {
 			return boneIndex;
-		}
-
-		/** The time in seconds and rotation in degrees for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** Sets the time in seconds and the rotation in degrees for the specified key frame. */
-		public void setFrame (int frameIndex, float time, float degrees) {
-			frameIndex <<= 1;
-			frames[frameIndex] = time;
-			frames[frameIndex + ROTATION] = degrees;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -377,97 +468,46 @@ public class Animation {
 
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
-			float[] frames = this.frames;
+
 			if (time < frames[0]) { // Time is before first frame.
 				switch (blend) {
 				case setup:
 					bone.rotation = bone.data.rotation;
 					return;
 				case first:
-					float r = bone.data.rotation - bone.rotation;
-					bone.rotation += (r - (16384 - (int)(16384.499999999996 - r / 360)) * 360) * alpha;
+					bone.rotation += (bone.data.rotation - bone.rotation) * alpha;
 				}
 				return;
 			}
 
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				float r = frames[frames.length + PREV_ROTATION];
-				switch (blend) {
-				case setup:
-					bone.rotation = bone.data.rotation + r * alpha;
-					break;
-				case first:
-				case replace:
-					r += bone.data.rotation - bone.rotation;
-					r -= (16384 - (int)(16384.499999999996 - r / 360)) * 360;
-					// Fall through.
-				case add:
-					bone.rotation += r * alpha;
-				}
-				return;
-			}
-
-			// Interpolate between the previous frame and the current frame.
-			int frame = binarySearch(frames, time, ENTRIES);
-			float prevRotation = frames[frame + PREV_ROTATION];
-			float frameTime = frames[frame];
-			float percent = getCurvePercent((frame >> 1) - 1, 1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-			float r = frames[frame + ROTATION] - prevRotation;
-			r = prevRotation + (r - (16384 - (int)(16384.499999999996 - r / 360)) * 360) * percent;
+			float r = getCurveValue(time);
 			switch (blend) {
 			case setup:
-				bone.rotation = bone.data.rotation + (r - (16384 - (int)(16384.499999999996 - r / 360)) * 360) * alpha;
+				bone.rotation = bone.data.rotation + r * alpha;
 				break;
 			case first:
 			case replace:
 				r += bone.data.rotation - bone.rotation;
 				// Fall through.
 			case add:
-				bone.rotation += (r - (16384 - (int)(16384.499999999996 - r / 360)) * 360) * alpha;
+				bone.rotation += r * alpha;
 			}
 		}
 	}
 
 	/** Changes a bone's local {@link Bone#getX()} and {@link Bone#getY()}. */
-	static public class TranslateTimeline extends CurveTimeline implements BoneTimeline {
-		static public final int ENTRIES = 3;
-		static final int PREV_TIME = -3, PREV_X = -2, PREV_Y = -1;
-		static final int X = 1, Y = 2;
+	static public class TranslateTimeline extends CurveTimeline2 implements BoneTimeline {
+		final int boneIndex;
 
-		int boneIndex;
-		final float[] frames; // time, x, y, ...
-
-		public TranslateTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount * ENTRIES];
+		public TranslateTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, //
+				Property.x.ordinal() + "|" + boneIndex, //
+				Property.y.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.translate.ordinal() << 24) + boneIndex;
-		}
-
-		public void setBoneIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.boneIndex = index;
-		}
-
-		/** The index of the bone in {@link Skeleton#getBones()} that will be changed. */
 		public int getBoneIndex () {
 			return boneIndex;
-		}
-
-		/** The time in seconds, x, and y values for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** Sets the time in seconds, x, and y values for the specified key frame. */
-		public void setFrame (int frameIndex, float time, float x, float y) {
-			frameIndex *= ENTRIES;
-			frames[frameIndex] = time;
-			frames[frameIndex + X] = x;
-			frames[frameIndex + Y] = y;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -475,6 +515,7 @@ public class Animation {
 
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
+
 			float[] frames = this.frames;
 			if (time < frames[0]) { // Time is before first frame.
 				switch (blend) {
@@ -490,21 +531,25 @@ public class Animation {
 			}
 
 			float x, y;
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				x = frames[frames.length + PREV_X];
-				y = frames[frames.length + PREV_Y];
-			} else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				x = frames[frame + PREV_X];
-				y = frames[frame + PREV_Y];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				x += (frames[frame + X] - x) * percent;
-				y += (frames[frame + Y] - y) * percent;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i / ENTRIES];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				x = frames[i + VALUE1];
+				y = frames[i + VALUE2];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				x += (frames[i + ENTRIES + VALUE1] - x) * t;
+				y += (frames[i + ENTRIES + VALUE2] - y) * t;
+				break;
+			case STEPPED:
+				x = frames[i + VALUE1];
+				y = frames[i + VALUE2];
+				break;
+			default:
+				x = getBezierValue(time, i, VALUE1, curveType - BEZIER);
+				y = getBezierValue(time, i, VALUE2, curveType + BEZIER_SIZE - BEZIER);
 			}
+
 			switch (blend) {
 			case setup:
 				bone.x = bone.data.x + x * alpha;
@@ -522,14 +567,17 @@ public class Animation {
 		}
 	}
 
-	/** Changes a bone's local {@link Bone#getScaleX()} and {@link Bone#getScaleY()}. */
-	static public class ScaleTimeline extends TranslateTimeline {
-		public ScaleTimeline (int frameCount) {
-			super(frameCount);
+	/** Changes a bone's local {@link Bone#getX()}. */
+	static public class TranslateXTimeline extends CurveTimeline1 implements BoneTimeline {
+		final int boneIndex;
+
+		public TranslateXTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, Property.x.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.scale.ordinal() << 24) + boneIndex;
+		public int getBoneIndex () {
+			return boneIndex;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -537,6 +585,101 @@ public class Animation {
 
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
+
+			float[] frames = this.frames;
+			if (time < frames[0]) { // Time is before first frame.
+				switch (blend) {
+				case setup:
+					bone.x = bone.data.x;
+					return;
+				case first:
+					bone.x += (bone.data.x - bone.x) * alpha;
+				}
+				return;
+			}
+
+			float x = getCurveValue(time);
+			switch (blend) {
+			case setup:
+				bone.x = bone.data.x + x * alpha;
+				break;
+			case first:
+			case replace:
+				bone.x += (bone.data.x + x - bone.x) * alpha;
+				break;
+			case add:
+				bone.x += x * alpha;
+			}
+		}
+	}
+
+	/** Changes a bone's local {@link Bone#getY()}. */
+	static public class TranslateYTimeline extends CurveTimeline1 implements BoneTimeline {
+		final int boneIndex;
+
+		public TranslateYTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, Property.y.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
+		}
+
+		public int getBoneIndex () {
+			return boneIndex;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Bone bone = skeleton.bones.get(boneIndex);
+			if (!bone.active) return;
+
+			float[] frames = this.frames;
+			if (time < frames[0]) { // Time is before first frame.
+				switch (blend) {
+				case setup:
+					bone.y = bone.data.y;
+					return;
+				case first:
+					bone.y += (bone.data.y - bone.y) * alpha;
+				}
+				return;
+			}
+
+			float y = getCurveValue(time);
+			switch (blend) {
+			case setup:
+				bone.y = bone.data.y + y * alpha;
+				break;
+			case first:
+			case replace:
+				bone.y += (bone.data.y + y - bone.y) * alpha;
+				break;
+			case add:
+				bone.y += y * alpha;
+			}
+		}
+	}
+
+	/** Changes a bone's local {@link Bone#getScaleX()} and {@link Bone#getScaleY()}. */
+	static public class ScaleTimeline extends CurveTimeline2 implements BoneTimeline {
+		final int boneIndex;
+
+		public ScaleTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, //
+				Property.scaleX.ordinal() + "|" + boneIndex, //
+				Property.scaleY.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
+		}
+
+		public int getBoneIndex () {
+			return boneIndex;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Bone bone = skeleton.bones.get(boneIndex);
+			if (!bone.active) return;
+
 			float[] frames = this.frames;
 			if (time < frames[0]) { // Time is before first frame.
 				switch (blend) {
@@ -552,21 +695,27 @@ public class Animation {
 			}
 
 			float x, y;
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				x = frames[frames.length + PREV_X] * bone.data.scaleX;
-				y = frames[frames.length + PREV_Y] * bone.data.scaleY;
-			} else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				x = frames[frame + PREV_X];
-				y = frames[frame + PREV_Y];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				x = (x + (frames[frame + X] - x) * percent) * bone.data.scaleX;
-				y = (y + (frames[frame + Y] - y) * percent) * bone.data.scaleY;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i / ENTRIES];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				x = frames[i + VALUE1];
+				y = frames[i + VALUE2];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				x += (frames[i + ENTRIES + VALUE1] - x) * t;
+				y += (frames[i + ENTRIES + VALUE2] - y) * t;
+				break;
+			case STEPPED:
+				x = frames[i + VALUE1];
+				y = frames[i + VALUE2];
+				break;
+			default:
+				x = getBezierValue(time, i, VALUE1, curveType - BEZIER);
+				y = getBezierValue(time, i, VALUE2, curveType + BEZIER_SIZE - BEZIER);
 			}
+			x *= bone.data.scaleX;
+			y *= bone.data.scaleY;
+
 			if (alpha == 1) {
 				if (blend == add) {
 					bone.scaleX += x - bone.data.scaleX;
@@ -594,10 +743,8 @@ public class Animation {
 						bone.scaleY = by + (Math.abs(y) * Math.signum(by) - by) * alpha;
 						break;
 					case add:
-						bx = bone.scaleX;
-						by = bone.scaleY;
-						bone.scaleX = bx + (Math.abs(x) * Math.signum(bx) - bone.data.scaleX) * alpha;
-						bone.scaleY = by + (Math.abs(y) * Math.signum(by) - bone.data.scaleY) * alpha;
+						bone.scaleX += (x - bone.data.scaleX) * alpha;
+						bone.scaleY += (y - bone.data.scaleY) * alpha;
 					}
 				} else {
 					switch (blend) {
@@ -615,24 +762,25 @@ public class Animation {
 						bone.scaleY = by + (y - by) * alpha;
 						break;
 					case add:
-						bx = Math.signum(x);
-						by = Math.signum(y);
-						bone.scaleX = Math.abs(bone.scaleX) * bx + (x - Math.abs(bone.data.scaleX) * bx) * alpha;
-						bone.scaleY = Math.abs(bone.scaleY) * by + (y - Math.abs(bone.data.scaleY) * by) * alpha;
+						bone.scaleX += (x - bone.data.scaleX) * alpha;
+						bone.scaleY += (y - bone.data.scaleY) * alpha;
 					}
 				}
 			}
 		}
 	}
 
-	/** Changes a bone's local {@link Bone#getShearX()} and {@link Bone#getShearY()}. */
-	static public class ShearTimeline extends TranslateTimeline {
-		public ShearTimeline (int frameCount) {
-			super(frameCount);
+	/** Changes a bone's local {@link Bone#getScaleX()}. */
+	static public class ScaleXTimeline extends CurveTimeline1 implements BoneTimeline {
+		final int boneIndex;
+
+		public ScaleXTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, Property.scaleX.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.shear.ordinal() << 24) + boneIndex;
+		public int getBoneIndex () {
+			return boneIndex;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -640,6 +788,155 @@ public class Animation {
 
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
+
+			float[] frames = this.frames;
+			if (time < frames[0]) { // Time is before first frame.
+				switch (blend) {
+				case setup:
+					bone.scaleX = bone.data.scaleX;
+					return;
+				case first:
+					bone.scaleX += (bone.data.scaleX - bone.scaleX) * alpha;
+				}
+				return;
+			}
+
+			float x = getCurveValue(time) * bone.data.scaleX;
+			if (alpha == 1) {
+				if (blend == add)
+					bone.scaleX += x - bone.data.scaleX;
+				else
+					bone.scaleX = x;
+			} else {
+				// Mixing out uses sign of setup or current pose, else use sign of key.
+				float bx;
+				if (direction == out) {
+					switch (blend) {
+					case setup:
+						bx = bone.data.scaleX;
+						bone.scaleX = bx + (Math.abs(x) * Math.signum(bx) - bx) * alpha;
+						break;
+					case first:
+					case replace:
+						bx = bone.scaleX;
+						bone.scaleX = bx + (Math.abs(x) * Math.signum(bx) - bx) * alpha;
+						break;
+					case add:
+						bone.scaleX += (x - bone.data.scaleX) * alpha;
+					}
+				} else {
+					switch (blend) {
+					case setup:
+						bx = Math.abs(bone.data.scaleX) * Math.signum(x);
+						bone.scaleX = bx + (x - bx) * alpha;
+						break;
+					case first:
+					case replace:
+						bx = Math.abs(bone.scaleX) * Math.signum(x);
+						bone.scaleX = bx + (x - bx) * alpha;
+						break;
+					case add:
+						bone.scaleX += (x - bone.data.scaleX) * alpha;
+					}
+				}
+			}
+		}
+	}
+
+	/** Changes a bone's local {@link Bone#getScaleY()}. */
+	static public class ScaleYTimeline extends CurveTimeline1 implements BoneTimeline {
+		final int boneIndex;
+
+		public ScaleYTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, Property.scaleY.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
+		}
+
+		public int getBoneIndex () {
+			return boneIndex;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Bone bone = skeleton.bones.get(boneIndex);
+			if (!bone.active) return;
+
+			float[] frames = this.frames;
+			if (time < frames[0]) { // Time is before first frame.
+				switch (blend) {
+				case setup:
+					bone.scaleY = bone.data.scaleY;
+					return;
+				case first:
+					bone.scaleY += (bone.data.scaleY - bone.scaleY) * alpha;
+				}
+				return;
+			}
+
+			float y = getCurveValue(time) * bone.data.scaleY;
+			if (alpha == 1) {
+				if (blend == add)
+					bone.scaleY += y - bone.data.scaleY;
+				else
+					bone.scaleY = y;
+			} else {
+				// Mixing out uses sign of setup or current pose, else use sign of key.
+				float by;
+				if (direction == out) {
+					switch (blend) {
+					case setup:
+						by = bone.data.scaleY;
+						bone.scaleY = by + (Math.abs(y) * Math.signum(by) - by) * alpha;
+						break;
+					case first:
+					case replace:
+						by = bone.scaleY;
+						bone.scaleY = by + (Math.abs(y) * Math.signum(by) - by) * alpha;
+						break;
+					case add:
+						bone.scaleY += (y - bone.data.scaleY) * alpha;
+					}
+				} else {
+					switch (blend) {
+					case setup:
+						by = Math.abs(bone.data.scaleY) * Math.signum(y);
+						bone.scaleY = by + (y - by) * alpha;
+						break;
+					case first:
+					case replace:
+						by = Math.abs(bone.scaleY) * Math.signum(y);
+						bone.scaleY = by + (y - by) * alpha;
+						break;
+					case add:
+						bone.scaleY += (y - bone.data.scaleY) * alpha;
+					}
+				}
+			}
+		}
+	}
+
+	/** Changes a bone's local {@link Bone#getShearX()} and {@link Bone#getShearY()}. */
+	static public class ShearTimeline extends CurveTimeline2 implements BoneTimeline {
+		final int boneIndex;
+
+		public ShearTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, //
+				Property.shearX.ordinal() + "|" + boneIndex, //
+				Property.shearY.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
+		}
+
+		public int getBoneIndex () {
+			return boneIndex;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Bone bone = skeleton.bones.get(boneIndex);
+			if (!bone.active) return;
+
 			float[] frames = this.frames;
 			if (time < frames[0]) { // Time is before first frame.
 				switch (blend) {
@@ -655,21 +952,25 @@ public class Animation {
 			}
 
 			float x, y;
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				x = frames[frames.length + PREV_X];
-				y = frames[frames.length + PREV_Y];
-			} else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				x = frames[frame + PREV_X];
-				y = frames[frame + PREV_Y];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				x = x + (frames[frame + X] - x) * percent;
-				y = y + (frames[frame + Y] - y) * percent;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i / ENTRIES];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				x = frames[i + VALUE1];
+				y = frames[i + VALUE2];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				x += (frames[i + ENTRIES + VALUE1] - x) * t;
+				y += (frames[i + ENTRIES + VALUE2] - y) * t;
+				break;
+			case STEPPED:
+				x = frames[i + VALUE1];
+				y = frames[i + VALUE2];
+				break;
+			default:
+				x = getBezierValue(time, i, VALUE1, curveType - BEZIER);
+				y = getBezierValue(time, i, VALUE2, curveType + BEZIER_SIZE - BEZIER);
 			}
+
 			switch (blend) {
 			case setup:
 				bone.shearX = bone.data.shearX + x * alpha;
@@ -687,47 +988,130 @@ public class Animation {
 		}
 	}
 
+	/** Changes a bone's local {@link Bone#getShearX()}. */
+	static public class ShearXTimeline extends CurveTimeline1 implements BoneTimeline {
+		final int boneIndex;
+
+		public ShearXTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, Property.shearX.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
+		}
+
+		public int getBoneIndex () {
+			return boneIndex;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Bone bone = skeleton.bones.get(boneIndex);
+			if (!bone.active) return;
+
+			float[] frames = this.frames;
+			if (time < frames[0]) { // Time is before first frame.
+				switch (blend) {
+				case setup:
+					bone.shearX = bone.data.shearX;
+					return;
+				case first:
+					bone.shearX += (bone.data.shearX - bone.shearX) * alpha;
+				}
+				return;
+			}
+
+			float x = getCurveValue(time);
+			switch (blend) {
+			case setup:
+				bone.shearX = bone.data.shearX + x * alpha;
+				break;
+			case first:
+			case replace:
+				bone.shearX += (bone.data.shearX + x - bone.shearX) * alpha;
+				break;
+			case add:
+				bone.shearX += x * alpha;
+			}
+		}
+	}
+
+	/** Changes a bone's local {@link Bone#getShearY()}. */
+	static public class ShearYTimeline extends CurveTimeline1 implements BoneTimeline {
+		final int boneIndex;
+
+		public ShearYTimeline (int frameCount, int bezierCount, int boneIndex) {
+			super(frameCount, bezierCount, Property.shearY.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
+		}
+
+		public int getBoneIndex () {
+			return boneIndex;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Bone bone = skeleton.bones.get(boneIndex);
+			if (!bone.active) return;
+
+			float[] frames = this.frames;
+			if (time < frames[0]) { // Time is before first frame.
+				switch (blend) {
+				case setup:
+					bone.shearY = bone.data.shearY;
+					return;
+				case first:
+					bone.shearY += (bone.data.shearY - bone.shearY) * alpha;
+				}
+				return;
+			}
+
+			float y = getCurveValue(time);
+			switch (blend) {
+			case setup:
+				bone.shearY = bone.data.shearY + y * alpha;
+				break;
+			case first:
+			case replace:
+				bone.shearY += (bone.data.shearY + y - bone.shearY) * alpha;
+				break;
+			case add:
+				bone.shearY += y * alpha;
+			}
+		}
+	}
+
 	/** Changes a slot's {@link Slot#getColor()}. */
-	static public class ColorTimeline extends CurveTimeline implements SlotTimeline {
+	static public class RGBATimeline extends CurveTimeline implements SlotTimeline {
 		static public final int ENTRIES = 5;
-		static private final int PREV_TIME = -5, PREV_R = -4, PREV_G = -3, PREV_B = -2, PREV_A = -1;
 		static private final int R = 1, G = 2, B = 3, A = 4;
 
-		int slotIndex;
-		private final float[] frames; // time, r, g, b, a, ...
+		final int slotIndex;
 
-		public ColorTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount * ENTRIES];
+		public RGBATimeline (int frameCount, int bezierCount, int slotIndex) {
+			super(frameCount, bezierCount, //
+				Property.rgb.ordinal() + "|" + slotIndex, //
+				Property.alpha.ordinal() + "|" + slotIndex);
+			this.slotIndex = slotIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.color.ordinal() << 24) + slotIndex;
+		public int getFrameEntries () {
+			return ENTRIES;
 		}
 
-		public void setSlotIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.slotIndex = index;
-		}
-
-		/** The index of the slot in {@link Skeleton#getSlots()} that will be changed. */
 		public int getSlotIndex () {
 			return slotIndex;
 		}
 
-		/** The time in seconds, red, green, blue, and alpha values for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** Sets the time in seconds, red, green, blue, and alpha for the specified key frame. */
-		public void setFrame (int frameIndex, float time, float r, float g, float b, float a) {
-			frameIndex *= ENTRIES;
-			frames[frameIndex] = time;
-			frames[frameIndex + R] = r;
-			frames[frameIndex + G] = g;
-			frames[frameIndex + B] = b;
-			frames[frameIndex + A] = a;
+		/** Sets the time and color for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, float r, float g, float b, float a) {
+			frame *= ENTRIES;
+			frames[frame] = time;
+			frames[frame + R] = r;
+			frames[frame + G] = g;
+			frames[frame + B] = b;
+			frames[frame + A] = a;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -735,14 +1119,16 @@ public class Animation {
 
 			Slot slot = skeleton.slots.get(slotIndex);
 			if (!slot.bone.active) return;
+
 			float[] frames = this.frames;
+			Color color = slot.color;
 			if (time < frames[0]) { // Time is before first frame.
+				Color setup = slot.data.color;
 				switch (blend) {
 				case setup:
-					slot.color.set(slot.data.color);
+					color.set(setup);
 					return;
 				case first:
-					Color color = slot.color, setup = slot.data.color;
 					color.add((setup.r - color.r) * alpha, (setup.g - color.g) * alpha, (setup.b - color.b) * alpha,
 						(setup.a - color.a) * alpha);
 				}
@@ -750,84 +1136,71 @@ public class Animation {
 			}
 
 			float r, g, b, a;
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				int i = frames.length;
-				r = frames[i + PREV_R];
-				g = frames[i + PREV_G];
-				b = frames[i + PREV_B];
-				a = frames[i + PREV_A];
-			} else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				r = frames[frame + PREV_R];
-				g = frames[frame + PREV_G];
-				b = frames[frame + PREV_B];
-				a = frames[frame + PREV_A];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				r += (frames[frame + R] - r) * percent;
-				g += (frames[frame + G] - g) * percent;
-				b += (frames[frame + B] - b) * percent;
-				a += (frames[frame + A] - a) * percent;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i / ENTRIES];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				r = frames[i + R];
+				g = frames[i + G];
+				b = frames[i + B];
+				a = frames[i + A];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				r += (frames[i + ENTRIES + R] - r) * t;
+				g += (frames[i + ENTRIES + G] - g) * t;
+				b += (frames[i + ENTRIES + B] - b) * t;
+				a += (frames[i + ENTRIES + A] - a) * t;
+				break;
+			case STEPPED:
+				r = frames[i + R];
+				g = frames[i + G];
+				b = frames[i + B];
+				a = frames[i + A];
+				break;
+			default:
+				r = getBezierValue(time, i, R, curveType - BEZIER);
+				g = getBezierValue(time, i, G, curveType + BEZIER_SIZE - BEZIER);
+				b = getBezierValue(time, i, B, curveType + BEZIER_SIZE * 2 - BEZIER);
+				a = getBezierValue(time, i, A, curveType + BEZIER_SIZE * 3 - BEZIER);
 			}
+
 			if (alpha == 1)
-				slot.color.set(r, g, b, a);
+				color.set(r, g, b, a);
 			else {
-				Color color = slot.color;
 				if (blend == setup) color.set(slot.data.color);
 				color.add((r - color.r) * alpha, (g - color.g) * alpha, (b - color.b) * alpha, (a - color.a) * alpha);
 			}
 		}
 	}
 
-	/** Changes a slot's {@link Slot#getColor()} and {@link Slot#getDarkColor()} for two color tinting. */
-	static public class TwoColorTimeline extends CurveTimeline implements SlotTimeline {
-		static public final int ENTRIES = 8;
-		static private final int PREV_TIME = -8, PREV_R = -7, PREV_G = -6, PREV_B = -5, PREV_A = -4;
-		static private final int PREV_R2 = -3, PREV_G2 = -2, PREV_B2 = -1;
-		static private final int R = 1, G = 2, B = 3, A = 4, R2 = 5, G2 = 6, B2 = 7;
+	/** Changes the RGB for a slot's {@link Slot#getColor()}. */
+	static public class RGBTimeline extends CurveTimeline implements SlotTimeline {
+		static public final int ENTRIES = 4;
+		static private final int R = 1, G = 2, B = 3;
 
-		int slotIndex;
-		private final float[] frames; // time, r, g, b, a, r2, g2, b2, ...
+		final int slotIndex;
 
-		public TwoColorTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount * ENTRIES];
+		public RGBTimeline (int frameCount, int bezierCount, int slotIndex) {
+			super(frameCount, bezierCount, Property.rgb.ordinal() + "|" + slotIndex);
+			this.slotIndex = slotIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.twoColor.ordinal() << 24) + slotIndex;
+		public int getFrameEntries () {
+			return ENTRIES;
 		}
 
-		public void setSlotIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.slotIndex = index;
-		}
-
-		/** The index of the slot in {@link Skeleton#getSlots()} that will be changed. The {@link Slot#getDarkColor()} must not be
-		 * null. */
 		public int getSlotIndex () {
 			return slotIndex;
 		}
 
-		/** The time in seconds, red, green, blue, and alpha values for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** Sets the time in seconds, light, and dark colors for the specified key frame. */
-		public void setFrame (int frameIndex, float time, float r, float g, float b, float a, float r2, float g2, float b2) {
-			frameIndex *= ENTRIES;
-			frames[frameIndex] = time;
-			frames[frameIndex + R] = r;
-			frames[frameIndex + G] = g;
-			frames[frameIndex + B] = b;
-			frames[frameIndex + A] = a;
-			frames[frameIndex + R2] = r2;
-			frames[frameIndex + G2] = g2;
-			frames[frameIndex + B2] = b2;
+		/** Sets the time and color for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, float r, float g, float b) {
+			frame <<= 2;
+			frames[frame] = time;
+			frames[frame + R] = r;
+			frames[frame + G] = g;
+			frames[frame + B] = b;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -835,114 +1208,274 @@ public class Animation {
 
 			Slot slot = skeleton.slots.get(slotIndex);
 			if (!slot.bone.active) return;
+
 			float[] frames = this.frames;
+			Color color = slot.color;
 			if (time < frames[0]) { // Time is before first frame.
+				Color setup = slot.data.color;
 				switch (blend) {
 				case setup:
-					slot.color.set(slot.data.color);
-					slot.darkColor.set(slot.data.darkColor);
+					color.r = setup.r;
+					color.g = setup.g;
+					color.b = setup.b;
 					return;
 				case first:
-					Color light = slot.color, dark = slot.darkColor, setupLight = slot.data.color, setupDark = slot.data.darkColor;
+					color.r += (setup.r - color.r) * alpha;
+					color.g += (setup.g - color.g) * alpha;
+					color.b += (setup.b - color.b) * alpha;
+				}
+				return;
+			}
+
+			float r, g, b;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i >> 2];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				r = frames[i + R];
+				g = frames[i + G];
+				b = frames[i + B];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				r += (frames[i + ENTRIES + R] - r) * t;
+				g += (frames[i + ENTRIES + G] - g) * t;
+				b += (frames[i + ENTRIES + B] - b) * t;
+				break;
+			case STEPPED:
+				r = frames[i + R];
+				g = frames[i + G];
+				b = frames[i + B];
+				break;
+			default:
+				r = getBezierValue(time, i, R, curveType - BEZIER);
+				g = getBezierValue(time, i, G, curveType + BEZIER_SIZE - BEZIER);
+				b = getBezierValue(time, i, B, curveType + BEZIER_SIZE * 2 - BEZIER);
+			}
+
+			if (alpha == 1) {
+				color.r = r;
+				color.g = g;
+				color.b = b;
+			} else {
+				if (blend == setup) {
+					Color setup = slot.data.color;
+					color.r = setup.r;
+					color.g = setup.g;
+					color.b = setup.b;
+				}
+				color.r += (r - color.r) * alpha;
+				color.g += (g - color.g) * alpha;
+				color.b += (b - color.b) * alpha;
+			}
+		}
+	}
+
+	/** Changes the alpha for a slot's {@link Slot#getColor()}. */
+	static public class AlphaTimeline extends CurveTimeline1 implements SlotTimeline {
+		final int slotIndex;
+
+		public AlphaTimeline (int frameCount, int bezierCount, int slotIndex) {
+			super(frameCount, bezierCount, Property.alpha.ordinal() + "|" + slotIndex);
+			this.slotIndex = slotIndex;
+		}
+
+		public int getSlotIndex () {
+			return slotIndex;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Slot slot = skeleton.slots.get(slotIndex);
+			if (!slot.bone.active) return;
+
+			float[] frames = this.frames;
+			Color color = slot.color;
+			if (time < frames[0]) { // Time is before first frame.
+				Color setup = slot.data.color;
+				switch (blend) {
+				case setup:
+					color.a = setup.a;
+					return;
+				case first:
+					color.a += (setup.a - color.a) * alpha;
+				}
+				return;
+			}
+
+			float a = getCurveValue(time);
+			if (alpha == 1)
+				color.a = a;
+			else {
+				if (blend == setup) color.a = slot.data.color.a;
+				color.a += (a - color.a) * alpha;
+			}
+		}
+	}
+
+	/** Changes a slot's {@link Slot#getColor()} and {@link Slot#getDarkColor()} for two color tinting. */
+	static public class RGBA2Timeline extends CurveTimeline implements SlotTimeline {
+		static public final int ENTRIES = 8;
+		static private final int R = 1, G = 2, B = 3, A = 4, R2 = 5, G2 = 6, B2 = 7;
+
+		final int slotIndex;
+
+		public RGBA2Timeline (int frameCount, int bezierCount, int slotIndex) {
+			super(frameCount, bezierCount, //
+				Property.rgb.ordinal() + "|" + slotIndex, //
+				Property.alpha.ordinal() + "|" + slotIndex, //
+				Property.rgb2.ordinal() + "|" + slotIndex);
+			this.slotIndex = slotIndex;
+		}
+
+		public int getFrameEntries () {
+			return ENTRIES;
+		}
+
+		/** The index of the slot in {@link Skeleton#getSlots()} that will be changed when this timeline is applied. The
+		 * {@link Slot#getDarkColor()} must not be null. */
+		public int getSlotIndex () {
+			return slotIndex;
+		}
+
+		/** Sets the time, light color, and dark color for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, float r, float g, float b, float a, float r2, float g2, float b2) {
+			frame <<= 3;
+			frames[frame] = time;
+			frames[frame + R] = r;
+			frames[frame + G] = g;
+			frames[frame + B] = b;
+			frames[frame + A] = a;
+			frames[frame + R2] = r2;
+			frames[frame + G2] = g2;
+			frames[frame + B2] = b2;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Slot slot = skeleton.slots.get(slotIndex);
+			if (!slot.bone.active) return;
+
+			float[] frames = this.frames;
+			Color light = slot.color, dark = slot.darkColor;
+			if (time < frames[0]) { // Time is before first frame.
+				Color setupLight = slot.data.color, setupDark = slot.data.darkColor;
+				switch (blend) {
+				case setup:
+					light.set(setupLight);
+					dark.r = setupDark.r;
+					dark.g = setupDark.g;
+					dark.b = setupDark.b;
+					return;
+				case first:
 					light.add((setupLight.r - light.r) * alpha, (setupLight.g - light.g) * alpha, (setupLight.b - light.b) * alpha,
 						(setupLight.a - light.a) * alpha);
-					dark.add((setupDark.r - dark.r) * alpha, (setupDark.g - dark.g) * alpha, (setupDark.b - dark.b) * alpha, 0);
+					dark.r += (setupDark.r - dark.r) * alpha;
+					dark.g += (setupDark.g - dark.g) * alpha;
+					dark.b += (setupDark.b - dark.b) * alpha;
 				}
 				return;
 			}
 
 			float r, g, b, a, r2, g2, b2;
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				int i = frames.length;
-				r = frames[i + PREV_R];
-				g = frames[i + PREV_G];
-				b = frames[i + PREV_B];
-				a = frames[i + PREV_A];
-				r2 = frames[i + PREV_R2];
-				g2 = frames[i + PREV_G2];
-				b2 = frames[i + PREV_B2];
-			} else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				r = frames[frame + PREV_R];
-				g = frames[frame + PREV_G];
-				b = frames[frame + PREV_B];
-				a = frames[frame + PREV_A];
-				r2 = frames[frame + PREV_R2];
-				g2 = frames[frame + PREV_G2];
-				b2 = frames[frame + PREV_B2];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				r += (frames[frame + R] - r) * percent;
-				g += (frames[frame + G] - g) * percent;
-				b += (frames[frame + B] - b) * percent;
-				a += (frames[frame + A] - a) * percent;
-				r2 += (frames[frame + R2] - r2) * percent;
-				g2 += (frames[frame + G2] - g2) * percent;
-				b2 += (frames[frame + B2] - b2) * percent;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i >> 3];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				r = frames[i + R];
+				g = frames[i + G];
+				b = frames[i + B];
+				a = frames[i + A];
+				r2 = frames[i + R2];
+				g2 = frames[i + G2];
+				b2 = frames[i + B2];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				r += (frames[i + ENTRIES + R] - r) * t;
+				g += (frames[i + ENTRIES + G] - g) * t;
+				b += (frames[i + ENTRIES + B] - b) * t;
+				a += (frames[i + ENTRIES + A] - a) * t;
+				r2 += (frames[i + ENTRIES + R2] - r2) * t;
+				g2 += (frames[i + ENTRIES + G2] - g2) * t;
+				b2 += (frames[i + ENTRIES + B2] - b2) * t;
+				break;
+			case STEPPED:
+				r = frames[i + R];
+				g = frames[i + G];
+				b = frames[i + B];
+				a = frames[i + A];
+				r2 = frames[i + R2];
+				g2 = frames[i + G2];
+				b2 = frames[i + B2];
+				break;
+			default:
+				r = getBezierValue(time, i, R, curveType - BEZIER);
+				g = getBezierValue(time, i, G, curveType + BEZIER_SIZE - BEZIER);
+				b = getBezierValue(time, i, B, curveType + BEZIER_SIZE * 2 - BEZIER);
+				a = getBezierValue(time, i, A, curveType + BEZIER_SIZE * 3 - BEZIER);
+				r2 = getBezierValue(time, i, R2, curveType + BEZIER_SIZE * 4 - BEZIER);
+				g2 = getBezierValue(time, i, G2, curveType + BEZIER_SIZE * 5 - BEZIER);
+				b2 = getBezierValue(time, i, B2, curveType + BEZIER_SIZE * 6 - BEZIER);
 			}
+
 			if (alpha == 1) {
-				slot.color.set(r, g, b, a);
-				slot.darkColor.set(r2, g2, b2, 1);
+				light.set(r, g, b, a);
+				dark.r = r2;
+				dark.g = g2;
+				dark.b = b2;
 			} else {
-				Color light = slot.color, dark = slot.darkColor;
 				if (blend == setup) {
 					light.set(slot.data.color);
-					dark.set(slot.data.darkColor);
+					Color setupDark = slot.data.darkColor;
+					dark.r = setupDark.r;
+					dark.g = setupDark.g;
+					dark.b = setupDark.b;
 				}
 				light.add((r - light.r) * alpha, (g - light.g) * alpha, (b - light.b) * alpha, (a - light.a) * alpha);
-				dark.add((r2 - dark.r) * alpha, (g2 - dark.g) * alpha, (b2 - dark.b) * alpha, 0);
+				dark.r += (r2 - dark.r) * alpha;
+				dark.g += (g2 - dark.g) * alpha;
+				dark.b += (b2 - dark.b) * alpha;
 			}
 		}
 	}
 
-	/** Changes a slot's {@link Slot#getAttachment()}. */
-	static public class AttachmentTimeline implements SlotTimeline {
-		int slotIndex;
-		final float[] frames; // time, ...
-		final String[] attachmentNames;
+	/** Changes the RGB for a slot's {@link Slot#getColor()} and {@link Slot#getDarkColor()} for two color tinting. */
+	static public class RGB2Timeline extends CurveTimeline implements SlotTimeline {
+		static public final int ENTRIES = 7;
+		static private final int R = 1, G = 2, B = 3, R2 = 4, G2 = 5, B2 = 6;
 
-		public AttachmentTimeline (int frameCount) {
-			if (frameCount <= 0) throw new IllegalArgumentException("frameCount must be > 0: " + frameCount);
-			frames = new float[frameCount];
-			attachmentNames = new String[frameCount];
+		final int slotIndex;
+
+		public RGB2Timeline (int frameCount, int bezierCount, int slotIndex) {
+			super(frameCount, bezierCount, //
+				Property.rgb.ordinal() + "|" + slotIndex, //
+				Property.rgb2.ordinal() + "|" + slotIndex);
+			this.slotIndex = slotIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.attachment.ordinal() << 24) + slotIndex;
+		public int getFrameEntries () {
+			return ENTRIES;
 		}
 
-		/** The number of key frames for this timeline. */
-		public int getFrameCount () {
-			return frames.length;
-		}
-
-		public void setSlotIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.slotIndex = index;
-		}
-
-		/** The index of the slot in {@link Skeleton#getSlots()} that will be changed. */
+		/** The index of the slot in {@link Skeleton#getSlots()} that will be changed when this timeline is applied. The
+		 * {@link Slot#getDarkColor()} must not be null. */
 		public int getSlotIndex () {
 			return slotIndex;
 		}
 
-		/** The time in seconds for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** The attachment name for each key frame. May contain null values to clear the attachment. */
-		public String[] getAttachmentNames () {
-			return attachmentNames;
-		}
-
-		/** Sets the time in seconds and the attachment name for the specified key frame. */
-		public void setFrame (int frameIndex, float time, String attachmentName) {
-			frames[frameIndex] = time;
-			attachmentNames[frameIndex] = attachmentName;
+		/** Sets the time, light color, and dark color for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, float r, float g, float b, float r2, float g2, float b2) {
+			frame *= ENTRIES;
+			frames[frame] = time;
+			frames[frame + R] = r;
+			frames[frame + G] = g;
+			frames[frame + B] = b;
+			frames[frame + R2] = r2;
+			frames[frame + G2] = g2;
+			frames[frame + B2] = b2;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -950,24 +1483,143 @@ public class Animation {
 
 			Slot slot = skeleton.slots.get(slotIndex);
 			if (!slot.bone.active) return;
+
+			float[] frames = this.frames;
+			Color light = slot.color, dark = slot.darkColor;
+			if (time < frames[0]) { // Time is before first frame.
+				Color setupLight = slot.data.color, setupDark = slot.data.darkColor;
+				switch (blend) {
+				case setup:
+					light.r = setupLight.r;
+					light.g = setupLight.g;
+					light.b = setupLight.b;
+					dark.r = setupDark.r;
+					dark.g = setupDark.g;
+					dark.b = setupDark.b;
+					return;
+				case first:
+					light.r += (setupLight.r - light.r) * alpha;
+					light.g += (setupLight.g - light.g) * alpha;
+					light.b += (setupLight.b - light.b) * alpha;
+					dark.r += (setupDark.r - dark.r) * alpha;
+					dark.g += (setupDark.g - dark.g) * alpha;
+					dark.b += (setupDark.b - dark.b) * alpha;
+				}
+				return;
+			}
+
+			float r, g, b, r2, g2, b2;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i / ENTRIES];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				r = frames[i + R];
+				g = frames[i + G];
+				b = frames[i + B];
+				r2 = frames[i + R2];
+				g2 = frames[i + G2];
+				b2 = frames[i + B2];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				r += (frames[i + ENTRIES + R] - r) * t;
+				g += (frames[i + ENTRIES + G] - g) * t;
+				b += (frames[i + ENTRIES + B] - b) * t;
+				r2 += (frames[i + ENTRIES + R2] - r2) * t;
+				g2 += (frames[i + ENTRIES + G2] - g2) * t;
+				b2 += (frames[i + ENTRIES + B2] - b2) * t;
+				break;
+			case STEPPED:
+				r = frames[i + R];
+				g = frames[i + G];
+				b = frames[i + B];
+				r2 = frames[i + R2];
+				g2 = frames[i + G2];
+				b2 = frames[i + B2];
+				break;
+			default:
+				r = getBezierValue(time, i, R, curveType - BEZIER);
+				g = getBezierValue(time, i, G, curveType + BEZIER_SIZE - BEZIER);
+				b = getBezierValue(time, i, B, curveType + BEZIER_SIZE * 2 - BEZIER);
+				r2 = getBezierValue(time, i, R2, curveType + BEZIER_SIZE * 3 - BEZIER);
+				g2 = getBezierValue(time, i, G2, curveType + BEZIER_SIZE * 4 - BEZIER);
+				b2 = getBezierValue(time, i, B2, curveType + BEZIER_SIZE * 5 - BEZIER);
+			}
+
+			if (alpha == 1) {
+				light.r = r;
+				light.g = g;
+				light.b = b;
+				dark.r = r2;
+				dark.g = g2;
+				dark.b = b2;
+			} else {
+				if (blend == setup) {
+					Color setupLight = slot.data.color, setupDark = slot.data.darkColor;
+					light.r = setupLight.r;
+					light.g = setupLight.g;
+					light.b = setupLight.b;
+					dark.r = setupDark.r;
+					dark.g = setupDark.g;
+					dark.b = setupDark.b;
+				}
+				light.r += (r - light.r) * alpha;
+				light.g += (g - light.g) * alpha;
+				light.b += (b - light.b) * alpha;
+				dark.r += (r2 - dark.r) * alpha;
+				dark.g += (g2 - dark.g) * alpha;
+				dark.b += (b2 - dark.b) * alpha;
+			}
+		}
+	}
+
+	/** Changes a slot's {@link Slot#getAttachment()}. */
+	static public class AttachmentTimeline extends Timeline implements SlotTimeline {
+		final int slotIndex;
+		final String[] attachmentNames;
+
+		public AttachmentTimeline (int frameCount, int slotIndex) {
+			super(frameCount, Property.attachment.ordinal() + "|" + slotIndex);
+			this.slotIndex = slotIndex;
+			attachmentNames = new String[frameCount];
+		}
+
+		public int getFrameCount () {
+			return frames.length;
+		}
+
+		public int getSlotIndex () {
+			return slotIndex;
+		}
+
+		/** The attachment name for each frame. May contain null values to clear the attachment. */
+		public String[] getAttachmentNames () {
+			return attachmentNames;
+		}
+
+		/** Sets the time and attachment name for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, String attachmentName) {
+			frames[frame] = time;
+			attachmentNames[frame] = attachmentName;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Slot slot = skeleton.slots.get(slotIndex);
+			if (!slot.bone.active) return;
+
 			if (direction == out) {
 				if (blend == setup) setAttachment(skeleton, slot, slot.data.attachmentName);
 				return;
 			}
 
-			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < this.frames[0]) { // Time is before first frame.
 				if (blend == setup || blend == first) setAttachment(skeleton, slot, slot.data.attachmentName);
 				return;
 			}
 
-			int frameIndex;
-			if (time >= frames[frames.length - 1]) // Time is after last frame.
-				frameIndex = frames.length - 1;
-			else
-				frameIndex = binarySearch(frames, time) - 1;
-
-			setAttachment(skeleton, slot, attachmentNames[frameIndex]);
+			setAttachment(skeleton, slot, attachmentNames[search(this.frames, time)]);
 		}
 
 		private void setAttachment (Skeleton skeleton, Slot slot, String attachmentName) {
@@ -977,55 +1629,96 @@ public class Animation {
 
 	/** Changes a slot's {@link Slot#getDeform()} to deform a {@link VertexAttachment}. */
 	static public class DeformTimeline extends CurveTimeline implements SlotTimeline {
-		int slotIndex;
-		VertexAttachment attachment;
-		private final float[] frames; // time, ...
-		private final float[][] frameVertices;
+		final int slotIndex;
+		final VertexAttachment attachment;
+		private final float[][] vertices;
 
-		public DeformTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount];
-			frameVertices = new float[frameCount][];
+		public DeformTimeline (int frameCount, int bezierCount, int slotIndex, VertexAttachment attachment) {
+			super(frameCount, bezierCount, Property.deform.ordinal() + "|" + slotIndex + "|" + attachment.getId());
+			this.slotIndex = slotIndex;
+			this.attachment = attachment;
+			vertices = new float[frameCount][];
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.deform.ordinal() << 27) + attachment.getId() + slotIndex;
+		public int getFrameCount () {
+			return frames.length;
 		}
 
-		public void setSlotIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.slotIndex = index;
-		}
-
-		/** The index of the slot in {@link Skeleton#getSlots()} that will be changed. */
 		public int getSlotIndex () {
 			return slotIndex;
 		}
 
-		public void setAttachment (VertexAttachment attachment) {
-			this.attachment = attachment;
-		}
-
-		/** The attachment that will be deformed. */
+		/** The attachment that will be deformed.
+		 * <p>
+		 * See {@link VertexAttachment#getTimelineAttachment()}. */
 		public VertexAttachment getAttachment () {
 			return attachment;
 		}
 
-		/** The time in seconds for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** The vertices for each key frame. */
+		/** The vertices for each frame. */
 		public float[][] getVertices () {
-			return frameVertices;
+			return vertices;
 		}
 
-		/** Sets the time in seconds and the vertices for the specified key frame.
+		/** Sets the time and vertices for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds.
 		 * @param vertices Vertex positions for an unweighted VertexAttachment, or deform offsets if it has weights. */
-		public void setFrame (int frameIndex, float time, float[] vertices) {
-			frames[frameIndex] = time;
-			frameVertices[frameIndex] = vertices;
+		public void setFrame (int frame, float time, float[] vertices) {
+			frames[frame] = time;
+			this.vertices[frame] = vertices;
+		}
+
+		/** @param value1 Ignored (0 is used for a deform timeline).
+		 * @param value2 Ignored (1 is used for a deform timeline). */
+		public void setBezier (int bezier, int frame, int value, float time1, float value1, float cx1, float cy1, float cx2,
+			float cy2, float time2, float value2) {
+			float[] curves = this.curves;
+			int i = getFrameCount() + bezier * BEZIER_SIZE;
+			if (value == 0) curves[frame] = BEZIER + i;
+			float tmpx = (time1 - cx1 * 2 + cx2) * 0.03f, tmpy = cy2 * 0.03f - cy1 * 0.06f;
+			float dddx = ((cx1 - cx2) * 3 - time1 + time2) * 0.006f, dddy = (cy1 - cy2 + 0.33333333f) * 0.018f;
+			float ddx = tmpx * 2 + dddx, ddy = tmpy * 2 + dddy;
+			float dx = (cx1 - time1) * 0.3f + tmpx + dddx * 0.16666667f, dy = cy1 * 0.3f + tmpy + dddy * 0.16666667f;
+			float x = time1 + dx, y = dy;
+			for (int n = i + BEZIER_SIZE; i < n; i += 2) {
+				curves[i] = x;
+				curves[i + 1] = y;
+				dx += ddx;
+				dy += ddy;
+				ddx += dddx;
+				ddy += dddy;
+				x += dx;
+				y += dy;
+			}
+		}
+
+		/** Returns the interpolated percentage for the specified time.
+		 * @param frame The frame before <code>time</code>. */
+		private float getCurvePercent (float time, int frame) {
+			float[] curves = this.curves;
+			int i = (int)curves[frame];
+			switch (i) {
+			case LINEAR:
+				float x = frames[frame];
+				return (time - x) / (frames[frame + getFrameEntries()] - x);
+			case STEPPED:
+				return 0;
+			}
+			i -= BEZIER;
+			if (curves[i] > time) {
+				float x = frames[frame];
+				return curves[i + 1] * (time - x) / (curves[i] - x);
+			}
+			int n = i + BEZIER_SIZE;
+			for (i += 2; i < n; i += 2) {
+				if (curves[i] >= time) {
+					float x = curves[i - 2], y = curves[i - 1];
+					return y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
+				}
+			}
+			float x = curves[n - 2], y = curves[n - 1];
+			return y + (1 - y) * (time - x) / (frames[frame + getFrameEntries()] - x);
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -1035,17 +1728,16 @@ public class Animation {
 			if (!slot.bone.active) return;
 			Attachment slotAttachment = slot.attachment;
 			if (!(slotAttachment instanceof VertexAttachment)
-				|| ((VertexAttachment)slotAttachment).getDeformAttachment() != attachment) return;
+				|| ((VertexAttachment)slotAttachment).getTimelineAttachment() != attachment) return;
 
-			FloatArray deformArray = slot.getDeform();
+			FloatArray deformArray = slot.deform;
 			if (deformArray.size == 0) blend = setup;
 
-			float[][] frameVertices = this.frameVertices;
-			int vertexCount = frameVertices[0].length;
+			float[][] vertices = this.vertices;
+			int vertexCount = vertices[0].length;
 
 			float[] frames = this.frames;
 			if (time < frames[0]) { // Time is before first frame.
-				VertexAttachment vertexAttachment = (VertexAttachment)slotAttachment;
 				switch (blend) {
 				case setup:
 					deformArray.clear();
@@ -1056,6 +1748,7 @@ public class Animation {
 						return;
 					}
 					float[] deform = deformArray.setSize(vertexCount);
+					VertexAttachment vertexAttachment = (VertexAttachment)slotAttachment;
 					if (vertexAttachment.getBones() == null) {
 						// Unweighted vertex positions.
 						float[] setupVertices = vertexAttachment.getVertices();
@@ -1074,7 +1767,7 @@ public class Animation {
 			float[] deform = deformArray.setSize(vertexCount);
 
 			if (time >= frames[frames.length - 1]) { // Time is after last frame.
-				float[] lastVertices = frameVertices[frames.length - 1];
+				float[] lastVertices = vertices[frames.length - 1];
 				if (alpha == 1) {
 					if (blend == add) {
 						VertexAttachment vertexAttachment = (VertexAttachment)slotAttachment;
@@ -1133,12 +1826,10 @@ public class Animation {
 				return;
 			}
 
-			// Interpolate between the previous frame and the current frame.
-			int frame = binarySearch(frames, time);
-			float[] prevVertices = frameVertices[frame - 1];
-			float[] nextVertices = frameVertices[frame];
-			float frameTime = frames[frame];
-			float percent = getCurvePercent(frame - 1, 1 - (time - frameTime) / (frames[frame - 1] - frameTime));
+			int frame = search(frames, time);
+			float percent = getCurvePercent(time, frame);
+			float[] prevVertices = vertices[frame];
+			float[] nextVertices = vertices[frame + 1];
 
 			if (alpha == 1) {
 				if (blend == add) {
@@ -1214,46 +1905,38 @@ public class Animation {
 	}
 
 	/** Fires an {@link Event} when specific animation times are reached. */
-	static public class EventTimeline implements Timeline {
-		private final float[] frames; // time, ...
+	static public class EventTimeline extends Timeline {
+		static private final String[] propertyIds = {Integer.toString(Property.event.ordinal())};
+
 		private final Event[] events;
 
 		public EventTimeline (int frameCount) {
-			if (frameCount <= 0) throw new IllegalArgumentException("frameCount must be > 0: " + frameCount);
-			frames = new float[frameCount];
+			super(frameCount, propertyIds);
 			events = new Event[frameCount];
 		}
 
-		public int getPropertyId () {
-			return TimelineType.event.ordinal() << 24;
-		}
-
-		/** The number of key frames for this timeline. */
 		public int getFrameCount () {
 			return frames.length;
 		}
 
-		/** The time in seconds for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** The event for each key frame. */
+		/** The event for each frame. */
 		public Event[] getEvents () {
 			return events;
 		}
 
-		/** Sets the time in seconds and the event for the specified key frame. */
-		public void setFrame (int frameIndex, Event event) {
-			frames[frameIndex] = event.time;
-			events[frameIndex] = event;
+		/** Sets the time and event for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive. */
+		public void setFrame (int frame, Event event) {
+			frames[frame] = event.time;
+			events[frame] = event;
 		}
 
 		/** Fires events for frames > <code>lastTime</code> and <= <code>time</code>. */
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> firedEvents, float alpha, MixBlend blend,
-			MixDirection direction) {
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> firedEvents, float alpha,
+			MixBlend blend, MixDirection direction) {
 
 			if (firedEvents == null) return;
+
 			float[] frames = this.frames;
 			int frameCount = frames.length;
 
@@ -1264,88 +1947,74 @@ public class Animation {
 				return;
 			if (time < frames[0]) return; // Time is before first frame.
 
-			int frame;
+			int i;
 			if (lastTime < frames[0])
-				frame = 0;
+				i = 0;
 			else {
-				frame = binarySearch(frames, lastTime);
-				float frameTime = frames[frame];
-				while (frame > 0) { // Fire multiple events with the same frame.
-					if (frames[frame - 1] != frameTime) break;
-					frame--;
+				i = search(frames, lastTime) + 1;
+				float frameTime = frames[i];
+				while (i > 0) { // Fire multiple events with the same frame.
+					if (frames[i - 1] != frameTime) break;
+					i--;
 				}
 			}
-			for (; frame < frameCount && time >= frames[frame]; frame++)
-				firedEvents.add(events[frame]);
+			for (; i < frameCount && time >= frames[i]; i++)
+				firedEvents.add(events[i]);
 		}
 	}
 
 	/** Changes a skeleton's {@link Skeleton#getDrawOrder()}. */
-	static public class DrawOrderTimeline implements Timeline {
-		private final float[] frames; // time, ...
+	static public class DrawOrderTimeline extends Timeline {
+		static private final String[] propertyIds = {Integer.toString(Property.drawOrder.ordinal())};
+
 		private final int[][] drawOrders;
 
 		public DrawOrderTimeline (int frameCount) {
-			if (frameCount <= 0) throw new IllegalArgumentException("frameCount must be > 0: " + frameCount);
-			frames = new float[frameCount];
+			super(frameCount, propertyIds);
 			drawOrders = new int[frameCount][];
 		}
 
-		public int getPropertyId () {
-			return TimelineType.drawOrder.ordinal() << 24;
-		}
-
-		/** The number of key frames for this timeline. */
 		public int getFrameCount () {
 			return frames.length;
 		}
 
-		/** The time in seconds for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** The draw order for each key frame. See {@link #setFrame(int, float, int[])}. */
+		/** The draw order for each frame. See {@link #setFrame(int, float, int[])}. */
 		public int[][] getDrawOrders () {
 			return drawOrders;
 		}
 
-		/** Sets the time in seconds and the draw order for the specified key frame.
-		 * @param drawOrder For each slot in {@link Skeleton#slots}, the index of the new draw order. May be null to use setup pose
-		 *           draw order. */
-		public void setFrame (int frameIndex, float time, int[] drawOrder) {
-			frames[frameIndex] = time;
-			drawOrders[frameIndex] = drawOrder;
+		/** Sets the time and draw order for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds.
+		 * @param drawOrder For each slot in {@link Skeleton#slots}, the index of the slot in the new draw order. May be null to use
+		 *           setup pose draw order. */
+		public void setFrame (int frame, float time, int[] drawOrder) {
+			frames[frame] = time;
+			drawOrders[frame] = drawOrder;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
-			Array<Slot> drawOrder = skeleton.drawOrder;
-			Array<Slot> slots = skeleton.slots;
 			if (direction == out) {
-				if (blend == setup) arraycopy(slots.items, 0, drawOrder.items, 0, slots.size);
+				if (blend == setup) arraycopy(skeleton.slots.items, 0, skeleton.drawOrder.items, 0, skeleton.slots.size);
 				return;
 			}
 
-			float[] frames = this.frames;
 			if (time < frames[0]) { // Time is before first frame.
-				if (blend == setup || blend == first) arraycopy(slots.items, 0, drawOrder.items, 0, slots.size);
+				if (blend == setup || blend == first)
+					arraycopy(skeleton.slots.items, 0, skeleton.drawOrder.items, 0, skeleton.slots.size);
 				return;
 			}
 
-			int frame;
-			if (time >= frames[frames.length - 1]) // Time is after last frame.
-				frame = frames.length - 1;
-			else
-				frame = binarySearch(frames, time) - 1;
-
-			int[] drawOrderToSetupIndex = drawOrders[frame];
+			int[] drawOrderToSetupIndex = drawOrders[search(frames, time)];
 			if (drawOrderToSetupIndex == null)
-				arraycopy(slots.items, 0, drawOrder.items, 0, slots.size);
+				arraycopy(skeleton.slots.items, 0, skeleton.drawOrder.items, 0, skeleton.slots.size);
 			else {
+				Object[] slots = skeleton.slots.items;
+				Object[] drawOrder = skeleton.drawOrder.items;
 				for (int i = 0, n = drawOrderToSetupIndex.length; i < n; i++)
-					drawOrder.set(i, slots.get(drawOrderToSetupIndex[i]));
+					drawOrder[i] = slots[drawOrderToSetupIndex[i]];
 			}
 		}
 	}
@@ -1354,47 +2023,38 @@ public class Animation {
 	 * {@link IkConstraint#getBendDirection()}, {@link IkConstraint#getStretch()}, and {@link IkConstraint#getCompress()}. */
 	static public class IkConstraintTimeline extends CurveTimeline {
 		static public final int ENTRIES = 6;
-		static private final int PREV_TIME = -6, PREV_MIX = -5, PREV_SOFTNESS = -4, PREV_BEND_DIRECTION = -3, PREV_COMPRESS = -2,
-			PREV_STRETCH = -1;
 		static private final int MIX = 1, SOFTNESS = 2, BEND_DIRECTION = 3, COMPRESS = 4, STRETCH = 5;
 
-		int ikConstraintIndex;
-		private final float[] frames; // time, mix, softness, bendDirection, compress, stretch, ...
+		final int ikConstraintIndex;
 
-		public IkConstraintTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount * ENTRIES];
+		public IkConstraintTimeline (int frameCount, int bezierCount, int ikConstraintIndex) {
+			super(frameCount, bezierCount, Property.ikConstraint.ordinal() + "|" + ikConstraintIndex);
+			this.ikConstraintIndex = ikConstraintIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.ikConstraint.ordinal() << 24) + ikConstraintIndex;
+		public int getFrameEntries () {
+			return ENTRIES;
 		}
 
-		public void setIkConstraintIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.ikConstraintIndex = index;
-		}
-
-		/** The index of the IK constraint slot in {@link Skeleton#getIkConstraints()} that will be changed. */
+		/** The index of the IK constraint slot in {@link Skeleton#getIkConstraints()} that will be changed when this timeline is
+		 * applied. */
 		public int getIkConstraintIndex () {
 			return ikConstraintIndex;
 		}
 
-		/** The time in seconds, mix, softness, bend direction, compress, and stretch for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** Sets the time in seconds, mix, softness, bend direction, compress, and stretch for the specified key frame. */
-		public void setFrame (int frameIndex, float time, float mix, float softness, int bendDirection, boolean compress,
+		/** Sets the time, mix, softness, bend direction, compress, and stretch for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds.
+		 * @param bendDirection 1 or -1. */
+		public void setFrame (int frame, float time, float mix, float softness, int bendDirection, boolean compress,
 			boolean stretch) {
-			frameIndex *= ENTRIES;
-			frames[frameIndex] = time;
-			frames[frameIndex + MIX] = mix;
-			frames[frameIndex + SOFTNESS] = softness;
-			frames[frameIndex + BEND_DIRECTION] = bendDirection;
-			frames[frameIndex + COMPRESS] = compress ? 1 : 0;
-			frames[frameIndex + STRETCH] = stretch ? 1 : 0;
+			frame *= ENTRIES;
+			frames[frame] = time;
+			frames[frame + MIX] = mix;
+			frames[frame + SOFTNESS] = softness;
+			frames[frame + BEND_DIRECTION] = bendDirection;
+			frames[frame + COMPRESS] = compress ? 1 : 0;
+			frames[frame + STRETCH] = stretch ? 1 : 0;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -1402,6 +2062,7 @@ public class Animation {
 
 			IkConstraint constraint = skeleton.ikConstraints.get(ikConstraintIndex);
 			if (!constraint.active) return;
+
 			float[] frames = this.frames;
 			if (time < frames[0]) { // Time is before first frame.
 				switch (blend) {
@@ -1422,106 +2083,87 @@ public class Animation {
 				return;
 			}
 
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				if (blend == setup) {
-					constraint.mix = constraint.data.mix + (frames[frames.length + PREV_MIX] - constraint.data.mix) * alpha;
-					constraint.softness = constraint.data.softness
-						+ (frames[frames.length + PREV_SOFTNESS] - constraint.data.softness) * alpha;
-					if (direction == out) {
-						constraint.bendDirection = constraint.data.bendDirection;
-						constraint.compress = constraint.data.compress;
-						constraint.stretch = constraint.data.stretch;
-					} else {
-						constraint.bendDirection = (int)frames[frames.length + PREV_BEND_DIRECTION];
-						constraint.compress = frames[frames.length + PREV_COMPRESS] != 0;
-						constraint.stretch = frames[frames.length + PREV_STRETCH] != 0;
-					}
-				} else {
-					constraint.mix += (frames[frames.length + PREV_MIX] - constraint.mix) * alpha;
-					constraint.softness += (frames[frames.length + PREV_SOFTNESS] - constraint.softness) * alpha;
-					if (direction == in) {
-						constraint.bendDirection = (int)frames[frames.length + PREV_BEND_DIRECTION];
-						constraint.compress = frames[frames.length + PREV_COMPRESS] != 0;
-						constraint.stretch = frames[frames.length + PREV_STRETCH] != 0;
-					}
-				}
-				return;
+			float mix, softness;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i / ENTRIES];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				mix = frames[i + MIX];
+				softness = frames[i + SOFTNESS];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				mix += (frames[i + ENTRIES + MIX] - mix) * t;
+				softness += (frames[i + ENTRIES + SOFTNESS] - softness) * t;
+				break;
+			case STEPPED:
+				mix = frames[i + MIX];
+				softness = frames[i + SOFTNESS];
+				break;
+			default:
+				mix = getBezierValue(time, i, MIX, curveType - BEZIER);
+				softness = getBezierValue(time, i, SOFTNESS, curveType + BEZIER_SIZE - BEZIER);
 			}
 
-			// Interpolate between the previous frame and the current frame.
-			int frame = binarySearch(frames, time, ENTRIES);
-			float mix = frames[frame + PREV_MIX];
-			float softness = frames[frame + PREV_SOFTNESS];
-			float frameTime = frames[frame];
-			float percent = getCurvePercent(frame / ENTRIES - 1, 1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
 			if (blend == setup) {
-				constraint.mix = constraint.data.mix + (mix + (frames[frame + MIX] - mix) * percent - constraint.data.mix) * alpha;
-				constraint.softness = constraint.data.softness
-					+ (softness + (frames[frame + SOFTNESS] - softness) * percent - constraint.data.softness) * alpha;
+				constraint.mix = constraint.data.mix + (mix - constraint.data.mix) * alpha;
+				constraint.softness = constraint.data.softness + (softness - constraint.data.softness) * alpha;
 				if (direction == out) {
 					constraint.bendDirection = constraint.data.bendDirection;
 					constraint.compress = constraint.data.compress;
 					constraint.stretch = constraint.data.stretch;
 				} else {
-					constraint.bendDirection = (int)frames[frame + PREV_BEND_DIRECTION];
-					constraint.compress = frames[frame + PREV_COMPRESS] != 0;
-					constraint.stretch = frames[frame + PREV_STRETCH] != 0;
+					constraint.bendDirection = (int)frames[i + BEND_DIRECTION];
+					constraint.compress = frames[i + COMPRESS] != 0;
+					constraint.stretch = frames[i + STRETCH] != 0;
 				}
 			} else {
-				constraint.mix += (mix + (frames[frame + MIX] - mix) * percent - constraint.mix) * alpha;
-				constraint.softness += (softness + (frames[frame + SOFTNESS] - softness) * percent - constraint.softness) * alpha;
+				constraint.mix += (mix - constraint.mix) * alpha;
+				constraint.softness += (softness - constraint.softness) * alpha;
 				if (direction == in) {
-					constraint.bendDirection = (int)frames[frame + PREV_BEND_DIRECTION];
-					constraint.compress = frames[frame + PREV_COMPRESS] != 0;
-					constraint.stretch = frames[frame + PREV_STRETCH] != 0;
+					constraint.bendDirection = (int)frames[i + BEND_DIRECTION];
+					constraint.compress = frames[i + COMPRESS] != 0;
+					constraint.stretch = frames[i + STRETCH] != 0;
 				}
 			}
 		}
 	}
 
-	/** Changes a transform constraint's {@link TransformConstraint#getRotateMix()}, {@link TransformConstraint#getTranslateMix()},
-	 * {@link TransformConstraint#getScaleMix()}, and {@link TransformConstraint#getShearMix()}. */
+	/** Changes a transform constraint's {@link TransformConstraint#getMixRotate()}, {@link TransformConstraint#getMixX()},
+	 * {@link TransformConstraint#getMixY()}, {@link TransformConstraint#getMixScaleX()},
+	 * {@link TransformConstraint#getMixScaleY()}, and {@link TransformConstraint#getMixShearY()}. */
 	static public class TransformConstraintTimeline extends CurveTimeline {
-		static public final int ENTRIES = 5;
-		static private final int PREV_TIME = -5, PREV_ROTATE = -4, PREV_TRANSLATE = -3, PREV_SCALE = -2, PREV_SHEAR = -1;
-		static private final int ROTATE = 1, TRANSLATE = 2, SCALE = 3, SHEAR = 4;
+		static public final int ENTRIES = 7;
+		static private final int ROTATE = 1, X = 2, Y = 3, SCALEX = 4, SCALEY = 5, SHEARY = 6;
 
-		int transformConstraintIndex;
-		private final float[] frames; // time, rotate mix, translate mix, scale mix, shear mix, ...
+		final int transformConstraintIndex;
 
-		public TransformConstraintTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount * ENTRIES];
+		public TransformConstraintTimeline (int frameCount, int bezierCount, int transformConstraintIndex) {
+			super(frameCount, bezierCount, Property.transformConstraint.ordinal() + "|" + transformConstraintIndex);
+			this.transformConstraintIndex = transformConstraintIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.transformConstraint.ordinal() << 24) + transformConstraintIndex;
+		public int getFrameEntries () {
+			return ENTRIES;
 		}
 
-		public void setTransformConstraintIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.transformConstraintIndex = index;
-		}
-
-		/** The index of the transform constraint slot in {@link Skeleton#getTransformConstraints()} that will be changed. */
+		/** The index of the transform constraint slot in {@link Skeleton#getTransformConstraints()} that will be changed when this
+		 * timeline is applied. */
 		public int getTransformConstraintIndex () {
 			return transformConstraintIndex;
 		}
 
-		/** The time in seconds, rotate mix, translate mix, scale mix, and shear mix for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** The time in seconds, rotate mix, translate mix, scale mix, and shear mix for the specified key frame. */
-		public void setFrame (int frameIndex, float time, float rotateMix, float translateMix, float scaleMix, float shearMix) {
-			frameIndex *= ENTRIES;
-			frames[frameIndex] = time;
-			frames[frameIndex + ROTATE] = rotateMix;
-			frames[frameIndex + TRANSLATE] = translateMix;
-			frames[frameIndex + SCALE] = scaleMix;
-			frames[frameIndex + SHEAR] = shearMix;
+		/** Sets the time, rotate mix, translate mix, scale mix, and shear mix for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, float mixRotate, float mixX, float mixY, float mixScaleX, float mixScaleY,
+			float mixShearY) {
+			frame *= ENTRIES;
+			frames[frame] = time;
+			frames[frame + ROTATE] = mixRotate;
+			frames[frame + X] = mixX;
+			frames[frame + Y] = mixY;
+			frames[frame + SCALEX] = mixScaleX;
+			frames[frame + SCALEY] = mixScaleY;
+			frames[frame + SHEARY] = mixShearY;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -1529,102 +2171,98 @@ public class Animation {
 
 			TransformConstraint constraint = skeleton.transformConstraints.get(transformConstraintIndex);
 			if (!constraint.active) return;
+
 			float[] frames = this.frames;
 			if (time < frames[0]) { // Time is before first frame.
 				TransformConstraintData data = constraint.data;
 				switch (blend) {
 				case setup:
-					constraint.rotateMix = data.rotateMix;
-					constraint.translateMix = data.translateMix;
-					constraint.scaleMix = data.scaleMix;
-					constraint.shearMix = data.shearMix;
+					constraint.mixRotate = data.mixRotate;
+					constraint.mixX = data.mixX;
+					constraint.mixY = data.mixY;
+					constraint.mixScaleX = data.mixScaleX;
+					constraint.mixScaleY = data.mixScaleY;
+					constraint.mixShearY = data.mixShearY;
 					return;
 				case first:
-					constraint.rotateMix += (data.rotateMix - constraint.rotateMix) * alpha;
-					constraint.translateMix += (data.translateMix - constraint.translateMix) * alpha;
-					constraint.scaleMix += (data.scaleMix - constraint.scaleMix) * alpha;
-					constraint.shearMix += (data.shearMix - constraint.shearMix) * alpha;
+					constraint.mixRotate += (data.mixRotate - constraint.mixRotate) * alpha;
+					constraint.mixX += (data.mixX - constraint.mixX) * alpha;
+					constraint.mixY += (data.mixY - constraint.mixY) * alpha;
+					constraint.mixScaleX += (data.mixScaleX - constraint.mixScaleX) * alpha;
+					constraint.mixScaleY += (data.mixScaleY - constraint.mixScaleY) * alpha;
+					constraint.mixShearY += (data.mixShearY - constraint.mixShearY) * alpha;
 				}
 				return;
 			}
 
-			float rotate, translate, scale, shear;
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				int i = frames.length;
-				rotate = frames[i + PREV_ROTATE];
-				translate = frames[i + PREV_TRANSLATE];
-				scale = frames[i + PREV_SCALE];
-				shear = frames[i + PREV_SHEAR];
-			} else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				rotate = frames[frame + PREV_ROTATE];
-				translate = frames[frame + PREV_TRANSLATE];
-				scale = frames[frame + PREV_SCALE];
-				shear = frames[frame + PREV_SHEAR];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				rotate += (frames[frame + ROTATE] - rotate) * percent;
-				translate += (frames[frame + TRANSLATE] - translate) * percent;
-				scale += (frames[frame + SCALE] - scale) * percent;
-				shear += (frames[frame + SHEAR] - shear) * percent;
+			float rotate, x, y, scaleX, scaleY, shearY;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i / ENTRIES];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				rotate = frames[i + ROTATE];
+				x = frames[i + X];
+				y = frames[i + Y];
+				scaleX = frames[i + SCALEX];
+				scaleY = frames[i + SCALEY];
+				shearY = frames[i + SHEARY];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				rotate += (frames[i + ENTRIES + ROTATE] - rotate) * t;
+				x += (frames[i + ENTRIES + X] - x) * t;
+				y += (frames[i + ENTRIES + Y] - y) * t;
+				scaleX += (frames[i + ENTRIES + SCALEX] - scaleX) * t;
+				scaleY += (frames[i + ENTRIES + SCALEY] - scaleY) * t;
+				shearY += (frames[i + ENTRIES + SHEARY] - shearY) * t;
+				break;
+			case STEPPED:
+				rotate = frames[i + ROTATE];
+				x = frames[i + X];
+				y = frames[i + Y];
+				scaleX = frames[i + SCALEX];
+				scaleY = frames[i + SCALEY];
+				shearY = frames[i + SHEARY];
+				break;
+			default:
+				rotate = getBezierValue(time, i, ROTATE, curveType - BEZIER);
+				x = getBezierValue(time, i, X, curveType + BEZIER_SIZE - BEZIER);
+				y = getBezierValue(time, i, Y, curveType + BEZIER_SIZE * 2 - BEZIER);
+				scaleX = getBezierValue(time, i, SCALEX, curveType + BEZIER_SIZE * 3 - BEZIER);
+				scaleY = getBezierValue(time, i, SCALEY, curveType + BEZIER_SIZE * 4 - BEZIER);
+				shearY = getBezierValue(time, i, SHEARY, curveType + BEZIER_SIZE * 5 - BEZIER);
 			}
+
 			if (blend == setup) {
 				TransformConstraintData data = constraint.data;
-				constraint.rotateMix = data.rotateMix + (rotate - data.rotateMix) * alpha;
-				constraint.translateMix = data.translateMix + (translate - data.translateMix) * alpha;
-				constraint.scaleMix = data.scaleMix + (scale - data.scaleMix) * alpha;
-				constraint.shearMix = data.shearMix + (shear - data.shearMix) * alpha;
+				constraint.mixRotate = data.mixRotate + (rotate - data.mixRotate) * alpha;
+				constraint.mixX = data.mixX + (x - data.mixX) * alpha;
+				constraint.mixY = data.mixY + (y - data.mixY) * alpha;
+				constraint.mixScaleX = data.mixScaleX + (scaleX - data.mixScaleX) * alpha;
+				constraint.mixScaleY = data.mixScaleY + (scaleY - data.mixScaleY) * alpha;
+				constraint.mixShearY = data.mixShearY + (shearY - data.mixShearY) * alpha;
 			} else {
-				constraint.rotateMix += (rotate - constraint.rotateMix) * alpha;
-				constraint.translateMix += (translate - constraint.translateMix) * alpha;
-				constraint.scaleMix += (scale - constraint.scaleMix) * alpha;
-				constraint.shearMix += (shear - constraint.shearMix) * alpha;
+				constraint.mixRotate += (rotate - constraint.mixRotate) * alpha;
+				constraint.mixX += (x - constraint.mixX) * alpha;
+				constraint.mixY += (y - constraint.mixY) * alpha;
+				constraint.mixScaleX += (scaleX - constraint.mixScaleX) * alpha;
+				constraint.mixScaleY += (scaleY - constraint.mixScaleY) * alpha;
+				constraint.mixShearY += (shearY - constraint.mixShearY) * alpha;
 			}
 		}
 	}
 
 	/** Changes a path constraint's {@link PathConstraint#getPosition()}. */
-	static public class PathConstraintPositionTimeline extends CurveTimeline {
-		static public final int ENTRIES = 2;
-		static final int PREV_TIME = -2, PREV_VALUE = -1;
-		static final int VALUE = 1;
+	static public class PathConstraintPositionTimeline extends CurveTimeline1 {
+		final int pathConstraintIndex;
 
-		int pathConstraintIndex;
-
-		final float[] frames; // time, position, ...
-
-		public PathConstraintPositionTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount * ENTRIES];
+		public PathConstraintPositionTimeline (int frameCount, int bezierCount, int pathConstraintIndex) {
+			super(frameCount, bezierCount, Property.pathConstraintPosition.ordinal() + "|" + pathConstraintIndex);
+			this.pathConstraintIndex = pathConstraintIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.pathConstraintPosition.ordinal() << 24) + pathConstraintIndex;
-		}
-
-		public void setPathConstraintIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.pathConstraintIndex = index;
-		}
-
-		/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed. */
+		/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed when this timeline
+		 * is applied. */
 		public int getPathConstraintIndex () {
 			return pathConstraintIndex;
-		}
-
-		/** The time in seconds and path constraint position for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** Sets the time in seconds and path constraint position for the specified key frame. */
-		public void setFrame (int frameIndex, float time, float position) {
-			frameIndex *= ENTRIES;
-			frames[frameIndex] = time;
-			frames[frameIndex + VALUE] = position;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -1632,7 +2270,7 @@ public class Animation {
 
 			PathConstraint constraint = skeleton.pathConstraints.get(pathConstraintIndex);
 			if (!constraint.active) return;
-			float[] frames = this.frames;
+
 			if (time < frames[0]) { // Time is before first frame.
 				switch (blend) {
 				case setup:
@@ -1644,19 +2282,7 @@ public class Animation {
 				return;
 			}
 
-			float position;
-			if (time >= frames[frames.length - ENTRIES]) // Time is after last frame.
-				position = frames[frames.length + PREV_VALUE];
-			else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				position = frames[frame + PREV_VALUE];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				position += (frames[frame + VALUE] - position) * percent;
-			}
+			float position = getCurveValue(time);
 			if (blend == setup)
 				constraint.position = constraint.data.position + (position - constraint.data.position) * alpha;
 			else
@@ -1665,13 +2291,18 @@ public class Animation {
 	}
 
 	/** Changes a path constraint's {@link PathConstraint#getSpacing()}. */
-	static public class PathConstraintSpacingTimeline extends PathConstraintPositionTimeline {
-		public PathConstraintSpacingTimeline (int frameCount) {
-			super(frameCount);
+	static public class PathConstraintSpacingTimeline extends CurveTimeline1 {
+		final int pathConstraintIndex;
+
+		public PathConstraintSpacingTimeline (int frameCount, int bezierCount, int pathConstraintIndex) {
+			super(frameCount, bezierCount, Property.pathConstraintSpacing.ordinal() + "|" + pathConstraintIndex);
+			this.pathConstraintIndex = pathConstraintIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.pathConstraintSpacing.ordinal() << 24) + pathConstraintIndex;
+		/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed when this timeline
+		 * is applied. */
+		public int getPathConstraintIndex () {
+			return pathConstraintIndex;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -1679,7 +2310,7 @@ public class Animation {
 
 			PathConstraint constraint = skeleton.pathConstraints.get(pathConstraintIndex);
 			if (!constraint.active) return;
-			float[] frames = this.frames;
+
 			if (time < frames[0]) { // Time is before first frame.
 				switch (blend) {
 				case setup:
@@ -1691,20 +2322,7 @@ public class Animation {
 				return;
 			}
 
-			float spacing;
-			if (time >= frames[frames.length - ENTRIES]) // Time is after last frame.
-				spacing = frames[frames.length + PREV_VALUE];
-			else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				spacing = frames[frame + PREV_VALUE];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				spacing += (frames[frame + VALUE] - spacing) * percent;
-			}
-
+			float spacing = getCurveValue(time);
 			if (blend == setup)
 				constraint.spacing = constraint.data.spacing + (spacing - constraint.data.spacing) * alpha;
 			else
@@ -1712,47 +2330,38 @@ public class Animation {
 		}
 	}
 
-	/** Changes a transform constraint's {@link PathConstraint#getRotateMix()} and
-	 * {@link TransformConstraint#getTranslateMix()}. */
+	/** Changes a transform constraint's {@link PathConstraint#getMixRotate()}, {@link PathConstraint#getMixX()}, and
+	 * {@link PathConstraint#getMixY()}. */
 	static public class PathConstraintMixTimeline extends CurveTimeline {
-		static public final int ENTRIES = 3;
-		static private final int PREV_TIME = -3, PREV_ROTATE = -2, PREV_TRANSLATE = -1;
-		static private final int ROTATE = 1, TRANSLATE = 2;
+		static public final int ENTRIES = 4;
+		static private final int ROTATE = 1, X = 2, Y = 3;
 
-		int pathConstraintIndex;
+		final int pathConstraintIndex;
 
-		private final float[] frames; // time, rotate mix, translate mix, ...
-
-		public PathConstraintMixTimeline (int frameCount) {
-			super(frameCount);
-			frames = new float[frameCount * ENTRIES];
+		public PathConstraintMixTimeline (int frameCount, int bezierCount, int pathConstraintIndex) {
+			super(frameCount, bezierCount, Property.pathConstraintMix.ordinal() + "|" + pathConstraintIndex);
+			this.pathConstraintIndex = pathConstraintIndex;
 		}
 
-		public int getPropertyId () {
-			return (TimelineType.pathConstraintMix.ordinal() << 24) + pathConstraintIndex;
+		public int getFrameEntries () {
+			return ENTRIES;
 		}
 
-		public void setPathConstraintIndex (int index) {
-			if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
-			this.pathConstraintIndex = index;
-		}
-
-		/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed. */
+		/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed when this timeline
+		 * is applied. */
 		public int getPathConstraintIndex () {
 			return pathConstraintIndex;
 		}
 
-		/** The time in seconds, rotate mix, and translate mix for each key frame. */
-		public float[] getFrames () {
-			return frames;
-		}
-
-		/** The time in seconds, rotate mix, and translate mix for the specified key frame. */
-		public void setFrame (int frameIndex, float time, float rotateMix, float translateMix) {
-			frameIndex *= ENTRIES;
-			frames[frameIndex] = time;
-			frames[frameIndex + ROTATE] = rotateMix;
-			frames[frameIndex + TRANSLATE] = translateMix;
+		/** Sets the time and color for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, float mixRotate, float mixX, float mixY) {
+			frame <<= 2;
+			frames[frame] = time;
+			frames[frame + ROTATE] = mixRotate;
+			frames[frame + X] = mixX;
+			frames[frame + Y] = mixY;
 		}
 
 		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
@@ -1760,44 +2369,152 @@ public class Animation {
 
 			PathConstraint constraint = skeleton.pathConstraints.get(pathConstraintIndex);
 			if (!constraint.active) return;
+
 			float[] frames = this.frames;
 			if (time < frames[0]) { // Time is before first frame.
+				PathConstraintData data = constraint.data;
 				switch (blend) {
 				case setup:
-					constraint.rotateMix = constraint.data.rotateMix;
-					constraint.translateMix = constraint.data.translateMix;
+					constraint.mixRotate = data.mixRotate;
+					constraint.mixX = data.mixX;
+					constraint.mixY = data.mixY;
 					return;
 				case first:
-					constraint.rotateMix += (constraint.data.rotateMix - constraint.rotateMix) * alpha;
-					constraint.translateMix += (constraint.data.translateMix - constraint.translateMix) * alpha;
+					constraint.mixRotate += (data.mixRotate - constraint.mixRotate) * alpha;
+					constraint.mixX += (data.mixX - constraint.mixX) * alpha;
+					constraint.mixY += (data.mixY - constraint.mixY) * alpha;
 				}
 				return;
 			}
 
-			float rotate, translate;
-			if (time >= frames[frames.length - ENTRIES]) { // Time is after last frame.
-				rotate = frames[frames.length + PREV_ROTATE];
-				translate = frames[frames.length + PREV_TRANSLATE];
-			} else {
-				// Interpolate between the previous frame and the current frame.
-				int frame = binarySearch(frames, time, ENTRIES);
-				rotate = frames[frame + PREV_ROTATE];
-				translate = frames[frame + PREV_TRANSLATE];
-				float frameTime = frames[frame];
-				float percent = getCurvePercent(frame / ENTRIES - 1,
-					1 - (time - frameTime) / (frames[frame + PREV_TIME] - frameTime));
-
-				rotate += (frames[frame + ROTATE] - rotate) * percent;
-				translate += (frames[frame + TRANSLATE] - translate) * percent;
+			float rotate, x, y;
+			int i = search(frames, time, ENTRIES), curveType = (int)curves[i >> 2];
+			switch (curveType) {
+			case LINEAR:
+				float before = frames[i];
+				rotate = frames[i + ROTATE];
+				x = frames[i + X];
+				y = frames[i + Y];
+				float t = (time - before) / (frames[i + ENTRIES] - before);
+				rotate += (frames[i + ENTRIES + ROTATE] - rotate) * t;
+				x += (frames[i + ENTRIES + X] - x) * t;
+				y += (frames[i + ENTRIES + Y] - y) * t;
+				break;
+			case STEPPED:
+				rotate = frames[i + ROTATE];
+				x = frames[i + X];
+				y = frames[i + Y];
+				break;
+			default:
+				rotate = getBezierValue(time, i, ROTATE, curveType - BEZIER);
+				x = getBezierValue(time, i, X, curveType + BEZIER_SIZE - BEZIER);
+				y = getBezierValue(time, i, Y, curveType + BEZIER_SIZE * 2 - BEZIER);
 			}
 
 			if (blend == setup) {
-				constraint.rotateMix = constraint.data.rotateMix + (rotate - constraint.data.rotateMix) * alpha;
-				constraint.translateMix = constraint.data.translateMix + (translate - constraint.data.translateMix) * alpha;
+				PathConstraintData data = constraint.data;
+				constraint.mixRotate = data.mixRotate + (rotate - data.mixRotate) * alpha;
+				constraint.mixX = data.mixX + (x - data.mixX) * alpha;
+				constraint.mixY = data.mixY + (y - data.mixY) * alpha;
 			} else {
-				constraint.rotateMix += (rotate - constraint.rotateMix) * alpha;
-				constraint.translateMix += (translate - constraint.translateMix) * alpha;
+				constraint.mixRotate += (rotate - constraint.mixRotate) * alpha;
+				constraint.mixX += (x - constraint.mixX) * alpha;
+				constraint.mixY += (y - constraint.mixY) * alpha;
 			}
+		}
+	}
+
+	/** Changes a slot's {@link Slot#getSequenceIndex()} for an attachment's {@link Sequence}. */
+	static public class SequenceTimeline extends Timeline implements SlotTimeline {
+		static public final int ENTRIES = 3;
+		static private final int MODE = 1, DELAY = 2;
+
+		final int slotIndex;
+		final HasTextureRegion attachment;
+
+		public SequenceTimeline (int frameCount, int slotIndex, Attachment attachment) {
+			super(frameCount,
+				Property.sequence.ordinal() + "|" + slotIndex + "|" + ((HasTextureRegion)attachment).getSequence().getId());
+			this.slotIndex = slotIndex;
+			this.attachment = (HasTextureRegion)attachment;
+		}
+
+		public int getFrameEntries () {
+			return ENTRIES;
+		}
+
+		public int getSlotIndex () {
+			return slotIndex;
+		}
+
+		public Attachment getAttachment () {
+			return (Attachment)attachment;
+		}
+
+		/** Sets the time, mode, index, and frame time for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time Seconds between frames. */
+		public void setFrame (int frame, float time, SequenceMode mode, int index, float delay) {
+			frame *= ENTRIES;
+			frames[frame] = time;
+			frames[frame + MODE] = mode.ordinal() | (index << 4);
+			frames[frame + DELAY] = delay;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Slot slot = skeleton.slots.get(slotIndex);
+			if (!slot.bone.active) return;
+			Attachment slotAttachment = slot.attachment;
+			if (slotAttachment != attachment) {
+				if (!(slotAttachment instanceof VertexAttachment)
+					|| ((VertexAttachment)slotAttachment).getTimelineAttachment() != attachment) return;
+			}
+			Sequence sequence = ((HasTextureRegion)slotAttachment).getSequence();
+			if (sequence == null) return;
+
+			float[] frames = this.frames;
+			if (time < frames[0]) { // Time is before first frame.
+				if (blend == setup || blend == first) slot.setSequenceIndex(-1);
+				return;
+			}
+
+			int i = search(frames, time, ENTRIES);
+			float before = frames[i];
+			int modeAndIndex = (int)frames[i + MODE];
+			float delay = frames[i + DELAY];
+
+			int index = modeAndIndex >> 4, count = sequence.getRegions().length;
+			SequenceMode mode = SequenceMode.values[modeAndIndex & 0xf];
+			if (mode != SequenceMode.hold) {
+				index += (time - before) / delay + 0.00001f;
+				switch (mode) {
+				case once:
+					index = Math.min(count - 1, index);
+					break;
+				case loop:
+					index %= count;
+					break;
+				case pingpong: {
+					int n = (count << 1) - 2;
+					index = n == 0 ? 0 : index % n;
+					if (index >= count) index = n - index;
+					break;
+				}
+				case onceReverse:
+					index = Math.max(count - 1 - index, 0);
+					break;
+				case loopReverse:
+					index = count - 1 - (index % count);
+					break;
+				case pingpongReverse:
+					int n = (count << 1) - 2;
+					index = n == 0 ? 0 : (index + count - 1) % n;
+					if (index >= count) index = n - index;
+				}
+			}
+			slot.setSequenceIndex(index);
 		}
 	}
 }

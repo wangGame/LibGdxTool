@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ScreenResource {
     String value() default "null";
+    String tempV() default "null";
+
 }

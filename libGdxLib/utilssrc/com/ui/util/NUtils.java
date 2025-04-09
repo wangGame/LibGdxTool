@@ -89,7 +89,6 @@ public class NUtils {
 			return Interpolation.bounceOut;
 		case 30:
 			return Interpolation.bounce;
-
 		default:
 			return Interpolation.linear;
 		}

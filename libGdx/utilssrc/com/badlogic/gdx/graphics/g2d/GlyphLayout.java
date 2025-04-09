@@ -535,7 +535,7 @@ public class GlyphLayout implements Poolable {
 
 		public float x, y, width;
 
-		void appendRun (GlyphRun run) {
+		public void appendRun(GlyphRun run) {
 			glyphs.addAll(run.glyphs);
 			// Remove the width of the last glyph. The first xadvance of the appended run has kerning for the last glyph of this run.
 			if (xAdvances.notEmpty()) xAdvances.size--;

@@ -1,19 +1,3 @@
-/*******************************************************************************
- * Copyright 2011 See AUTHORS file.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
-
 package com.badlogic.gdx.graphics.g2d;
 
 import static com.badlogic.gdx.graphics.g2d.Sprite.*;
@@ -26,6 +10,10 @@ import com.badlogic.gdx.graphics.Mesh.VertexDataType;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.g2d.PolygonBatch;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Affine2;
 import com.badlogic.gdx.math.MathUtils;
@@ -34,8 +22,8 @@ import com.badlogic.gdx.math.Matrix4;
 /** A PolygonSpriteBatch is used to draw 2D polygons that reference a texture (region). The class will batch the drawing commands
  * and optimize them for processing by the GPU.
  * <p>
- * To draw something with a PolygonSpriteBatch one has to first call the {@link PolygonSpriteBatch#begin()} method which will
- * setup appropriate render states. When you are done with drawing you have to call {@link PolygonSpriteBatch#end()} which will
+ * To draw something with a PolygonSpriteBatch one has to first call the {@link com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch#begin()} method which will
+ * setup appropriate render states. When you are done with drawing you have to call {@link com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch#end()} which will
  * actually draw the things you specified.
  * <p>
  * All drawing commands of the PolygonSpriteBatch operate in screen coordinates. The screen coordinate system has an x-axis
@@ -57,7 +45,6 @@ import com.badlogic.gdx.math.Matrix4;
  * @author Nathan Sweet */
 public class PolygonSpriteBatch implements PolygonBatch {
 	private Mesh mesh;
-
 	protected final float[] vertices;
 	protected final short[] triangles;
 	protected int vertexIndex, triangleIndex;
@@ -131,9 +118,9 @@ public class PolygonSpriteBatch implements PolygonBatch {
 			vertexDataType = VertexDataType.VertexBufferObjectWithVAO;
 		}
 		mesh = new Mesh(vertexDataType, false, maxVertices, maxTriangles * 3,
-			new VertexAttribute(Usage.Position, 2, ShaderProgram.POSITION_ATTRIBUTE),
-			new VertexAttribute(Usage.ColorPacked, 4, ShaderProgram.COLOR_ATTRIBUTE),
-			new VertexAttribute(Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + "0"));
+				new VertexAttribute(Usage.Position, 2, ShaderProgram.POSITION_ATTRIBUTE),
+				new VertexAttribute(Usage.ColorPacked, 4, ShaderProgram.COLOR_ATTRIBUTE),
+				new VertexAttribute(Usage.TextureCoordinates, 2, ShaderProgram.TEXCOORD_ATTRIBUTE + "0"));
 
 		vertices = new float[maxVertices * VERTEX_SIZE];
 		triangles = new short[maxTriangles * 3];
@@ -216,7 +203,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 		if (texture != lastTexture)
 			switchTexture(texture);
 		else if (triangleIndex + regionTrianglesLength > triangles.length
-			|| vertexIndex + regionVerticesLength * VERTEX_SIZE / 2 > vertices.length) flush();
+				|| vertexIndex + regionVerticesLength * VERTEX_SIZE / 2 > vertices.length) flush();
 
 		int triangleIndex = this.triangleIndex;
 		int vertexIndex = this.vertexIndex;
@@ -255,7 +242,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 		if (texture != lastTexture)
 			switchTexture(texture);
 		else if (triangleIndex + regionTrianglesLength > triangles.length
-			|| vertexIndex + regionVerticesLength * VERTEX_SIZE / 2 > vertices.length) flush();
+				|| vertexIndex + regionVerticesLength * VERTEX_SIZE / 2 > vertices.length) flush();
 
 		int triangleIndex = this.triangleIndex;
 		int vertexIndex = this.vertexIndex;
@@ -283,7 +270,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 
 	@Override
 	public void draw (PolygonRegion region, float x, float y, float originX, float originY, float width, float height,
-		float scaleX, float scaleY, float rotation) {
+					  float scaleX, float scaleY, float rotation) {
 		if (!drawing) throw new IllegalStateException("PolygonSpriteBatch.begin must be called before draw.");
 
 		final short[] triangles = this.triangles;
@@ -297,7 +284,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 		if (texture != lastTexture)
 			switchTexture(texture);
 		else if (triangleIndex + regionTrianglesLength > triangles.length
-			|| vertexIndex + regionVerticesLength * VERTEX_SIZE / 2 > vertices.length) flush();
+				|| vertexIndex + regionVerticesLength * VERTEX_SIZE / 2 > vertices.length) flush();
 
 		int triangleIndex = this.triangleIndex;
 		int vertexIndex = this.vertexIndex;
@@ -333,7 +320,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 
 	@Override
 	public void draw (Texture texture, float[] polygonVertices, int verticesOffset, int verticesCount, short[] polygonTriangles,
-		int trianglesOffset, int trianglesCount) {
+					  int trianglesOffset, int trianglesCount) {
 		if (!drawing) throw new IllegalStateException("PolygonSpriteBatch.begin must be called before draw.");
 
 		final short[] triangles = this.triangles;
@@ -358,7 +345,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 
 	@Override
 	public void draw (Texture texture, float x, float y, float originX, float originY, float width, float height, float scaleX,
-		float scaleY, float rotation, int srcX, int srcY, int srcWidth, int srcHeight, boolean flipX, boolean flipY) {
+					  float scaleY, float rotation, int srcX, int srcY, int srcWidth, int srcHeight, boolean flipX, boolean flipY) {
 		if (!drawing) throw new IllegalStateException("PolygonSpriteBatch.begin must be called before draw.");
 
 		final short[] triangles = this.triangles;
@@ -500,7 +487,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 
 	@Override
 	public void draw (Texture texture, float x, float y, float width, float height, int srcX, int srcY, int srcWidth,
-		int srcHeight, boolean flipX, boolean flipY) {
+					  int srcHeight, boolean flipX, boolean flipY) {
 		if (!drawing) throw new IllegalStateException("PolygonSpriteBatch.begin must be called before draw.");
 
 		final short[] triangles = this.triangles;
@@ -853,7 +840,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 
 	@Override
 	public void draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
-		float scaleX, float scaleY, float rotation) {
+					  float scaleX, float scaleY, float rotation) {
 		if (!drawing) throw new IllegalStateException("PolygonSpriteBatch.begin must be called before draw.");
 
 		final short[] triangles = this.triangles;
@@ -984,7 +971,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 
 	@Override
 	public void draw (TextureRegion region, float x, float y, float originX, float originY, float width, float height,
-		float scaleX, float scaleY, float rotation, boolean clockwise) {
+					  float scaleX, float scaleY, float rotation, boolean clockwise) {
 		if (!drawing) throw new IllegalStateException("PolygonSpriteBatch.begin must be called before draw.");
 
 		final short[] triangles = this.triangles;
@@ -1241,7 +1228,7 @@ public class PolygonSpriteBatch implements PolygonBatch {
 	@Override
 	public void setBlendFunctionSeparate (int srcFuncColor, int dstFuncColor, int srcFuncAlpha, int dstFuncAlpha) {
 		if (blendSrcFunc == srcFuncColor && blendDstFunc == dstFuncColor && blendSrcFuncAlpha == srcFuncAlpha
-			&& blendDstFuncAlpha == dstFuncAlpha) return;
+				&& blendDstFuncAlpha == dstFuncAlpha) return;
 		flush();
 		blendSrcFunc = srcFuncColor;
 		blendDstFunc = dstFuncColor;

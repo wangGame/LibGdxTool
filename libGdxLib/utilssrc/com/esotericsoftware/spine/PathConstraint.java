@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -29,8 +29,11 @@
 
 package com.esotericsoftware.spine;
 
+import java.util.Arrays;
+
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
+
 import com.esotericsoftware.spine.PathConstraintData.PositionMode;
 import com.esotericsoftware.spine.PathConstraintData.RotateMode;
 import com.esotericsoftware.spine.PathConstraintData.SpacingMode;
@@ -49,7 +52,7 @@ public class PathConstraint implements Updatable {
 	final PathConstraintData data;
 	final Array<Bone> bones;
 	Slot target;
-	float position, spacing, rotateMix, translateMix;
+	float position, spacing, mixRotate, mixX, mixY;
 
 	boolean active;
 
@@ -63,12 +66,13 @@ public class PathConstraint implements Updatable {
 		this.data = data;
 		bones = new Array(data.bones.size);
 		for (BoneData boneData : data.bones)
-			bones.add(skeleton.findBone(boneData.name));
-		target = skeleton.findSlot(data.target.name);
+			bones.add(skeleton.bones.get(boneData.index));
+		target = skeleton.slots.get(data.target.index);
 		position = data.position;
 		spacing = data.spacing;
-		rotateMix = data.rotateMix;
-		translateMix = data.translateMix;
+		mixRotate = data.mixRotate;
+		mixX = data.mixX;
+		mixY = data.mixY;
 	}
 
 	/** Copy constructor. */
@@ -82,47 +86,71 @@ public class PathConstraint implements Updatable {
 		target = skeleton.slots.get(constraint.target.data.index);
 		position = constraint.position;
 		spacing = constraint.spacing;
-		rotateMix = constraint.rotateMix;
-		translateMix = constraint.translateMix;
+		mixRotate = constraint.mixRotate;
+		mixX = constraint.mixX;
+		mixY = constraint.mixY;
 	}
 
 	/** Applies the constraint to the constrained bones. */
-	public void apply () {
-		update();
-	}
-
-	@SuppressWarnings("null")
 	public void update () {
 		Attachment attachment = target.attachment;
 		if (!(attachment instanceof PathAttachment)) return;
 
-		float rotateMix = this.rotateMix, translateMix = this.translateMix;
-		boolean translate = translateMix > 0, rotate = rotateMix > 0;
-		if (!translate && !rotate) return;
+		float mixRotate = this.mixRotate, mixX = this.mixX, mixY = this.mixY;
+		if (mixRotate == 0 && mixX == 0 && mixY == 0) return;
 
 		PathConstraintData data = this.data;
-		boolean percentSpacing = data.spacingMode == SpacingMode.percent;
-		RotateMode rotateMode = data.rotateMode;
-		boolean tangents = rotateMode == RotateMode.tangent, scale = rotateMode == RotateMode.chainScale;
+		boolean tangents = data.rotateMode == RotateMode.tangent, scale = data.rotateMode == RotateMode.chainScale;
 		int boneCount = this.bones.size, spacesCount = tangents ? boneCount : boneCount + 1;
 		Object[] bones = this.bones.items;
-		float[] spaces = this.spaces.setSize(spacesCount), lengths = null;
+		float[] spaces = this.spaces.setSize(spacesCount), lengths = scale ? this.lengths.setSize(boneCount) : null;
 		float spacing = this.spacing;
-		if (scale || !percentSpacing) {
-			if (scale) lengths = this.lengths.setSize(boneCount);
+
+		switch (data.spacingMode) {
+		case percent:
+			if (scale) {
+				for (int i = 0, n = spacesCount - 1; i < n; i++) {
+					Bone bone = (Bone)bones[i];
+					float setupLength = bone.data.length;
+					if (setupLength < epsilon)
+						lengths[i] = 0;
+					else {
+						float x = setupLength * bone.a, y = setupLength * bone.c;
+						lengths[i] = (float)Math.sqrt(x * x + y * y);
+					}
+				}
+			}
+			Arrays.fill(spaces, 1, spacesCount, spacing);
+			break;
+		case proportional:
+			float sum = 0;
+			for (int i = 0, n = spacesCount - 1; i < n;) {
+				Bone bone = (Bone)bones[i];
+				float setupLength = bone.data.length;
+				if (setupLength < epsilon) {
+					if (scale) lengths[i] = 0;
+					spaces[++i] = spacing;
+				} else {
+					float x = setupLength * bone.a, y = setupLength * bone.c;
+					float length = (float)Math.sqrt(x * x + y * y);
+					if (scale) lengths[i] = length;
+					spaces[++i] = length;
+					sum += length;
+				}
+			}
+			if (sum > 0) {
+				sum = spacesCount / sum * spacing;
+				for (int i = 1; i < spacesCount; i++)
+					spaces[i] *= sum;
+			}
+			break;
+		default:
 			boolean lengthSpacing = data.spacingMode == SpacingMode.length;
 			for (int i = 0, n = spacesCount - 1; i < n;) {
 				Bone bone = (Bone)bones[i];
 				float setupLength = bone.data.length;
 				if (setupLength < epsilon) {
 					if (scale) lengths[i] = 0;
-					spaces[++i] = 0;
-				} else if (percentSpacing) {
-					if (scale) {
-						float x = setupLength * bone.a, y = setupLength * bone.c;
-						float length = (float)Math.sqrt(x * x + y * y);
-						lengths[i] = length;
-					}
 					spaces[++i] = spacing;
 				} else {
 					float x = setupLength * bone.a, y = setupLength * bone.c;
@@ -131,17 +159,13 @@ public class PathConstraint implements Updatable {
 					spaces[++i] = (lengthSpacing ? setupLength + spacing : spacing) * length / setupLength;
 				}
 			}
-		} else {
-			for (int i = 1; i < spacesCount; i++)
-				spaces[i] = spacing;
 		}
 
-		float[] positions = computeWorldPositions((PathAttachment)attachment, spacesCount, tangents,
-			data.positionMode == PositionMode.percent, percentSpacing);
+		float[] positions = computeWorldPositions((PathAttachment)attachment, spacesCount, tangents);
 		float boneX = positions[0], boneY = positions[1], offsetRotation = data.offsetRotation;
 		boolean tip;
 		if (offsetRotation == 0)
-			tip = rotateMode == RotateMode.chain;
+			tip = data.rotateMode == RotateMode.chain;
 		else {
 			tip = false;
 			Bone p = target.bone;
@@ -149,20 +173,20 @@ public class PathConstraint implements Updatable {
 		}
 		for (int i = 0, p = 3; i < boneCount; i++, p += 3) {
 			Bone bone = (Bone)bones[i];
-			bone.worldX += (boneX - bone.worldX) * translateMix;
-			bone.worldY += (boneY - bone.worldY) * translateMix;
+			bone.worldX += (boneX - bone.worldX) * mixX;
+			bone.worldY += (boneY - bone.worldY) * mixY;
 			float x = positions[p], y = positions[p + 1], dx = x - boneX, dy = y - boneY;
 			if (scale) {
 				float length = lengths[i];
 				if (length >= epsilon) {
-					float s = ((float)Math.sqrt(dx * dx + dy * dy) / length - 1) * rotateMix + 1;
+					float s = ((float)Math.sqrt(dx * dx + dy * dy) / length - 1) * mixRotate + 1;
 					bone.a *= s;
 					bone.c *= s;
 				}
 			}
 			boneX = x;
 			boneY = y;
-			if (rotate) {
+			if (mixRotate > 0) {
 				float a = bone.a, b = bone.b, c = bone.c, d = bone.d, r, cos, sin;
 				if (tangents)
 					r = positions[p - 1];
@@ -175,15 +199,15 @@ public class PathConstraint implements Updatable {
 					cos = (float)Math.cos(r);
 					sin = (float)Math.sin(r);
 					float length = bone.data.length;
-					boneX += (length * (cos * a - sin * c) - dx) * rotateMix;
-					boneY += (length * (sin * a + cos * c) - dy) * rotateMix;
+					boneX += (length * (cos * a - sin * c) - dx) * mixRotate;
+					boneY += (length * (sin * a + cos * c) - dy) * mixRotate;
 				} else
 					r += offsetRotation;
 				if (r > SpineUtils.PI)
 					r -= SpineUtils.PI2;
 				else if (r < -SpineUtils.PI) //
 					r += SpineUtils.PI2;
-				r *= rotateMix;
+				r *= mixRotate;
 				cos = (float)Math.cos(r);
 				sin = (float)Math.sin(r);
 				bone.a = cos * a - sin * c;
@@ -191,12 +215,11 @@ public class PathConstraint implements Updatable {
 				bone.c = sin * a + cos * c;
 				bone.d = sin * b + cos * d;
 			}
-			bone.appliedValid = false;
+			bone.updateAppliedTransform();
 		}
 	}
 
-	float[] computeWorldPositions (PathAttachment path, int spacesCount, boolean tangents, boolean percentPosition,
-		boolean percentSpacing) {
+	float[] computeWorldPositions (PathAttachment path, int spacesCount, boolean tangents) {
 		Slot target = this.target;
 		float position = this.position;
 		float[] spaces = this.spaces.items, out = this.positions.setSize(spacesCount * 3 + 2), world;
@@ -207,14 +230,24 @@ public class PathConstraint implements Updatable {
 			float[] lengths = path.getLengths();
 			curveCount -= closed ? 1 : 2;
 			float pathLength = lengths[curveCount];
-			if (percentPosition) position *= pathLength;
-			if (percentSpacing) {
-				for (int i = 1; i < spacesCount; i++)
-					spaces[i] *= pathLength;
+
+			if (data.positionMode == PositionMode.percent) position *= pathLength;
+
+			float multiplier;
+			switch (data.spacingMode) {
+			case percent:
+				multiplier = pathLength;
+				break;
+			case proportional:
+				multiplier = pathLength / spacesCount;
+				break;
+			default:
+				multiplier = 1;
 			}
+
 			world = this.world.setSize(8);
 			for (int i = 0, o = 0, curve = 0; i < spacesCount; i++, o += 3) {
-				float space = spaces[i];
+				float space = spaces[i] * multiplier;
 				position += space;
 				float p = position;
 
@@ -315,19 +348,25 @@ public class PathConstraint implements Updatable {
 			x1 = x2;
 			y1 = y2;
 		}
-		if (percentPosition)
-			position *= pathLength;
-		else
-			position *= pathLength / path.getLengths()[curveCount - 1];
-		if (percentSpacing) {
-			for (int i = 1; i < spacesCount; i++)
-				spaces[i] *= pathLength;
+
+		if (data.positionMode == PositionMode.percent) position *= pathLength;
+
+		float multiplier;
+		switch (data.spacingMode) {
+		case percent:
+			multiplier = pathLength;
+			break;
+		case proportional:
+			multiplier = pathLength / spacesCount;
+			break;
+		default:
+			multiplier = 1;
 		}
 
 		float[] segments = this.segments;
 		float curveLength = 0;
 		for (int i = 0, o = 0, curve = 0, segment = 0; i < spacesCount; i++, o += 3) {
-			float space = spaces[i];
+			float space = spaces[i] * multiplier;
 			position += space;
 			float p = position;
 
@@ -468,22 +507,31 @@ public class PathConstraint implements Updatable {
 		this.spacing = spacing;
 	}
 
-	/** A percentage (0-1) that controls the mix between the constrained and unconstrained rotations. */
-	public float getRotateMix () {
-		return rotateMix;
+	/** A percentage (0-1) that controls the mix between the constrained and unconstrained rotation. */
+	public float getMixRotate () {
+		return mixRotate;
 	}
 
-	public void setRotateMix (float rotateMix) {
-		this.rotateMix = rotateMix;
+	public void setMixRotate (float mixRotate) {
+		this.mixRotate = mixRotate;
 	}
 
-	/** A percentage (0-1) that controls the mix between the constrained and unconstrained translations. */
-	public float getTranslateMix () {
-		return translateMix;
+	/** A percentage (0-1) that controls the mix between the constrained and unconstrained translation X. */
+	public float getMixX () {
+		return mixX;
 	}
 
-	public void setTranslateMix (float translateMix) {
-		this.translateMix = translateMix;
+	public void setMixX (float mixX) {
+		this.mixX = mixX;
+	}
+
+	/** A percentage (0-1) that controls the mix between the constrained and unconstrained translation Y. */
+	public float getMixY () {
+		return mixY;
+	}
+
+	public void setMixY (float mixY) {
+		this.mixY = mixY;
 	}
 
 	/** The bones that will be modified by this path constraint. */

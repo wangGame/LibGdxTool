@@ -1,8 +1,7 @@
 //package com.kw.gdx.resource.introspector;
 //
 //import com.badlogic.gdx.Gdx;
-//import com.badlogic.gdx.utils.SharedLibraryLoader;
-//import com.kw.gdx.utils.log.NLog;
+//
 //
 //public class PlatformUtils {
 //    private enum UiType{

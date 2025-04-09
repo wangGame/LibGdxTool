@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -32,6 +32,7 @@ package com.esotericsoftware.spine.attachments;
 import static com.esotericsoftware.spine.utils.SpineUtils.*;
 
 import com.badlogic.gdx.utils.FloatArray;
+ 
 
 import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
@@ -42,14 +43,34 @@ import com.esotericsoftware.spine.Slot;
 abstract public class VertexAttachment extends Attachment {
 	static private int nextID;
 
-	private final int id = (nextID() & 65535) << 11;
+	private final int id = nextID();
+	Attachment timelineAttachment = this;
 	int[] bones;
 	float[] vertices;
 	int worldVerticesLength;
-	VertexAttachment deformAttachment = this;
 
 	public VertexAttachment (String name) {
 		super(name);
+	}
+
+	/** Copy constructor. */
+	public VertexAttachment (VertexAttachment other) {
+		super(other);
+		timelineAttachment = other.timelineAttachment;
+
+		if (other.bones != null) {
+			bones = new int[other.bones.length];
+			arraycopy(other.bones, 0, bones, 0, bones.length);
+		} else
+			bones = null;
+
+		if (other.vertices != null) {
+			vertices = new float[other.vertices.length];
+			arraycopy(other.vertices, 0, vertices, 0, vertices.length);
+		} else
+			vertices = null;
+
+		worldVerticesLength = other.worldVerticesLength;
 	}
 
 	/** Transforms the attachment's local {@link #getVertices()} to world coordinates. If the slot's {@link Slot#getDeform()} is
@@ -65,7 +86,6 @@ abstract public class VertexAttachment extends Attachment {
 	 * @param stride The number of <code>worldVertices</code> entries between the value pairs written. */
 	public void computeWorldVertices (Slot slot, int start, int count, float[] worldVertices, int offset, int stride) {
 		count = offset + (count >> 1) * stride;
-		Skeleton skeleton = slot.getSkeleton();
 		FloatArray deformArray = slot.getDeform();
 		float[] vertices = this.vertices;
 		int[] bones = this.bones;
@@ -87,7 +107,7 @@ abstract public class VertexAttachment extends Attachment {
 			v += n + 1;
 			skip += n;
 		}
-		Object[] skeletonBones = skeleton.getBones().items;
+		Object[] skeletonBones = slot.getSkeleton().getBones().items;
 		if (deformArray.size == 0) {
 			for (int w = offset, b = skip * 3; w < count; w += stride) {
 				float wx = 0, wy = 0;
@@ -118,17 +138,6 @@ abstract public class VertexAttachment extends Attachment {
 				worldVertices[w + 1] = wy;
 			}
 		}
-	}
-
-	/** Deform keys for the deform attachment are also applied to this attachment.
-	 * @return May be null if no deform keys should be applied. */
-	public VertexAttachment getDeformAttachment () {
-		return deformAttachment;
-	}
-
-	/** @param deformAttachment May be null if no deform keys should be applied. */
-	public void setDeformAttachment (VertexAttachment deformAttachment) {
-		this.deformAttachment = deformAttachment;
 	}
 
 	/** The bones which affect the {@link #getVertices()}. The array entries are, for each vertex, the number of bones affecting
@@ -164,27 +173,20 @@ abstract public class VertexAttachment extends Attachment {
 		this.worldVerticesLength = worldVerticesLength;
 	}
 
+	/** Timelines for the timeline attachment are also applied to this attachment.
+	 * @return May be null if no attachment-specific timelines should be applied. */
+	public Attachment getTimelineAttachment () {
+		return timelineAttachment;
+	}
+
+	/** @param timelineAttachment May be null if no attachment-specific timelines should be applied. */
+	public void setTimelineAttachment (Attachment timelineAttachment) {
+		this.timelineAttachment = timelineAttachment;
+	}
+
 	/** Returns a unique ID for this attachment. */
 	public int getId () {
 		return id;
-	}
-
-	/** Does not copy id (generated) or name (set on construction). **/
-	void copyTo (VertexAttachment attachment) {
-		if (bones != null) {
-			attachment.bones = new int[bones.length];
-			arraycopy(bones, 0, attachment.bones, 0, bones.length);
-		} else
-			attachment.bones = null;
-
-		if (vertices != null) {
-			attachment.vertices = new float[vertices.length];
-			arraycopy(vertices, 0, attachment.vertices, 0, vertices.length);
-		} else
-			attachment.vertices = null;
-
-		attachment.worldVerticesLength = worldVerticesLength;
-		attachment.deformAttachment = deformAttachment;
 	}
 
 	static private synchronized int nextID () {

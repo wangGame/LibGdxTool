@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -32,6 +32,7 @@ package com.esotericsoftware.spine.utils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.AnimationState.TrackEntry;
 import com.esotericsoftware.spine.AnimationStateData;
@@ -90,10 +91,10 @@ public class SkeletonActorPool extends Pool<SkeletonActor> {
 
 	/** Each obtained skeleton actor that is no longer playing an animation is removed from the stage and returned to the pool. */
 	public void freeComplete () {
-		Array<SkeletonActor> obtained = this.obtained;
+		Object[] obtained = this.obtained.items;
 		outer:
-		for (int i = obtained.size - 1; i >= 0; i--) {
-			SkeletonActor actor = obtained.get(i);
+		for (int i = this.obtained.size - 1; i >= 0; i--) {
+			SkeletonActor actor = (SkeletonActor)obtained[i];
 			Array<TrackEntry> tracks = actor.state.getTracks();
 			for (int ii = 0, nn = tracks.size; ii < nn; ii++)
 				if (tracks.get(ii) != null) continue outer;
