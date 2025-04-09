@@ -40,7 +40,7 @@ public class Label4 extends Widget {
 	static private final GlyphLayout4 prefSizeLayout = new GlyphLayout4();
 
 	private Label.LabelStyle style;
-	private final GlyphLayout layout = new GlyphLayout();
+	private final GlyphLayout4 layout = new GlyphLayout4();
 	private float prefWidth, prefHeight;
 	private final StringBuilder text = new StringBuilder();
 	private int intValue = Integer.MIN_VALUE;
@@ -397,5 +397,20 @@ public class Label4 extends Widget {
 			if (style.fontColor != null) fontColor = new Color(style.fontColor);
 			background = style.background;
 		}
+	}
+
+	public void setModkern (float modkern) {
+		this.modkern = modkern;
+		layout.setModkerning(modkern);
+		prefSizeLayout.setModkerning(modkern);
+		invalidateHierarchy();
+	}
+
+	private float modLineHeight;
+	public void setModLineHeight(float modLineHeight) {
+		this.modLineHeight = modLineHeight;
+		layout.setModLineHeight(modLineHeight);
+		prefSizeLayout.setModLineHeight(modLineHeight);
+		invalidateHierarchy();
 	}
 }

@@ -493,10 +493,6 @@ public class GlyphLayout4 extends GlyphLayout {
 		return buffer.toString();
 	}
 
-	private float modkern;
-	public void setModkerning(float modkern) {
-		this.modkern = modkern;
-	}
 
 	/** Stores glyphs and positions for a line of text.
 	 * @author Nathan Sweet */
@@ -545,4 +541,10 @@ public class GlyphLayout4 extends GlyphLayout {
 	public void setModLineHeight(float modLineHeight) {
 		this.modLineHeight = modLineHeight;
 	}
+
+	private float modkern;
+	public void setModkerning(float modkern) {
+		this.modkern = modkern;
+	}
+
 }

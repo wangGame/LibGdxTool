@@ -20,7 +20,7 @@ public class BUL extends TemporalAction {
     protected void update(float t) {
         int size = allBezierPos.size;
         Vector2 vector2 = allBezierPos.get((int) ((size-1) * t));
-        target.setPosition(vector2);
+        target.setPosition(vector2.x,vector2.y);
     }
 
     // 计算所有贝塞尔曲线的点
