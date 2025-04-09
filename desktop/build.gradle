@@ -50,6 +50,7 @@ dependencies {
     implementation group: 'com.badlogicgames.gdx', name: 'gdx-platform', version: '1.13.1', ext: 'pom'
 // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-backend-lwjgl
     implementation group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl', version: '1.13.1'
+    implementation project(':core')
 
 
 }

@@ -58,7 +58,7 @@ public class MyGdxGame3 extends ApplicationAdapter {
                 new Material(ColorAttribute.createDiffuse(Color.RED)),
                 VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
         shipInstance = new ModelInstance(r);
-        shipInstance.transform.translate(0,0,-210);
+        shipInstance.transform.translate(0,0,-2);
         loading = false;
     }
 
