@@ -5,7 +5,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.utils.log.NLog;
 
@@ -18,6 +20,7 @@ public class EffectTool extends Actor {
     private AssetManager assetamnagerinstance;
     private float clipH;
     private float clipW;
+    private boolean loop;
     private boolean isClip = false;
 
     public EffectTool(String effectResourcePath){
@@ -60,6 +63,7 @@ public class EffectTool extends Actor {
 
     public void init(){
         effect = assetamnagerinstance.get(effectResourcePath);
+        //如果动画不连续播放，完全没有必要这样写  。纯纯浪费。
         effect = new ParticleEffect(effect);
         play();
     }
@@ -97,16 +101,10 @@ public class EffectTool extends Actor {
         super.act(delta);
         effect.setPosition(getX(),getY());
         if (effect.isComplete()) {
-            if (completeRemove){
-                remove();
+            if (loop){
+                play();
             }
         }
-    }
-
-    private Runnable complete;
-
-    public void setComplete(Runnable complete) {
-        this.complete = complete;
     }
 
     public void setClip(boolean flag) {
@@ -116,10 +114,11 @@ public class EffectTool extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (!isVisible())return; //duo yu
-
+        parentAlpha = parentAlpha * getColor().a;
         int blendSrcFunc = batch.getBlendSrcFunc();
         int blendDstFunc = batch.getBlendDstFunc();
-        batch.setColor(getColor());
+
+
         if (isClip) {
             batch.flush();
             if (clipBegin(0, 0, clipW, clipH)) {
@@ -130,9 +129,10 @@ public class EffectTool extends Actor {
         }else {
             effect.draw(batch, Gdx.graphics.getDeltaTime());
         }
+
+
         batch.setBlendFunction(blendSrcFunc,blendDstFunc);
     }
-
 
     public void dispose(){
         try {
@@ -147,6 +147,17 @@ public class EffectTool extends Actor {
         super.setRotation(degrees);
     }
 
+    public void setLoop(boolean loop) {
+        this.loop = loop;
+    }
+
+    /**
+     * 水平反转
+     */
+    public void setFlipX(){
+//        effect.flipY();
+    }
+
     /**
      * 竖直反转
      */
@@ -154,9 +165,8 @@ public class EffectTool extends Actor {
         effect.flipY();
     }
 
-    private boolean completeRemove;
-    public void setCompleteRemove() {
-        this.completeRemove = true;
+    public void stop(){
+//        effect.setStop();
     }
 }
 

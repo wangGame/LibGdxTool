@@ -10,9 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.kw.gdx.constant.Constant;
+import com.kw.gdx.loader.CsvLoader;
+import com.kw.gdx.loader.bean.ArrayResult;
+import com.kw.gdx.loader.bean.CsvBean;
+import com.kw.gdx.loader.bean.CsvBeanParamter;
 import com.kw.gdx.particle.ParticleEffectLoader;
 import com.kw.gdx.resource.annotation.AssetResource;
 import com.kw.gdx.resource.annotation.FtResource;
@@ -251,7 +256,7 @@ public class Asset {
             assetManager.setLoader(PlistAtlas.class, new PlistAtlasLoader(assetManager.getFileHandleResolver()));
             assetManager.setLoader(SkeletonData.class,new SkeletonDataLoader(assetManager.getFileHandleResolver()));
             assetManager.setLoader(com.kw.gdx.particle.ParticleEffect.class,new ParticleEffectLoader(assetManager.getFileHandleResolver()));
-
+            assetManager.setLoader(ArrayResult.class,new CsvLoader(assetManager.getFileHandleResolver()));
 
             if (Configuration.device_state == Configuration.DeviceState.poor) {
                 assetManager.setLoader(TextureAtlas.class, new MiniTextureAtlasLoader(assetManager.getFileHandleResolver(), Configuration.scale));
@@ -317,6 +322,27 @@ public class Asset {
 
     public BitmapFont loadBitFont(String path){
         return loadBitFont(path,Asset.assetManager);
+    }
+
+    public Label loadLabel(String path){
+        Label label = new Label("",new Label.LabelStyle(){
+            {
+                font  = loadBitFont(path);
+            }
+        });
+        label.setAlignment(Align.center);
+        return label;
+    }
+
+    public void loadCsv(String name, CsvBeanParamter csvBeanParamter){
+        if (assetManager!=null) {
+            assetManager.load(name, ArrayResult.class,csvBeanParamter);
+            assetManager.finishLoading();
+        }
+    }
+
+    public Image getImage(String path){
+        return new Image(Asset.getAsset().getTexture(path));
     }
 
     public BitmapFont loadBitFont(String path,AssetManager assetManager) {
@@ -394,6 +420,13 @@ public class Asset {
         return createNineImg(texture,left,right,top,bottom);
     }
 
+    public Image createNineImg(String texture,int left,int right,int top,int bottom,boolean flipX,boolean flipY){
+        return new Image(new NinePatch(
+                new TextureRegion(Asset.getAsset().getTexture(texture)),
+                left, right, top, bottom
+        ));
+    }
+
 
     public static void disposeNull() {
         if (assetManager!=null) {
@@ -405,26 +438,11 @@ public class Asset {
         assetManager = null;
         localAssetManager = null;
         asset = null;
+
     }
 
-    public Label4 createLabel1(Group group,String fontPath) {
-        Label4 label = new Label4("",new Label.LabelStyle(){{
-            font = Asset.getAsset().loadBitFont(fontPath);
-            System.out.println("==============");
-        }});
-        label.setAlignment(Align.center);
-        group.addActor(label);
-        label.setPosition(group.getWidth()/2f,group.getHeight()/2f, Align.center);
-        return label;
-    }
-
-    public Label createLabel(Group group,String fontPath) {
-        Label label = new Label("",new Label.LabelStyle(){{
-            font = Asset.getAsset().loadBitFont(fontPath);
-        }});
-        label.setAlignment(Align.center);
-        group.addActor(label);
-        label.setPosition(group.getWidth()/2f,group.getHeight()/2f, Align.center);
-        return label;
+    public <T> Array<? extends CsvBean> getCsv(String s) {
+        ArrayResult result = assetManager.get(s, ArrayResult.class);
+        return result.array;
     }
 }
