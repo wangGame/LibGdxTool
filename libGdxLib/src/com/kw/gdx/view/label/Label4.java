@@ -21,9 +21,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -39,7 +37,7 @@ public class Label4 extends Widget {
 	static private final Color tempColor = new Color();
 	static private final GlyphLayout4 prefSizeLayout = new GlyphLayout4();
 
-	private Label.LabelStyle style;
+	private Label4.LabelStyle style;
 	private final GlyphLayout4 layout = new GlyphLayout4();
 	private float prefWidth, prefHeight;
 	private final StringBuilder text = new StringBuilder();
@@ -55,32 +53,32 @@ public class Label4 extends Widget {
 	private @Null String ellipsis;
 
 	public Label4 (@Null CharSequence text, Skin skin) {
-		this(text, skin.get(Label.LabelStyle.class));
+		this(text, skin.get(Label4.LabelStyle.class));
 	}
 
 	public Label4 (@Null CharSequence text, Skin skin, String styleName) {
-		this(text, skin.get(styleName, Label.LabelStyle.class));
+		this(text, skin.get(styleName, Label4.LabelStyle.class));
 	}
 
-	/** Creates a label, using a {@link Label.LabelStyle} that has a BitmapFont with the specified name from the skin and the specified
+	/** Creates a label, using a {@link Label4.LabelStyle} that has a BitmapFont with the specified name from the skin and the specified
 	 * color. */
 	public Label4 (@Null CharSequence text, Skin skin, String fontName, Color color) {
-		this(text, new Label.LabelStyle(skin.getFont(fontName), color));
+		this(text, new Label4.LabelStyle(skin.getFont(fontName), color));
 	}
 
-	/** Creates a label, using a {@link Label.LabelStyle} that has a BitmapFont with the specified name and the specified color from the
+	/** Creates a label, using a {@link Label4.LabelStyle} that has a BitmapFont with the specified name and the specified color from the
 	 * skin. */
 	public Label4 (@Null CharSequence text, Skin skin, String fontName, String colorName) {
-		this(text, new Label.LabelStyle(skin.getFont(fontName), skin.getColor(colorName)));
+		this(text, new Label4.LabelStyle(skin.getFont(fontName), skin.getColor(colorName)));
 	}
 
-	public Label4 (@Null CharSequence text, Label.LabelStyle style) {
+	public Label4 (@Null CharSequence text, Label4.LabelStyle style) {
 		if (text != null) this.text.append(text);
 		setStyle(style);
 		if (text != null && text.length() > 0) setSize(getPrefWidth(), getPrefHeight());
 	}
 
-	public void setStyle (Label.LabelStyle style) {
+	public void setStyle (Label4.LabelStyle style) {
 		if (style == null) throw new IllegalArgumentException("style cannot be null.");
 		if (style.font == null) throw new IllegalArgumentException("Missing LabelStyle font.");
 		this.style = style;
@@ -89,9 +87,9 @@ public class Label4 extends Widget {
 		invalidateHierarchy();
 	}
 
-	/** Returns the label's style. Modifying the returned style may not have an effect until {@link #setStyle(Label.LabelStyle)} is
+	/** Returns the label's style. Modifying the returned style may not have an effect until {@link #setStyle(Label4.LabelStyle)} is
 	 * called. */
-	public Label.LabelStyle getStyle () {
+	public Label4.LabelStyle getStyle () {
 		return style;
 	}
 
@@ -149,7 +147,7 @@ public class Label4 extends Widget {
 		float oldScaleY = font.getScaleY();
 		if (fontScaleChanged) font.getData().setScale(fontScaleX, fontScaleY);
 
-		computePrefSize(prefSizeLayout);
+		computePrefSize(Label4.prefSizeLayout);
 
 		if (fontScaleChanged) font.getData().setScale(oldScaleX, oldScaleY);
 	}
@@ -194,7 +192,7 @@ public class Label4 extends Widget {
 			height -= background.getBottomHeight() + background.getTopHeight();
 		}
 
-		GlyphLayout layout = this.layout;
+		GlyphLayout4 layout = this.layout;
 		float textWidth, textHeight;
 		if (wrap || text.indexOf("\n") != -1) {
 			// If the text can span multiple lines, determine the text's actual size so it can be aligned within the label.
@@ -372,12 +370,7 @@ public class Label4 extends Widget {
 		return (className.indexOf('$') != -1 ? "Label " : "") + className + ": " + text;
 	}
 
-	private float modkern;
-	public void setModkern(int i) {
-		this.modkern = i;
-	}
-
-	/** The style for a label, see {@link Label}.
+	/** The style for a label, see {@link Label4}.
 	 * @author Nathan Sweet */
 	static public class LabelStyle {
 		public BitmapFont font;
@@ -392,25 +385,10 @@ public class Label4 extends Widget {
 			this.fontColor = fontColor;
 		}
 
-		public LabelStyle (Label.LabelStyle style) {
+		public LabelStyle (Label4.LabelStyle style) {
 			font = style.font;
 			if (style.fontColor != null) fontColor = new Color(style.fontColor);
 			background = style.background;
 		}
-	}
-
-	public void setModkern (float modkern) {
-		this.modkern = modkern;
-		layout.setModkerning(modkern);
-		prefSizeLayout.setModkerning(modkern);
-		invalidateHierarchy();
-	}
-
-	private float modLineHeight;
-	public void setModLineHeight(float modLineHeight) {
-		this.modLineHeight = modLineHeight;
-		layout.setModLineHeight(modLineHeight);
-		prefSizeLayout.setModLineHeight(modLineHeight);
-		invalidateHierarchy();
 	}
 }

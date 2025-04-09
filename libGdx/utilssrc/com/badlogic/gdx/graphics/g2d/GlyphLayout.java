@@ -48,7 +48,7 @@ public class GlyphLayout implements Poolable {
 	static private final Pool<GlyphRun> glyphRunPool = Pools.get(GlyphRun.class);
 	static private final IntArray colorStack = new IntArray(4);
 	static private final float epsilon = 0.0001f;
-
+	private float modLineHeight = 0;
 	/** Each run has the glyphs for a line of text.
 	 * <p>
 	 * Runs are pooled, so references should not be kept past the next call to
@@ -111,7 +111,7 @@ public class GlyphLayout implements Poolable {
 	 *           Truncate should not be used with text that contains multiple lines. Wrap is ignored if truncate is not null. */
 	public void setText (BitmapFont font, CharSequence str, int start, int end, Color color, float targetWidth, int halign,
 		boolean wrap, @Null String truncate) {
-
+		font.data.setModkerning(modkerning);
 		reset();
 
 		BitmapFontData fontData = font.data;
@@ -236,7 +236,7 @@ public class GlyphLayout implements Poolable {
 						if (lineRun == null) break runEnded; // All wrapped glyphs were whitespace.
 						runs.add(lineRun);
 
-						y += down;
+						y += down - modLineHeight;
 						lineRun.x = 0;
 						lineRun.y = y;
 
@@ -256,6 +256,8 @@ public class GlyphLayout implements Poolable {
 					y += down * fontData.blankLineScale;
 				else
 					y += down;
+
+				y -= modLineHeight;
 			}
 
 			runStart = start;
@@ -562,5 +564,12 @@ public class GlyphLayout implements Poolable {
 			buffer.append(width);
 			return buffer.toString();
 		}
+	}
+
+
+	private float modkerning;
+
+	public void setModkerning(float modkerning) {
+		this.modkerning = modkerning;
 	}
 }

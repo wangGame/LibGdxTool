@@ -18,7 +18,7 @@ public class Label4App extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        Label4 a = new Label4("",new Label.LabelStyle(){{
+        Label a = new Label("",new Label.LabelStyle(){{
             font = Asset.getAsset().loadBitFont("font/Krub-Bold_52_1.fnt");
         }}){
             @Override
@@ -28,8 +28,10 @@ public class Label4App extends LibGdxTestMain {
         };
         addActor(a);
         a.setAlignment(Align.center);
-        a.setText("AC");
+        a.setText("ACfffffff");
         a.setPosition(100,100);
+
+        a.setModkerning(10);
 
 
 

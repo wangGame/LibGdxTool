@@ -828,10 +828,16 @@ public class BitmapFont implements Disposable {
 		 * @param lastGlyph The glyph immediately before this run, or null if this is run is the first on a line of text. Used tp
 		 *           apply kerning between the specified glyph and the first glyph in this run. */
 		public void getGlyphs (GlyphRun run, CharSequence str, int start, int end, Glyph lastGlyph) {
-			getGlyphs(run,str,start,end,lastGlyph,0);
+			getGlyphs(run,str,start,end,lastGlyph,modkerning);
 		}
 
-		public void getGlyphs (GlyphRun run, CharSequence str, int start, int end, Glyph lastGlyph,float modkerning) {
+		private float modkerning;
+
+		public void setModkerning(float modkerning) {
+			this.modkerning = modkerning;
+		}
+
+		public void getGlyphs (GlyphRun run, CharSequence str, int start, int end, Glyph lastGlyph, float modkerning) {
 			int max = end - start;
 			if (max == 0) return;
 			boolean markupEnabled = this.markupEnabled;

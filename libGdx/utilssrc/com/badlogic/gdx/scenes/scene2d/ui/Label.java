@@ -388,4 +388,11 @@ public class Label extends Widget {
 			background = style.background;
 		}
 	}
+
+	private float modkerning;
+
+	public void setModkerning(float modkerning) {
+		layout.setModkerning(modkerning);
+		prefSizeLayout.setModkerning(modkerning);
+	}
 }

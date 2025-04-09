@@ -10,7 +10,7 @@ import com.kw.gdx.view.label.Label4;
 
 public class FontUtils {
     public static Label4 labelToLabel4(Label monlabel){
-        Label4 label4 = new Label4("",new Label.LabelStyle(){{
+        Label4 label4 = new Label4("",new Label4.LabelStyle(){{
             font = monlabel.getStyle().font;
         }});
         monlabel.getParent().addActor(label4);
@@ -18,7 +18,7 @@ public class FontUtils {
         label4.setPosition(monlabel.getX(Align.center),monlabel.getY(Align.center),Align.center);
         label4.setAlignment(Align.center);
         label4.setName(monlabel.getName());
-        label4.setModkern(5);
+
         return label4;
     }
 }
