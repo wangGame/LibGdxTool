@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -36,8 +36,8 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.ShortArray;
 
 class Triangulator {
-	private final Array<FloatArray> convexPolygons = new Array();
-	private final Array<ShortArray> convexPolygonsIndices = new Array();
+	private final Array<FloatArray> convexPolygons = new Array(false, 16);
+	private final Array<ShortArray> convexPolygonsIndices = new Array(false, 16);
 
 	private final ShortArray indicesArray = new ShortArray();
 	private final BooleanArray isConcaveArray = new BooleanArray();
@@ -179,11 +179,9 @@ class Triangulator {
 				if (polygon.size > 0) {
 					convexPolygons.add(polygon);
 					convexPolygonsIndices.add(polygonIndices);
-				} else {
-					polygonPool.free(polygon);
-					polygonIndicesPool.free(polygonIndices);					
+					polygon = polygonPool.obtain();
+					polygonIndices = polygonIndicesPool.obtain();
 				}
-				polygon = polygonPool.obtain();
 				polygon.clear();
 				polygon.add(x1);
 				polygon.add(y1);
@@ -191,7 +189,6 @@ class Triangulator {
 				polygon.add(y2);
 				polygon.add(x3);
 				polygon.add(y3);
-				polygonIndices = polygonIndicesPool.obtain();
 				polygonIndices.clear();
 				polygonIndices.add(t1);
 				polygonIndices.add(t2);
@@ -207,13 +204,14 @@ class Triangulator {
 		}
 
 		// Go through the list of polygons and try to merge the remaining triangles with the found triangle fans.
+		Object[] convexPolygonsIndicesItems = convexPolygonsIndices.items, convexPolygonsItems = convexPolygons.items;
 		for (int i = 0, n = convexPolygons.size; i < n; i++) {
-			polygonIndices = convexPolygonsIndices.get(i);
+			polygonIndices = (ShortArray)convexPolygonsIndicesItems[i];
 			if (polygonIndices.size == 0) continue;
-			int firstIndex = polygonIndices.get(0);
+			int firstIndex = polygonIndices.first();
 			int lastIndex = polygonIndices.get(polygonIndices.size - 1);
 
-			polygon = convexPolygons.get(i);
+			polygon = (FloatArray)convexPolygonsItems[i];
 			int o = polygon.size - 4;
 			float[] p = polygon.items;
 			float prevPrevX = p[o], prevPrevY = p[o + 1];
@@ -224,13 +222,13 @@ class Triangulator {
 
 			for (int ii = 0; ii < n; ii++) {
 				if (ii == i) continue;
-				ShortArray otherIndices = convexPolygonsIndices.get(ii);
+				ShortArray otherIndices = (ShortArray)convexPolygonsIndicesItems[ii];
 				if (otherIndices.size != 3) continue;
-				int otherFirstIndex = otherIndices.get(0);
+				int otherFirstIndex = otherIndices.first();
 				int otherSecondIndex = otherIndices.get(1);
 				int otherLastIndex = otherIndices.get(2);
 
-				FloatArray otherPoly = convexPolygons.get(ii);
+				FloatArray otherPoly = (FloatArray)convexPolygonsItems[ii];
 				float x3 = otherPoly.get(otherPoly.size - 2), y3 = otherPoly.get(otherPoly.size - 1);
 
 				if (otherFirstIndex != firstIndex || otherSecondIndex != lastIndex) continue;
@@ -253,11 +251,11 @@ class Triangulator {
 
 		// Remove empty polygons that resulted from the merge step above.
 		for (int i = convexPolygons.size - 1; i >= 0; i--) {
-			polygon = convexPolygons.get(i);
+			polygon = (FloatArray)convexPolygonsItems[i];
 			if (polygon.size == 0) {
 				convexPolygons.removeIndex(i);
 				polygonPool.free(polygon);
-				polygonIndices = convexPolygonsIndices.removeIndex(i);			
+				polygonIndices = convexPolygonsIndices.removeIndex(i);
 				polygonIndicesPool.free(polygonIndices);
 			}
 		}

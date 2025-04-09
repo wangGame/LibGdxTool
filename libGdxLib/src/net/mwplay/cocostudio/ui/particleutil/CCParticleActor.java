@@ -336,7 +336,6 @@ public class CCParticleActor extends Actor implements Disposable {
 
         for (int i = 0; i < _particleCount; ++i) {
             Particle _particleData = m_pParticles[i];
-            //System.out.println("_particleData:"+_particleData.hashCode());
             _particleData.timeToLive -= dt;
             if (_particleData.timeToLive <= 0f) {
                 if (i != _particleCount - 1) {

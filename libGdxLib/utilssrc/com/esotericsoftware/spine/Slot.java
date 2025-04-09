@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -31,9 +31,11 @@ package com.esotericsoftware.spine;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.FloatArray;
+ 
 
 import com.esotericsoftware.spine.Animation.DeformTimeline;
 import com.esotericsoftware.spine.attachments.Attachment;
+import com.esotericsoftware.spine.attachments.Sequence;
 import com.esotericsoftware.spine.attachments.VertexAttachment;
 
 /** Stores a slot's current pose. Slots organize attachments for {@link Skeleton#drawOrder} purposes and provide a place to store
@@ -42,10 +44,11 @@ import com.esotericsoftware.spine.attachments.VertexAttachment;
 public class Slot {
 	final SlotData data;
 	final Bone bone;
-	final Color color = new Color(), darkColor;
+	final Color color = new Color();
+	final Color darkColor;
 	Attachment attachment;
-	private float attachmentTime;
-	private FloatArray deform = new FloatArray();
+	int sequenceIndex;
+	FloatArray deform = new FloatArray();
 
 	int attachmentState;
 
@@ -67,7 +70,7 @@ public class Slot {
 		color.set(slot.color);
 		darkColor = slot.darkColor == null ? null : new Color(slot.darkColor);
 		attachment = slot.attachment;
-		attachmentTime = slot.attachmentTime;
+		sequenceIndex = slot.sequenceIndex;
 		deform.addAll(slot.deform);
 	}
 
@@ -103,23 +106,28 @@ public class Slot {
 		return attachment;
 	}
 
-	/** Sets the slot's attachment and, if the attachment changed, resets {@link #attachmentTime} and clears {@link #deform}.
-	 * @param attachment May be null. */
+	/** Sets the slot's attachment and, if the attachment changed, resets {@link #sequenceIndex} and clears the {@link #deform}.
+	 * The deform is not cleared if the old attachment has the same {@link VertexAttachment#getTimelineAttachment()} as the
+	 * specified attachment. */
 	public void setAttachment (Attachment attachment) {
 		if (this.attachment == attachment) return;
+		if (!(attachment instanceof VertexAttachment) || !(this.attachment instanceof VertexAttachment)
+			|| ((VertexAttachment)attachment).getTimelineAttachment() != ((VertexAttachment)this.attachment)
+				.getTimelineAttachment()) {
+			deform.clear();
+		}
 		this.attachment = attachment;
-		attachmentTime = bone.skeleton.time;
-		deform.clear();
+		sequenceIndex = -1;
 	}
 
-	/** The time that has elapsed since the last time the attachment was set or cleared. Relies on Skeleton
-	 * {@link Skeleton#time}. */
-	public float getAttachmentTime () {
-		return bone.skeleton.time - attachmentTime;
+	/** The index of the texture region to display when the slot's attachment has a {@link Sequence}. -1 represents the
+	 * {@link Sequence#getSetupIndex()}. */
+	public int getSequenceIndex () {
+		return sequenceIndex;
 	}
 
-	public void setAttachmentTime (float time) {
-		attachmentTime = bone.skeleton.time - time;
+	public void setSequenceIndex (int sequenceIndex) {
+		this.sequenceIndex = sequenceIndex;
 	}
 
 	/** Values to deform the slot's attachment. For an unweighted mesh, the entries are local positions for each vertex. For a

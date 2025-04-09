@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -32,6 +32,7 @@ package com.esotericsoftware.spine.utils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.ShortArray;
+
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.attachments.ClippingAttachment;
 
@@ -46,10 +47,10 @@ public class SkeletonClipping {
 	private ClippingAttachment clipAttachment;
 	private Array<FloatArray> clippingPolygons;
 
-	public int clipStart (Slot slot, ClippingAttachment clip) {
-		if (clipAttachment != null) return 0;
+	public void clipStart (Slot slot, ClippingAttachment clip) {
+		if (clipAttachment != null) return;
 		int n = clip.getWorldVerticesLength();
-		if (n < 6) return 0;
+		if (n < 6) return;
 		clipAttachment = clip;
 
 		float[] vertices = clippingPolygon.setSize(n);
@@ -62,7 +63,6 @@ public class SkeletonClipping {
 			polygon.add(polygon.items[0]);
 			polygon.add(polygon.items[1]);
 		}
-		return clippingPolygons.size;
 	}
 
 	public void clipEnd (Slot slot) {

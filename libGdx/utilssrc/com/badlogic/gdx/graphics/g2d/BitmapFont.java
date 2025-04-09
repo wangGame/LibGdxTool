@@ -59,7 +59,7 @@ public class BitmapFont implements Disposable {
 	static private final int PAGE_SIZE = 1 << LOG2_PAGE_SIZE;
 	static private final int PAGES = 0x10000 / PAGE_SIZE;
 
-	final BitmapFontData data;
+	public final BitmapFontData data;
 	Array<TextureRegion> regions;
 	private final BitmapFontCache cache;
 	private boolean flipped;
@@ -828,6 +828,10 @@ public class BitmapFont implements Disposable {
 		 * @param lastGlyph The glyph immediately before this run, or null if this is run is the first on a line of text. Used tp
 		 *           apply kerning between the specified glyph and the first glyph in this run. */
 		public void getGlyphs (GlyphRun run, CharSequence str, int start, int end, Glyph lastGlyph) {
+			getGlyphs(run,str,start,end,lastGlyph,0);
+		}
+
+		public void getGlyphs (GlyphRun run, CharSequence str, int start, int end, Glyph lastGlyph,float modkerning) {
 			int max = end - start;
 			if (max == 0) return;
 			boolean markupEnabled = this.markupEnabled;
@@ -849,16 +853,16 @@ public class BitmapFont implements Disposable {
 				}
 				glyphs.add(glyph);
 				xAdvances.add(lastGlyph == null // First glyph on line, adjust the position so it isn't drawn left of 0.
-					? (glyph.fixedWidth ? 0 : -glyph.xoffset * scaleX - padLeft)
-					: (lastGlyph.xadvance + lastGlyph.getKerning(ch)) * scaleX);
+						? (glyph.fixedWidth ? 0 : -glyph.xoffset * scaleX - padLeft)
+						: (lastGlyph.xadvance + modkerning + lastGlyph.getKerning(ch)) * scaleX);
 				lastGlyph = glyph;
 
 				// "[[" is an escaped left square bracket, skip second character.
 				if (markupEnabled && ch == '[' && start < end && str.charAt(start) == '[') start++;
 			} while (start < end);
 			if (lastGlyph != null) {
-				float lastGlyphWidth = lastGlyph.fixedWidth ? lastGlyph.xadvance * scaleX
-					: (lastGlyph.width + lastGlyph.xoffset) * scaleX - padRight;
+				float lastGlyphWidth = lastGlyph.fixedWidth ? lastGlyph.xadvance * scaleX + modkerning
+						: (lastGlyph.width + lastGlyph.xoffset) * scaleX - padRight;
 				xAdvances.add(lastGlyphWidth);
 			}
 		}

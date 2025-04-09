@@ -273,7 +273,7 @@ public class SoundThreadManager implements Runnable {
         }
         // Only block if we want to send a STOP message, because if we skip a STOP message we might
         // end up with an infinite looping sound
-        NLog.i("Sound message queue is full, blocking to send a STOP message");
+        NLog.e("Sound message queue is full, blocking to send a STOP message");
         try {
             mMessageQueue.put(message);
         } catch (InterruptedException e) {

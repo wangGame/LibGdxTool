@@ -3,11 +3,14 @@ package com.kw.gdx.view.dialog.base;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
+import com.kw.gdx.listener.OrdinaryButtonListener;
 import com.kw.gdx.resource.annotation.AnnotationInfo;
 import com.kw.gdx.resource.annotation.ScreenResource;
 import com.kw.gdx.sound.AudioProcess;
@@ -27,18 +30,23 @@ public class BaseDialog extends Group {
     protected float offsetY;
     protected float shadowTime = 0.1667F;
     protected boolean playOpenAudio = false;
-    protected String openMusic = AudioType.clickA;
+    protected String openMusic = AudioType.click;
     protected boolean playCloseAudio = false;
-    protected String closeMusic = AudioType.clickA;
+    protected String closeMusic = AudioType.click;
     protected Vector2 dialogSize = new Vector2();
     protected boolean backClose;
-    protected float aa = 0.75f;
+    protected float dialogShadowA = 0.85f;
     protected boolean isFont;
     protected String viewpath;
     protected Actor closeBg;
     protected boolean entered = false;
     protected boolean closeFlag = false;
     protected boolean closed;
+    /**
+     * 立即执行，把等弹窗打开就可以直接关闭
+     */
+    protected boolean executeImmediately;
+
     public void setFont(boolean font) {
         isFont = font;
     }
@@ -56,11 +64,15 @@ public class BaseDialog extends Group {
     }
 
     public BaseDialog(){
+
         ScreenResource annotation = AnnotationInfo.checkClassAnnotation(this, ScreenResource.class);
         closeBg = new Actor();
-
+        debugAll();
         if (annotation!=null){
             viewpath = annotation.value();
+            if (useTemp()) {
+                viewpath = annotation.tempV();
+            }
             dialogGroup = CocosResource.loadFile(viewpath);
         }else {
             dialogGroup = new Group();
@@ -76,21 +88,38 @@ public class BaseDialog extends Group {
         setX(Constant.GAMEWIDTH/2,Align.center);
         offsetX = (Constant.GAMEWIDTH - Constant.WIDTH)/2;
         offsetY = (Constant.GAMEHIGHT - Constant.HIGHT) / 2;
+
+
+
+        closeBg.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                closeFlag = true;
+                if (entered){
+                    closeDialog();
+                }
+            }
+        });
+    }
+
+    protected boolean useTemp() {
+        return false;
     }
 
     public void close(){
-        setOrigin(Align.center);
+        dialogGroup.setOrigin(Align.center);
         playCloseAudio();
-        addAction(
+        dialogGroup.addAction(
                 Actions.parallel(
-                        Actions.sequence(
-                                Actions.scaleTo(0.074F,0.074F,0.2667F * timeScale,
-                                        new BseInterpolation(0.25f,0,1,1)),
-                                Actions.run(()->{
-                                    removeBefore();
-                                    remove();
-                                })
-                        ), Actions.sequence(Actions.alpha(0,0.2333F * timeScale))
+                    Actions.sequence(
+                        Actions.scaleTo(0.074F,0.074F,0.2667F * timeScale,
+                                new BseInterpolation(0.25f,0,1,1)),
+                        Actions.run(()->{
+                            removeBefore();
+                            remove();
+                        })
+                    ), Actions.sequence(Actions.alpha(0,0.2333F * timeScale))
                 )
         );
     }
@@ -115,21 +144,23 @@ public class BaseDialog extends Group {
         return type;
     }
 
+    protected void initView(){}
+
     public void show() {
         playOpenAudio();
+        initView();
         setOrigin(Align.center);
         enterAnimation();
     }
 
-    private float timeScale =0.7f;
-
+    protected float timeScale =0.7f;
     public void setAphlaZero(){
-        getColor().a = 0;
+        dialogGroup.getColor().a = 0;
     }
-
     public void enterAnimation() {
         setAphlaZero();
-        addAction(Actions.parallel(
+        dialogGroup.setOrigin(Align.center);
+        dialogGroup.addAction(Actions.parallel(
                 Actions.sequence(
                         Actions.alpha(0,0),
                         Actions.alpha(1,0.1667F * timeScale),
@@ -197,7 +228,7 @@ public class BaseDialog extends Group {
     }
 
     public float getA() {
-        return aa;
+        return dialogShadowA;
     }
 
     public void touchDisable(){
@@ -213,6 +244,21 @@ public class BaseDialog extends Group {
         setX(Constant.GAMEWIDTH/2,Align.center);
     }
 
+
+    public void closeDialog(Actor actor) {
+        actor.setTouchable(Touchable.enabled);
+        actor.setOrigin(Align.center);
+        actor.clearListeners();
+        actor.addListener(new OrdinaryButtonListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                actor.setTouchable(Touchable.disabled);
+                closeDialog();
+            }
+        });
+    }
+
     protected void hideRootView() {
         ScreenResource annotation = AnnotationInfo.checkClassAnnotation(this, ScreenResource.class);
         if (annotation!=null){
@@ -222,4 +268,23 @@ public class BaseDialog extends Group {
             }
         }
     }
+
+    public Group getDialogGroup() {
+        return dialogGroup;
+    }
+
+
+    protected void btnAddListener(Actor closeBtn,Runnable runnable) {
+        closeBtn.setOrigin(Align.center);
+        closeBtn.setTouchable(Touchable.enabled);
+        closeBtn.addListener(new OrdinaryButtonListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                runnable.run();
+            }
+        });
+    }
+
+
 }

@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -31,7 +31,9 @@ package com.esotericsoftware.spine;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
+import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.Pool;
+
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.BoundingBoxAttachment;
 
@@ -55,15 +57,15 @@ public class SkeletonBounds {
 		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
 		Array<BoundingBoxAttachment> boundingBoxes = this.boundingBoxes;
 		Array<FloatArray> polygons = this.polygons;
-		Array<Slot> slots = skeleton.slots;
-		int slotCount = slots.size;
+		Object[] slots = skeleton.slots.items;
+		int slotCount = skeleton.slots.size;
 
 		boundingBoxes.clear();
 		polygonPool.freeAll(polygons);
 		polygons.clear();
 
 		for (int i = 0; i < slotCount; i++) {
-			Slot slot = slots.get(i);
+			Slot slot = (Slot)slots[i];
 			if (!slot.bone.active) continue;
 			Attachment attachment = slot.attachment;
 			if (attachment instanceof BoundingBoxAttachment) {
@@ -89,9 +91,9 @@ public class SkeletonBounds {
 
 	private void aabbCompute () {
 		float minX = Integer.MAX_VALUE, minY = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, maxY = Integer.MIN_VALUE;
-		Array<FloatArray> polygons = this.polygons;
-		for (int i = 0, n = polygons.size; i < n; i++) {
-			FloatArray polygon = polygons.get(i);
+		Object[] polygons = this.polygons.items;
+		for (int i = 0, n = this.polygons.size; i < n; i++) {
+			FloatArray polygon = (FloatArray)polygons[i];
 			float[] vertices = polygon.items;
 			for (int ii = 0, nn = polygon.size; ii < nn; ii += 2) {
 				float x = vertices[ii];
@@ -141,10 +143,10 @@ public class SkeletonBounds {
 
 	/** Returns the first bounding box attachment that contains the point, or null. When doing many checks, it is usually more
 	 * efficient to only call this method if {@link #aabbContainsPoint(float, float)} returns true. */
-	public BoundingBoxAttachment containsPoint (float x, float y) {
-		Array<FloatArray> polygons = this.polygons;
-		for (int i = 0, n = polygons.size; i < n; i++)
-			if (containsPoint(polygons.get(i), x, y)) return boundingBoxes.get(i);
+	public @Null BoundingBoxAttachment containsPoint (float x, float y) {
+		Object[] polygons = this.polygons.items;
+		for (int i = 0, n = this.polygons.size; i < n; i++)
+			if (containsPoint((FloatArray)polygons[i], x, y)) return boundingBoxes.get(i);
 		return null;
 	}
 
@@ -171,10 +173,10 @@ public class SkeletonBounds {
 	/** Returns the first bounding box attachment that contains any part of the line segment, or null. When doing many checks, it
 	 * is usually more efficient to only call this method if {@link #aabbIntersectsSegment(float, float, float, float)} returns
 	 * true. */
-	public BoundingBoxAttachment intersectsSegment (float x1, float y1, float x2, float y2) {
-		Array<FloatArray> polygons = this.polygons;
-		for (int i = 0, n = polygons.size; i < n; i++)
-			if (intersectsSegment(polygons.get(i), x1, y1, x2, y2)) return boundingBoxes.get(i);
+	public @Null BoundingBoxAttachment intersectsSegment (float x1, float y1, float x2, float y2) {
+		Object[] polygons = this.polygons.items;
+		for (int i = 0, n = this.polygons.size; i < n; i++)
+			if (intersectsSegment((FloatArray)polygons[i], x1, y1, x2, y2)) return boundingBoxes.get(i);
 		return null;
 	}
 
@@ -244,7 +246,7 @@ public class SkeletonBounds {
 	}
 
 	/** Returns the polygon for the specified bounding box, or null. */
-	public FloatArray getPolygon (BoundingBoxAttachment boundingBox) {
+	public @Null FloatArray getPolygon (BoundingBoxAttachment boundingBox) {
 		if (boundingBox == null) throw new IllegalArgumentException("boundingBox cannot be null.");
 		int index = boundingBoxes.indexOf(boundingBox, true);
 		return index == -1 ? null : polygons.get(index);

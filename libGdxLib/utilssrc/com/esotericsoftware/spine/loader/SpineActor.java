@@ -48,7 +48,7 @@ public class SpineActor extends Actor {
         assetamnagerinstance = Asset.getAsset().getAssetManager();
         if(!assetamnagerinstance.isLoaded(path+".json")) {
             SkeletonDataLoader.SkeletonDataParameter mainSkeletonParameter = new SkeletonDataLoader.SkeletonDataParameter();
-            mainSkeletonParameter.atlasfile = atlas;
+            mainSkeletonParameter.atlasName = atlas;
             assetamnagerinstance.load(path + ".json", SkeletonData.class,mainSkeletonParameter);
             assetamnagerinstance.finishLoading();
         }
@@ -62,7 +62,7 @@ public class SpineActor extends Actor {
             assetManager.load(atlas, TextureAtlas.class);
             assetManager.finishLoading();
             SkeletonDataLoader.SkeletonDataParameter mainSkeletonParameter = new SkeletonDataLoader.SkeletonDataParameter();
-            mainSkeletonParameter.atlasfile = atlas;
+            mainSkeletonParameter.atlasName = atlas;
             assetamnagerinstance.load(path + ".json", SkeletonData.class,mainSkeletonParameter);
             assetamnagerinstance.finishLoading();
         }
@@ -108,8 +108,6 @@ public class SpineActor extends Actor {
     }
 
     public void setAnimation(String name, boolean loop){
-//        System.out.println(name+"=================name");
-
         state.setAnimation(0,name,loop);
     }
 
@@ -178,14 +176,8 @@ public class SpineActor extends Actor {
     }
 
     @Override
-    public void act(float delta) {
-        super.act(delta);
-        state.update(delta);
-    }
-
-    @Override
     public void draw(Batch batch, float parentAlpha) {
-        float alpha = this.color.a*parentAlpha;
+        float alpha = this.getColor().a*parentAlpha;
         Color color = skeleton.getColor();
         float oldAlpha = color.a;
         skeleton.getColor().a *= alpha;
@@ -193,6 +185,8 @@ public class SpineActor extends Actor {
             skeleton.getRootBone().setScale(rootBoneScaleX*getScaleX(),
                     getScaleY()*rootBoneScaleY);
         }
+
+        state.update(Gdx.graphics.getDeltaTime());
         state.apply(skeleton);
         skeleton.updateWorldTransform();
         int src = batch.getBlendSrcFunc();
@@ -200,20 +194,12 @@ public class SpineActor extends Actor {
         if (isClip) {
             batch.flush();
             if (clipBegin(getX() + beginX,getY() + beginY , w, h)) {
-                if(batch instanceof PolygonSpriteBatch){
-                    renderer.draw((PolygonSpriteBatch)batch,skeleton);
-                }else {
-                    renderer.draw(batch, skeleton);
-                }
+                renderer.draw(batch, skeleton);
                 batch.flush();
                 clipEnd();
             }
         }else {
-            if(batch instanceof PolygonSpriteBatch){
-                renderer.draw((PolygonSpriteBatch)batch,skeleton);
-            }else {
-                renderer.draw(batch, skeleton);
-            }
+            renderer.draw(batch, skeleton);
         }
 
         batch.setBlendFunction(src,dst);

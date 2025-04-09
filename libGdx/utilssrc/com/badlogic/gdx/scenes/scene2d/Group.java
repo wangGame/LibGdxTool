@@ -40,7 +40,7 @@ public class Group extends Actor implements Cullable {
 	private final Affine2 worldTransform = new Affine2();
 	private final Matrix4 computedTransform = new Matrix4();
 	private final Matrix4 oldTransform = new Matrix4();
-	boolean transform = true;
+	protected boolean transform = true;
 	private @Null Rectangle cullingArea;
 
 	public void act (float delta) {

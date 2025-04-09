@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -34,26 +34,61 @@ import static com.esotericsoftware.spine.utils.SpineUtils.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Null;
+
+import com.esotericsoftware.spine.Slot;
 
 /** An attachment that displays a textured mesh. A mesh has hull vertices and internal vertices within the hull. Holes are not
  * supported. Each vertex has UVs (texture coordinates) and triangles are used to map an image on to the mesh.
  * <p>
  * See <a href="http://esotericsoftware.com/spine-meshes">Mesh attachments</a> in the Spine User Guide. */
-public class MeshAttachment extends VertexAttachment {
+public class MeshAttachment extends VertexAttachment implements HasTextureRegion {
 	private TextureRegion region;
 	private String path;
 	private float[] regionUVs, uvs;
 	private short[] triangles;
 	private final Color color = new Color(1, 1, 1, 1);
 	private int hullLength;
-	private MeshAttachment parentMesh;
+	private @Null MeshAttachment parentMesh;
+	private @Null Sequence sequence;
 
 	// Nonessential.
-	private short[] edges;
+	private @Null short[] edges;
 	private float width, height;
 
 	public MeshAttachment (String name) {
 		super(name);
+	}
+
+	/** Copy constructor. Use {@link #newLinkedMesh()} if the other mesh is a linked mesh. */
+	protected MeshAttachment (MeshAttachment other) {
+		super(other);
+
+		if (parentMesh != null) throw new IllegalArgumentException("Use newLinkedMesh to copy a linked mesh.");
+
+		region = other.region;
+		path = other.path;
+		color.set(other.color);
+
+		regionUVs = new float[other.regionUVs.length];
+		arraycopy(other.regionUVs, 0, regionUVs, 0, regionUVs.length);
+
+		uvs = new float[other.uvs.length];
+		arraycopy(other.uvs, 0, uvs, 0, uvs.length);
+
+		triangles = new short[other.triangles.length];
+		arraycopy(other.triangles, 0, triangles, 0, triangles.length);
+
+		hullLength = other.hullLength;
+		sequence = other.sequence != null ? new Sequence(other.sequence) : null;
+
+		// Nonessential.
+		if (other.edges != null) {
+			edges = new short[other.edges.length];
+			arraycopy(other.edges, 0, edges, 0, edges.length);
+		}
+		width = other.width;
+		height = other.height;
 	}
 
 	public void setRegion (TextureRegion region) {
@@ -61,14 +96,13 @@ public class MeshAttachment extends VertexAttachment {
 		this.region = region;
 	}
 
-	public TextureRegion getRegion () {
-		if (region == null) throw new IllegalStateException("Region has not been set: " + this);
+	public @Null TextureRegion getRegion () {
 		return region;
 	}
 
-	/** Calculates {@link #uvs} using {@link #regionUVs} and the {@link #region}. Must be called after changing the region UVs or
-	 * region. */
-	public void updateUVs () {
+	/** Calculates {@link #uvs} using the {@link #regionUVs} and region. Must be called if the region, the region's properties, or
+	 * the {@link #regionUVs} are changed. */
+	public void updateRegion () {
 		float[] regionUVs = this.regionUVs;
 		if (this.uvs == null || this.uvs.length != regionUVs.length) this.uvs = new float[regionUVs.length];
 		float[] uvs = this.uvs;
@@ -79,7 +113,8 @@ public class MeshAttachment extends VertexAttachment {
 			v = region.getV();
 			AtlasRegion region = (AtlasRegion)this.region;
 			float textureWidth = region.getTexture().getWidth(), textureHeight = region.getTexture().getHeight();
-			if (region.rotate) {
+			switch (90) {
+			case 90:
 				u -= (region.originalHeight - region.offsetY - region.packedWidth) / textureWidth;
 				v -= (region.originalWidth - region.offsetX - region.packedHeight) / textureHeight;
 				width = region.originalHeight / textureWidth;
@@ -87,6 +122,26 @@ public class MeshAttachment extends VertexAttachment {
 				for (int i = 0; i < n; i += 2) {
 					uvs[i] = u + regionUVs[i + 1] * width;
 					uvs[i + 1] = v + (1 - regionUVs[i]) * height;
+				}
+				return;
+			case 180:
+				u -= (region.originalWidth - region.offsetX - region.packedWidth) / textureWidth;
+				v -= region.offsetY / textureHeight;
+				width = region.originalWidth / textureWidth;
+				height = region.originalHeight / textureHeight;
+				for (int i = 0; i < n; i += 2) {
+					uvs[i] = u + (1 - regionUVs[i]) * width;
+					uvs[i + 1] = v + (1 - regionUVs[i + 1]) * height;
+				}
+				return;
+			case 270:
+				u -= region.offsetY / textureWidth;
+				v -= region.offsetX / textureHeight;
+				width = region.originalHeight / textureWidth;
+				height = region.originalWidth / textureHeight;
+				for (int i = 0; i < n; i += 2) {
+					uvs[i] = u + (1 - regionUVs[i + 1]) * width;
+					uvs[i + 1] = v + regionUVs[i] * height;
 				}
 				return;
 			}
@@ -107,6 +162,12 @@ public class MeshAttachment extends VertexAttachment {
 			uvs[i] = u + regionUVs[i] * width;
 			uvs[i + 1] = v + regionUVs[i + 1] * height;
 		}
+	}
+
+	/** If the attachment has a {@link #sequence}, the region may be changed. */
+	public void computeWorldVertices (Slot slot, int start, int count, float[] worldVertices, int offset, int stride) {
+		if (sequence != null) sequence.apply(slot, this);
+		super.computeWorldVertices(slot, start, count, worldVertices, offset, stride);
 	}
 
 	/** Triplets of vertex indices which describe the mesh's triangulation. */
@@ -130,7 +191,7 @@ public class MeshAttachment extends VertexAttachment {
 
 	/** The UV pair for each vertex, normalized within the entire texture.
 	 * <p>
-	 * See {@link #updateUVs}. */
+	 * See {@link #updateRegion()}. */
 	public float[] getUVs () {
 		return uvs;
 	}
@@ -139,12 +200,10 @@ public class MeshAttachment extends VertexAttachment {
 		this.uvs = uvs;
 	}
 
-	/** The color to tint the mesh. */
 	public Color getColor () {
 		return color;
 	}
 
-	/** The name of the texture region for this attachment. */
 	public String getPath () {
 		return path;
 	}
@@ -166,13 +225,13 @@ public class MeshAttachment extends VertexAttachment {
 		this.edges = edges;
 	}
 
-	/** Vertex index pairs describing edges for controling triangulation. Mesh triangles will never cross edges. Only available if
-	 * nonessential data was exported. Triangulation is not performed at runtime. */
-	public short[] getEdges () {
+	/** Vertex index pairs describing edges for controlling triangulation, or be null if nonessential data was not exported. Mesh
+	 * triangles will never cross edges. Triangulation is not performed at runtime. */
+	public @Null short[] getEdges () {
 		return edges;
 	}
 
-	/** The width of the mesh's image. Available only when nonessential data was exported. */
+	/** The width of the mesh's image, or zero if nonessential data was not exported. */
 	public float getWidth () {
 		return width;
 	}
@@ -181,7 +240,7 @@ public class MeshAttachment extends VertexAttachment {
 		this.width = width;
 	}
 
-	/** The height of the mesh's image. Available only when nonessential data was exported. */
+	/** The height of the mesh's image, or zero if nonessential data was not exported. */
 	public float getHeight () {
 		return height;
 	}
@@ -190,15 +249,22 @@ public class MeshAttachment extends VertexAttachment {
 		this.height = height;
 	}
 
+	public @Null Sequence getSequence () {
+		return sequence;
+	}
+
+	public void setSequence (@Null Sequence sequence) {
+		this.sequence = sequence;
+	}
+
 	/** The parent mesh if this is a linked mesh, else null. A linked mesh shares the {@link #bones}, {@link #vertices},
 	 * {@link #regionUVs}, {@link #triangles}, {@link #hullLength}, {@link #edges}, {@link #width}, and {@link #height} with the
 	 * parent mesh, but may have a different {@link #name} or {@link #path} (and therefore a different texture). */
-	public MeshAttachment getParentMesh () {
+	public @Null MeshAttachment getParentMesh () {
 		return parentMesh;
 	}
 
-	/** @param parentMesh May be null. */
-	public void setParentMesh (MeshAttachment parentMesh) {
+	public void setParentMesh (@Null MeshAttachment parentMesh) {
 		this.parentMesh = parentMesh;
 		if (parentMesh != null) {
 			bones = parentMesh.bones;
@@ -213,42 +279,19 @@ public class MeshAttachment extends VertexAttachment {
 		}
 	}
 
-	public Attachment copy () {
-		if (parentMesh != null) return newLinkedMesh();
-
-		MeshAttachment copy = new MeshAttachment(name);
-		copy.region = region;
-		copy.path = path;
-		copy.color.set(color);
-
-		copyTo(copy);
-		copy.regionUVs = new float[regionUVs.length];
-		arraycopy(regionUVs, 0, copy.regionUVs, 0, regionUVs.length);
-		copy.uvs = new float[uvs.length];
-		arraycopy(uvs, 0, copy.uvs, 0, uvs.length);
-		copy.triangles = new short[triangles.length];
-		arraycopy(triangles, 0, copy.triangles, 0, triangles.length);
-		copy.hullLength = hullLength;
-
-		// Nonessential.
-		if (edges != null) {
-			copy.edges = new short[edges.length];
-			arraycopy(edges, 0, copy.edges, 0, edges.length);
-		}
-		copy.width = width;
-		copy.height = height;
-		return copy;
-	}
-
-	/** Returns a new mesh with the {@link #parentMesh} set to this mesh's parent mesh, if any, else to this mesh. **/
+	/** Returns a new mesh with the {@link #parentMesh} set to this mesh's parent mesh, if any, else to this mesh. */
 	public MeshAttachment newLinkedMesh () {
 		MeshAttachment mesh = new MeshAttachment(name);
+		mesh.timelineAttachment = timelineAttachment;
 		mesh.region = region;
 		mesh.path = path;
 		mesh.color.set(color);
-		mesh.deformAttachment = deformAttachment;
 		mesh.setParentMesh(parentMesh != null ? parentMesh : this);
-		mesh.updateUVs();
+		if (mesh.getRegion() != null) mesh.updateRegion();
 		return mesh;
+	}
+
+	public MeshAttachment copy () {
+		return parentMesh != null ? newLinkedMesh() : new MeshAttachment(this);
 	}
 }

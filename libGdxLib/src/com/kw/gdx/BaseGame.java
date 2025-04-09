@@ -6,8 +6,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.CpuPolygonSpriteBatch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FillViewport;
@@ -16,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.esotericsoftware.spine.utils.TwoColorPolygonBatch;
 import com.kw.gdx.anr.ANRError;
 import com.kw.gdx.anr.ANRListener;
 import com.kw.gdx.anr.ANRDEMO;
@@ -26,25 +25,23 @@ import com.kw.gdx.crash.CrashUtils;
 import com.kw.gdx.resource.annotation.AnnotationInfo;
 import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
-import com.kw.gdx.shader.ShaderUtils;
 import com.kw.gdx.utils.log.NLog;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class BaseGame extends Game {
+    private Screen zhuanCScreen;
     private Batch batch;
     protected Viewport stageViewport;
     protected ANRWatchDog dog;
-    private float oldWidth;
-    private float oldHeight;
 
     @Override
     public void create() {
         printInfo();
         gameInfoConfig();
         anrTest();
-        catchBackKey();
+        initInstance();
         initViewport();
         initExtends();
         initScreen();
@@ -87,9 +84,7 @@ public class BaseGame extends Game {
     }
 
     private void initExtends() {
-        //enter clear old resource !!!
-        Asset.getAsset().dispose();
-        ShaderUtils.dispose();
+        Asset.getAsset();
     }
 
     protected void gameInfoConfig() {
@@ -99,7 +94,7 @@ public class BaseGame extends Game {
 
     protected void loadingView(){}
 
-    protected void catchBackKey(){
+    protected void initInstance(){
         Gdx.input.setCatchKey(Input.Keys.BUTTON_CIRCLE,true);
     }
 
@@ -121,16 +116,13 @@ public class BaseGame extends Game {
         }
     }
 
-
     @Override
     public void resize(int width, int height) {
-        if (oldWidth == width && height == oldHeight) {
-            return;
-        }
-        oldWidth = width;
-        oldHeight = height;
         viewPortResize(width, height);
         super.resize(width,height);
+        if (zhuanCScreen!=null){
+            zhuanCScreen.resize(width, height);
+        }
     }
 
     private void viewPortResize(int width, int height) {
@@ -146,28 +138,33 @@ public class BaseGame extends Game {
                 | GL20.GL_DEPTH_BUFFER_BIT
                 | GL20.GL_STENCIL_BUFFER_BIT);
         if (Constant.SHOWFRAMESPERSECOND){
-            NLog.i("FramesPerSecond",Gdx.app.getGraphics().getFramesPerSecond());
+            NLog.i("FramesPerSecond %s",Gdx.app.getGraphics().getFramesPerSecond());
         }
         super.render();
         if (Constant.SHOWRENDERCALL) {
-            if (batch instanceof CpuPolygonSpriteBatch){
-                System.out.println(((CpuPolygonSpriteBatch) (batch)).renderCalls);
+            if (batch instanceof com.esotericsoftware.spine.utils.TwoColorPolygonBatch){
+//                System.out.println(((TwoColorPolygonBatch) (batch)).renderCalls);
             }
         }
+        if (zhuanCScreen!=null){
+            zhuanCScreen.render(Gdx.graphics.getDeltaTime());
+        }
     }
+
     public Viewport getStageViewport() {
         return stageViewport;
     }
 
     public Batch getBatch() {
         if (batch==null) {
-            if (Constant.batchType == Constant.COUPOLYGONBATCH) {
-                batch = new CpuPolygonSpriteBatch();
-            }else if (Constant.batchType == Constant.SPRITEBATCH){
-                batch = new SpriteBatch();
-            }else {
-                batch = new CpuPolygonSpriteBatch();
-            }
+//            if (Constant.batchType == Constant.COUPOLYGONBATCH) {
+//                batch = new CpuPolygonSpriteBatch();
+//            }else if (Constant.batchType == Constant.SPRITEBATCH){
+//                batch = new SpriteBatch();
+//            }else {
+//                batch = new CpuPolygonSpriteBatch();
+//            }
+            batch = new TwoColorPolygonBatch();
         }
         return batch;
     }
@@ -180,15 +177,26 @@ public class BaseGame extends Game {
             batch.dispose();
             batch = null;
         }
+        if (zhuanCScreen!=null){
+            zhuanCScreen.dispose();
+        }
         otherDispose();
     }
 
-
     public void setScreen(Class<? extends BaseScreen> t) {
+        setScreen(t,false);
+    }
+
+    public void setScreen(Class<? extends BaseScreen> t,boolean isGc) {
         Constructor<?> constructor = t.getConstructors()[0];
         try {
             BaseScreen baseScreen = (BaseScreen) constructor.newInstance(this);
-            setScreen(baseScreen);
+            if (isGc) {
+                zhuanCScreen = baseScreen;
+                zhuanCScreen.show();
+            }else {
+                setScreen(baseScreen);
+            }
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -201,16 +209,25 @@ public class BaseGame extends Game {
 
     @Override
     public void setScreen(Screen screen) {
-        if (screen instanceof BaseScreen) {
-            Constant.currentActiveScreen = (BaseScreen) screen;
-            Gdx.app.postRunnable(new Runnable() {
-                @Override
-                public void run() {
-                    BaseGame.super.setScreen(screen);
-                }
-            });
+        setScreen(screen,false);
+    }
+
+    public void setScreen(Screen screen,boolean isGuc) {
+        if (!isGuc) {
+            if (screen instanceof BaseScreen) {
+                Constant.currentActiveScreen = (BaseScreen) screen;
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        BaseGame.super.setScreen(screen);
+                    }
+                });
+            } else {
+                BaseGame.super.setScreen(screen);
+            }
         }else {
-            BaseGame.super.setScreen(screen);
+            zhuanCScreen = screen;
+            zhuanCScreen.show();
         }
     }
 
@@ -220,5 +237,31 @@ public class BaseGame extends Game {
 
     protected void otherDispose(){
 
+    }
+
+
+    @Override
+    public void pause () {
+        super.pause();
+        if (zhuanCScreen!=null) {
+            zhuanCScreen.pause();
+        }
+    }
+
+    @Override
+    public void resume () {
+        super.resume();
+        if (zhuanCScreen!=null){
+            zhuanCScreen.resume();
+        }
+    }
+
+
+    public void zhuancEnd() {
+        if (zhuanCScreen!=null) {
+            zhuanCScreen.hide();
+            zhuanCScreen.dispose();
+            zhuanCScreen = null;
+        }
     }
 }

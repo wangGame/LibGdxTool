@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
-import com.kw.gdx.utils.log.NLog;
 
 public class BannerView extends Group {
 
@@ -18,7 +17,7 @@ public class BannerView extends Group {
         PixmapImage pixmapImage = new PixmapImage((int)bannerWidth,(int)bannerHight);
 //        Image image = new Image(pixmapImage.getPixmap());banner.png
         Image image = new Image(Asset.getAsset().getTexture("banner.png"));
-        addActor(image);
+//        addActor(image);
         image.setSize(bannerWidth,bannerHight);
         setSize(bannerWidth,bannerHight);
     }
@@ -28,8 +27,7 @@ public class BannerView extends Group {
                 Constant.WIDTH/ Gdx.graphics.getWidth()
                 ,Constant.HIGHT/Gdx.graphics.getHeight());
         Constant.gameDensity = Gdx.graphics.getDensity()*min;
-        float value = (float) (dp* Constant.gameDensity + 0.5F);
-        NLog.i("banner size : %s",value);
+        float value = (float) (dp * Constant.gameDensity + 0.5F);
         return value;
     }
 }

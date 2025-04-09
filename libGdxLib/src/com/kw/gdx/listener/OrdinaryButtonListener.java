@@ -28,7 +28,7 @@ public class OrdinaryButtonListener extends ButtonListener {
     public void clickEffect() {
         super.clickEffect();
         if (audioName == null) {
-            AudioProcess.playSound(AudioType.clickA);
+            AudioProcess.playSound(AudioType.click);
         }else if (!"".equals(audioName)){
             AudioProcess.playSound(audioName);
         }

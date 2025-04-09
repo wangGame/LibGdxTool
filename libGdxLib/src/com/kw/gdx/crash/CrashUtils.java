@@ -52,6 +52,7 @@ public class CrashUtils {
         int sec = timeServer.get(Calendar.SECOND);
         int mil = timeServer.get(Calendar.MILLISECOND);
         String fname = "Crash " + yea + "-" + mon + "-" + day + " " + hou + "-" + min + "-" + sec + "-" + mil;
+        System.out.println(fname);
         File fh = new File(Constant.SDPATH, folder + "/" + fname + ".txt");
         try {
             if (!fh.getParentFile().exists())

@@ -69,7 +69,7 @@ public class Actor {
 	float originX, originY;
 	float scaleX = 1, scaleY = 1;
 	float rotation;
-	protected final Color color = new Color(1, 1, 1, 1);
+	final Color color = new Color(1, 1, 1, 1);
 	private @Null Object userObject;
 
 	/** Draws the actor. The batch is configured to draw in the parent's coordinate system.

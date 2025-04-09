@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -49,6 +49,18 @@ public class PathAttachment extends VertexAttachment {
 		super(name);
 	}
 
+	/** Copy constructor. */
+	protected PathAttachment (PathAttachment other) {
+		super(other);
+
+		lengths = new float[other.lengths.length];
+		arraycopy(other.lengths, 0, lengths, 0, lengths.length);
+
+		closed = other.closed;
+		constantSpeed = other.constantSpeed;
+		color.set(other.color);
+	}
+
 	/** If true, the start and end knots are connected. */
 	public boolean getClosed () {
 		return closed;
@@ -58,8 +70,8 @@ public class PathAttachment extends VertexAttachment {
 		this.closed = closed;
 	}
 
-	/** If true, additional calculations are performed to make calculating positions along the path more accurate. If false, fewer
-	 * calculations are performed but calculating positions along the path is less accurate. */
+	/** If true, additional calculations are performed to make computing positions along the path more accurate and movement along
+	 * the path have a constant speed. */
 	public boolean getConstantSpeed () {
 		return constantSpeed;
 	}
@@ -77,20 +89,13 @@ public class PathAttachment extends VertexAttachment {
 		this.lengths = lengths;
 	}
 
-	/** The color of the path as it was in Spine. Available only when nonessential data was exported. Paths are not usually
+	/** The color of the path as it was in Spine, or a default color if nonessential data was not exported. Paths are not usually
 	 * rendered at runtime. */
 	public Color getColor () {
 		return color;
 	}
 
-	public Attachment copy () {
-		PathAttachment copy = new PathAttachment(name);
-		copyTo(copy);
-		copy.lengths = new float[lengths.length];
-		arraycopy(lengths, 0, copy.lengths, 0, lengths.length);
-		copy.closed = closed;
-		copy.constantSpeed = constantSpeed;
-		copy.color.set(color);
-		return copy;
+	public PathAttachment copy () {
+		return new PathAttachment(this);
 	}
 }

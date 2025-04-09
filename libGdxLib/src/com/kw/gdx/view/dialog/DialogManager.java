@@ -2,19 +2,23 @@ package com.kw.gdx.view.dialog;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.kw.gdx.constant.Constant;
 import com.kw.gdx.view.dialog.base.BaseDialog;
 import com.kw.gdx.utils.Layer;
 
 public class DialogManager {
-    private Group dialogView;
+    private Stage stage;
     private Image shadow;
     private Array<BaseDialog> array = new Array<>();
 
-    public DialogManager(Group dialogView) {
-        this.dialogView = dialogView;
+    public DialogManager(Stage stage) {
+        this.stage = stage;
     }
 
     public enum Type{
@@ -23,28 +27,26 @@ public class DialogManager {
         NotHideShowCurr
     }
 
-    public void showShadow(float time){
+    public void showShadow(float time,float a){
         if (hasShadow)return;
         hasShadow = true;
         shadow = Layer.getShadow();
         shadow.setColor(0,0,0,0.0F);
 //        #000000B3
-        shadow.addAction(Actions.alpha(179.0f/255.0f,time));
-        Group dialogGroup = dialogView.findActor("dialogGroup");
-        dialogGroup.addActor(shadow);
-        dialogView.findActor("stg");
+        shadow.addAction(Actions.alpha(a,time));
+        stage.addActor(shadow);
+        stage.getRoot().findActor("stg");
         shadow.setName("shadow");
     }
 
-    public void showShadow(boolean isUp,float time){
+    public void showShadow(boolean isUp,float time,float a){
         if (hasShadow)return;
         hasShadow = true;
         shadow = Layer.getShadow();
         shadow.setColor(0,0,0,0.0F);
-        shadow.addAction(Actions.alpha(0.75F,time));
-        Group dialogGroup = dialogView.findActor("dialogGroup");
-        dialogGroup.addActor(shadow);
-        Actor stg = dialogView.findActor("stg");
+        shadow.addAction(Actions.alpha(a,time));
+        stage.addActor(shadow);
+        Actor stg = stage.getRoot().findActor("stg");
         if (isUp) {
             if (stg != null) {
             stg.toFront();
@@ -54,16 +56,16 @@ public class DialogManager {
     }
 
     public void showDialog(BaseDialog dialog,float delay){
-        dialogView.addAction(Actions.delay(delay,Actions.run(()->{
+        stage.addAction(Actions.delay(delay,Actions.run(()->{
             showDialog(dialog);
         })));
     }
 
     public void showDialog(BaseDialog dialog,float delay,boolean ff){
         if (dialog.isShadow()) {
-            showShadow(ff,0.01667F);
+            showShadow(ff,0.01667F,dialog.getA());
         }
-        dialogView.addAction(Actions.delay(delay,Actions.run(()->{
+        stage.addAction(Actions.delay(delay,Actions.run(()->{
             showDialog(dialog);
         })));
     }
@@ -72,16 +74,16 @@ public class DialogManager {
 
     public void showDialog(BaseDialog dialog,boolean isShaUp) {
         if (dialog.isShadow()) {
-            showShadow(isShaUp,dialog.getShadowTime());
+            showShadow(isShaUp,dialog.getShadowTime(),dialog.getA());
         }
-        showDialog(dialogView,dialog);
+        showDialog(stage.getRoot(),dialog);
     }
 
     public void showDialog(BaseDialog dialog) {
         if (dialog.isShadow()) {
-            showShadow(dialog.getShadowTime());
+            showShadow(dialog.getShadowTime(),dialog.getA());
         }
-        showDialog(dialogView,dialog);
+        showDialog(stage.getRoot(),dialog);
     }
 
     public void showDialog(Group parent,BaseDialog dialog){
@@ -89,23 +91,34 @@ public class DialogManager {
             dialog.setDialogManager(this);
         }
         if (array.size>0) {
-            if (dialog.getType() == Type.closeOldShowCurr) {
-                BaseDialog peek = array.pop();
-                peek.close();
+            BaseDialog baseDialog = array.get(array.size - 1);
+            if (baseDialog.isFont()) {
+                array.removeIndex(array.size - 1);
                 parent.addActor(dialog);
                 dialog.show();
                 array.add(dialog);
-            }else if (dialog.getType() == Type.hideOldShowCurr){
-                BaseDialog peek = array.peek();
-                peek.hide();
-                parent.addActor(dialog);
-                dialog.show();
-                array.add(dialog);
-            }else if (dialog.getType() == Type.NotHideShowCurr){
-                parent.addActor(dialog);
-                dialog.show();
-                array.add(dialog);
+                array.add(baseDialog);
+                baseDialog.toFront();
+            }else {
+                if (dialog.getType() == Type.closeOldShowCurr) {
+                    BaseDialog peek = array.pop();
+                    peek.close();
+                    parent.addActor(dialog);
+                    dialog.show();
+                    array.add(dialog);
+                }else if (dialog.getType() == Type.hideOldShowCurr){
+                    BaseDialog peek = array.peek();
+                    peek.hide();
+                    parent.addActor(dialog);
+                    dialog.show();
+                    array.add(dialog);
+                }else if (dialog.getType() == Type.NotHideShowCurr){
+                    parent.addActor(dialog);
+                    dialog.show();
+                    array.add(dialog);
+                }
             }
+
         }else {
             parent.addActor(dialog);
             dialog.show();
@@ -119,13 +132,20 @@ public class DialogManager {
         }
         closeDialog(dialog);
     }
+
+    public void removeActions(BaseDialog actor){
+        actor.clearActions();
+        actor.getDialogGroup().clearActions();
+    }
+
+
     public void closeDialog(BaseDialog dialog){
         int shadowCloseType = dialog.getShadowCloseType();
+        removeActions(dialog);
         dialog.close();
         array.removeValue(dialog,true);
         if (array.size<=0){
-            //如果存在多个遮罩，会存在无法关闭遮罩的问题
-//            Actor shadow = dialogView.findActor("shadow");
+            //同时存在两个遮罩的时候回出现一个遮罩无法关闭，使用全局的shadow更靠谱点
             if (shadow!=null) {
                 hasShadow = false;
                 if (shadowCloseType==1){
@@ -142,8 +162,11 @@ public class DialogManager {
                 }
             }
         }else{
-            BaseDialog peek = array.peek();
-            peek.show();
+            if (dialog.getType() == Type.NotHideShowCurr) {
+            }else {
+                BaseDialog peek = array.peek();
+                peek.enterAnimation();
+            }
         }
     }
 
@@ -177,6 +200,10 @@ public class DialogManager {
     public void resize(float width,float height){
         for (BaseDialog baseDialog : array) {
             baseDialog.resize(width,height);
+        }
+        if (shadow!=null){
+            shadow.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
+            shadow.setPosition(Constant.GAMEWIDTH/2.0f,Constant.GAMEHIGHT/2.0f, Align.center);
         }
     }
 }

@@ -1,8 +1,8 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated January 1, 2020. Replaces all prior versions.
+ * Last updated September 24, 2021. Replaces all prior versions.
  *
- * Copyright (c) 2013-2020, Esoteric Software LLC
+ * Copyright (c) 2013-2021, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
@@ -37,6 +37,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
+
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.BoundingBoxAttachment;
 import com.esotericsoftware.spine.attachments.ClippingAttachment;
@@ -46,11 +47,11 @@ import com.esotericsoftware.spine.attachments.PointAttachment;
 import com.esotericsoftware.spine.attachments.RegionAttachment;
 
 public class SkeletonRendererDebug {
-	static private final Color boneLineColor = Color.RED;
-	static private final Color boneOriginColor = Color.GREEN;
-	static private final Color attachmentLineColor = new Color(0, 0, 1, 0.5f);
-	static private final Color triangleLineColor = new Color(1, 0.64f, 0, 0.5f); // ffa3007f
-	static private final Color aabbColor = new Color(0, 1, 0, 0.5f);
+	static public final Color boneLineColor = Color.RED;
+	static public final Color boneOriginColor = Color.GREEN;
+	static public final Color attachmentLineColor = new Color(0, 0, 1, 0.5f);
+	static public final Color triangleLineColor = new Color(1, 0.64f, 0, 0.5f); // ffa3007f
+	static public final Color aabbColor = new Color(0, 1, 0, 0.5f);
 
 	private final ShapeRenderer shapes;
 	private boolean drawBones = true, drawRegionAttachments = true, drawBoundingBoxes = true, drawPoints = true;
@@ -126,7 +127,7 @@ public class SkeletonRendererDebug {
 				if (attachment instanceof RegionAttachment) {
 					RegionAttachment region = (RegionAttachment)attachment;
 					float[] vertices = this.vertices.items;
-					region.computeWorldVertices(slot.getBone(), vertices, 0, 2);
+					region.computeWorldVertices(slot, vertices, 0, 2);
 					shapes.line(vertices[0], vertices[1], vertices[2], vertices[3]);
 					shapes.line(vertices[2], vertices[3], vertices[4], vertices[5]);
 					shapes.line(vertices[4], vertices[5], vertices[6], vertices[7]);
