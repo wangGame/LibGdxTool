@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kw.gdx.BaseGame;
@@ -33,6 +34,8 @@ public class BaseScreen implements Screen {
     protected boolean dispose;
     protected final Stage stage;
     protected Group rootView;
+    protected Group dialogView;
+    protected Group maxTopGroup;
     protected String viewpath;
     protected float offsetLeft;
     protected float offsetRight;
@@ -69,7 +72,8 @@ public class BaseScreen implements Screen {
                 return super.keyUp(event, keycode);
             }
         });
-        this.dialogManager = new DialogManager(stage);
+        dialogView = new Group();
+        this.dialogManager = new DialogManager(dialogView);
         multiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(multiplexer);
         multiplexer.addProcessor(stage);
@@ -171,6 +175,16 @@ public class BaseScreen implements Screen {
             rootView.setSize(Constant.WIDTH,Constant.HIGHT);
             rootView.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
         }
+
+        maxTopGroup = new Group();
+        stage.addActor(dialogView);
+        stage.addActor(maxTopGroup);
+        dialogView.setSize(Constant.WIDTH,Constant.HIGHT);
+        dialogView.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
+        maxTopGroup.setSize(Constant.WIDTH,Constant.HIGHT);
+        maxTopGroup.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
+        dialogView.setTouchable(Touchable.childrenOnly);
+        maxTopGroup.setTouchable(Touchable.childrenOnly);
     }
 
     private void initTouch() {

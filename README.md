@@ -128,7 +128,31 @@ ESA
 
 ## 弹窗使用说明
 
-弹窗如果有点击非弹窗区域关闭的操作，建议布局刚好包括布局区域。
+弹窗如果有点击非弹窗区域关闭的操作，建议布局刚好包括布局区域【推荐的做法】
+
+如果点击非UI区域关闭，点击使用closeBg，如果有自己的实现，可以复写下面的方法
+```java
+closeBg.addListener(new ClickListener(){
+    @Override
+    public void clicked(InputEvent event, float x, float y) {
+        super.clicked(event, x, y);
+        closeFlag = true;
+        if (entered){
+            closeDialog();
+        }
+    }
+});
+
+一般的复写closeDialog既可以操作，如果弹窗不需要开始这个功能，可以子类删除closeBg，即可
+```
+
+## BaseScreen
+
+增加了maxTopGroup和dialogGroup
+
+dialogGroup为设计尺寸，在游戏使用弹窗时候，可以不需要设置位置【其实baseDialog已经设置了，就当没说】
+
+maxTopGroup用来显示提示之类，需要显示在最上层的玩意。
 
 ## 版本说明
 
