@@ -2,10 +2,15 @@ package com.kw.gdx.spine;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.esotericsoftware.spine.Animation;
 
 public class DmnActions extends Actions {
 
     static public MoveTimeLine newTemporalAction(
+
+
+
+
             float baseX,float baseY,
             float startX,float startY,float endX,float endY,
                                                  float cxx1,float cxx2,float cxx3,float cxx4,
