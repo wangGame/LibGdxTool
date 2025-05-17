@@ -1136,6 +1136,47 @@ public class ShapeRenderer implements Disposable {
 		}
 	}
 
+	public void filledPolygon(float[] vertices) {
+		filledPolygon(vertices,0,vertices.length);
+	}
+
+	public void filledPolygon(float[] vertices, int offset, int count) {
+		if (count < 6) throw new IllegalArgumentException("Polygons must contain at least 3 points.");
+		if (count % 2 != 0) throw new IllegalArgumentException("Polygons must have an even number of vertices.");
+
+		check(ShapeType.Filled, null, count);
+
+		float colorBits = color.toFloatBits();
+
+		// 计算中心点（适用于多边形）
+		float centerX = 0;
+		float centerY = 0;
+		for (int i = offset; i < offset + count; i += 2) {
+			centerX += vertices[i];
+			centerY += vertices[i + 1];
+		}
+		centerX /= (count / 2);
+		centerY /= (count / 2);
+
+		// 使用三角形来填充多边形
+		for (int i = offset; i < offset + count; i += 2) {
+			// 获取当前顶点
+			float x1 = vertices[i];
+			float y1 = vertices[i + 1];
+
+			// 获取下一个顶点
+			float x2 = vertices[(i + 2) % count];
+			float y2 = vertices[(i + 3) % count];
+
+			// 绘制从中心点到当前顶点和下一个顶点的三角形
+			renderer.color(colorBits);
+			renderer.vertex(centerX, centerY, 0);  // 中心点
+			renderer.vertex(x1, y1, 0);  // 当前顶点
+			renderer.vertex(x2, y2, 0);  // 下一个顶点
+		}
+	}
+
+
 	/** @see #polygon(float[], int, int) */
 	public void polygon (float[] vertices) {
 		polygon(vertices, 0, vertices.length);
