@@ -6,6 +6,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.CpuPolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FillViewport;
@@ -157,14 +159,14 @@ public class BaseGame extends Game {
 
     public Batch getBatch() {
         if (batch==null) {
-//            if (Constant.batchType == Constant.COUPOLYGONBATCH) {
-//                batch = new CpuPolygonSpriteBatch();
-//            }else if (Constant.batchType == Constant.SPRITEBATCH){
-//                batch = new SpriteBatch();
-//            }else {
-//                batch = new CpuPolygonSpriteBatch();
-//            }
-            batch = new TwoColorPolygonBatch();
+            if (Constant.batchType == Constant.COUPOLYGONBATCH) {
+                batch = new CpuPolygonSpriteBatch();
+            }else if (Constant.batchType == Constant.SPRITEBATCH){
+                batch = new SpriteBatch();
+            }else {
+                batch = new CpuPolygonSpriteBatch();
+            }
+//            batch = new TwoColorPolygonBatch();
         }
         return batch;
     }
