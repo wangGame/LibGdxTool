@@ -273,4 +273,8 @@ public class SpineActor extends Actor {
     public void setBeginX(int i) {
         this.beginX = i;
     }
+
+    public Skeleton getSkeleton() {
+        return skeleton;
+    }
 }
