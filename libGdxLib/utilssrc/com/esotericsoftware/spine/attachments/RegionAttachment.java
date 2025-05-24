@@ -299,4 +299,9 @@ public class RegionAttachment extends Attachment implements HasTextureRegion {
 	public RegionAttachment copy () {
 		return new RegionAttachment(this);
 	}
+
+	public void resetSize() {
+		this.width = region.getRegionWidth();
+		this.height = region.getRegionHeight();
+	}
 }
