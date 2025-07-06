@@ -1,11 +1,14 @@
 package com.libGdx.test.action;
 
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kw.gdx.action.NumAction;
+import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
 
 /**
@@ -32,52 +35,76 @@ public class NumActionTest extends LibGdxTestMain {
         numAction.setUpdateRunnable(new Runnable() {
             @Override
             public void run() {
-
+                System.out.println( numAction.getValue() +"  ====================== ");
             }
         });
         Image i = new Image(){
             @Override
             public void act(float delta) {
                 super.act(delta);
-//                System.out.println((int)numAction.getValue());
+                System.out.println((int)numAction.getValue()+"   ==================  ");
             }
         };
         i.addAction(numAction);
         stage.addActor(i);
 
-
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (xx){
-                    try {
-                        Thread.sleep(1000);
-                        System.out.println("----thread----------");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+        {
+            Image image = new Image(Asset.getAsset().getTexture("7.png"));
+            addActor(image);
+            image.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    numAction.setPause(true);
                 }
-            }
-        });
-        thread.start();
+            });
+        }
+        {
+            Image image = new Image(Asset.getAsset().getTexture("7.png"));
+            addActor(image);
+            image.setPosition(300,0);
+            image.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    numAction.setPause(false);
 
-        stage.addAction(Actions.sequence(
-                Actions.delay(2),
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-//                        float v = 1/0;
-                    }
-                })
-        ));
+                }
+            });
+        }
 
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread thread, Throwable throwable) {
-                xx = false;
-                throwable.printStackTrace();
-            }
-        });
+//        thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (xx){
+//                    try {
+//                        Thread.sleep(1000);
+//                        System.out.println("----thread----------");
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
+//        thread.start();
+
+//        stage.addAction(Actions.sequence(
+//                Actions.delay(2),
+//                Actions.run(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        float v = 1/0;
+//                    }
+//                })
+//        ));
+//
+//        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+//            @Override
+//            public void uncaughtException(Thread thread, Throwable throwable) {
+//                xx = false;
+//                throwable.printStackTrace();
+//            }
+//        });
     }
 
 }

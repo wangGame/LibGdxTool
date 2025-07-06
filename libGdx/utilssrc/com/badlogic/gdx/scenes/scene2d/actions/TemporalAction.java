@@ -24,9 +24,9 @@ import com.badlogic.gdx.utils.Pool;
 /** Base class for actions that transition over time using the percent complete.
  * @author Nathan Sweet */
 abstract public class TemporalAction extends Action {
-	private float duration, time;
-	private @Null Interpolation interpolation;
-	private boolean reverse, began, complete;
+	protected float duration, time;
+	protected @Null Interpolation interpolation;
+	protected boolean reverse, began, complete;
 
 	public TemporalAction () {
 	}
