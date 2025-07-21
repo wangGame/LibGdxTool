@@ -23,14 +23,14 @@ public class App {
 //            System.out.println("posX : " + tl.rail1[i].x + "  posY : " + tl.rail1[i].y);
 //        }
 
-        try {
-            // 生成 JavaBean 类
-            JsonToJavaBeanGenerator generator = new JsonToJavaBeanGenerator();
-            generator.generateJavaBeans(json, "Person");
-            System.out.println("JavaBean classes generated successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // 生成 JavaBean 类
+//            JsonToJavaBeanGenerator generator = new JsonToJavaBeanGenerator();
+//            generator.generateJavaBeans(json, "Person");
+//            System.out.println("JavaBean classes generated successfully.");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
     }

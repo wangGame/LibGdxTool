@@ -23,7 +23,7 @@ public class App2 extends LibGdxTestMain {
             Json json = new Json();
             FileHandle internal = Gdx.files.internal("1_59_40.json");
             String string = internal.readString();
-            json.toJson(string);
+            System.out.println(json.toJson(string));
         }
 ////        {
 //            Json json = new Json();

@@ -100,6 +100,7 @@ public class EffectTool extends Actor {
     public void act(float delta) {
         super.act(delta);
         effect.setPosition(getX(),getY());
+        effect.scaleEffect(getScaleX());
         if (effect.isComplete()) {
             if (loop){
                 play();
@@ -168,5 +169,6 @@ public class EffectTool extends Actor {
     public void stop(){
 //        effect.setStop();
     }
+
 }
 
