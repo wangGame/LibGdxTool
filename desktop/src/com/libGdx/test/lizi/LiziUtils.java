@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.animation.effect.EffectTool;
@@ -22,7 +23,6 @@ public class LiziUtils extends LibGdxTestMain {
         super.useShow(stage);
 
 
-
         ProcessGroup processGroup = new ProcessGroup(Constant.GAMEWIDTH);
         addActor(processGroup);
         processGroup.setY(200);
@@ -31,9 +31,6 @@ public class LiziUtils extends LibGdxTestMain {
         Group group = new Group();
         addActor(group);
         group.setScale(0.4f);
-
-        gr
-
 
 
         EffectTool tool = new EffectTool("lizi/dz");
