@@ -294,4 +294,9 @@ public class MeshAttachment extends VertexAttachment implements HasTextureRegion
 	public MeshAttachment copy () {
 		return parentMesh != null ? newLinkedMesh() : new MeshAttachment(this);
 	}
+
+	public void resetSize() {
+		this.width = region.getRegionWidth();
+		this.height = region.getRegionHeight();
+	}
 }

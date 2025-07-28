@@ -6,14 +6,20 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.AnimationStateData;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonRenderer;
+import com.esotericsoftware.spine.Skin;
+import com.esotericsoftware.spine.attachments.Attachment;
+import com.esotericsoftware.spine.attachments.MeshAttachment;
+import com.esotericsoftware.spine.attachments.RegionAttachment;
 import com.kw.gdx.asset.Asset;
 
 public class SpineActor extends Actor {
@@ -273,4 +279,36 @@ public class SpineActor extends Actor {
     public void setBeginX(int i) {
         this.beginX = i;
     }
+
+    public Skeleton getSkeleton() {
+        return skeleton;
+    }
+
+
+    public void updateAttribute(String name, TextureRegion re){
+        SkeletonData data = skeleton.getData();
+        Array<Skin> skins = data.getSkins();
+        for (Skin skin1 : skins) {
+            Array<Skin.SkinEntry> attachments = skin1.getAttachments();
+            for (Skin.SkinEntry attachment : attachments) {
+                Attachment attachment1 = attachment.getAttachment();
+                System.out.println(attachment1.getName());
+                if (attachment1.getName().endsWith(name)) {
+                    if (attachment1 instanceof RegionAttachment) {
+                        RegionAttachment attachment2 = (RegionAttachment) (attachment1);
+                        attachment2.setRegion(re);
+                        attachment2.resetSize();
+                        attachment2.updateRegion();
+                    }else if (attachment1 instanceof MeshAttachment){
+                        MeshAttachment attachment2 = (MeshAttachment) attachment1;
+                        attachment2.setRegion(re);
+                        attachment2.resetSize();
+                        attachment2.updateRegion();
+                    }
+                }
+            }
+        }
+    }
+
+
 }
