@@ -50,6 +50,42 @@ implementation 'com.github.wangGame.LibGdxTool:libGdxLib:pre-release1.0.0'
 implementation 'com.github.wangGame.LibGdxTool:desktop:pre-release1.0.0'
 ```
 
+## spine插入任意类型的显示
+
+1.修改部分源代码
+
+2.替换掉data中的region，自定义region
+
+```java
+SpineActor actor = new SpineActor("assets/actorspine/quan_tb");
+actor.setAnimation("zhuanpan_ck", true);
+addActor(actor);
+actor.setPosition(450, 400);
+
+Group group = new Group();
+
+Image img = new Image(Asset.getAsset().getTexture("assets/7.png"));
+group.addActor(img);
+img.setPosition(0, 0, Align.center);
+
+
+Image image = new Image(Asset.getAsset().getTexture("assets/ad_progress.png"));
+group.addActor(image);
+image.setPosition(0, 0, Align.center);
+
+ActorAttachment actorAttachment = new ActorAttachment("img");
+actorAttachment.setActor(group);
+
+
+SkeletonData data = actor.getSkeleton().getData();
+Skin defaultSkin = data.getDefaultSkin();
+for (Skin.SkinEntry attachment : defaultSkin.getAttachments()) {
+    if (attachment.getName().equals("xuanq2_00")) {
+        attachment.setAttachment(actorAttachment);
+    }
+}
+```
+
 ## group tranfrom
 
 - SpriteBatch
