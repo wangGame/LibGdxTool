@@ -389,6 +389,10 @@ public class ParticleEmitter {
 		if (spriteMode == SpriteMode.animated) updateFlags |= UPDATE_SPRITE;
 	}
 
+	public void setSpawnWidth(float spawnWidth) {
+		this.spawnWidth = spawnWidth;
+	}
+
 	public void setSpawnWidthDiff(float spawnWidthDiff) {
 		this.spawnWidthDiff = spawnWidthDiff;
 	}
@@ -397,7 +401,7 @@ public class ParticleEmitter {
 		return new Particle(sprite);
 	}
 
-	protected Particle[] getParticles () {
+	public Particle[] getParticles () {
 		return particles;
 	}
 
