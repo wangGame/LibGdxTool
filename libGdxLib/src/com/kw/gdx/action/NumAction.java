@@ -18,6 +18,7 @@ public class NumAction extends TemporalAction {
     private double value;
     private Runnable updateRunnable;
     private boolean isPause;
+    private boolean loop;
     public NumAction(){
 
     }
@@ -72,8 +73,10 @@ public class NumAction extends TemporalAction {
         if (endRunable!=null) {
             endRunable.run();
         }
-        updateRunnable = null;
-        endRunable = null;
+        if (!loop) {
+            updateRunnable = null;
+            endRunable = null;
+        }
     }
 
     /**
@@ -114,5 +117,10 @@ public class NumAction extends TemporalAction {
         } finally {
             setPool(pool);
         }
+    }
+
+
+    public void setLoop(boolean b) {
+        this.loop = b;
     }
 }

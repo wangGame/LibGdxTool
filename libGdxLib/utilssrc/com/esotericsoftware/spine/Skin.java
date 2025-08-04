@@ -191,6 +191,10 @@ public class Skin {
 			return attachment;
 		}
 
+		public void setAttachment(Attachment attachment) {
+			this.attachment = attachment;
+		}
+
 		public int hashCode () {
 			return hashCode;
 		}

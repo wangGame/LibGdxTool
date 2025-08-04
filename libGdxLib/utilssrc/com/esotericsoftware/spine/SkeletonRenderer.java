@@ -33,10 +33,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.NumberUtils;
 import com.badlogic.gdx.utils.ShortArray;
 
+import com.esotericsoftware.spine.attachments.ActorAttachment;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.ClippingAttachment;
 import com.esotericsoftware.spine.attachments.MeshAttachment;
@@ -181,6 +184,16 @@ public class SkeletonRenderer {
 			} else if (attachment instanceof SkeletonAttachment) {
 				Skeleton attachmentSkeleton = ((SkeletonAttachment)attachment).getSkeleton();
 				if (attachmentSkeleton != null) draw(batch, attachmentSkeleton);
+			} else if (attachment instanceof ActorAttachment){
+				Actor actor = ((ActorAttachment) attachment).getActor();
+				Bone bone = slot.getBone();
+				float worldX = bone.getWorldX();
+				float worldY = bone.getWorldY();
+				actor.setOrigin(Align.center);
+				actor.setPosition(worldX,worldY, Align.center);
+				actor.setScale(bone.scaleX,bone.scaleY);
+				actor.setColor(slot.getColor());
+				actor.draw(batch,skeleton.color.a);
 			}
 
 			if (texture != null) {

@@ -32,6 +32,9 @@ import com.kw.gdx.utils.log.NLog;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * 转场
+ */
 public class BaseGame extends Game {
     private Screen zhuanCScreen;
     private Batch batch;

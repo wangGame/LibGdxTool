@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
+import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
@@ -100,6 +101,7 @@ public class EffectTool extends Actor {
     public void act(float delta) {
         super.act(delta);
         effect.setPosition(getX(),getY());
+        effect.scaleEffect(getScaleX());
         if (effect.isComplete()) {
             if (loop){
                 play();
@@ -114,10 +116,9 @@ public class EffectTool extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (!isVisible())return; //duo yu
-        parentAlpha = parentAlpha * getColor().a;
+
         int blendSrcFunc = batch.getBlendSrcFunc();
         int blendDstFunc = batch.getBlendDstFunc();
-
 
         if (isClip) {
             batch.flush();
@@ -167,6 +168,11 @@ public class EffectTool extends Actor {
 
     public void stop(){
 //        effect.setStop();
+    }
+
+    public void boundbox() {
+
+        setDebug(true);
     }
 }
 

@@ -1,0 +1,116 @@
+{ "skeleton": { "images": "D:/Art Puzzle/10_动效2/1581-1600/1581_wai_安妮404/wai_1_404_19/" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "beijing", "bone": "root", "attachment": "beijing" },
+	{ "name": "1qu14", "bone": "root", "attachment": "1qu14" },
+	{ "name": "1qu13", "bone": "root", "attachment": "1qu13" },
+	{ "name": "2qu12", "bone": "root", "attachment": "2qu12" },
+	{ "name": "2qu11", "bone": "root", "attachment": "2qu11" },
+	{ "name": "2qu10", "bone": "root", "attachment": "2qu10" },
+	{ "name": "2qu9", "bone": "root", "attachment": "2qu9" },
+	{ "name": "2ada18", "bone": "root", "attachment": "2ada18" },
+	{ "name": "2qufen17", "bone": "root", "attachment": "2qufen17" },
+	{ "name": "2qu8", "bone": "root", "attachment": "2qu8" },
+	{ "name": "ty3", "bone": "root", "attachment": "ty3" },
+	{ "name": "3qu7", "bone": "root", "attachment": "3qu7" },
+	{ "name": "3qu6", "bone": "root", "attachment": "3qu6" },
+	{ "name": "3qu5", "bone": "root", "attachment": "3qu5" },
+	{ "name": "3qu4", "bone": "root", "attachment": "3qu4" },
+	{ "name": "3qu3", "bone": "root", "attachment": "3qu3" },
+	{ "name": "4qu2", "bone": "root", "attachment": "4qu2" },
+	{ "name": "4qufen20", "bone": "root", "attachment": "4qufen20" },
+	{ "name": "4qu1", "bone": "root", "attachment": "4qu1" },
+	{ "name": "4qu", "bone": "root", "attachment": "4qu" },
+	{ "name": "4jieduan", "bone": "root", "attachment": "4jieduan" },
+	{ "name": "ty4", "bone": "root", "attachment": "ty4" },
+	{ "name": "xg1", "bone": "root", "attachment": "xg1" },
+	{ "name": "xg2", "bone": "root", "attachment": "xg2" },
+	{ "name": "xg3", "bone": "root", "attachment": "xg3" },
+	{ "name": "xg4", "bone": "root", "attachment": "xg4" }
+],
+"skins": {
+	"default": {
+		"beijing": {
+			"beijing": { "x": 340, "y": -458, "width": 680, "height": 916 }
+		},
+		"1qu14": {
+			"1qu14": { "x": 413.5, "y": -384, "width": 533, "height": 768 }
+		},
+		"1qu13": {
+			"1qu13": { "x": 414, "y": -356, "width": 450, "height": 712 }
+		},
+		"2qu12": {
+			"2qu12": { "x": 347, "y": -409.5, "width": 316, "height": 241 }
+		},
+		"2qu11": {
+			"2qu11": { "x": 241, "y": -212, "width": 86, "height": 214 }
+		},
+		"2qu10": {
+			"2qu10": { "x": 344, "y": -245.5, "width": 108, "height": 147 }
+		},
+		"2qu9": {
+			"2qu9": { "x": 549.5, "y": -238, "width": 171, "height": 184 }
+		},
+		"2ada18": {
+			"2ada18": { "x": 345, "y": -200, "width": 310, "height": 400 }
+		},
+		"2qufen17": {
+			"2qufen17": { "x": 536, "y": -179.5, "width": 206, "height": 359 }
+		},
+		"2qu8": {
+			"2qu8": { "x": 547, "y": -605.5, "width": 182, "height": 99 }
+		},
+		"ty3": {
+			"ty3": { "x": 478, "y": -524.5, "width": 184, "height": 109 }
+		},
+		"3qu7": {
+			"3qu7": { "x": 503.5, "y": -95, "width": 33, "height": 22 }
+		},
+		"3qu6": {
+			"3qu6": { "x": 341, "y": -57, "width": 48, "height": 28 }
+		},
+		"3qu5": {
+			"3qu5": { "x": 405, "y": -458, "width": 92, "height": 98 }
+		},
+		"3qu4": {
+			"3qu4": { "x": 520.5, "y": -537, "width": 101, "height": 76 }
+		},
+		"3qu3": {
+			"3qu3": { "x": 539, "y": -454.5, "width": 80, "height": 57 }
+		},
+		"4qu2": {
+			"4qu2": { "x": 228.5, "y": -796, "width": 457, "height": 240 }
+		},
+		"4qufen20": {
+			"4qufen20": { "x": 411, "y": -157, "width": 456, "height": 70 }
+		},
+		"4qu1": {
+			"4qu1": { "x": 623.5, "y": -406, "width": 113, "height": 812 }
+		},
+		"4qu": {
+			"4qu": { "x": 70, "y": -327, "width": 140, "height": 654 }
+		},
+		"4jieduan": {
+			"4jieduan": { "x": 166, "y": -638.5, "width": 332, "height": 425 }
+		},
+		"ty4": {
+			"ty4": { "x": 222.5, "y": -825.5, "width": 445, "height": 181 }
+		},
+		"xg1": {
+			"xg1": { "x": 401, "y": -385, "width": 520, "height": 770 }
+		},
+		"xg2": {
+			"xg2": { "x": 412, "y": -317, "width": 432, "height": 620 }
+		},
+		"xg3": {
+			"xg3": { "x": 451, "y": -298.5, "width": 270, "height": 513 }
+		},
+		"xg4": {
+			"xg4": { "x": 298, "y": -458, "width": 596, "height": 916 }
+		}
+	}
+},
+"animations": { "animation": {} }
+}
