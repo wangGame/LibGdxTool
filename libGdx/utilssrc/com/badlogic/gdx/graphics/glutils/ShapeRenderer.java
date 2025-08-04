@@ -1136,6 +1136,10 @@ public class ShapeRenderer implements Disposable {
 		}
 	}
 
+	/**
+	 * 绘制任意图形
+	 * @param vertices
+	 */
 	public void filledPolygon(float[] vertices) {
 		filledPolygon(vertices,0,vertices.length);
 	}

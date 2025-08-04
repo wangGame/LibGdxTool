@@ -1,0 +1,16 @@
+1.声音渐变消失
+2.遍历删除数据
+```java
+for (Iterator<SoundInfo> i = this.fadeOutList.iterator(); i.hasNext(); ) {
+    SoundInfo e = i.next();
+    e.update();
+    Sfx sfx = this.map.get(e.name);
+    if (sfx != null) {
+        if (e.isDone) {
+            sfx.stop(e.id);
+            i.remove(); continue;
+        }
+        sfx.setVolume(e.id, Settings.SOUND_VOLUME * Settings.MASTER_VOLUME * e.volumeMultiplier);
+    }
+}
+```
