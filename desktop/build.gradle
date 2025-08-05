@@ -55,6 +55,8 @@ dependencies {
     implementation project(':core')
 
 
+    implementation "com.github.mgsx-dev.gdx-gltf:gltf:-SNAPSHOT"
+
 }
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
