@@ -4,4 +4,5 @@ public interface State<T> {
     void onEnter(T owner, Object... args);
     void onUpdate(T owner, float delta);
     void onExit(T owner);
+    void handleEvent(T entity, String event);
 }

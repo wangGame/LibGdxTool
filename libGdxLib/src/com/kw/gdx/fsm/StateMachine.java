@@ -36,8 +36,15 @@ public class StateMachine<T> {
         }
     }
 
+    public void handleEvent(String event) {
+        if (currentState != null) {
+            currentState.handleEvent(owner, event);
+        }
+    }
+
     public void pause() { paused = true; }
 
     public void resume() { paused = false; }
     public State<T> getCurrentState() { return currentState; }
+
 }
