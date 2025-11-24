@@ -13,7 +13,7 @@ public class Singleton {
     private static final Map<Class<?>, Object> instances = new HashMap<>();
 
     @SuppressWarnings("unchecked")
-    protected static synchronized <T> T getInstance(Class<T> clazz) {
+    public static synchronized <T> T getInstance(Class<T> clazz) {
         return (T) instances.computeIfAbsent(clazz, key -> {
             try {
                 Constructor<?> constructor = key.getDeclaredConstructor();
