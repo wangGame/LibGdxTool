@@ -23,19 +23,21 @@ public class StateMachine<T> {
 
     public <S extends State<T>> void changeState(Class<S> stateClass, Object... args) {
         if (paused) return;
-        State<T> newState = stateMap.get(stateClass);
+        State<T> newState = stateMap.get(stateClass.getName());
         if (newState == null) throw new IllegalArgumentException("State not found: " + stateClass.getSimpleName());
-
         if (currentState != null) currentState.onExit(owner);
         currentState = newState;
         currentState.onEnter(owner, args);
     }
 
     public void update(float delta) {
-        if (!paused && currentState != null) currentState.onUpdate(owner, delta);
+        if (!paused && currentState != null){
+            currentState.onUpdate(owner, delta);
+        }
     }
 
     public void pause() { paused = true; }
+
     public void resume() { paused = false; }
     public State<T> getCurrentState() { return currentState; }
 }
