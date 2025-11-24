@@ -22,12 +22,36 @@ public class BannerView extends Group {
         setSize(bannerWidth,bannerHight);
     }
 
+    /**
+     * 外部参数来需要乘以密度
+     *
+     * 内部参数只乘比例即可
+     *
+     * 比如广告
+     * @param dp
+     * @return
+     */
     public static float pxToDp(float dp){
-        float min = Math.max(
-                Constant.WIDTH/ Gdx.graphics.getWidth()
-                ,Constant.HIGHT/Gdx.graphics.getHeight());
+        float min = getMaxScale();
         Constant.gameDensity = Gdx.graphics.getDensity()*min;
         float value = (float) (dp * Constant.gameDensity + 0.5F);
         return value;
+    }
+
+    /**
+     * 比如挖孔   虚拟键盘高度
+     * @param dp
+     * @return
+     */
+    public static float pxToGame(float dp){
+        float maxScale = getMaxScale();
+        float value = (float) (dp * maxScale);
+        return value;
+    }
+
+    private static float getMaxScale() {
+        return Math.max(
+                Constant.WIDTH/ Gdx.graphics.getWidth()
+                ,Constant.HIGHT/Gdx.graphics.getHeight());
     }
 }
