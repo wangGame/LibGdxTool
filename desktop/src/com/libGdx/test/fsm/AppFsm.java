@@ -11,20 +11,21 @@ import com.libGdx.test.fsm.state.IdleState;
 public class AppFsm extends LibGdxTestMain {
     private Player player;
     public static void main(String[] args) {
-        CocosApp cocosApp = new CocosApp();
-        cocosApp.start();
+        AppFsm appFsm = new AppFsm();
+        appFsm.start();
     }
 
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        player = new Player("Hero");
-        player.stateMachine.changeState(new IdleState(),"");
+        player = new Player("Jack");
+        player.stateMachine.changeState(new IdleState());
     }
 
     @Override
     public void render() {
         super.render();
+        if (player==null)return;
         float delta = Gdx.graphics.getDeltaTime();
         player.update(delta);
 
@@ -33,7 +34,7 @@ public class AppFsm extends LibGdxTestMain {
             player.handleEvent("run");
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            player.handleEvent("stop");
+            player.handleEvent("idle");
         }
     }
 }

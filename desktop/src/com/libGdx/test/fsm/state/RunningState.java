@@ -3,29 +3,29 @@ package com.libGdx.test.fsm.state;
 import com.kw.gdx.fsm.State;
 import com.libGdx.test.fsm.Player;
 
-
 // 跑动状态
-class RunningState implements State<Player> {
 
+
+public class RunningState implements State<Player> {
     @Override
-    public void onEnter(Player owner, Object... args) {
-        System.out.println(owner.name + " starts Running");
+    public void enter(Player p) {
+        System.out.println(p.name + " 开始 Running");
     }
 
     @Override
-    public void onUpdate(Player owner, float delta) {
-        System.out.println(owner.name + " stops Running");
+    public void exit(Player p) {
+        System.out.println(p.name + " 停止 Running");
     }
 
     @Override
-    public void onExit(Player owner) {
-
+    public void update(Player p, float delta) {
+        // 跑步逻辑
     }
 
     @Override
-    public void handleEvent(Player player, String event) {
-        if ("stop".equals(event)) {
-
+    public void handleEvent(Player p, String event) {
+        if (event.equals("idle")) {
+            p.stateMachine.changeState(new IdleState());
         }
     }
 }
