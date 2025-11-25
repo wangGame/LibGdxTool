@@ -28,6 +28,5 @@ public class App {
             data.setName("zzzzzzzzzzzzzzzz");
             instance.sumbit("addCoin1", data);
         }
-
     }
 }

@@ -30,6 +30,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
     implementation project(':libgdxbox2d')
     implementation project(":libGdxLibTool3D")
+    implementation project(":libGdxEvent")
 
     implementation "com.kotcrab.vis:vis-ui:1.2.3"
 

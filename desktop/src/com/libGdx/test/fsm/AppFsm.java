@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.libGdx.test.base.LibGdxTestMain;
 import com.libGdx.test.cocos.CocosApp;
 import com.libGdx.test.fsm.state.IdleState;
+import com.libGdx.test.fsm.state.RunningState;
 
 public class AppFsm extends LibGdxTestMain {
     private Player player;
@@ -19,7 +20,8 @@ public class AppFsm extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
         player = new Player("Jack");
-        player.stateMachine.changeState(new IdleState());
+        player.addState(new IdleState());
+        player.addState(new RunningState());
     }
 
     @Override
@@ -31,10 +33,10 @@ public class AppFsm extends LibGdxTestMain {
 
         // 测试事件触发
         if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            player.handleEvent("run");
+            player.handleEvent(RunningState.class.getSimpleName());
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
-            player.handleEvent("idle");
+            player.handleEvent(IdleState.class.getSimpleName());
         }
     }
 }

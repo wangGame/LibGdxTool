@@ -15,4 +15,5 @@ include 'libGdxLib',
         "libGdxLib3D",
         "libGdxLibTool3D",
         "libGdxJnigenLoader",
-        "FontGenerator"
+        "FontGenerator",
+        "libGdxEvent"

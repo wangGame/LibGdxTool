@@ -6,7 +6,8 @@ import com.libGdx.test.fsm.Player;
 // 跑动状态
 
 
-public class RunningState implements State<Player> {
+public class RunningState extends State<Player> {
+
     @Override
     public void enter(Player p) {
         System.out.println(p.name + " 开始 Running");

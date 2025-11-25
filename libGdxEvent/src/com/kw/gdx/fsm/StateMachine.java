@@ -1,9 +1,8 @@
 package com.kw.gdx.fsm;
 
-public class StateMachine<T> {
+public class StateMachine<T extends Entity> {
     private T owner;
     private State<T> currentState;
-
     public StateMachine(T owner) {
         this.owner = owner;
     }
@@ -25,9 +24,12 @@ public class StateMachine<T> {
     }
 
     public void handleEvent(String event) {
-        if (currentState != null) {
-            currentState.handleEvent(owner, event);
+        if (currentState!=null&&currentState.stateName.equals(event)){
+            System.out.println("运行中 ------->"+event);
+            return;
         }
+        State o = (State) owner.stateArrayMap.get(event);
+        owner.stateMachine.changeState(o);
     }
 
     public State<T> getCurrentState() {

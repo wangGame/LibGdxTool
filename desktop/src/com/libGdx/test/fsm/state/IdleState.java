@@ -3,11 +3,9 @@ package com.libGdx.test.fsm.state;
 import com.kw.gdx.fsm.State;
 import com.libGdx.test.fsm.Player;
 
-public class IdleState implements State<Player> {
-    private String stateName;
-    public IdleState(){
+public class IdleState extends State<Player> {
 
-    }
+
     @Override
     public void enter(Player p) {
         System.out.println(p.name + " 进入 Idle 状态");
@@ -21,13 +19,14 @@ public class IdleState implements State<Player> {
     @Override
     public void update(Player p, float delta) {
         // 空闲时做的事情
+    }
 
+    public String getStateName() {
+        return stateName;
     }
 
     @Override
     public void handleEvent(Player p, String event) {
-        if (event.equals("run")) {
-            p.stateMachine.changeState(new RunningState());
-        }
+
     }
 }
