@@ -4,6 +4,10 @@ import com.kw.gdx.fsm.State;
 import com.libGdx.test.fsm.Player;
 
 public class IdleState implements State<Player> {
+    private String stateName;
+    public IdleState(){
+
+    }
     @Override
     public void enter(Player p) {
         System.out.println(p.name + " 进入 Idle 状态");
@@ -17,6 +21,7 @@ public class IdleState implements State<Player> {
     @Override
     public void update(Player p, float delta) {
         // 空闲时做的事情
+
     }
 
     @Override
