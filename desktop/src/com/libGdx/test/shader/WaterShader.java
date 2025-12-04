@@ -27,8 +27,12 @@ public class WaterShader extends LibGdxTestMain {
 //        waterGroup.setScale(0.5f);
 
 
-        BulletFlow bulletFlow = new BulletFlow();
-        addActor(bulletFlow);
-        bulletFlow.setPosition(Constant.GAMEWIDTH/2f,Constant.GAMEHIGHT/2f,Align.center);
+//        BulletFlow bulletFlow = new BulletFlow();
+//        addActor(bulletFlow);
+//        bulletFlow.setPosition(Constant.GAMEWIDTH/2f,Constant.GAMEHIGHT/2f,Align.center);
+
+
+
+
     }
 }

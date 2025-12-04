@@ -14,11 +14,11 @@ void main() {
 //
 //    float map = (texture(u_texture, v_textCoords) * v_color).r;
 //    map = map * -1.0 + focus;
-////    float offset = 0.3;
+//    float offset = 0.3;
 //    // 根据深度值计算新的纹理坐标，应用了偏移和缩放
-////    vec2 disCords = v_textCoords + offset * map * scale;
-////    vec4 o = texture2D(u_texture, disCords);
-//
+//    vec2 disCords = v_textCoords + offset * map * scale;
+//    vec4 o = texture2D(u_texture, disCords);
+//      gl_FragColor = o;
 ////    if(map<0.0){
 ////
 ////

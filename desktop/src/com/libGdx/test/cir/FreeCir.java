@@ -54,10 +54,11 @@ public class FreeCir extends LibGdxTestMain {
                 float i = 50.0f / region.getRegionHeight();
                 shadowProgram.setUniformf("rato",image.getWidth()/image.getHeight());
                 shadowProgram.setUniformf("ra",i);
-                if (time > 0.4f){
-                    time = 0.4f;
+                float endT = time * 0.1f;
+                if (endT > 0.4f){
+                    endT = 0.4f;
                 }
-                float v1 = time;
+                float v1 = endT ;
                 shadowProgram.setUniformf("h",v1);
                 super.draw(batch, parentAlpha);
                 batch.flush();
