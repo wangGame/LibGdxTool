@@ -9,7 +9,7 @@ sourceSets.main.java.srcDirs = [
 ]
 
 dependencies {
-    implementation project(":libGdx")
+
 }
 
 // 指定编码

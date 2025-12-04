@@ -28,5 +28,15 @@ public class App {
             data.setName("zzzzzzzzzzzzzzzz");
             instance.sumbit("addCoin1", data);
         }
+        {
+            EventManager instance = EventManager.getInstance();
+            instance.addEventListener("test",(PlayerInfo data)->{
+                System.out.println(data);
+            });
+            PlayerInfo info = new PlayerInfo();
+            info.setAge("xxxxxxxxxx");
+            info.setName("xxxxxxxxxxxxxxxxxxxxx");
+            instance.sumbit("test",info);
+        }
     }
 }

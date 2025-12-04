@@ -1,8 +1,6 @@
 package com.kw.gdx.event;
 
-import com.badlogic.gdx.utils.Array;
-import com.kw.gdx.singleton.Singleton;
-
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,27 +9,27 @@ public class EventManager {
         return Singleton.getInstance(EventManager.class);
     }
 
-    private Map<String, Array<EventListener>> eventListenerMap = new HashMap<>();
+    private Map<String, ArrayList<EventListener>> eventListenerMap = new HashMap<>();
 
     public <T> void addEventListener(String name,EventListener<T> eventListener){
-        Array<EventListener> eventListeners = this.eventListenerMap.get(name);
+        ArrayList<EventListener> eventListeners = this.eventListenerMap.get(name);
         if (eventListeners == null){
-            eventListeners = new Array<>();
+            eventListeners = new ArrayList<>();
             this.eventListenerMap.put(name,eventListeners);
         }
         eventListeners.add(eventListener);
     }
 
     public void removeEventListener(String name,EventListener eventListener){
-        Array<EventListener> eventListeners = this.eventListenerMap.get(name);
+        ArrayList<EventListener> eventListeners = this.eventListenerMap.get(name);
         if (eventListeners == null){
             return;
         }
-        eventListeners.removeValue(eventListener,false);
+        eventListeners.remove(eventListener);
     }
 
     public <T> void sumbit(String name,T t){
-        Array<EventListener> eventListeners = this.eventListenerMap.get(name);
+        ArrayList<EventListener> eventListeners = this.eventListenerMap.get(name);
         if (eventListeners!=null){
             for (EventListener eventListener : eventListeners) {
                 eventListener.listener(t);
