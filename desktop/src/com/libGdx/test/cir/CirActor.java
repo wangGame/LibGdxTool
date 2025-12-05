@@ -8,10 +8,10 @@ import com.libGdx.test.shader.BaseGroup;
 public class CirActor extends BaseGroup {
     public CirActor() {
         super("shader/cirActor/wave.vert", "shader/cirActor/wave.glsl");
-        Image image = new Image(Asset.getAsset().getTexture("0_1_41_512.jpg"));
+        Image image = new Image(Asset.getAsset().getTexture("hmbb.jpg"));
         addActor(image);
         setSize(image.getWidth(),image.getHeight());
-        image.setPosition(0,0, Align.center);
+        image.setPosition(getWidth()/2f,getHeight()/2f, Align.center);
     }
 
     @Override

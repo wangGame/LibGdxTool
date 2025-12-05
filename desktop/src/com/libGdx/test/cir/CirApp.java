@@ -16,14 +16,15 @@ public class CirApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        CirActor1 actor = new CirActor1();
+        CirActor actor = new CirActor();
         addActor(actor);
         actor.setOrigin(Align.center);
-        actor.setScale(0.1f);
-
-
-
         actor.setPosition(Constant.GAMEWIDTH/2f,Constant.GAMEHIGHT/2f,Align.center);
+        actor.setScale(0.3f);
+
+
+
+
 
 
 
