@@ -28,7 +28,7 @@ public class MaskTest extends Group {
     }
 
     private void drawForeground(Batch batchPara, int clipX, int clipY ,int clipWidth ,int clipHeight) {
-        Gdx.gl.glColorMask(false, false, true, true);
+        Gdx.gl.glColorMask(false, false, true, true);  //mask
         batchPara.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ONE_MINUS_DST_ALPHA);
         Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
         Gdx.gl.glScissor(clipX, clipY, clipWidth, clipHeight);
