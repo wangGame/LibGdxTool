@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine.utils;
@@ -32,28 +32,33 @@ package com.esotericsoftware.spine.utils;
 public class SpineUtils {
 	static public final float PI = 3.1415927f;
 	static public final float PI2 = PI * 2;
+	static public final float invPI2 = 1 / PI2;
 	static public final float radiansToDegrees = 180f / PI;
 	static public final float radDeg = radiansToDegrees;
 	static public final float degreesToRadians = PI / 180;
 	static public final float degRad = degreesToRadians;
 
-	public static float cosDeg (float degrees) {
+	static public float cosDeg (float degrees) {
 		return (float)Math.cos(degrees * degRad);
 	}
 
-	public static float sinDeg (float degrees) {
+	static public float sinDeg (float degrees) {
 		return (float)Math.sin(degrees * degRad);
 	}
 
-	public static float cos (float radians) {
+	static public float cos (float radians) {
 		return (float)Math.cos(radians);
 	}
 
-	public static float sin (float radians) {
+	static public float sin (float radians) {
 		return (float)Math.sin(radians);
 	}
 
-	public static float atan2 (float y, float x) {
+	static public float atan2Deg (float y, float x) {
+		return (float)Math.atan2(y, x) * radDeg;
+	}
+
+	static public float atan2 (float y, float x) {
 		return (float)Math.atan2(y, x);
 	}
 

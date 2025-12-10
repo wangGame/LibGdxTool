@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
@@ -35,6 +35,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
+import com.badlogic.gdx.utils.Null;
+
 import com.esotericsoftware.spine.Skin.SkinEntry;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.MeshAttachment;
@@ -53,11 +55,11 @@ public class Skeleton {
 	final Array<IkConstraint> ikConstraints;
 	final Array<TransformConstraint> transformConstraints;
 	final Array<PathConstraint> pathConstraints;
+	final Array<PhysicsConstraint> physicsConstraints;
 	final Array<Updatable> updateCache = new Array();
-	Skin skin;
+	@Null Skin skin;
 	final Color color;
-	float scaleX = 1, scaleY = 1;
-	float x, y;
+	float x, y, scaleX = 1, scaleY = 1, time;
 
 	public Skeleton (SkeletonData data) {
 		if (data == null) throw new IllegalArgumentException("data cannot be null.");
@@ -98,6 +100,10 @@ public class Skeleton {
 		for (PathConstraintData pathConstraintData : data.pathConstraints)
 			pathConstraints.add(new PathConstraint(pathConstraintData, this));
 
+		physicsConstraints = new Array(data.physicsConstraints.size);
+		for (PhysicsConstraintData physicsConstraintData : data.physicsConstraints)
+			physicsConstraints.add(new PhysicsConstraint(physicsConstraintData, this));
+
 		color = new Color(1, 1, 1, 1);
 
 		updateCache();
@@ -133,20 +139,27 @@ public class Skeleton {
 
 		ikConstraints = new Array(skeleton.ikConstraints.size);
 		for (IkConstraint ikConstraint : skeleton.ikConstraints)
-			ikConstraints.add(new IkConstraint(ikConstraint, this));
+			ikConstraints.add(new IkConstraint(ikConstraint));
 
 		transformConstraints = new Array(skeleton.transformConstraints.size);
 		for (TransformConstraint transformConstraint : skeleton.transformConstraints)
-			transformConstraints.add(new TransformConstraint(transformConstraint, this));
+			transformConstraints.add(new TransformConstraint(transformConstraint));
 
 		pathConstraints = new Array(skeleton.pathConstraints.size);
 		for (PathConstraint pathConstraint : skeleton.pathConstraints)
-			pathConstraints.add(new PathConstraint(pathConstraint, this));
+			pathConstraints.add(new PathConstraint(pathConstraint));
+
+		physicsConstraints = new Array(skeleton.physicsConstraints.size);
+		for (PhysicsConstraint physicsConstraint : skeleton.physicsConstraints)
+			physicsConstraints.add(new PhysicsConstraint(physicsConstraint));
 
 		skin = skeleton.skin;
 		color = new Color(skeleton.color);
+		x = skeleton.x;
+		y = skeleton.y;
 		scaleX = skeleton.scaleX;
 		scaleY = skeleton.scaleY;
+		time = skeleton.time;
 
 		updateCache();
 	}
@@ -176,10 +189,11 @@ public class Skeleton {
 			}
 		}
 
-		int ikCount = ikConstraints.size, transformCount = transformConstraints.size, pathCount = pathConstraints.size;
+		int ikCount = ikConstraints.size, transformCount = transformConstraints.size, pathCount = pathConstraints.size,
+			physicsCount = physicsConstraints.size;
 		Object[] ikConstraints = this.ikConstraints.items, transformConstraints = this.transformConstraints.items,
-			pathConstraints = this.pathConstraints.items;
-		int constraintCount = ikCount + transformCount + pathCount;
+			pathConstraints = this.pathConstraints.items, physicsConstraints = this.physicsConstraints.items;
+		int constraintCount = ikCount + transformCount + pathCount + physicsCount;
 		outer:
 		for (int i = 0; i < constraintCount; i++) {
 			for (int ii = 0; ii < ikCount; ii++) {
@@ -200,6 +214,13 @@ public class Skeleton {
 				PathConstraint constraint = (PathConstraint)pathConstraints[ii];
 				if (constraint.data.order == i) {
 					sortPathConstraint(constraint);
+					continue outer;
+				}
+			}
+			for (int ii = 0; ii < physicsCount; ii++) {
+				PhysicsConstraint constraint = (PhysicsConstraint)physicsConstraints[ii];
+				if (constraint.data.order == i) {
+					sortPhysicsConstraint(constraint);
 					continue outer;
 				}
 			}
@@ -314,6 +335,20 @@ public class Skeleton {
 		}
 	}
 
+	private void sortPhysicsConstraint (PhysicsConstraint constraint) {
+		Bone bone = constraint.bone;
+		constraint.active = bone.active
+			&& (!constraint.data.skinRequired || (skin != null && skin.constraints.contains(constraint.data, true)));
+		if (!constraint.active) return;
+
+		sortBone(bone);
+
+		updateCache.add(constraint);
+
+		sortReset(bone.children);
+		bone.sorted = true;
+	}
+
 	private void sortBone (Bone bone) {
 		if (bone.sorted) return;
 		Bone parent = bone.parent;
@@ -336,7 +371,7 @@ public class Skeleton {
 	 * <p>
 	 * See <a href="http://esotericsoftware.com/spine-runtime-skeletons#World-transforms">World transforms</a> in the Spine
 	 * Runtimes Guide. */
-	public void updateWorldTransform () {
+	public void updateWorldTransform (Physics physics) {
 		Object[] bones = this.bones.items;
 		for (int i = 0, n = this.bones.size; i < n; i++) {
 			Bone bone = (Bone)bones[i];
@@ -351,7 +386,7 @@ public class Skeleton {
 
 		Object[] updateCache = this.updateCache.items;
 		for (int i = 0, n = this.updateCache.size; i < n; i++)
-			((Updatable)updateCache[i]).update();
+			((Updatable)updateCache[i]).update(physics);
 	}
 
 	/** Temporarily sets the root bone as a child of the specified bone, then updates the world transform for each bone and applies
@@ -359,7 +394,7 @@ public class Skeleton {
 	 * <p>
 	 * See <a href="http://esotericsoftware.com/spine-runtime-skeletons#World-transforms">World transforms</a> in the Spine
 	 * Runtimes Guide. */
-	public void updateWorldTransform (Bone parent) {
+	public void updateWorldTransform (Physics physics, Bone parent) {
 		if (parent == null) throw new IllegalArgumentException("parent cannot be null.");
 
 		Object[] bones = this.bones.items;
@@ -380,11 +415,12 @@ public class Skeleton {
 		rootBone.worldX = pa * x + pb * y + parent.worldX;
 		rootBone.worldY = pc * x + pd * y + parent.worldY;
 
-		float rotationY = rootBone.rotation + 90 + rootBone.shearY;
-		float la = cosDeg(rootBone.rotation + rootBone.shearX) * rootBone.scaleX;
-		float lb = cosDeg(rotationY) * rootBone.scaleY;
-		float lc = sinDeg(rootBone.rotation + rootBone.shearX) * rootBone.scaleX;
-		float ld = sinDeg(rotationY) * rootBone.scaleY;
+		float rx = (rootBone.rotation + rootBone.shearX) * degRad;
+		float ry = (rootBone.rotation + 90 + rootBone.shearY) * degRad;
+		float la = cos(rx) * rootBone.scaleX;
+		float lb = cos(ry) * rootBone.scaleY;
+		float lc = sin(rx) * rootBone.scaleX;
+		float ld = sin(ry) * rootBone.scaleY;
 		rootBone.a = (pa * la + pb * lc) * scaleX;
 		rootBone.b = (pa * lb + pb * ld) * scaleX;
 		rootBone.c = (pc * la + pd * lc) * scaleY;
@@ -394,7 +430,7 @@ public class Skeleton {
 		Object[] updateCache = this.updateCache.items;
 		for (int i = 0, n = this.updateCache.size; i < n; i++) {
 			Updatable updatable = (Updatable)updateCache[i];
-			if (updatable != rootBone) updatable.update();
+			if (updatable != rootBone) updatable.update(physics);
 		}
 	}
 
@@ -411,37 +447,20 @@ public class Skeleton {
 			((Bone)bones[i]).setToSetupPose();
 
 		Object[] ikConstraints = this.ikConstraints.items;
-		for (int i = 0, n = this.ikConstraints.size; i < n; i++) {
-			IkConstraint constraint = (IkConstraint)ikConstraints[i];
-			constraint.mix = constraint.data.mix;
-			constraint.softness = constraint.data.softness;
-			constraint.bendDirection = constraint.data.bendDirection;
-			constraint.compress = constraint.data.compress;
-			constraint.stretch = constraint.data.stretch;
-		}
+		for (int i = 0, n = this.ikConstraints.size; i < n; i++)
+			((IkConstraint)ikConstraints[i]).setToSetupPose();
 
 		Object[] transformConstraints = this.transformConstraints.items;
-		for (int i = 0, n = this.transformConstraints.size; i < n; i++) {
-			TransformConstraint constraint = (TransformConstraint)transformConstraints[i];
-			TransformConstraintData data = constraint.data;
-			constraint.mixRotate = data.mixRotate;
-			constraint.mixX = data.mixX;
-			constraint.mixY = data.mixY;
-			constraint.mixScaleX = data.mixScaleX;
-			constraint.mixScaleY = data.mixScaleY;
-			constraint.mixShearY = data.mixShearY;
-		}
+		for (int i = 0, n = this.transformConstraints.size; i < n; i++)
+			((TransformConstraint)transformConstraints[i]).setToSetupPose();
 
 		Object[] pathConstraints = this.pathConstraints.items;
-		for (int i = 0, n = this.pathConstraints.size; i < n; i++) {
-			PathConstraint constraint = (PathConstraint)pathConstraints[i];
-			PathConstraintData data = constraint.data;
-			constraint.position = data.position;
-			constraint.spacing = data.spacing;
-			constraint.mixRotate = data.mixRotate;
-			constraint.mixX = data.mixX;
-			constraint.mixY = data.mixY;
-		}
+		for (int i = 0, n = this.pathConstraints.size; i < n; i++)
+			((PathConstraint)pathConstraints[i]).setToSetupPose();
+
+		Object[] physicsConstraints = this.physicsConstraints.items;
+		for (int i = 0, n = this.physicsConstraints.size; i < n; i++)
+			((PhysicsConstraint)physicsConstraints[i]).setToSetupPose();
 	}
 
 	/** Sets the slots and draw order to their setup pose values. */
@@ -475,7 +494,7 @@ public class Skeleton {
 
 	/** Finds a bone by comparing each bone's name. It is more efficient to cache the results of this method than to call it
 	 * repeatedly. */
-	public Bone findBone (String boneName) {
+	public @Null Bone findBone (String boneName) {
 		if (boneName == null) throw new IllegalArgumentException("boneName cannot be null.");
 		Object[] bones = this.bones.items;
 		for (int i = 0, n = this.bones.size; i < n; i++) {
@@ -492,7 +511,7 @@ public class Skeleton {
 
 	/** Finds a slot by comparing each slot's name. It is more efficient to cache the results of this method than to call it
 	 * repeatedly. */
-	public Slot findSlot (String slotName) {
+	public @Null Slot findSlot (String slotName) {
 		if (slotName == null) throw new IllegalArgumentException("slotName cannot be null.");
 		Object[] slots = this.slots.items;
 		for (int i = 0, n = this.slots.size; i < n; i++) {
@@ -513,7 +532,7 @@ public class Skeleton {
 	}
 
 	/** The skeleton's current skin. */
-	public Skin getSkin () {
+	public @Null Skin getSkin () {
 		return skin;
 	}
 
@@ -536,7 +555,7 @@ public class Skeleton {
 	 * {@link #setSlotsToSetupPose()}. Also, often {@link AnimationState#apply(Skeleton)} is called before the next time the
 	 * skeleton is rendered to allow any attachment keys in the current animation(s) to hide or show attachments from the new
 	 * skin. */
-	public void setSkin (Skin newSkin) {
+	public void setSkin (@Null Skin newSkin) {
 		if (newSkin == skin) return;
 		if (newSkin != null) {
 			if (skin != null)
@@ -561,7 +580,7 @@ public class Skeleton {
 	 * name.
 	 * <p>
 	 * See {@link #getAttachment(int, String)}. */
-	public Attachment getAttachment (String slotName, String attachmentName) {
+	public @Null Attachment getAttachment (String slotName, String attachmentName) {
 		SlotData slot = data.findSlot(slotName);
 		if (slot == null) throw new IllegalArgumentException("Slot not found: " + slotName);
 		return getAttachment(slot.getIndex(), attachmentName);
@@ -571,7 +590,7 @@ public class Skeleton {
 	 * attachment name. First the skin is checked and if the attachment was not found, the default skin is checked.
 	 * <p>
 	 * See <a href="http://esotericsoftware.com/spine-runtime-skins">Runtime skins</a> in the Spine Runtimes Guide. */
-	public Attachment getAttachment (int slotIndex, String attachmentName) {
+	public @Null Attachment getAttachment (int slotIndex, String attachmentName) {
 		if (attachmentName == null) throw new IllegalArgumentException("attachmentName cannot be null.");
 		if (skin != null) {
 			Attachment attachment = skin.getAttachment(slotIndex, attachmentName);
@@ -584,7 +603,7 @@ public class Skeleton {
 	/** A convenience method to set an attachment by finding the slot with {@link #findSlot(String)}, finding the attachment with
 	 * {@link #getAttachment(int, String)}, then setting the slot's {@link Slot#attachment}.
 	 * @param attachmentName May be null to clear the slot's attachment. */
-	public void setAttachment (String slotName, String attachmentName) {
+	public void setAttachment (String slotName, @Null String attachmentName) {
 		if (slotName == null) throw new IllegalArgumentException("slotName cannot be null.");
 		Slot slot = findSlot(slotName);
 		if (slot == null) throw new IllegalArgumentException("Slot not found: " + slotName);
@@ -604,7 +623,7 @@ public class Skeleton {
 
 	/** Finds an IK constraint by comparing each IK constraint's name. It is more efficient to cache the results of this method
 	 * than to call it repeatedly. */
-	public IkConstraint findIkConstraint (String constraintName) {
+	public @Null IkConstraint findIkConstraint (String constraintName) {
 		if (constraintName == null) throw new IllegalArgumentException("constraintName cannot be null.");
 		Object[] ikConstraints = this.ikConstraints.items;
 		for (int i = 0, n = this.ikConstraints.size; i < n; i++) {
@@ -621,7 +640,7 @@ public class Skeleton {
 
 	/** Finds a transform constraint by comparing each transform constraint's name. It is more efficient to cache the results of
 	 * this method than to call it repeatedly. */
-	public TransformConstraint findTransformConstraint (String constraintName) {
+	public @Null TransformConstraint findTransformConstraint (String constraintName) {
 		if (constraintName == null) throw new IllegalArgumentException("constraintName cannot be null.");
 		Object[] transformConstraints = this.transformConstraints.items;
 		for (int i = 0, n = this.transformConstraints.size; i < n; i++) {
@@ -638,11 +657,28 @@ public class Skeleton {
 
 	/** Finds a path constraint by comparing each path constraint's name. It is more efficient to cache the results of this method
 	 * than to call it repeatedly. */
-	public PathConstraint findPathConstraint (String constraintName) {
+	public @Null PathConstraint findPathConstraint (String constraintName) {
 		if (constraintName == null) throw new IllegalArgumentException("constraintName cannot be null.");
 		Object[] pathConstraints = this.pathConstraints.items;
 		for (int i = 0, n = this.pathConstraints.size; i < n; i++) {
 			PathConstraint constraint = (PathConstraint)pathConstraints[i];
+			if (constraint.data.name.equals(constraintName)) return constraint;
+		}
+		return null;
+	}
+
+	/** The skeleton's physics constraints. */
+	public Array<PhysicsConstraint> getPhysicsConstraints () {
+		return physicsConstraints;
+	}
+
+	/** Finds a physics constraint by comparing each physics constraint's name. It is more efficient to cache the results of this
+	 * method than to call it repeatedly. */
+	public @Null PhysicsConstraint findPhysicsConstraint (String constraintName) {
+		if (constraintName == null) throw new IllegalArgumentException("constraintName cannot be null.");
+		Object[] physicsConstraints = this.physicsConstraints.items;
+		for (int i = 0, n = this.physicsConstraints.size; i < n; i++) {
+			PhysicsConstraint constraint = (PhysicsConstraint)physicsConstraints[i];
 			if (constraint.data.name.equals(constraintName)) return constraint;
 		}
 		return null;
@@ -765,7 +801,52 @@ public class Skeleton {
 		this.y = y;
 	}
 
+	/** Calls {@link PhysicsConstraint#translate(float, float)} for each physics constraint. */
+	public void physicsTranslate (float x, float y) {
+		Object[] physicsConstraints = this.physicsConstraints.items;
+		for (int i = 0, n = this.physicsConstraints.size; i < n; i++)
+			((PhysicsConstraint)physicsConstraints[i]).translate(x, y);
+	}
+
+	/** Calls {@link PhysicsConstraint#rotate(float, float, float)} for each physics constraint. */
+	public void physicsRotate (float x, float y, float degrees) {
+		Object[] physicsConstraints = this.physicsConstraints.items;
+		for (int i = 0, n = this.physicsConstraints.size; i < n; i++)
+			((PhysicsConstraint)physicsConstraints[i]).rotate(x, y, degrees);
+	}
+
+	/** Returns the skeleton's time. This is used for time-based manipulations, such as {@link PhysicsConstraint}.
+	 * <p>
+	 * See {@link #update(float)}. */
+	public float getTime () {
+		return time;
+	}
+
+	public void setTime (float time) {
+		this.time = time;
+	}
+
+	/** Increments the skeleton's {@link #time}. */
+	public void update (float delta) {
+		time += delta;
+	}
+
 	public String toString () {
 		return data.name != null ? data.name : super.toString();
+	}
+
+	/** Determines how physics and other non-deterministic updates are applied. */
+	static public enum Physics {
+		/** Physics are not updated or applied. */
+		none,
+
+		/** Physics are reset to the current pose. */
+		reset,
+
+		/** Physics are updated and the pose from physics is applied. */
+		update,
+
+		/** Physics are not updated but the pose from physics is applied. */
+		pose
 	}
 }

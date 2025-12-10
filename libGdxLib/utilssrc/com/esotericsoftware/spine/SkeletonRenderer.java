@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
@@ -184,16 +184,19 @@ public class SkeletonRenderer {
 			} else if (attachment instanceof SkeletonAttachment) {
 				Skeleton attachmentSkeleton = ((SkeletonAttachment)attachment).getSkeleton();
 				if (attachmentSkeleton != null) draw(batch, attachmentSkeleton);
-			} else if (attachment instanceof ActorAttachment){
-				Actor actor = ((ActorAttachment) attachment).getActor();
+			}else if(attachment instanceof ActorAttachment){
+				ActorAttachment attachment1 = (ActorAttachment) (attachment);
+				Actor actor = attachment1.getActor();
 				Bone bone = slot.getBone();
-				float worldX = bone.getWorldX();
-				float worldY = bone.getWorldY();
-				actor.setOrigin(Align.center);
-				actor.setPosition(worldX,worldY, Align.center);
-				actor.setScale(bone.scaleX,bone.scaleY);
-				actor.setColor(slot.getColor());
-				actor.draw(batch,skeleton.color.a);
+				if (attachment1.isFlower()) {
+					actor.setOrigin(Align.center);
+                	 actor.setPosition(bone.getX()+ bone.worldX + attachment1.getOffsetX(),
+							 bone.getY()+ bone.worldY + attachment1.getOffsetY(),Align.center);
+					 actor.setScale(bone.getScaleX()*bone.getWorldScaleX()*attachment1.getScale(),bone.getScaleY()*bone.getWorldScaleY()*attachment1.getScale());
+					actor.draw(batch,skeleton.color.a * slot.getColor().a);
+				}else {
+					actor.draw(batch,skeleton.color.a);
+				}
 			}
 
 			if (texture != null) {

@@ -14,7 +14,7 @@ uniform vec4 u_shadowColor;     // Required
 uniform ivec2 u_textureSize;    // Required
 uniform float u_alpha;          // Required
 
-const float c_alphaLow = 0.8;
+const float c_alphaLow = 0.1;
 const float c_alphaHigh = 1.0;
 const float c_seamCoef = 0.6;
 const float c_outlineOverstate = 10.0;
@@ -61,13 +61,10 @@ vec4 getOutlined() {
         vec4 neighbor = getGaussianNeighborsSum(relOutlineWidth) * c_outlineOverstate;
         if (neighbor.a > c_alphaLow) {
 
-texColor.rgb = u_outlineColor.rgb;
-            texColor.a = min(1.0, neighbor.a) * u_outlineColor.a * u_outlineAlpha;
+        texColor.rgb = u_outlineColor.rgb;
+        texColor.a = min(1.0, neighbor.a) * u_outlineColor.a * u_outlineAlpha;
 
-            float raw = neighbor.a;
-            float t = clamp((raw - c_alphaLow) / (c_alphaHigh - c_alphaLow), 0.0, 1.0);
-            float gradient = pow(t, 1.8);
-            texColor.a = gradient * u_outlineColor.a * u_outlineAlpha;
+
         }
     }
 

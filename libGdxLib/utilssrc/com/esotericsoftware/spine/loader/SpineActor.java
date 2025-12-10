@@ -3,12 +3,14 @@ package com.esotericsoftware.spine.loader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationState;
@@ -17,6 +19,7 @@ import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.esotericsoftware.spine.Skin;
+import com.esotericsoftware.spine.attachments.AtlasAttachmentLoader;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.MeshAttachment;
 import com.esotericsoftware.spine.attachments.RegionAttachment;
@@ -32,6 +35,9 @@ public class SpineActor extends Actor {
     private float offsetX,offsetY;
     private AssetManager assetamnagerinstance;
     private boolean active;
+    private boolean isClip;
+    private float w;
+    private float h;
 
     public SpineActor(String path) {
         this.path = path;
@@ -50,11 +56,16 @@ public class SpineActor extends Actor {
     }
 
     public SpineActor(String path, String atlas) {
+        this(path,atlas,"");
+    }
+
+    public SpineActor(String path, String atlas,String preStr) {
         this.path = path;
         assetamnagerinstance = Asset.getAsset().getAssetManager();
         if(!assetamnagerinstance.isLoaded(path+".json")) {
             SkeletonDataLoader.SkeletonDataParameter mainSkeletonParameter = new SkeletonDataLoader.SkeletonDataParameter();
             mainSkeletonParameter.atlasName = atlas;
+            mainSkeletonParameter.preStr = preStr;
             assetamnagerinstance.load(path + ".json", SkeletonData.class,mainSkeletonParameter);
             assetamnagerinstance.finishLoading();
         }
@@ -155,10 +166,10 @@ public class SpineActor extends Actor {
         skeleton.setSlotsToSetupPose();
     }
 
-    public void setAttachment(String s, String s1){
-        skeleton.setAttachment(s,s1);
-    }
 
+    public Skeleton getSkeleton() {
+        return skeleton;
+    }
 
     public void dispose(){
         remove();
@@ -172,13 +183,27 @@ public class SpineActor extends Actor {
         remove();
     }
 
-    private boolean isClip;
-    private float w;
-    private float h;
 
     @Override
     public void addAction(Action action) {
         super.addAction(action);
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+
+
+
+        if (customize){
+            skeleton.getRootBone().setScale(rootBoneScaleX*getScaleX(),
+                    getScaleY()*rootBoneScaleY);
+        }
+
+        state.update(Gdx.graphics.getDeltaTime());
+        state.apply(skeleton);
+        skeleton.updateWorldTransform(null);
+
     }
 
     @Override
@@ -187,14 +212,8 @@ public class SpineActor extends Actor {
         Color color = skeleton.getColor();
         float oldAlpha = color.a;
         skeleton.getColor().a *= alpha;
-        if (customize){
-            skeleton.getRootBone().setScale(rootBoneScaleX*getScaleX(),
-                    getScaleY()*rootBoneScaleY);
-        }
 
-        state.update(Gdx.graphics.getDeltaTime());
-        state.apply(skeleton);
-        skeleton.updateWorldTransform();
+
         int src = batch.getBlendSrcFunc();
         int dst = batch.getBlendDstFunc();
         if (isClip) {
@@ -210,6 +229,8 @@ public class SpineActor extends Actor {
 
         batch.setBlendFunction(src,dst);
         color.a = oldAlpha;
+
+        super.draw(batch,parentAlpha);
     }
 
     public void setH(float h) {
@@ -270,29 +291,21 @@ public class SpineActor extends Actor {
 //        skeleton.setFlipY(false);
     }
 
-    private float beginY;
-    public void setBeginY(int i) {
-        this.beginY = i;
+    public void updateAttribute(String name,String TexturePath) {
+        updateAttribute(name,Asset.getAsset().getTexture(TexturePath));
     }
 
-    private float beginX;
-    public void setBeginX(int i) {
-        this.beginX = i;
+    public void updateAttribute(String name, Texture texture) {
+        updateAttribute(name,new TextureRegion(texture));
     }
 
-    public Skeleton getSkeleton() {
-        return skeleton;
-    }
-
-
-    public void updateAttribute(String name, TextureRegion re){
+    public void updateAttribute(String name,TextureRegion re){
         SkeletonData data = skeleton.getData();
         Array<Skin> skins = data.getSkins();
         for (Skin skin1 : skins) {
             Array<Skin.SkinEntry> attachments = skin1.getAttachments();
             for (Skin.SkinEntry attachment : attachments) {
                 Attachment attachment1 = attachment.getAttachment();
-                System.out.println(attachment1.getName());
                 if (attachment1.getName().endsWith(name)) {
                     if (attachment1 instanceof RegionAttachment) {
                         RegionAttachment attachment2 = (RegionAttachment) (attachment1);
@@ -311,4 +324,20 @@ public class SpineActor extends Actor {
     }
 
 
+
+
+    private float beginY;
+    public void setBeginY(int i) {
+        this.beginY = i;
+    }
+
+    private float beginX;
+    public void setBeginX(int i) {
+        this.beginX = i;
+    }
+
+    public void sdebug() {
+        setSize(400,400);
+        setDebug(true);
+    }
 }

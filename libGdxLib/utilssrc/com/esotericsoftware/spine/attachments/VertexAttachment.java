@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine.attachments;
@@ -32,7 +32,7 @@ package com.esotericsoftware.spine.attachments;
 import static com.esotericsoftware.spine.utils.SpineUtils.*;
 
 import com.badlogic.gdx.utils.FloatArray;
- 
+import com.badlogic.gdx.utils.Null;
 
 import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Skeleton;
@@ -44,8 +44,8 @@ abstract public class VertexAttachment extends Attachment {
 	static private int nextID;
 
 	private final int id = nextID();
-	Attachment timelineAttachment = this;
-	int[] bones;
+	@Null Attachment timelineAttachment = this;
+	@Null int[] bones;
 	float[] vertices;
 	int worldVerticesLength;
 
@@ -143,12 +143,12 @@ abstract public class VertexAttachment extends Attachment {
 	/** The bones which affect the {@link #getVertices()}. The array entries are, for each vertex, the number of bones affecting
 	 * the vertex followed by that many bone indices, which is the index of the bone in {@link Skeleton#getBones()}. Will be null
 	 * if this attachment has no weights. */
-	public int[] getBones () {
+	public @Null int[] getBones () {
 		return bones;
 	}
 
 	/** @param bones May be null if this attachment has no weights. */
-	public void setBones (int[] bones) {
+	public void setBones (@Null int[] bones) {
 		this.bones = bones;
 	}
 
@@ -175,7 +175,7 @@ abstract public class VertexAttachment extends Attachment {
 
 	/** Timelines for the timeline attachment are also applied to this attachment.
 	 * @return May be null if no attachment-specific timelines should be applied. */
-	public Attachment getTimelineAttachment () {
+	public @Null Attachment getTimelineAttachment () {
 		return timelineAttachment;
 	}
 

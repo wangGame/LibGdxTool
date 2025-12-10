@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine.attachments;
@@ -81,8 +81,19 @@ public class RegionAttachment extends Attachment implements HasTextureRegion {
 	/** Calculates the {@link #offset} and {@link #uvs} using the region and the attachment's transform. Must be called if the
 	 * region, the region's properties, or the transform are changed. */
 	public void updateRegion () {
-		float width = getWidth();
-		float height = getHeight();
+		if (region == null) {
+			uvs[BLX] = 0;
+			uvs[BLY] = 0;
+			uvs[ULX] = 0;
+			uvs[ULY] = 1;
+			uvs[URX] = 1;
+			uvs[URY] = 1;
+			uvs[BRX] = 1;
+			uvs[BRY] = 0;
+			return;
+		}
+
+		float width = getWidth(), height = getHeight();
 		float localX2 = width / 2;
 		float localY2 = height / 2;
 		float localX = -localX2;
@@ -92,7 +103,7 @@ public class RegionAttachment extends Attachment implements HasTextureRegion {
 			AtlasRegion region = (AtlasRegion)this.region;
 			localX += region.offsetX / region.originalWidth * width;
 			localY += region.offsetY / region.originalHeight * height;
-            if (region.rotate) {
+			if (region.degrees == 90) {
 				rotated = true;
 				localX2 -= (region.originalWidth - region.offsetX - region.packedHeight) / region.originalWidth * width;
 				localY2 -= (region.originalHeight - region.offsetY - region.packedWidth) / region.originalHeight * height;
@@ -101,17 +112,13 @@ public class RegionAttachment extends Attachment implements HasTextureRegion {
 				localY2 -= (region.originalHeight - region.offsetY - region.packedHeight) / region.originalHeight * height;
 			}
 		}
-		float scaleX = getScaleX();
-		float scaleY = getScaleY();
+		float scaleX = getScaleX(), scaleY = getScaleY();
 		localX *= scaleX;
 		localY *= scaleY;
 		localX2 *= scaleX;
 		localY2 *= scaleY;
-		float rotation = getRotation();
-		float cos = (float)Math.cos(degRad * rotation);
-		float sin = (float)Math.sin(degRad * rotation);
-		float x = getX();
-		float y = getY();
+		float r = getRotation() * degRad, cos = cos(r), sin = sin(r);
+		float x = getX(), y = getY();
 		float localXCos = localX * cos + x;
 		float localXSin = localX * sin;
 		float localYCos = localY * cos + y;
@@ -132,23 +139,23 @@ public class RegionAttachment extends Attachment implements HasTextureRegion {
 
 		float[] uvs = this.uvs;
 		if (rotated) {
-			uvs[URX] = region.getU();
-			uvs[URY] = region.getV2();
-			uvs[BRX] = region.getU();
-			uvs[BRY] = region.getV();
 			uvs[BLX] = region.getU2();
 			uvs[BLY] = region.getV();
 			uvs[ULX] = region.getU2();
 			uvs[ULY] = region.getV2();
+			uvs[URX] = region.getU();
+			uvs[URY] = region.getV2();
+			uvs[BRX] = region.getU();
+			uvs[BRY] = region.getV();
 		} else {
+			uvs[BLX] = region.getU2();
+			uvs[BLY] = region.getV2();
 			uvs[ULX] = region.getU();
 			uvs[ULY] = region.getV2();
 			uvs[URX] = region.getU();
 			uvs[URY] = region.getV();
 			uvs[BRX] = region.getU2();
 			uvs[BRY] = region.getV();
-			uvs[BLX] = region.getU2();
-			uvs[BLY] = region.getV2();
 		}
 	}
 

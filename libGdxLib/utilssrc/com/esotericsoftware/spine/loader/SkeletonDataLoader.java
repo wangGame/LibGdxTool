@@ -16,6 +16,8 @@ import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonJson;
 import com.esotericsoftware.spine.attachments.AtlasAttachmentLoader;
 import com.esotericsoftware.spine.attachments.AttachmentLoader;
+import com.esotericsoftware.spine.attachments.PlistAttachmentLoader;
+import com.ui.plist.PlistAtlas;
 
 /** An asset loader to create and load skeleton data. The data file is assumed to be binary if it ends with <code>.skel</code>,
  * otherwise JSON is assumed. The {@link SkeletonDataParameter} can provide a texture atlas name or an {@link AttachmentLoader}.
@@ -48,7 +50,12 @@ public class SkeletonDataLoader extends AsynchronousAssetLoader<SkeletonData, Sk
             if (parameter.attachmentLoader != null)
                 attachmentLoader = parameter.attachmentLoader;
             else if (parameter.atlasName != null)
-                attachmentLoader = new AtlasAttachmentLoader(manager.get(parameter.atlasName, TextureAtlas.class));
+                if (parameter.atlasName.endsWith(".plist")){
+                    attachmentLoader = new PlistAttachmentLoader(manager.get(parameter.atlasName, PlistAtlas.class));
+                    attachmentLoader.setPreStr(parameter.preStr);
+                }else {
+                    attachmentLoader = new AtlasAttachmentLoader(manager.get(parameter.atlasName, TextureAtlas.class));
+                }
         }
         if (attachmentLoader == null)
             attachmentLoader = new AtlasAttachmentLoader(manager.get(file.pathWithoutExtension() + ".atlas", TextureAtlas.class));
@@ -88,6 +95,7 @@ public class SkeletonDataLoader extends AsynchronousAssetLoader<SkeletonData, Sk
         public String atlasName;
         public AttachmentLoader attachmentLoader;
         public float scale = 1;
+        public String preStr;
 
         public SkeletonDataParameter () {
         }

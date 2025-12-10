@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
@@ -35,9 +35,10 @@ import static com.esotericsoftware.spine.utils.SpineUtils.*;
 import com.badlogic.gdx.math.Matrix3;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
- 
+import com.badlogic.gdx.utils.Null;
 
-import com.esotericsoftware.spine.BoneData.TransformMode;
+import com.esotericsoftware.spine.BoneData.Inherit;
+import com.esotericsoftware.spine.Skeleton.Physics;
 
 /** Stores a bone's current pose.
  * <p>
@@ -47,16 +48,17 @@ import com.esotericsoftware.spine.BoneData.TransformMode;
 public class Bone implements Updatable {
 	final BoneData data;
 	final Skeleton skeleton;
-	final Bone parent;
+	@Null final Bone parent;
 	final Array<Bone> children = new Array();
 	float x, y, rotation, scaleX, scaleY, shearX, shearY;
 	float ax, ay, arotation, ascaleX, ascaleY, ashearX, ashearY;
 	float a, b, worldX;
 	float c, d, worldY;
+	Inherit inherit;
 
 	boolean sorted, active;
 
-	public Bone (BoneData data, Skeleton skeleton, Bone parent) {
+	public Bone (BoneData data, Skeleton skeleton, @Null Bone parent) {
 		if (data == null) throw new IllegalArgumentException("data cannot be null.");
 		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
 		this.data = data;
@@ -66,7 +68,7 @@ public class Bone implements Updatable {
 	}
 
 	/** Copy constructor. Does not copy the {@link #getChildren()} bones. */
-	public Bone (Bone bone, Skeleton skeleton, Bone parent) {
+	public Bone (Bone bone, Skeleton skeleton, @Null Bone parent) {
 		if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
 		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
 		this.skeleton = skeleton;
@@ -79,10 +81,11 @@ public class Bone implements Updatable {
 		scaleY = bone.scaleY;
 		shearX = bone.shearX;
 		shearY = bone.shearY;
+		inherit = bone.inherit;
 	}
 
 	/** Computes the world transform using the parent bone and this bone's local applied transform. */
-	public void update () {
+	public void update (Physics physics) {
 		updateWorldTransform(ax, ay, arotation, ascaleX, ascaleY, ashearX, ashearY);
 	}
 
@@ -110,11 +113,13 @@ public class Bone implements Updatable {
 		Bone parent = this.parent;
 		if (parent == null) { // Root bone.
 			Skeleton skeleton = this.skeleton;
-			float rotationY = rotation + 90 + shearY, sx = skeleton.scaleX, sy = skeleton.scaleY;
-			a = cosDeg(rotation + shearX) * scaleX * sx;
-			b = cosDeg(rotationY) * scaleY * sx;
-			c = sinDeg(rotation + shearX) * scaleX * sy;
-			d = sinDeg(rotationY) * scaleY * sy;
+			float sx = skeleton.scaleX, sy = skeleton.scaleY;
+			float rx = (rotation + shearX) * degRad;
+			float ry = (rotation + 90 + shearY) * degRad;
+			a = cos(rx) * scaleX * sx;
+			b = cos(ry) * scaleY * sx;
+			c = sin(rx) * scaleX * sy;
+			d = sin(ry) * scaleY * sy;
 			worldX = x * sx + skeleton.x;
 			worldY = y * sy + skeleton.y;
 			return;
@@ -124,13 +129,14 @@ public class Bone implements Updatable {
 		worldX = pa * x + pb * y + parent.worldX;
 		worldY = pc * x + pd * y + parent.worldY;
 
-		switch (data.transformMode) {
+		switch (inherit) {
 		case normal: {
-			float rotationY = rotation + 90 + shearY;
-			float la = cosDeg(rotation + shearX) * scaleX;
-			float lb = cosDeg(rotationY) * scaleY;
-			float lc = sinDeg(rotation + shearX) * scaleX;
-			float ld = sinDeg(rotationY) * scaleY;
+			float rx = (rotation + shearX) * degRad;
+			float ry = (rotation + 90 + shearY) * degRad;
+			float la = cos(rx) * scaleX;
+			float lb = cos(ry) * scaleY;
+			float lc = sin(rx) * scaleX;
+			float ld = sin(ry) * scaleY;
 			a = pa * la + pb * lc;
 			b = pa * lb + pb * ld;
 			c = pc * la + pd * lc;
@@ -138,11 +144,12 @@ public class Bone implements Updatable {
 			return;
 		}
 		case onlyTranslation: {
-			float rotationY = rotation + 90 + shearY;
-			a = cosDeg(rotation + shearX) * scaleX;
-			b = cosDeg(rotationY) * scaleY;
-			c = sinDeg(rotation + shearX) * scaleX;
-			d = sinDeg(rotationY) * scaleY;
+			float rx = (rotation + shearX) * degRad;
+			float ry = (rotation + 90 + shearY) * degRad;
+			a = cos(rx) * scaleX;
+			b = cos(ry) * scaleY;
+			c = sin(rx) * scaleX;
+			d = sin(ry) * scaleY;
 			break;
 		}
 		case noRotationOrReflection: {
@@ -153,18 +160,18 @@ public class Bone implements Updatable {
 				pc /= skeleton.scaleY;
 				pb = pc * s;
 				pd = pa * s;
-				prx = atan2(pc, pa) * radDeg;
+				prx = atan2Deg(pc, pa);
 			} else {
 				pa = 0;
 				pc = 0;
-				prx = 90 - atan2(pd, pb) * radDeg;
+				prx = 90 - atan2Deg(pd, pb);
 			}
-			float rx = rotation + shearX - prx;
-			float ry = rotation + shearY - prx + 90;
-			float la = cosDeg(rx) * scaleX;
-			float lb = cosDeg(ry) * scaleY;
-			float lc = sinDeg(rx) * scaleX;
-			float ld = sinDeg(ry) * scaleY;
+			float rx = (rotation + shearX - prx) * degRad;
+			float ry = (rotation + shearY - prx + 90) * degRad;
+			float la = cos(rx) * scaleX;
+			float lb = cos(ry) * scaleY;
+			float lc = sin(rx) * scaleX;
+			float ld = sin(ry) * scaleY;
 			a = pa * la - pb * lc;
 			b = pa * lb - pb * ld;
 			c = pc * la + pd * lc;
@@ -172,8 +179,9 @@ public class Bone implements Updatable {
 			break;
 		}
 		case noScale:
-		case noScaleOrReflection: {
-			float cos = cosDeg(rotation), sin = sinDeg(rotation);
+		case noScaleOrReflection:
+			rotation *= degRad;
+			float cos = cos(rotation), sin = sin(rotation);
 			float za = (pa * cos + pb * sin) / skeleton.scaleX;
 			float zc = (pc * cos + pd * sin) / skeleton.scaleY;
 			float s = (float)Math.sqrt(za * za + zc * zc);
@@ -181,21 +189,20 @@ public class Bone implements Updatable {
 			za *= s;
 			zc *= s;
 			s = (float)Math.sqrt(za * za + zc * zc);
-			if (data.transformMode == TransformMode.noScale
-				&& (pa * pd - pb * pc < 0) != (skeleton.scaleX < 0 != skeleton.scaleY < 0)) s = -s;
-			float r = PI / 2 + atan2(zc, za);
-			float zb = cos(r) * s;
-			float zd = sin(r) * s;
-			float la = cosDeg(shearX) * scaleX;
-			float lb = cosDeg(90 + shearY) * scaleY;
-			float lc = sinDeg(shearX) * scaleX;
-			float ld = sinDeg(90 + shearY) * scaleY;
+			if (inherit == Inherit.noScale && (pa * pd - pb * pc < 0) != (skeleton.scaleX < 0 != skeleton.scaleY < 0)) s = -s;
+			rotation = PI / 2 + atan2(zc, za);
+			float zb = cos(rotation) * s;
+			float zd = sin(rotation) * s;
+			shearX *= degRad;
+			shearY = (90 + shearY) * degRad;
+			float la = cos(shearX) * scaleX;
+			float lb = cos(shearY) * scaleY;
+			float lc = sin(shearX) * scaleX;
+			float ld = sin(shearY) * scaleY;
 			a = za * la + zb * lc;
 			b = za * lb + zb * ld;
 			c = zc * la + zd * lc;
 			d = zc * lb + zd * ld;
-			break;
-		}
 		}
 		a *= skeleton.scaleX;
 		b *= skeleton.scaleX;
@@ -213,6 +220,7 @@ public class Bone implements Updatable {
 		scaleY = data.scaleY;
 		shearX = data.shearX;
 		shearY = data.shearY;
+		inherit = data.inherit;
 	}
 
 	/** The bone's setup pose data. */
@@ -226,7 +234,7 @@ public class Bone implements Updatable {
 	}
 
 	/** The parent bone, or null if this is the root bone. */
-	public Bone getParent () {
+	public @Null Bone getParent () {
 		return parent;
 	}
 
@@ -235,8 +243,6 @@ public class Bone implements Updatable {
 		return children;
 	}
 
-	/** Returns false when the bone has not been computed because {@link BoneData#getSkinRequired()} is true and the
-	 * {@link Skeleton#getSkin() active skin} does not {@link Skin#getBones() contain} this bone. */
 	public boolean isActive () {
 		return active;
 	}
@@ -321,6 +327,16 @@ public class Bone implements Updatable {
 		this.shearY = shearY;
 	}
 
+	/** Determines how parent world transforms affect this bone. */
+	public Inherit getInherit () {
+		return inherit;
+	}
+
+	public void setInherit (Inherit inherit) {
+		if (inherit == null) throw new IllegalArgumentException("inherit cannot be null.");
+		this.inherit = inherit;
+	}
+
 	// -- Applied transform
 
 	/** The applied local x translation. */
@@ -400,38 +416,78 @@ public class Bone implements Updatable {
 			ax = worldX - skeleton.x;
 			ay = worldY - skeleton.y;
 			float a = this.a, b = this.b, c = this.c, d = this.d;
-			arotation = atan2(c, a) * radDeg;
+			arotation = atan2Deg(c, a);
 			ascaleX = (float)Math.sqrt(a * a + c * c);
 			ascaleY = (float)Math.sqrt(b * b + d * d);
 			ashearX = 0;
-			ashearY = atan2(a * b + c * d, a * d - b * c) * radDeg;
+			ashearY = atan2Deg(a * b + c * d, a * d - b * c);
 			return;
 		}
+
 		float pa = parent.a, pb = parent.b, pc = parent.c, pd = parent.d;
 		float pid = 1 / (pa * pd - pb * pc);
+		float ia = pd * pid, ib = pb * pid, ic = pc * pid, id = pa * pid;
 		float dx = worldX - parent.worldX, dy = worldY - parent.worldY;
-		ax = (dx * pd * pid - dy * pb * pid);
-		ay = (dy * pa * pid - dx * pc * pid);
-		float ia = pid * pd;
-		float id = pid * pa;
-		float ib = pid * pb;
-		float ic = pid * pc;
-		float ra = ia * a - ib * c;
-		float rb = ia * b - ib * d;
-		float rc = id * c - ic * a;
-		float rd = id * d - ic * b;
+		ax = (dx * ia - dy * ib);
+		ay = (dy * id - dx * ic);
+
+		float ra, rb, rc, rd;
+		if (inherit == Inherit.onlyTranslation) {
+			ra = a;
+			rb = b;
+			rc = c;
+			rd = d;
+		} else {
+			switch (inherit) {
+			case noRotationOrReflection: {
+				float s = Math.abs(pa * pd - pb * pc) / (pa * pa + pc * pc);
+				float sa = pa / skeleton.scaleX;
+				float sc = pc / skeleton.scaleY;
+				pb = -sc * s * skeleton.scaleX;
+				pd = sa * s * skeleton.scaleY;
+				pid = 1 / (pa * pd - pb * pc);
+				ia = pd * pid;
+				ib = pb * pid;
+				break;
+			}
+			case noScale:
+			case noScaleOrReflection:
+				float r = rotation * degRad, cos = cos(r), sin = sin(r);
+				pa = (pa * cos + pb * sin) / skeleton.scaleX;
+				pc = (pc * cos + pd * sin) / skeleton.scaleY;
+				float s = (float)Math.sqrt(pa * pa + pc * pc);
+				if (s > 0.00001f) s = 1 / s;
+				pa *= s;
+				pc *= s;
+				s = (float)Math.sqrt(pa * pa + pc * pc);
+				if (inherit == Inherit.noScale && pid < 0 != (skeleton.scaleX < 0 != skeleton.scaleY < 0)) s = -s;
+				r = PI / 2 + atan2(pc, pa);
+				pb = cos(r) * s;
+				pd = sin(r) * s;
+				pid = 1 / (pa * pd - pb * pc);
+				ia = pd * pid;
+				ib = pb * pid;
+				ic = pc * pid;
+				id = pa * pid;
+			}
+			ra = ia * a - ib * c;
+			rb = ia * b - ib * d;
+			rc = id * c - ic * a;
+			rd = id * d - ic * b;
+		}
+
 		ashearX = 0;
 		ascaleX = (float)Math.sqrt(ra * ra + rc * rc);
 		if (ascaleX > 0.0001f) {
 			float det = ra * rd - rb * rc;
 			ascaleY = det / ascaleX;
-			ashearY = atan2(ra * rb + rc * rd, det) * radDeg;
-			arotation = atan2(rc, ra) * radDeg;
+			ashearY = -atan2Deg(ra * rb + rc * rd, det);
+			arotation = atan2Deg(rc, ra);
 		} else {
 			ascaleX = 0;
 			ascaleY = (float)Math.sqrt(rb * rb + rd * rd);
 			ashearY = 0;
-			arotation = 90 - atan2(rd, rb) * radDeg;
+			arotation = 90 - atan2Deg(rd, rb);
 		}
 	}
 
@@ -493,12 +549,12 @@ public class Bone implements Updatable {
 
 	/** The world rotation for the X axis, calculated using {@link #a} and {@link #c}. */
 	public float getWorldRotationX () {
-		return atan2(c, a) * radDeg;
+		return atan2Deg(c, a);
 	}
 
 	/** The world rotation for the Y axis, calculated using {@link #b} and {@link #d}. */
 	public float getWorldRotationY () {
-		return atan2(d, b) * radDeg;
+		return atan2Deg(d, b);
 	}
 
 	/** The magnitude (always positive) of the world scale X, calculated using {@link #a} and {@link #c}. */
@@ -545,29 +601,44 @@ public class Bone implements Updatable {
 		return local;
 	}
 
+	/** Transforms a point from world coordinates to the parent bone's local coordinates. */
+	public Vector2 worldToParent (Vector2 world) {
+		if (world == null) throw new IllegalArgumentException("world cannot be null.");
+		return parent == null ? world : parent.worldToLocal(world);
+	}
+
+	/** Transforms a point from the parent bone's coordinates to world coordinates. */
+	public Vector2 parentToWorld (Vector2 world) {
+		if (world == null) throw new IllegalArgumentException("world cannot be null.");
+		return parent == null ? world : parent.localToWorld(world);
+	}
+
 	/** Transforms a world rotation to a local rotation. */
 	public float worldToLocalRotation (float worldRotation) {
-		float sin = sinDeg(worldRotation), cos = cosDeg(worldRotation);
-		return atan2(a * sin - c * cos, d * cos - b * sin) * radDeg + rotation - shearX;
+		worldRotation *= degRad;
+		float sin = sin(worldRotation), cos = cos(worldRotation);
+		return atan2Deg(a * sin - c * cos, d * cos - b * sin) + rotation - shearX;
 	}
 
 	/** Transforms a local rotation to a world rotation. */
 	public float localToWorldRotation (float localRotation) {
-		localRotation -= rotation - shearX;
-		float sin = sinDeg(localRotation), cos = cosDeg(localRotation);
-		return atan2(cos * c + sin * d, cos * a + sin * b) * radDeg;
+		localRotation = (localRotation - rotation - shearX) * degRad;
+		float sin = sin(localRotation), cos = cos(localRotation);
+		return atan2Deg(cos * c + sin * d, cos * a + sin * b);
 	}
 
 	/** Rotates the world transform the specified amount.
 	 * <p>
-	 * After changes are made to the world transform, {@link #updateAppliedTransform()} should be called and {@link #update()} will
-	 * need to be called on any child bones, recursively. */
+	 * After changes are made to the world transform, {@link #updateAppliedTransform()} should be called and
+	 * {@link #update(Physics)} will need to be called on any child bones, recursively. */
 	public void rotateWorld (float degrees) {
-		float cos = cosDeg(degrees), sin = sinDeg(degrees);
-		a = cos * a - sin * c;
-		b = cos * b - sin * d;
-		c = sin * a + cos * c;
-		d = sin * b + cos * d;
+		degrees *= degRad;
+		float sin = sin(degrees), cos = cos(degrees);
+		float ra = a, rb = b;
+		a = cos * ra - sin * c;
+		b = cos * rb - sin * d;
+		c = sin * ra + cos * c;
+		d = sin * rb + cos * d;
 	}
 
 	// ---
