@@ -28,6 +28,15 @@ public class EventManager {
         eventListeners.remove(eventListener);
     }
 
+    public <T> void onece(String name,T t){
+        ArrayList<EventListener> removeList = this.eventListenerMap.remove(name);
+        if (removeList!=null){
+            for (EventListener eventListener : removeList) {
+                eventListener.listener(t);
+            }
+        }
+    }
+
     public <T> void sumbit(String name,T t){
         ArrayList<EventListener> eventListeners = this.eventListenerMap.get(name);
         if (eventListeners!=null){

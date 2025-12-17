@@ -18,10 +18,13 @@ public class DownLoadTask {
     private HttpClient client;
     private int threadNum = 3;
     private Array<SplitTask> downLoadThread;
+    private String url;
 
     public void down(String url,String saveDir,String saveFile) throws IOException, IllegalAccessException {
         //存储目录
         String tempPath = saveDir+"/"+saveFile;
+        this.url = url;
+
         this.downLoadThread = new Array<>();
         client = new DefaultHttpClient();
         HttpURLConnection connect = client.createConnect(url);
@@ -31,9 +34,12 @@ public class DownLoadTask {
         System.out.println(contentLengthLong);
         //如果文件存在就删除
         File file = new File(tempPath);
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();   // 递归创建目录
+        }
         if (file.exists()){
-//            file.delete();
-
+            file.delete();
         }
         FileDownloadRandomAccessFile randomAccessFile = new FileDownloadRandomAccessFile(file);
         randomAccessFile.setLength(contentLengthLong);
@@ -115,5 +121,9 @@ public class DownLoadTask {
     private DownloadListener downloadListener;
     public void addListener(DownloadListener listener) {
         this.downloadListener = listener;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
