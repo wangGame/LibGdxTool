@@ -18,7 +18,8 @@ import com.kw.gdx.screen.BaseScreen;
 @ANRDEMO
 @GameInfo(width = 1080,height = 1920)
 public class LibGdxTestMain extends BaseGame {
-
+    protected static float screenWidth = 2060;
+    protected static float screenHight = 1900;
     private Stage stageMain;
 
     @Override
@@ -68,8 +69,8 @@ public class LibGdxTestMain extends BaseGame {
         config.x = 1000;
         config.stencil=8;
         config.y = 0;
-        config.height = (int) (1920 * 0.5f);
-        config.width = (int) (1080 * 0.5f);
+        config.height = (int) (screenHight * 0.5f);
+        config.width = (int) (screenWidth * 0.5f);
         new LwjglApplication(test, config);
     }
 
