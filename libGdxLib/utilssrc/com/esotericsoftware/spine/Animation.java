@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
@@ -36,9 +36,10 @@ import static com.esotericsoftware.spine.utils.SpineUtils.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.FloatArray;
- 
+import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.ObjectSet;
 
+import com.esotericsoftware.spine.BoneData.Inherit;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.HasTextureRegion;
 import com.esotericsoftware.spine.attachments.Sequence;
@@ -113,7 +114,7 @@ public class Animation {
 	 * @param blend Controls how mixing is applied when <code>alpha</code> < 1.
 	 * @param direction Indicates whether the timelines are mixing in or out. Used by timelines which perform instant transitions,
 	 *           such as {@link DrawOrderTimeline} or {@link AttachmentTimeline}. */
-	public void apply (Skeleton skeleton, float lastTime, float time, boolean loop, Array<Event> events, float alpha,
+	public void apply (Skeleton skeleton, float lastTime, float time, boolean loop, @Null Array<Event> events, float alpha,
 		MixBlend blend, MixDirection direction) {
 		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
 
@@ -173,12 +174,14 @@ public class Animation {
 	}
 
 	static private enum Property {
-		rotate, x, y, scaleX, scaleY, shearX, shearY, //
+		rotate, x, y, scaleX, scaleY, shearX, shearY, inherit, //
 		rgb, alpha, rgb2, //
 		attachment, deform, //
 		event, drawOrder, //
 		ikConstraint, transformConstraint, //
 		pathConstraintPosition, pathConstraintSpacing, pathConstraintMix, //
+		physicsConstraintInertia, physicsConstraintStrength, physicsConstraintDamping, physicsConstraintMass, //
+		physicsConstraintWind, physicsConstraintGravity, physicsConstraintMix, physicsConstraintReset, //
 		sequence
 	}
 
@@ -237,7 +240,7 @@ public class Animation {
 		 * @param blend Controls how mixing is applied when <code>alpha</code> < 1.
 		 * @param direction Indicates whether the timeline is mixing in or out. Used by timelines which perform instant transitions,
 		 *           such as {@link DrawOrderTimeline} or {@link AttachmentTimeline}, and others such as {@link ScaleTimeline}. */
-		abstract public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha,
+		abstract public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha,
 			MixBlend blend, MixDirection direction);
 
 		/** Linear search using a stride of 1.
@@ -421,6 +424,96 @@ public class Animation {
 			}
 			return getBezierValue(time, i, VALUE, curveType - BEZIER);
 		}
+
+		public float getRelativeValue (float time, float alpha, MixBlend blend, float current, float setup) {
+			if (time < frames[0]) {
+				switch (blend) {
+				case setup:
+					return setup;
+				case first:
+					return current + (setup - current) * alpha;
+				}
+				return current;
+			}
+			float value = getCurveValue(time);
+			switch (blend) {
+			case setup:
+				return setup + value * alpha;
+			case first:
+			case replace:
+				value += setup - current;
+			}
+			return current + value * alpha;
+		}
+
+		public float getAbsoluteValue (float time, float alpha, MixBlend blend, float current, float setup) {
+			if (time < frames[0]) {
+				switch (blend) {
+				case setup:
+					return setup;
+				case first:
+					return current + (setup - current) * alpha;
+				}
+				return current;
+			}
+			float value = getCurveValue(time);
+			if (blend == MixBlend.setup) return setup + (value - setup) * alpha;
+			return current + (value - current) * alpha;
+		}
+
+		public float getAbsoluteValue (float time, float alpha, MixBlend blend, float current, float setup, float value) {
+			if (time < frames[0]) {
+				switch (blend) {
+				case setup:
+					return setup;
+				case first:
+					return current + (setup - current) * alpha;
+				}
+				return current;
+			}
+			if (blend == MixBlend.setup) return setup + (value - setup) * alpha;
+			return current + (value - current) * alpha;
+		}
+
+		public float getScaleValue (float time, float alpha, MixBlend blend, MixDirection direction, float current, float setup) {
+			float[] frames = this.frames;
+			if (time < frames[0]) {
+				switch (blend) {
+				case setup:
+					return setup;
+				case first:
+					return current + (setup - current) * alpha;
+				}
+				return current;
+			}
+			float value = getCurveValue(time) * setup;
+			if (alpha == 1) {
+				if (blend == add) return current + value - setup;
+				return value;
+			}
+			// Mixing out uses sign of setup or current pose, else use sign of key.
+			if (direction == out) {
+				switch (blend) {
+				case setup:
+					return setup + (Math.abs(value) * Math.signum(setup) - setup) * alpha;
+				case first:
+				case replace:
+					return current + (Math.abs(value) * Math.signum(current) - current) * alpha;
+				}
+			} else {
+				float s;
+				switch (blend) {
+				case setup:
+					s = Math.abs(setup) * Math.signum(value);
+					return s + (value - s) * alpha;
+				case first:
+				case replace:
+					s = Math.abs(current) * Math.signum(value);
+					return s + (value - s) * alpha;
+				}
+			}
+			return current + (value - setup) * alpha;
+		}
 	}
 
 	/** The base class for a {@link CurveTimeline} which sets two properties. */
@@ -463,35 +556,11 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
-			if (!bone.active) return;
-
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					bone.rotation = bone.data.rotation;
-					return;
-				case first:
-					bone.rotation += (bone.data.rotation - bone.rotation) * alpha;
-				}
-				return;
-			}
-
-			float r = getCurveValue(time);
-			switch (blend) {
-			case setup:
-				bone.rotation = bone.data.rotation + r * alpha;
-				break;
-			case first:
-			case replace:
-				r += bone.data.rotation - bone.rotation;
-				// Fall through.
-			case add:
-				bone.rotation += r * alpha;
-			}
+			if (bone.active) bone.rotation = getRelativeValue(time, alpha, blend, bone.rotation, bone.data.rotation);
 		}
 	}
 
@@ -510,14 +579,14 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				switch (blend) {
 				case setup:
 					bone.x = bone.data.x;
@@ -580,36 +649,11 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
-			if (!bone.active) return;
-
-			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					bone.x = bone.data.x;
-					return;
-				case first:
-					bone.x += (bone.data.x - bone.x) * alpha;
-				}
-				return;
-			}
-
-			float x = getCurveValue(time);
-			switch (blend) {
-			case setup:
-				bone.x = bone.data.x + x * alpha;
-				break;
-			case first:
-			case replace:
-				bone.x += (bone.data.x + x - bone.x) * alpha;
-				break;
-			case add:
-				bone.x += x * alpha;
-			}
+			if (bone.active) bone.x = getRelativeValue(time, alpha, blend, bone.x, bone.data.x);
 		}
 	}
 
@@ -626,36 +670,11 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
-			if (!bone.active) return;
-
-			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					bone.y = bone.data.y;
-					return;
-				case first:
-					bone.y += (bone.data.y - bone.y) * alpha;
-				}
-				return;
-			}
-
-			float y = getCurveValue(time);
-			switch (blend) {
-			case setup:
-				bone.y = bone.data.y + y * alpha;
-				break;
-			case first:
-			case replace:
-				bone.y += (bone.data.y + y - bone.y) * alpha;
-				break;
-			case add:
-				bone.y += y * alpha;
-			}
+			if (bone.active) bone.y = getRelativeValue(time, alpha, blend, bone.y, bone.data.y);
 		}
 	}
 
@@ -674,14 +693,14 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				switch (blend) {
 				case setup:
 					bone.scaleX = bone.data.scaleX;
@@ -783,63 +802,11 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
-			if (!bone.active) return;
-
-			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					bone.scaleX = bone.data.scaleX;
-					return;
-				case first:
-					bone.scaleX += (bone.data.scaleX - bone.scaleX) * alpha;
-				}
-				return;
-			}
-
-			float x = getCurveValue(time) * bone.data.scaleX;
-			if (alpha == 1) {
-				if (blend == add)
-					bone.scaleX += x - bone.data.scaleX;
-				else
-					bone.scaleX = x;
-			} else {
-				// Mixing out uses sign of setup or current pose, else use sign of key.
-				float bx;
-				if (direction == out) {
-					switch (blend) {
-					case setup:
-						bx = bone.data.scaleX;
-						bone.scaleX = bx + (Math.abs(x) * Math.signum(bx) - bx) * alpha;
-						break;
-					case first:
-					case replace:
-						bx = bone.scaleX;
-						bone.scaleX = bx + (Math.abs(x) * Math.signum(bx) - bx) * alpha;
-						break;
-					case add:
-						bone.scaleX += (x - bone.data.scaleX) * alpha;
-					}
-				} else {
-					switch (blend) {
-					case setup:
-						bx = Math.abs(bone.data.scaleX) * Math.signum(x);
-						bone.scaleX = bx + (x - bx) * alpha;
-						break;
-					case first:
-					case replace:
-						bx = Math.abs(bone.scaleX) * Math.signum(x);
-						bone.scaleX = bx + (x - bx) * alpha;
-						break;
-					case add:
-						bone.scaleX += (x - bone.data.scaleX) * alpha;
-					}
-				}
-			}
+			if (bone.active) bone.scaleX = getScaleValue(time, alpha, blend, direction, bone.scaleX, bone.data.scaleX);
 		}
 	}
 
@@ -856,63 +823,11 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
-			if (!bone.active) return;
-
-			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					bone.scaleY = bone.data.scaleY;
-					return;
-				case first:
-					bone.scaleY += (bone.data.scaleY - bone.scaleY) * alpha;
-				}
-				return;
-			}
-
-			float y = getCurveValue(time) * bone.data.scaleY;
-			if (alpha == 1) {
-				if (blend == add)
-					bone.scaleY += y - bone.data.scaleY;
-				else
-					bone.scaleY = y;
-			} else {
-				// Mixing out uses sign of setup or current pose, else use sign of key.
-				float by;
-				if (direction == out) {
-					switch (blend) {
-					case setup:
-						by = bone.data.scaleY;
-						bone.scaleY = by + (Math.abs(y) * Math.signum(by) - by) * alpha;
-						break;
-					case first:
-					case replace:
-						by = bone.scaleY;
-						bone.scaleY = by + (Math.abs(y) * Math.signum(by) - by) * alpha;
-						break;
-					case add:
-						bone.scaleY += (y - bone.data.scaleY) * alpha;
-					}
-				} else {
-					switch (blend) {
-					case setup:
-						by = Math.abs(bone.data.scaleY) * Math.signum(y);
-						bone.scaleY = by + (y - by) * alpha;
-						break;
-					case first:
-					case replace:
-						by = Math.abs(bone.scaleY) * Math.signum(y);
-						bone.scaleY = by + (y - by) * alpha;
-						break;
-					case add:
-						bone.scaleY += (y - bone.data.scaleY) * alpha;
-					}
-				}
-			}
+			if (bone.active) bone.scaleY = getScaleValue(time, alpha, blend, direction, bone.scaleY, bone.data.scaleY);
 		}
 	}
 
@@ -931,14 +846,14 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				switch (blend) {
 				case setup:
 					bone.shearX = bone.data.shearX;
@@ -1001,36 +916,11 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
-			if (!bone.active) return;
-
-			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					bone.shearX = bone.data.shearX;
-					return;
-				case first:
-					bone.shearX += (bone.data.shearX - bone.shearX) * alpha;
-				}
-				return;
-			}
-
-			float x = getCurveValue(time);
-			switch (blend) {
-			case setup:
-				bone.shearX = bone.data.shearX + x * alpha;
-				break;
-			case first:
-			case replace:
-				bone.shearX += (bone.data.shearX + x - bone.shearX) * alpha;
-				break;
-			case add:
-				bone.shearX += x * alpha;
-			}
+			if (bone.active) bone.shearX = getRelativeValue(time, alpha, blend, bone.shearX, bone.data.shearX);
 		}
 	}
 
@@ -1047,36 +937,55 @@ public class Animation {
 			return boneIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			Bone bone = skeleton.bones.get(boneIndex);
+			if (bone.active) bone.shearY = getRelativeValue(time, alpha, blend, bone.shearY, bone.data.shearY);
+		}
+	}
+
+	/** Changes a bone's {@link Bone#getInherit()}. */
+	static public class InheritTimeline extends Timeline implements BoneTimeline {
+		static public final int ENTRIES = 2;
+		static private final int INHERIT = 1;
+
+		final int boneIndex;
+
+		public InheritTimeline (int frameCount, int boneIndex) {
+			super(frameCount, Property.inherit.ordinal() + "|" + boneIndex);
+			this.boneIndex = boneIndex;
+		}
+
+		public int getBoneIndex () {
+			return boneIndex;
+		}
+
+		public int getFrameEntries () {
+			return ENTRIES;
+		}
+
+		/** Sets the transform mode for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive.
+		 * @param time The frame time in seconds. */
+		public void setFrame (int frame, float time, Inherit inherit) {
+			frame *= ENTRIES;
+			frames[frame] = time;
+			frames[frame + INHERIT] = inherit.ordinal();
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					bone.shearY = bone.data.shearY;
-					return;
-				case first:
-					bone.shearY += (bone.data.shearY - bone.shearY) * alpha;
-				}
+			if (time < frames[0]) {
+				if (blend == setup || blend == first) bone.inherit = bone.data.inherit;
 				return;
 			}
-
-			float y = getCurveValue(time);
-			switch (blend) {
-			case setup:
-				bone.shearY = bone.data.shearY + y * alpha;
-				break;
-			case first:
-			case replace:
-				bone.shearY += (bone.data.shearY + y - bone.shearY) * alpha;
-				break;
-			case add:
-				bone.shearY += y * alpha;
-			}
+			bone.inherit = Inherit.values[(int)frames[search(frames, time, ENTRIES) + INHERIT]];
 		}
 	}
 
@@ -1114,7 +1023,7 @@ public class Animation {
 			frames[frame + A] = a;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Slot slot = skeleton.slots.get(slotIndex);
@@ -1122,7 +1031,7 @@ public class Animation {
 
 			float[] frames = this.frames;
 			Color color = slot.color;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				Color setup = slot.data.color;
 				switch (blend) {
 				case setup:
@@ -1203,7 +1112,7 @@ public class Animation {
 			frames[frame + B] = b;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Slot slot = skeleton.slots.get(slotIndex);
@@ -1211,7 +1120,7 @@ public class Animation {
 
 			float[] frames = this.frames;
 			Color color = slot.color;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				Color setup = slot.data.color;
 				switch (blend) {
 				case setup:
@@ -1282,7 +1191,7 @@ public class Animation {
 			return slotIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Slot slot = skeleton.slots.get(slotIndex);
@@ -1290,7 +1199,7 @@ public class Animation {
 
 			float[] frames = this.frames;
 			Color color = slot.color;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				Color setup = slot.data.color;
 				switch (blend) {
 				case setup:
@@ -1352,7 +1261,7 @@ public class Animation {
 			frames[frame + B2] = b2;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Slot slot = skeleton.slots.get(slotIndex);
@@ -1360,7 +1269,7 @@ public class Animation {
 
 			float[] frames = this.frames;
 			Color light = slot.color, dark = slot.darkColor;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				Color setupLight = slot.data.color, setupDark = slot.data.darkColor;
 				switch (blend) {
 				case setup:
@@ -1478,7 +1387,7 @@ public class Animation {
 			frames[frame + B2] = b2;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Slot slot = skeleton.slots.get(slotIndex);
@@ -1486,7 +1395,7 @@ public class Animation {
 
 			float[] frames = this.frames;
 			Color light = slot.color, dark = slot.darkColor;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				Color setupLight = slot.data.color, setupDark = slot.data.darkColor;
 				switch (blend) {
 				case setup:
@@ -1603,7 +1512,7 @@ public class Animation {
 			attachmentNames[frame] = attachmentName;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Slot slot = skeleton.slots.get(slotIndex);
@@ -1614,7 +1523,7 @@ public class Animation {
 				return;
 			}
 
-			if (time < this.frames[0]) { // Time is before first frame.
+			if (time < this.frames[0]) {
 				if (blend == setup || blend == first) setAttachment(skeleton, slot, slot.data.attachmentName);
 				return;
 			}
@@ -1721,7 +1630,7 @@ public class Animation {
 			return y + (1 - y) * (time - x) / (frames[frame + getFrameEntries()] - x);
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Slot slot = skeleton.slots.get(slotIndex);
@@ -1737,7 +1646,7 @@ public class Animation {
 			int vertexCount = vertices[0].length;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				switch (blend) {
 				case setup:
 					deformArray.clear();
@@ -1932,7 +1841,7 @@ public class Animation {
 		}
 
 		/** Fires events for frames > <code>lastTime</code> and <= <code>time</code>. */
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> firedEvents, float alpha,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> firedEvents, float alpha,
 			MixBlend blend, MixDirection direction) {
 
 			if (firedEvents == null) return;
@@ -1940,12 +1849,12 @@ public class Animation {
 			float[] frames = this.frames;
 			int frameCount = frames.length;
 
-			if (lastTime > time) { // Fire events after last time for looped animations.
+			if (lastTime > time) { // Apply after lastTime for looped animations.
 				apply(skeleton, lastTime, Integer.MAX_VALUE, firedEvents, alpha, blend, direction);
 				lastTime = -1f;
 			} else if (lastTime >= frames[frameCount - 1]) // Last time is after last frame.
 				return;
-			if (time < frames[0]) return; // Time is before first frame.
+			if (time < frames[0]) return;
 
 			int i;
 			if (lastTime < frames[0])
@@ -1988,12 +1897,12 @@ public class Animation {
 		 * @param time The frame time in seconds.
 		 * @param drawOrder For each slot in {@link Skeleton#slots}, the index of the slot in the new draw order. May be null to use
 		 *           setup pose draw order. */
-		public void setFrame (int frame, float time, int[] drawOrder) {
+		public void setFrame (int frame, float time, @Null int[] drawOrder) {
 			frames[frame] = time;
 			drawOrders[frame] = drawOrder;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			if (direction == out) {
@@ -2001,7 +1910,7 @@ public class Animation {
 				return;
 			}
 
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				if (blend == setup || blend == first)
 					arraycopy(skeleton.slots.items, 0, skeleton.drawOrder.items, 0, skeleton.slots.size);
 				return;
@@ -2025,21 +1934,21 @@ public class Animation {
 		static public final int ENTRIES = 6;
 		static private final int MIX = 1, SOFTNESS = 2, BEND_DIRECTION = 3, COMPRESS = 4, STRETCH = 5;
 
-		final int ikConstraintIndex;
+		final int constraintIndex;
 
 		public IkConstraintTimeline (int frameCount, int bezierCount, int ikConstraintIndex) {
 			super(frameCount, bezierCount, Property.ikConstraint.ordinal() + "|" + ikConstraintIndex);
-			this.ikConstraintIndex = ikConstraintIndex;
+			constraintIndex = ikConstraintIndex;
 		}
 
 		public int getFrameEntries () {
 			return ENTRIES;
 		}
 
-		/** The index of the IK constraint slot in {@link Skeleton#getIkConstraints()} that will be changed when this timeline is
+		/** The index of the IK constraint in {@link Skeleton#getIkConstraints()} that will be changed when this timeline is
 		 * applied. */
 		public int getIkConstraintIndex () {
-			return ikConstraintIndex;
+			return constraintIndex;
 		}
 
 		/** Sets the time, mix, softness, bend direction, compress, and stretch for the specified frame.
@@ -2057,14 +1966,14 @@ public class Animation {
 			frames[frame + STRETCH] = stretch ? 1 : 0;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
-			IkConstraint constraint = skeleton.ikConstraints.get(ikConstraintIndex);
+			IkConstraint constraint = skeleton.ikConstraints.get(constraintIndex);
 			if (!constraint.active) return;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				switch (blend) {
 				case setup:
 					constraint.mix = constraint.data.mix;
@@ -2134,21 +2043,21 @@ public class Animation {
 		static public final int ENTRIES = 7;
 		static private final int ROTATE = 1, X = 2, Y = 3, SCALEX = 4, SCALEY = 5, SHEARY = 6;
 
-		final int transformConstraintIndex;
+		final int constraintIndex;
 
 		public TransformConstraintTimeline (int frameCount, int bezierCount, int transformConstraintIndex) {
 			super(frameCount, bezierCount, Property.transformConstraint.ordinal() + "|" + transformConstraintIndex);
-			this.transformConstraintIndex = transformConstraintIndex;
+			constraintIndex = transformConstraintIndex;
 		}
 
 		public int getFrameEntries () {
 			return ENTRIES;
 		}
 
-		/** The index of the transform constraint slot in {@link Skeleton#getTransformConstraints()} that will be changed when this
+		/** The index of the transform constraint in {@link Skeleton#getTransformConstraints()} that will be changed when this
 		 * timeline is applied. */
 		public int getTransformConstraintIndex () {
-			return transformConstraintIndex;
+			return constraintIndex;
 		}
 
 		/** Sets the time, rotate mix, translate mix, scale mix, and shear mix for the specified frame.
@@ -2166,14 +2075,14 @@ public class Animation {
 			frames[frame + SHEARY] = mixShearY;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
-			TransformConstraint constraint = skeleton.transformConstraints.get(transformConstraintIndex);
+			TransformConstraint constraint = skeleton.transformConstraints.get(constraintIndex);
 			if (!constraint.active) return;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				TransformConstraintData data = constraint.data;
 				switch (blend) {
 				case setup:
@@ -2252,105 +2161,73 @@ public class Animation {
 
 	/** Changes a path constraint's {@link PathConstraint#getPosition()}. */
 	static public class PathConstraintPositionTimeline extends CurveTimeline1 {
-		final int pathConstraintIndex;
+		final int constraintIndex;
 
 		public PathConstraintPositionTimeline (int frameCount, int bezierCount, int pathConstraintIndex) {
 			super(frameCount, bezierCount, Property.pathConstraintPosition.ordinal() + "|" + pathConstraintIndex);
-			this.pathConstraintIndex = pathConstraintIndex;
+			constraintIndex = pathConstraintIndex;
 		}
 
-		/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed when this timeline
-		 * is applied. */
+		/** The index of the path constraint in {@link Skeleton#getPathConstraints()} that will be changed when this timeline is
+		 * applied. */
 		public int getPathConstraintIndex () {
-			return pathConstraintIndex;
+			return constraintIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
-			PathConstraint constraint = skeleton.pathConstraints.get(pathConstraintIndex);
-			if (!constraint.active) return;
-
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					constraint.position = constraint.data.position;
-					return;
-				case first:
-					constraint.position += (constraint.data.position - constraint.position) * alpha;
-				}
-				return;
-			}
-
-			float position = getCurveValue(time);
-			if (blend == setup)
-				constraint.position = constraint.data.position + (position - constraint.data.position) * alpha;
-			else
-				constraint.position += (position - constraint.position) * alpha;
+			PathConstraint constraint = skeleton.pathConstraints.get(constraintIndex);
+			if (constraint.active)
+				constraint.position = getAbsoluteValue(time, alpha, blend, constraint.position, constraint.data.position);
 		}
 	}
 
 	/** Changes a path constraint's {@link PathConstraint#getSpacing()}. */
 	static public class PathConstraintSpacingTimeline extends CurveTimeline1 {
-		final int pathConstraintIndex;
+		final int constraintIndex;
 
 		public PathConstraintSpacingTimeline (int frameCount, int bezierCount, int pathConstraintIndex) {
 			super(frameCount, bezierCount, Property.pathConstraintSpacing.ordinal() + "|" + pathConstraintIndex);
-			this.pathConstraintIndex = pathConstraintIndex;
+			constraintIndex = pathConstraintIndex;
 		}
 
-		/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed when this timeline
-		 * is applied. */
+		/** The index of the path constraint in {@link Skeleton#getPathConstraints()} that will be changed when this timeline is
+		 * applied. */
 		public int getPathConstraintIndex () {
-			return pathConstraintIndex;
+			return constraintIndex;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
-			PathConstraint constraint = skeleton.pathConstraints.get(pathConstraintIndex);
-			if (!constraint.active) return;
-
-			if (time < frames[0]) { // Time is before first frame.
-				switch (blend) {
-				case setup:
-					constraint.spacing = constraint.data.spacing;
-					return;
-				case first:
-					constraint.spacing += (constraint.data.spacing - constraint.spacing) * alpha;
-				}
-				return;
-			}
-
-			float spacing = getCurveValue(time);
-			if (blend == setup)
-				constraint.spacing = constraint.data.spacing + (spacing - constraint.data.spacing) * alpha;
-			else
-				constraint.spacing += (spacing - constraint.spacing) * alpha;
+			PathConstraint constraint = skeleton.pathConstraints.get(constraintIndex);
+			if (constraint.active)
+				constraint.spacing = getAbsoluteValue(time, alpha, blend, constraint.spacing, constraint.data.spacing);
 		}
 	}
 
-	/** Changes a transform constraint's {@link PathConstraint#getMixRotate()}, {@link PathConstraint#getMixX()}, and
+	/** Changes a path constraint's {@link PathConstraint#getMixRotate()}, {@link PathConstraint#getMixX()}, and
 	 * {@link PathConstraint#getMixY()}. */
 	static public class PathConstraintMixTimeline extends CurveTimeline {
 		static public final int ENTRIES = 4;
 		static private final int ROTATE = 1, X = 2, Y = 3;
 
-		final int pathConstraintIndex;
+		final int constraintIndex;
 
 		public PathConstraintMixTimeline (int frameCount, int bezierCount, int pathConstraintIndex) {
 			super(frameCount, bezierCount, Property.pathConstraintMix.ordinal() + "|" + pathConstraintIndex);
-			this.pathConstraintIndex = pathConstraintIndex;
+			constraintIndex = pathConstraintIndex;
 		}
 
 		public int getFrameEntries () {
 			return ENTRIES;
 		}
 
-		/** The index of the path constraint slot in {@link Skeleton#getPathConstraints()} that will be changed when this timeline
-		 * is applied. */
+		/** The index of the path constraint in {@link Skeleton#getPathConstraints()} that will be changed when this timeline is
+		 * applied. */
 		public int getPathConstraintIndex () {
-			return pathConstraintIndex;
+			return constraintIndex;
 		}
 
 		/** Sets the time and color for the specified frame.
@@ -2364,14 +2241,14 @@ public class Animation {
 			frames[frame + Y] = mixY;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
-			PathConstraint constraint = skeleton.pathConstraints.get(pathConstraintIndex);
+			PathConstraint constraint = skeleton.pathConstraints.get(constraintIndex);
 			if (!constraint.active) return;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				PathConstraintData data = constraint.data;
 				switch (blend) {
 				case setup:
@@ -2424,6 +2301,272 @@ public class Animation {
 		}
 	}
 
+	/** The base class for most {@link PhysicsConstraint} timelines. */
+	static public abstract class PhysicsConstraintTimeline extends CurveTimeline1 {
+		final int constraintIndex;
+
+		/** @param physicsConstraintIndex -1 for all physics constraints in the skeleton. */
+		public PhysicsConstraintTimeline (int frameCount, int bezierCount, int physicsConstraintIndex, Property property) {
+			super(frameCount, bezierCount, property.ordinal() + "|" + physicsConstraintIndex);
+			constraintIndex = physicsConstraintIndex;
+		}
+
+		/** The index of the physics constraint in {@link Skeleton#getPhysicsConstraints()} that will be changed when this timeline
+		 * is applied, or -1 if all physics constraints in the skeleton will be changed. */
+		public int getPhysicsConstraintIndex () {
+			return constraintIndex;
+		}
+
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
+			MixDirection direction) {
+
+			PhysicsConstraint constraint;
+			if (constraintIndex == -1) {
+				float value = time >= frames[0] ? getCurveValue(time) : 0;
+
+				Object[] constraints = skeleton.physicsConstraints.items;
+				for (int i = 0, n = skeleton.physicsConstraints.size; i < n; i++) {
+					constraint = (PhysicsConstraint)constraints[i];
+					if (constraint.active && global(constraint.data))
+						set(constraint, getAbsoluteValue(time, alpha, blend, get(constraint), setup(constraint), value));
+				}
+			} else {
+				constraint = skeleton.physicsConstraints.get(constraintIndex);
+				if (constraint.active) set(constraint, getAbsoluteValue(time, alpha, blend, get(constraint), setup(constraint)));
+			}
+		}
+
+		abstract protected float setup (PhysicsConstraint constraint);
+
+		abstract protected float get (PhysicsConstraint constraint);
+
+		abstract protected void set (PhysicsConstraint constraint, float value);
+
+		abstract protected boolean global (PhysicsConstraintData constraint);
+	}
+
+	/** Changes a physics constraint's {@link PhysicsConstraint#getInertia()}. */
+	static public class PhysicsConstraintInertiaTimeline extends PhysicsConstraintTimeline {
+		public PhysicsConstraintInertiaTimeline (int frameCount, int bezierCount, int physicsConstraintIndex) {
+			super(frameCount, bezierCount, physicsConstraintIndex, Property.physicsConstraintInertia);
+		}
+
+		protected float setup (PhysicsConstraint constraint) {
+			return constraint.data.inertia;
+		}
+
+		protected float get (PhysicsConstraint constraint) {
+			return constraint.inertia;
+		}
+
+		protected void set (PhysicsConstraint constraint, float value) {
+			constraint.inertia = value;
+		}
+
+		protected boolean global (PhysicsConstraintData constraint) {
+			return constraint.inertiaGlobal;
+		}
+	}
+
+	/** Changes a physics constraint's {@link PhysicsConstraint#getStrength()}. */
+	static public class PhysicsConstraintStrengthTimeline extends PhysicsConstraintTimeline {
+		public PhysicsConstraintStrengthTimeline (int frameCount, int bezierCount, int physicsConstraintIndex) {
+			super(frameCount, bezierCount, physicsConstraintIndex, Property.physicsConstraintStrength);
+		}
+
+		protected float setup (PhysicsConstraint constraint) {
+			return constraint.data.strength;
+		}
+
+		protected float get (PhysicsConstraint constraint) {
+			return constraint.strength;
+		}
+
+		protected void set (PhysicsConstraint constraint, float value) {
+			constraint.strength = value;
+		}
+
+		protected boolean global (PhysicsConstraintData constraint) {
+			return constraint.strengthGlobal;
+		}
+	}
+
+	/** Changes a physics constraint's {@link PhysicsConstraint#getDamping()}. */
+	static public class PhysicsConstraintDampingTimeline extends PhysicsConstraintTimeline {
+		public PhysicsConstraintDampingTimeline (int frameCount, int bezierCount, int physicsConstraintIndex) {
+			super(frameCount, bezierCount, physicsConstraintIndex, Property.physicsConstraintDamping);
+		}
+
+		protected float setup (PhysicsConstraint constraint) {
+			return constraint.data.damping;
+		}
+
+		protected float get (PhysicsConstraint constraint) {
+			return constraint.damping;
+		}
+
+		protected void set (PhysicsConstraint constraint, float value) {
+			constraint.damping = value;
+		}
+
+		protected boolean global (PhysicsConstraintData constraint) {
+			return constraint.dampingGlobal;
+		}
+	}
+
+	/** Changes a physics constraint's {@link PhysicsConstraint#getMassInverse()}. The timeline values are not inverted. */
+	static public class PhysicsConstraintMassTimeline extends PhysicsConstraintTimeline {
+		public PhysicsConstraintMassTimeline (int frameCount, int bezierCount, int physicsConstraintIndex) {
+			super(frameCount, bezierCount, physicsConstraintIndex, Property.physicsConstraintMass);
+		}
+
+		protected float setup (PhysicsConstraint constraint) {
+			return 1 / constraint.data.massInverse;
+		}
+
+		protected float get (PhysicsConstraint constraint) {
+			return 1 / constraint.massInverse;
+		}
+
+		protected void set (PhysicsConstraint constraint, float value) {
+			constraint.massInverse = 1 / value;
+		}
+
+		protected boolean global (PhysicsConstraintData constraint) {
+			return constraint.massGlobal;
+		}
+	}
+
+	/** Changes a physics constraint's {@link PhysicsConstraint#getWind()}. */
+	static public class PhysicsConstraintWindTimeline extends PhysicsConstraintTimeline {
+		public PhysicsConstraintWindTimeline (int frameCount, int bezierCount, int physicsConstraintIndex) {
+			super(frameCount, bezierCount, physicsConstraintIndex, Property.physicsConstraintWind);
+		}
+
+		protected float setup (PhysicsConstraint constraint) {
+			return constraint.data.wind;
+		}
+
+		protected float get (PhysicsConstraint constraint) {
+			return constraint.wind;
+		}
+
+		protected void set (PhysicsConstraint constraint, float value) {
+			constraint.wind = value;
+		}
+
+		protected boolean global (PhysicsConstraintData constraint) {
+			return constraint.windGlobal;
+		}
+	}
+
+	/** Changes a physics constraint's {@link PhysicsConstraint#getGravity()}. */
+	static public class PhysicsConstraintGravityTimeline extends PhysicsConstraintTimeline {
+		public PhysicsConstraintGravityTimeline (int frameCount, int bezierCount, int physicsConstraintIndex) {
+			super(frameCount, bezierCount, physicsConstraintIndex, Property.physicsConstraintGravity);
+		}
+
+		protected float setup (PhysicsConstraint constraint) {
+			return constraint.data.gravity;
+		}
+
+		protected float get (PhysicsConstraint constraint) {
+			return constraint.gravity;
+		}
+
+		protected void set (PhysicsConstraint constraint, float value) {
+			constraint.gravity = value;
+		}
+
+		protected boolean global (PhysicsConstraintData constraint) {
+			return constraint.gravityGlobal;
+		}
+	}
+
+	/** Changes a physics constraint's {@link PhysicsConstraint#getMix()}. */
+	static public class PhysicsConstraintMixTimeline extends PhysicsConstraintTimeline {
+		public PhysicsConstraintMixTimeline (int frameCount, int bezierCount, int physicsConstraintIndex) {
+			super(frameCount, bezierCount, physicsConstraintIndex, Property.physicsConstraintMix);
+		}
+
+		protected float setup (PhysicsConstraint constraint) {
+			return constraint.data.mix;
+		}
+
+		protected float get (PhysicsConstraint constraint) {
+			return constraint.mix;
+		}
+
+		protected void set (PhysicsConstraint constraint, float value) {
+			constraint.mix = value;
+		}
+
+		protected boolean global (PhysicsConstraintData constraint) {
+			return constraint.mixGlobal;
+		}
+	}
+
+	/** Resets a physics constraint when specific animation times are reached. */
+	static public class PhysicsConstraintResetTimeline extends Timeline {
+		static private final String[] propertyIds = {Integer.toString(Property.physicsConstraintReset.ordinal())};
+
+		final int constraintIndex;
+
+		/** @param physicsConstraintIndex -1 for all physics constraints in the skeleton. */
+		public PhysicsConstraintResetTimeline (int frameCount, int physicsConstraintIndex) {
+			super(frameCount, propertyIds);
+			constraintIndex = physicsConstraintIndex;
+		}
+
+		/** The index of the physics constraint in {@link Skeleton#getPhysicsConstraints()} that will be reset when this timeline is
+		 * applied, or -1 if all physics constraints in the skeleton will be reset. */
+		public int getPhysicsConstraintIndex () {
+			return constraintIndex;
+		}
+
+		public int getFrameCount () {
+			return frames.length;
+		}
+
+		/** Sets the time for the specified frame.
+		 * @param frame Between 0 and <code>frameCount</code>, inclusive. */
+		public void setFrame (int frame, float time) {
+			frames[frame] = time;
+		}
+
+		/** Resets the physics constraint when frames > <code>lastTime</code> and <= <code>time</code>. */
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> firedEvents, float alpha,
+			MixBlend blend, MixDirection direction) {
+
+			PhysicsConstraint constraint = null;
+			if (constraintIndex != -1) {
+				constraint = skeleton.physicsConstraints.get(constraintIndex);
+				if (!constraint.active) return;
+			}
+
+			float[] frames = this.frames;
+
+			if (lastTime > time) { // Apply after lastTime for looped animations.
+				apply(skeleton, lastTime, Integer.MAX_VALUE, null, alpha, blend, direction);
+				lastTime = -1f;
+			} else if (lastTime >= frames[frames.length - 1]) // Last time is after last frame.
+				return;
+			if (time < frames[0]) return;
+
+			if (lastTime < frames[0] || time >= frames[search(frames, lastTime) + 1]) {
+				if (constraint != null)
+					constraint.reset();
+				else {
+					Object[] constraints = skeleton.physicsConstraints.items;
+					for (int i = 0, n = skeleton.physicsConstraints.size; i < n; i++) {
+						constraint = (PhysicsConstraint)constraints[i];
+						if (constraint.active) constraint.reset();
+					}
+				}
+			}
+		}
+	}
+
 	/** Changes a slot's {@link Slot#getSequenceIndex()} for an attachment's {@link Sequence}. */
 	static public class SequenceTimeline extends Timeline implements SlotTimeline {
 		static public final int ENTRIES = 3;
@@ -2461,7 +2604,7 @@ public class Animation {
 			frames[frame + DELAY] = delay;
 		}
 
-		public void apply (Skeleton skeleton, float lastTime, float time, Array<Event> events, float alpha, MixBlend blend,
+		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
 
 			Slot slot = skeleton.slots.get(slotIndex);
@@ -2475,7 +2618,7 @@ public class Animation {
 			if (sequence == null) return;
 
 			float[] frames = this.frames;
-			if (time < frames[0]) { // Time is before first frame.
+			if (time < frames[0]) {
 				if (blend == setup || blend == first) slot.setSequenceIndex(-1);
 				return;
 			}
@@ -2488,7 +2631,7 @@ public class Animation {
 			int index = modeAndIndex >> 4, count = sequence.getRegions().length;
 			SequenceMode mode = SequenceMode.values[modeAndIndex & 0xf];
 			if (mode != SequenceMode.hold) {
-				index += (time - before) / delay + 0.00001f;
+				index += (time - before) / delay + 0.0001f;
 				switch (mode) {
 				case once:
 					index = Math.min(count - 1, index);

@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,11 +23,13 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
+
+import static com.esotericsoftware.spine.utils.SpineUtils.*;
 
 import java.util.Arrays;
 
@@ -37,17 +39,17 @@ import com.badlogic.gdx.utils.FloatArray;
 import com.esotericsoftware.spine.PathConstraintData.PositionMode;
 import com.esotericsoftware.spine.PathConstraintData.RotateMode;
 import com.esotericsoftware.spine.PathConstraintData.SpacingMode;
+import com.esotericsoftware.spine.Skeleton.Physics;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.PathAttachment;
-import com.esotericsoftware.spine.utils.SpineUtils;
 
 /** Stores the current pose for a path constraint. A path constraint adjusts the rotation, translation, and scale of the
  * constrained bones so they follow a {@link PathAttachment}.
  * <p>
  * See <a href="http://esotericsoftware.com/spine-path-constraints">Path constraints</a> in the Spine User Guide. */
 public class PathConstraint implements Updatable {
-	static private final int NONE = -1, BEFORE = -2, AFTER = -3;
-	static private final float epsilon = 0.00001f;
+	static final int NONE = -1, BEFORE = -2, AFTER = -3;
+	static final float epsilon = 0.00001f;
 
 	final PathConstraintData data;
 	final Array<Bone> bones;
@@ -64,9 +66,11 @@ public class PathConstraint implements Updatable {
 		if (data == null) throw new IllegalArgumentException("data cannot be null.");
 		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
 		this.data = data;
+
 		bones = new Array(data.bones.size);
 		for (BoneData boneData : data.bones)
 			bones.add(skeleton.bones.get(boneData.index));
+
 		target = skeleton.slots.get(data.target.index);
 		position = data.position;
 		spacing = data.spacing;
@@ -76,14 +80,11 @@ public class PathConstraint implements Updatable {
 	}
 
 	/** Copy constructor. */
-	public PathConstraint (PathConstraint constraint, Skeleton skeleton) {
+	public PathConstraint (PathConstraint constraint) {
 		if (constraint == null) throw new IllegalArgumentException("constraint cannot be null.");
-		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
 		data = constraint.data;
-		bones = new Array(constraint.bones.size);
-		for (Bone bone : constraint.bones)
-			bones.add(skeleton.bones.get(bone.data.index));
-		target = skeleton.slots.get(constraint.target.data.index);
+		bones = new Array(constraint.bones);
+		target = constraint.target;
 		position = constraint.position;
 		spacing = constraint.spacing;
 		mixRotate = constraint.mixRotate;
@@ -91,8 +92,17 @@ public class PathConstraint implements Updatable {
 		mixY = constraint.mixY;
 	}
 
+	public void setToSetupPose () {
+		PathConstraintData data = this.data;
+		position = data.position;
+		spacing = data.spacing;
+		mixRotate = data.mixRotate;
+		mixX = data.mixX;
+		mixY = data.mixY;
+	}
+
 	/** Applies the constraint to the constrained bones. */
-	public void update () {
+	public void update (Physics physics) {
 		Attachment attachment = target.attachment;
 		if (!(attachment instanceof PathAttachment)) return;
 
@@ -112,12 +122,8 @@ public class PathConstraint implements Updatable {
 				for (int i = 0, n = spacesCount - 1; i < n; i++) {
 					Bone bone = (Bone)bones[i];
 					float setupLength = bone.data.length;
-					if (setupLength < epsilon)
-						lengths[i] = 0;
-					else {
-						float x = setupLength * bone.a, y = setupLength * bone.c;
-						lengths[i] = (float)Math.sqrt(x * x + y * y);
-					}
+					float x = setupLength * bone.a, y = setupLength * bone.c;
+					lengths[i] = (float)Math.sqrt(x * x + y * y);
 				}
 			}
 			Arrays.fill(spaces, 1, spacesCount, spacing);
@@ -169,7 +175,7 @@ public class PathConstraint implements Updatable {
 		else {
 			tip = false;
 			Bone p = target.bone;
-			offsetRotation *= p.a * p.d - p.b * p.c > 0 ? SpineUtils.degRad : -SpineUtils.degRad;
+			offsetRotation *= p.a * p.d - p.b * p.c > 0 ? degRad : -degRad;
 		}
 		for (int i = 0, p = 3; i < boneCount; i++, p += 3) {
 			Bone bone = (Bone)bones[i];
@@ -193,23 +199,23 @@ public class PathConstraint implements Updatable {
 				else if (spaces[i + 1] < epsilon)
 					r = positions[p + 2];
 				else
-					r = (float)Math.atan2(dy, dx);
-				r -= (float)Math.atan2(c, a);
+					r = atan2(dy, dx);
+				r -= atan2(c, a);
 				if (tip) {
-					cos = (float)Math.cos(r);
-					sin = (float)Math.sin(r);
+					cos = cos(r);
+					sin = sin(r);
 					float length = bone.data.length;
 					boneX += (length * (cos * a - sin * c) - dx) * mixRotate;
 					boneY += (length * (sin * a + cos * c) - dy) * mixRotate;
 				} else
 					r += offsetRotation;
-				if (r > SpineUtils.PI)
-					r -= SpineUtils.PI2;
-				else if (r < -SpineUtils.PI) //
-					r += SpineUtils.PI2;
+				if (r > PI)
+					r -= PI2;
+				else if (r < -PI) //
+					r += PI2;
 				r *= mixRotate;
-				cos = (float)Math.cos(r);
-				sin = (float)Math.sin(r);
+				cos = cos(r);
+				sin = sin(r);
 				bone.a = cos * a - sin * c;
 				bone.b = cos * b - sin * d;
 				bone.c = sin * a + cos * c;
@@ -455,16 +461,16 @@ public class PathConstraint implements Updatable {
 	}
 
 	private void addBeforePosition (float p, float[] temp, int i, float[] out, int o) {
-		float x1 = temp[i], y1 = temp[i + 1], dx = temp[i + 2] - x1, dy = temp[i + 3] - y1, r = (float)Math.atan2(dy, dx);
-		out[o] = x1 + p * (float)Math.cos(r);
-		out[o + 1] = y1 + p * (float)Math.sin(r);
+		float x1 = temp[i], y1 = temp[i + 1], dx = temp[i + 2] - x1, dy = temp[i + 3] - y1, r = atan2(dy, dx);
+		out[o] = x1 + p * cos(r);
+		out[o + 1] = y1 + p * sin(r);
 		out[o + 2] = r;
 	}
 
 	private void addAfterPosition (float p, float[] temp, int i, float[] out, int o) {
-		float x1 = temp[i + 2], y1 = temp[i + 3], dx = x1 - temp[i], dy = y1 - temp[i + 1], r = (float)Math.atan2(dy, dx);
-		out[o] = x1 + p * (float)Math.cos(r);
-		out[o + 1] = y1 + p * (float)Math.sin(r);
+		float x1 = temp[i + 2], y1 = temp[i + 3], dx = x1 - temp[i], dy = y1 - temp[i + 1], r = atan2(dy, dx);
+		out[o] = x1 + p * cos(r);
+		out[o + 1] = y1 + p * sin(r);
 		out[o + 2] = r;
 	}
 
@@ -473,7 +479,7 @@ public class PathConstraint implements Updatable {
 		if (p < epsilon || Float.isNaN(p)) {
 			out[o] = x1;
 			out[o + 1] = y1;
-			out[o + 2] = (float)Math.atan2(cy1 - y1, cx1 - x1);
+			out[o + 2] = atan2(cy1 - y1, cx1 - x1);
 			return;
 		}
 		float tt = p * p, ttt = tt * p, u = 1 - p, uu = u * u, uuu = uu * u;
@@ -483,9 +489,9 @@ public class PathConstraint implements Updatable {
 		out[o + 1] = y;
 		if (tangents) {
 			if (p < 0.001f)
-				out[o + 2] = (float)Math.atan2(cy1 - y1, cx1 - x1);
+				out[o + 2] = atan2(cy1 - y1, cx1 - x1);
 			else
-				out[o + 2] = (float)Math.atan2(y - (y1 * uu + cy1 * ut * 2 + cy2 * tt), x - (x1 * uu + cx1 * ut * 2 + cx2 * tt));
+				out[o + 2] = atan2(y - (y1 * uu + cy1 * ut * 2 + cy2 * tt), x - (x1 * uu + cx1 * ut * 2 + cx2 * tt));
 		}
 	}
 

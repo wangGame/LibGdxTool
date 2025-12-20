@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,29 +23,33 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
 
 import com.badlogic.gdx.graphics.Color;
- 
+import com.badlogic.gdx.utils.Null;
+
+import com.esotericsoftware.spine.Skeleton.Physics;
 
 /** Stores the setup pose for a {@link Bone}. */
 public class BoneData {
 	final int index;
 	final String name;
-	final BoneData parent;
+	@Null final BoneData parent;
 	float length;
 	float x, y, rotation, scaleX = 1, scaleY = 1, shearX, shearY;
-	TransformMode transformMode = TransformMode.normal;
+	Inherit inherit = Inherit.normal;
 	boolean skinRequired;
 
 	// Nonessential.
 	final Color color = new Color(0.61f, 0.61f, 0.61f, 1); // 9b9b9bff
+	@Null String icon;
+	boolean visible;
 
-	public BoneData (int index, String name, BoneData parent) {
+	public BoneData (int index, String name, @Null BoneData parent) {
 		if (index < 0) throw new IllegalArgumentException("index must be >= 0.");
 		if (name == null) throw new IllegalArgumentException("name cannot be null.");
 		this.index = index;
@@ -54,7 +58,7 @@ public class BoneData {
 	}
 
 	/** Copy constructor. */
-	public BoneData (BoneData bone, BoneData parent) {
+	public BoneData (BoneData bone, @Null BoneData parent) {
 		if (bone == null) throw new IllegalArgumentException("bone cannot be null.");
 		index = bone.index;
 		name = bone.name;
@@ -79,7 +83,7 @@ public class BoneData {
 		return name;
 	}
 
-	public BoneData getParent () {
+	public @Null BoneData getParent () {
 		return parent;
 	}
 
@@ -115,7 +119,7 @@ public class BoneData {
 		this.y = y;
 	}
 
-	/** The local rotation. */
+	/** The local rotation in degrees, counter clockwise. */
 	public float getRotation () {
 		return rotation;
 	}
@@ -165,18 +169,18 @@ public class BoneData {
 		this.shearY = shearY;
 	}
 
-	/** The transform mode for how parent world transforms affect this bone. */
-	public TransformMode getTransformMode () {
-		return transformMode;
+	/** Determines how parent world transforms affect this bone. */
+	public Inherit getInherit () {
+		return inherit;
 	}
 
-	public void setTransformMode (TransformMode transformMode) {
-		if (transformMode == null) throw new IllegalArgumentException("transformMode cannot be null.");
-		this.transformMode = transformMode;
+	public void setInherit (Inherit inherit) {
+		if (inherit == null) throw new IllegalArgumentException("inherit cannot be null.");
+		this.inherit = inherit;
 	}
 
-	/** When true, {@link Skeleton#updateWorldTransform()} only updates this bone if the {@link Skeleton#getSkin()} contains this
-	 * bone.
+	/** When true, {@link Skeleton#updateWorldTransform(Physics)} only updates this bone if the {@link Skeleton#getSkin()} contains
+	 * this bone.
 	 * <p>
 	 * See {@link Skin#getBones()}. */
 	public boolean getSkinRequired () {
@@ -193,14 +197,32 @@ public class BoneData {
 		return color;
 	}
 
+	/** The bone icon as it was in Spine, or null if nonessential data was not exported. */
+	public @Null String getIcon () {
+		return icon;
+	}
+
+	public void setIcon (@Null String icon) {
+		this.icon = icon;
+	}
+
+	/** False if the bone was hidden in Spine and nonessential data was exported. Does not affect runtime rendering. */
+	public boolean getVisible () {
+		return visible;
+	}
+
+	public void setVisible (boolean visible) {
+		this.visible = visible;
+	}
+
 	public String toString () {
 		return name;
 	}
 
 	/** Determines how a bone inherits world transforms from parent bones. */
-	static public enum TransformMode {
+	static public enum Inherit {
 		normal, onlyTranslation, noRotationOrReflection, noScale, noScaleOrReflection;
 
-		static public final TransformMode[] values = TransformMode.values();
+		static public final Inherit[] values = Inherit.values();
 	}
 }

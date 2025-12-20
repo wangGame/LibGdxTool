@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,17 +23,18 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
-
 import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.OrderedSet;
 
+import com.esotericsoftware.spine.attachments.ActorAttachment;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.MeshAttachment;
 
@@ -47,6 +48,9 @@ public class Skin {
 	final Array<BoneData> bones = new Array(0);
 	final Array<ConstraintData> constraints = new Array(0);
 	private final SkinEntry lookup = new SkinEntry(0, "", null);
+
+	// Nonessential.
+	final Color color = new Color(0.99607843f, 0.61960787f, 0.30980393f, 1); // fe9e4fff
 
 	public Skin (String name) {
 		if (name == null) throw new IllegalArgumentException("name cannot be null.");
@@ -95,7 +99,7 @@ public class Skin {
 	}
 
 	/** Returns the attachment for the specified slot index and name, or null. */
-	public  Attachment getAttachment (int slotIndex, String name) {
+	public @Null Attachment getAttachment (int slotIndex, String name) {
 		lookup.set(slotIndex, name);
 		SkinEntry entry = attachments.get(lookup);
 		return entry != null ? entry.attachment : null;
@@ -140,6 +144,11 @@ public class Skin {
 		return name;
 	}
 
+	/** The color of the skin as it was in Spine, or a default color if nonessential data was not exported. */
+	public Color getColor () {
+		return color;
+	}
+
 	public String toString () {
 		return name;
 	}
@@ -161,8 +170,7 @@ public class Skin {
 	static public class SkinEntry {
 		int slotIndex;
 		String name;
-		@Null
-		Attachment attachment;
+		@Null Attachment attachment;
 		private int hashCode;
 
 		SkinEntry (int slotIndex, String name, @Null Attachment attachment) {
@@ -191,10 +199,6 @@ public class Skin {
 			return attachment;
 		}
 
-		public void setAttachment(Attachment attachment) {
-			this.attachment = attachment;
-		}
-
 		public int hashCode () {
 			return hashCode;
 		}
@@ -209,5 +213,9 @@ public class Skin {
 		public String toString () {
 			return slotIndex + ":" + name;
 		}
-	}
+
+		public void setAttachment(ActorAttachment actorAttachment) {
+			this.attachment = actorAttachment;
+		}
+    }
 }

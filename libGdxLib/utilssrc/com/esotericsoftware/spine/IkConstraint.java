@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine;
@@ -32,6 +32,9 @@ package com.esotericsoftware.spine;
 import static com.esotericsoftware.spine.utils.SpineUtils.*;
 
 import com.badlogic.gdx.utils.Array;
+
+import com.esotericsoftware.spine.BoneData.Inherit;
+import com.esotericsoftware.spine.Skeleton.Physics;
 
 /** Stores the current pose for an IK constraint. An IK constraint adjusts the rotation of 1 or 2 constrained bones so the tip of
  * the last bone is as close to the target bone as possible.
@@ -60,18 +63,16 @@ public class IkConstraint implements Updatable {
 		bones = new Array(data.bones.size);
 		for (BoneData boneData : data.bones)
 			bones.add(skeleton.bones.get(boneData.index));
+
 		target = skeleton.bones.get(data.target.index);
 	}
 
 	/** Copy constructor. */
-	public IkConstraint (IkConstraint constraint, Skeleton skeleton) {
+	public IkConstraint (IkConstraint constraint) {
 		if (constraint == null) throw new IllegalArgumentException("constraint cannot be null.");
-		if (skeleton == null) throw new IllegalArgumentException("skeleton cannot be null.");
 		data = constraint.data;
-		bones = new Array(constraint.bones.size);
-		for (Bone bone : constraint.bones)
-			bones.add(skeleton.bones.get(bone.data.index));
-		target = skeleton.bones.get(constraint.target.data.index);
+		bones = new Array(constraint.bones);
+		target = constraint.target;
 		mix = constraint.mix;
 		softness = constraint.softness;
 		bendDirection = constraint.bendDirection;
@@ -79,8 +80,17 @@ public class IkConstraint implements Updatable {
 		stretch = constraint.stretch;
 	}
 
+	public void setToSetupPose () {
+		IkConstraintData data = this.data;
+		mix = data.mix;
+		softness = data.softness;
+		bendDirection = data.bendDirection;
+		compress = data.compress;
+		stretch = data.stretch;
+	}
+
 	/** Applies the constraint to the constrained bones. */
-	public void update () {
+	public void update (Physics physics) {
 		if (mix == 0) return;
 		Bone target = this.target;
 		Object[] bones = this.bones.items;
@@ -180,26 +190,31 @@ public class IkConstraint implements Updatable {
 		Bone p = bone.parent;
 		float pa = p.a, pb = p.b, pc = p.c, pd = p.d;
 		float rotationIK = -bone.ashearX - bone.arotation, tx, ty;
-		switch (bone.data.transformMode) {
+		switch (bone.inherit) {
 		case onlyTranslation:
-			tx = targetX - bone.worldX;
-			ty = targetY - bone.worldY;
+			tx = (targetX - bone.worldX) * Math.signum(bone.skeleton.scaleX);
+			ty = (targetY - bone.worldY) * Math.signum(bone.skeleton.scaleY);
 			break;
 		case noRotationOrReflection:
-			float s = Math.abs(pa * pd - pb * pc) / (pa * pa + pc * pc);
+			float s = Math.abs(pa * pd - pb * pc) / Math.max(0.0001f, pa * pa + pc * pc);
 			float sa = pa / bone.skeleton.scaleX;
 			float sc = pc / bone.skeleton.scaleY;
 			pb = -sc * s * bone.skeleton.scaleX;
 			pd = sa * s * bone.skeleton.scaleY;
-			rotationIK += atan2(sc, sa) * radDeg;
+			rotationIK += atan2Deg(sc, sa);
 			// Fall through.
 		default:
 			float x = targetX - p.worldX, y = targetY - p.worldY;
 			float d = pa * pd - pb * pc;
-			tx = (x * pd - y * pb) / d - bone.ax;
-			ty = (y * pa - x * pc) / d - bone.ay;
+			if (Math.abs(d) <= 0.0001f) {
+				tx = 0;
+				ty = 0;
+			} else {
+				tx = (x * pd - y * pb) / d - bone.ax;
+				ty = (y * pa - x * pc) / d - bone.ay;
+			}
 		}
-		rotationIK += atan2(ty, tx) * radDeg;
+		rotationIK += atan2Deg(ty, tx);
 		if (bone.ascaleX < 0) rotationIK += 180;
 		if (rotationIK > 180)
 			rotationIK -= 360;
@@ -207,17 +222,20 @@ public class IkConstraint implements Updatable {
 			rotationIK += 360;
 		float sx = bone.ascaleX, sy = bone.ascaleY;
 		if (compress || stretch) {
-			switch (bone.data.transformMode) {
+			switch (bone.inherit) {
 			case noScale:
 			case noScaleOrReflection:
 				tx = targetX - bone.worldX;
 				ty = targetY - bone.worldY;
 			}
-			float b = bone.data.length * sx, dd = (float)Math.sqrt(tx * tx + ty * ty);
-			if ((compress && dd < b) || (stretch && dd > b) && b > 0.0001f) {
-				float s = (dd / b - 1) * alpha + 1;
-				sx *= s;
-				if (uniform) sy *= s;
+			float b = bone.data.length * sx;
+			if (b > 0.0001f) {
+				float dd = tx * tx + ty * ty;
+				if ((compress && dd < b * b) || (stretch && dd > b * b)) {
+					float s = ((float)Math.sqrt(dd) / b - 1) * alpha + 1;
+					sx *= s;
+					if (uniform) sy *= s;
+				}
 			}
 		}
 		bone.updateWorldTransform(bone.ax, bone.ay, bone.arotation + rotationIK * alpha, sx, sy, bone.ashearX, bone.ashearY);
@@ -229,6 +247,7 @@ public class IkConstraint implements Updatable {
 		float softness, float alpha) {
 		if (parent == null) throw new IllegalArgumentException("parent cannot be null.");
 		if (child == null) throw new IllegalArgumentException("child cannot be null.");
+		if (parent.inherit != Inherit.normal || child.inherit != Inherit.normal) return;
 		float px = parent.ax, py = parent.ay, psx = parent.ascaleX, psy = parent.ascaleY, sx = psx, sy = psy, csx = child.ascaleX;
 		int os1, os2, s2;
 		if (psx < 0) {
@@ -264,7 +283,8 @@ public class IkConstraint implements Updatable {
 		b = pp.b;
 		c = pp.c;
 		d = pp.d;
-		float id = 1 / (a * d - b * c), x = cwx - pp.worldX, y = cwy - pp.worldY;
+		float id = a * d - b * c, x = cwx - pp.worldX, y = cwy - pp.worldY;
+		id = Math.abs(id) <= 0.0001f ? 0 : 1 / id;
 		float dx = (x * d - y * b) * id - px, dy = (y * a - x * c) * id - py;
 		float l1 = (float)Math.sqrt(dx * dx + dy * dy), l2 = child.data.length * csx, a1, a2;
 		if (l1 < 0.0001f) {

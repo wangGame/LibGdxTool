@@ -1,16 +1,16 @@
 /******************************************************************************
  * Spine Runtimes License Agreement
- * Last updated September 24, 2021. Replaces all prior versions.
+ * Last updated July 28, 2023. Replaces all prior versions.
  *
- * Copyright (c) 2013-2021, Esoteric Software LLC
+ * Copyright (c) 2013-2023, Esoteric Software LLC
  *
  * Integration of the Spine Runtimes into software or otherwise creating
  * derivative works of the Spine Runtimes is permitted under the terms and
  * conditions of Section 2 of the Spine Editor License Agreement:
  * http://esotericsoftware.com/spine-editor-license
  *
- * Otherwise, it is permitted to integrate the Spine Runtimes into software
- * or otherwise create derivative works of the Spine Runtimes (collectively,
+ * Otherwise, it is permitted to integrate the Spine Runtimes into software or
+ * otherwise create derivative works of the Spine Runtimes (collectively,
  * "Products"), provided that each user of the Products must obtain their own
  * Spine Editor license and redistribution of the Products in any form must
  * include this license and copyright notice.
@@ -23,8 +23,8 @@
  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES,
  * BUSINESS INTERRUPTION, OR LOSS OF USE, DATA, OR PROFITS) HOWEVER CAUSED AND
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THE SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE
+ * SPINE RUNTIMES, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
 package com.esotericsoftware.spine.utils;
@@ -45,10 +45,8 @@ import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Affine2;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Null;
-import com.badlogic.gdx.utils.NumberUtils;
 
 /** A batch that renders polygons and performs tinting using a light and dark color.
  * <p>
@@ -135,7 +133,7 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	public void begin () {
 		if (drawing) throw new IllegalStateException("end must be called before begin.");
 		Gdx.gl.glDepthMask(false);
-		shader.begin();
+		shader.bind();
 		setupMatrices();
 		drawing = true;
 	}
@@ -163,19 +161,15 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 		lightPacked = light.toFloatBits();
 	}
 
-
-
-
+	@Override
+	public void setPackedColor (float packedColor) {
+		Color.abgr8888ToColor(light, packedColor);
+		lightPacked = packedColor;
+	}
 
 	@Override
 	public Color getColor () {
 		return light;
-	}
-
-	@Override
-	public void setPackedColor(float packedColor) {
-		Color.rgba8888ToColor(light, NumberUtils.floatToIntColor(packedColor));
-		lightPacked = packedColor;
 	}
 
 	@Override
@@ -194,7 +188,7 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 	}
 
 	public void setPackedDarkColor (float packedColor) {
-		Color.rgba8888ToColor(dark, NumberUtils.floatToIntColor(packedColor));
+		Color.abgr8888ToColor(dark, packedColor);
 		this.darkPacked = packedColor;
 	}
 
@@ -327,8 +321,8 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 		final float worldOriginY = y + originY;
 		final float sX = width / textureRegion.getRegionWidth();
 		final float sY = height / textureRegion.getRegionHeight();
-		final float cos = MathUtils.cosDeg(rotation);
-		final float sin = MathUtils.sinDeg(rotation);
+		final float cos = cosDeg(rotation);
+		final float sin = sinDeg(rotation);
 
 		float fx, fy;
 		for (int i = 0; i < regionVerticesLength; i += 2) {
@@ -404,8 +398,8 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 
 		// rotate
 		if (rotation != 0) {
-			final float cos = MathUtils.cosDeg(rotation);
-			final float sin = MathUtils.sinDeg(rotation);
+			final float cos = cosDeg(rotation);
+			final float sin = sinDeg(rotation);
 
 			x1 = cos * p1x - sin * p1y;
 			y1 = sin * p1x + cos * p1y;
@@ -1017,8 +1011,8 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 
 		// rotate
 		if (rotation != 0) {
-			final float cos = MathUtils.cosDeg(rotation);
-			final float sin = MathUtils.sinDeg(rotation);
+			final float cos = cosDeg(rotation);
+			final float sin = sinDeg(rotation);
 
 			x1 = cos * p1x - sin * p1y;
 			y1 = sin * p1x + cos * p1y;
@@ -1153,8 +1147,8 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 
 		// rotate
 		if (rotation != 0) {
-			final float cos = MathUtils.cosDeg(rotation);
-			final float sin = MathUtils.sinDeg(rotation);
+			final float cos = cosDeg(rotation);
+			final float sin = sinDeg(rotation);
 
 			x1 = cos * p1x - sin * p1y;
 			y1 = sin * p1x + cos * p1y;
@@ -1421,7 +1415,7 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 		defaultShader = newDefaultShader;
 		if (current) shader = newDefaultShader;
 		if (flush) {
-			newDefaultShader.begin();
+			newDefaultShader.bind();
 			setupMatrices();
 		}
 	}
@@ -1435,7 +1429,7 @@ public class TwoColorPolygonBatch implements PolygonBatch {
 		if (drawing) flush();
 		shader = newShader;
 		if (drawing) {
-			shader.begin();
+			shader.bind();
 			setupMatrices();
 		}
 	}
