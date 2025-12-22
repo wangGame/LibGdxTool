@@ -13,112 +13,149 @@ import com.test.down.stream.FileDownloadRandomAccessFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-
 public class DownLoadTask {
-    private HttpClient client;
-    private int threadNum = 3;
-    private Array<SplitTask> downLoadThread;
+
+    private static final int DEFAULT_THREAD_NUM = 3;
+    private static final long PROGRESS_INTERVAL_MS = 500;
+
+    private HttpClient client = new DefaultHttpClient();
+    private int threadNum = DEFAULT_THREAD_NUM;
+    private Array<SplitTask> downLoadThreads = new Array<>();
     private String url;
+    private DownloadListener downloadListener;
 
-    public void down(String url,String saveDir,String saveFile) throws IOException, IllegalAccessException {
-        //存储目录
-        String tempPath = saveDir+"/"+saveFile;
+    public void down(String url, String saveDir, String saveFile) throws IOException, IllegalAccessException {
+
         this.url = url;
+        String filePath = saveDir + "/" + saveFile;
 
-        this.downLoadThread = new Array<>();
-        client = new DefaultHttpClient();
-        HttpURLConnection connect = client.createConnect(url);
-        connect.connect();
-        connect = HttpUtils.redirect(connect);
-        long contentLengthLong = connect.getContentLengthLong();
-        System.out.println(contentLengthLong);
-        //如果文件存在就删除
-        File file = new File(tempPath);
-        File parentDir = file.getParentFile();
-        if (parentDir != null && !parentDir.exists()) {
-            parentDir.mkdirs();   // 递归创建目录
+        HttpURLConnection conn = client.createConnect(url);
+        conn.connect();
+        conn = HttpUtils.redirect(conn);
+
+        long contentLength = conn.getContentLengthLong();
+        if (contentLength <= 0) {
+            throw new IOException("Invalid content length: " + contentLength);
         }
-        if (file.exists()){
-            file.delete();
+
+        // 创建目录
+        File targetFile = new File(filePath);
+        File parent = targetFile.getParentFile();
+        if (parent != null && !parent.exists()) {
+            parent.mkdirs();
         }
-        FileDownloadRandomAccessFile randomAccessFile = new FileDownloadRandomAccessFile(file);
-        randomAccessFile.setLength(contentLengthLong);
-        long splitSizie = contentLengthLong / threadNum;
-        long startpostion = 0;
+
+        // 删除旧文件
+        if (targetFile.exists()) {
+            targetFile.delete();
+        }
+
+        // ⭐️ 预分配文件（一定要关闭）
+        try (FileDownloadRandomAccessFile raf =
+                     new FileDownloadRandomAccessFile(targetFile)) {
+            raf.setLength(contentLength);
+        }
+
+        // ================= 断点信息 =================
+
         int uniqueId = HttpUtils.getUniqueId(url, saveDir, saveFile, "3");
-        String outFileTemp = file.getAbsoluteFile().getParent() +"/"+uniqueId +"/"+
-                "temp/partfile" + uniqueId;
-        DownLoadInfo read = JsonUtils.read(outFileTemp, DownLoadInfo.class);
-        if (read != null){
-            //文件更改就删除
-            if (read.getContentLengthLong() != contentLengthLong) {
-                JsonUtils.delete(outFileTemp);
-            }
-        }
-        DownLoadInfo downLoadInfo = new DownLoadInfo();
-        downLoadInfo.setUrl(url);
-        downLoadInfo.setThreadNum(threadNum);
-        downLoadInfo.setFilePath(file.getAbsoluteFile().getPath());
-        downLoadInfo.setContentLength(contentLengthLong);
-        JsonUtils.save(outFileTemp,downLoadInfo);
-        int blackNum = 0;
-        for (int i = 0; i < 2; i++) {
-            SplitTask splitTask = new SplitTask(url, startpostion, splitSizie, tempPath, blackNum++, outFileTemp);
-            downLoadThread.add(splitTask);
-            startpostion += splitSizie;
-        }
-        SplitTask splitTask = new SplitTask(url, startpostion, contentLengthLong - startpostion, tempPath, blackNum++, outFileTemp);
-        downLoadThread.add(splitTask);
+        String metaDir = parent + "/" + uniqueId;
+        String metaFile = metaDir + "/temp/partfile" + uniqueId;
 
-        for (Thread thread1 : downLoadThread) {
-            thread1.start();
+        DownLoadInfo info = JsonUtils.read(metaFile, DownLoadInfo.class);
+        if (info != null && info.getContentLengthLong() != contentLength) {
+            JsonUtils.delete(metaFile);
+            info = null;
         }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+
+        if (info == null) {
+            info = new DownLoadInfo();
+            info.setUrl(url);
+            info.setThreadNum(threadNum);
+            info.setFilePath(targetFile.getAbsolutePath());
+            info.setContentLength(contentLength);
+            JsonUtils.save(metaFile, info);
+        }
+
+        // ================= 分片 =================
+
+        long blockSize = contentLength / threadNum;
+        long start = 0;
+        int blockId = 0;
+
+        for (int i = 0; i < threadNum - 1; i++) {
+            downLoadThreads.add(
+                    new SplitTask(url, start, blockSize,
+                            filePath, blockId++, metaFile)
+            );
+            start += blockSize;
+        }
+
+        // 最后一块
+        downLoadThreads.add(
+                new SplitTask(url, start,
+                        contentLength - start,
+                        filePath, blockId, metaFile)
+        );
+
+        // 启动下载线程
+        for (Thread t : downLoadThreads) {
+            t.start();
+        }
+
+        startProgressMonitor(contentLength, metaDir);
+    }
+
+    // ================= 进度监控 =================
+
+    private void startProgressMonitor(long total, String metaDir) {
+
+        new Thread(() -> {
+            try {
                 while (true) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    boolean finish = true;
-                    long allCount = 0;
-                    for (SplitTask task : downLoadThread) {
-                        if (task.getDownloadStatus() != DownLoadStatus.FINISH) {
-                            finish = false;
-                        }
-                        allCount += task.getDownLoadInfo().getCurrentPosition();
-                    }
-                    downloadListener.process(contentLengthLong, allCount);
-                    if (finish) {
-                        downloadListener.downFinish();
+                    Thread.sleep(PROGRESS_INTERVAL_MS);
 
-                        String outFileTemp1 = file.getAbsoluteFile().getParent() +"/"+uniqueId ;
-                        File file1 = new File(outFileTemp1);
-                        deleteDirectory(file1);
+                    boolean finished = true;
+                    long current = 0;
+
+                    for (SplitTask task : downLoadThreads) {
+                        if (task.getDownloadStatus() != DownLoadStatus.FINISH) {
+                            finished = false;
+                        }
+                        current += task.getDownLoadInfo().getCurrentPosition();
+                    }
+
+                    if (downloadListener != null) {
+                        downloadListener.process(total, current);
+                    }
+
+                    if (finished) {
+                        if (downloadListener != null) {
+                            downloadListener.downFinish();
+                        }
+                        deleteDirectory(new File(metaDir));
                         break;
                     }
                 }
+            } catch (InterruptedException ignored) {
             }
-        }).start();
+        }, "download-progress").start();
     }
 
-    // 递归删除文件夹及其内容
-    public static void deleteDirectory(File directory) {
-        File[] files = directory.listFiles();
+    // ================= utils =================
+
+    private static void deleteDirectory(File dir) {
+        if (dir == null || !dir.exists()) return;
+        File[] files = dir.listFiles();
         if (files != null) {
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    deleteDirectory(file); // 递归删除子目录
-                }
-                file.delete(); // 删除文件
+            for (File f : files) {
+                if (f.isDirectory()) deleteDirectory(f);
+                f.delete();
             }
         }
-        directory.delete(); // 最后删除空目录
+        dir.delete();
     }
 
-    private DownloadListener downloadListener;
     public void addListener(DownloadListener listener) {
         this.downloadListener = listener;
     }

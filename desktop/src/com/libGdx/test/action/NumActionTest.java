@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.IntAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kw.gdx.action.NumAction;
+import com.kw.gdx.action.NumActionListener;
 import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
 
@@ -18,8 +19,6 @@ import com.libGdx.test.base.LibGdxTestMain;
  * NumAction使用
  */
 public class NumActionTest extends LibGdxTestMain {
-    private Thread thread;
-    private boolean xx = true;
     public static void main(String[] args) {
         NumActionTest test  = new NumActionTest();
         test.start(test);
@@ -32,19 +31,13 @@ public class NumActionTest extends LibGdxTestMain {
         NumAction numAction = new NumAction(0, 100);
         numAction.setDuration(10);
         numAction.setReverse(true); //逆向
-        numAction.setUpdateRunnable(new Runnable() {
+        numAction.setNumActionListener(new NumActionListener() {
             @Override
-            public void run() {
-                System.out.println( numAction.getValue() +"  ====================== ");
+            public void update(float value) {
+                System.out.println(value);
             }
         });
-        Image i = new Image(){
-            @Override
-            public void act(float delta) {
-                super.act(delta);
-                System.out.println((int)numAction.getValue()+"   ==================  ");
-            }
-        };
+        Image i = new Image();
         i.addAction(numAction);
         stage.addActor(i);
 
