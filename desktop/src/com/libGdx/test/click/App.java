@@ -39,30 +39,7 @@ public class App extends LibGdxTestMain {
             }
             pack();
         }};
-        ScrollPane pane = new ScrollPane(table){
-            boolean ss = false;
-            @Override
-            public void act(float delta) {
-                super.act(delta);
-//                if (isFlickScrollTouchUp()){
-//                    setScrollX(0);
-//                }
-//                if (ss)return;
-//                float scrollX = getScrollX();
-//                if (scrollX>330){
-//                    ss = true;
-//                    System.out.println("dragge -------------------");
-//                    Image shader = new Image(Asset.getAsset().getTexture("white.png"));
-//                    stage.addActor(shader);
-//                    shader.setColor(Color.BLACK);
-//                    shader.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
-//                    shader.getColor().a = 0.2f;
-//                }
-//
-//
-
-            }
-        };
+        ScrollPane pane = new ScrollPane(table);
 
         stage.addActor(pane);
         pane.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);

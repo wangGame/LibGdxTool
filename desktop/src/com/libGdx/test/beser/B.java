@@ -1,5 +1,7 @@
 package com.libGdx.test.beser;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -10,7 +12,11 @@ import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
 
+
 public class B extends LibGdxTestMain {
+    private ShapeRenderer renderer;
+    private Vector2 lastV2 = new Vector2();
+    private boolean inited = false;
     public static void main(String[] args) {
         B b = new B();
         b.start();
@@ -19,13 +25,22 @@ public class B extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
+        renderer = new ShapeRenderer();
+        renderer.setColor(Color.WHITE);
         Actor image = new Actor(){
             @Override
             public void setPosition(float x, float y) {
                 super.setPosition(x, y);
-                Image t = new Image(Asset.getAsset().getTexture("assets/white.png"));
-                addActor(t);
-                t.setPosition(x,y, Align.center);
+                if (!inited){
+                    inited = true;
+                    lastV2.set(x,y);
+                    return;
+                }else {
+                    renderer.begin(ShapeRenderer.ShapeType.Line);
+                    renderer.line(lastV2.x, lastV2.y, x,y);
+                    lastV2.set(x,y);
+                    renderer.end();
+                }
             }
         };
         addActor(image);

@@ -22,8 +22,8 @@ class ColorTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-//        oneLineColor(stage);
-        xLineColor(stage);
+        oneLineColor(stage);
+//        xLineColor(stage);
     }
 
     private void xLineColor(Stage stage) {
@@ -76,16 +76,6 @@ class ColorTest extends LibGdxTestMain {
         return color.set(interpolatedRed, interpolatedGreen, interpolatedBlue,1.0f);
     }
 
-//    public static void main(String[] args) {
-////        Color topLeftColor = new Color(255, 0, 0);          // 左上角颜色为红色
-////        Color topRightColor = new Color(0, 255, 0);         // 右上角颜色为绿色
-////        Color bottomLeftColor = new Color(0, 0, 255);       // 左下角颜色为蓝色
-////        Color bottomRightColor = new Color(255, 255, 0);    // 右下角颜色为黄色
-////        double x = 0.5;  // 在 x 轴上的相对位置（0.0 到 1.0）
-////        double y = 0.5;  // 在 y 轴上的相对位置（0.0 到 1.0）
-////
-////        System.out.println("Interpolated Color: " + interpolatedColor);
-//    }
 
     private void oneLineColor(Stage stage) {
         Color start = Color.valueOf("FFE93A");

@@ -37,10 +37,6 @@ public class Deal extends LibGdxTestMain {
                     color.g = 227/255.0F;
                     color.b = 196/255.0F;
                     color.a = 0f;
-//                    color.r = 1F;
-//                    color.g = 1F;
-//                    color.b = 1F;
-//                    color.a = 0f;
                 }
                 pixmap.drawPixel(i, j, Color.rgba8888(color));
             }

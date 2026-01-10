@@ -49,11 +49,11 @@ public class ConnectDotApp extends LibGdxTestMain {
 
         // Draw the numbers
         spriteBatch.begin();
-        Integer i = 1;
-        for (Vector2 dot : dots) {
-            bitmapFont.draw(spriteBatch, i.toString(), dot.x + DOT_RADIUS, dot.y - DOT_RADIUS);
-            i++;
-        }
+//        Integer i = 1;
+//        for (Vector2 dot : dots) {
+//            bitmapFont.draw(spriteBatch, i.toString(), dot.x + DOT_RADIUS, dot.y - DOT_RADIUS);
+//            i++;
+//        }
         spriteBatch.end();
 
     }

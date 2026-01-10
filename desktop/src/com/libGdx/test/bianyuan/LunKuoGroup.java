@@ -27,8 +27,6 @@ public class LunKuoGroup extends Group {
         Texture texture = Asset.getAsset().getTexture("assets/tuceng16.png");
         TextureRegion region = new TextureRegion(texture);
         region.flip(false, true);
-        Image image = new Image(region);
-        addActor(image);
     }
 
 
@@ -59,7 +57,7 @@ public class LunKuoGroup extends Group {
         // 绘制轮廓点
         for (int[] point : contours) {
             shapeRenderer.setColor(Color.RED);
-            shapeRenderer.circle(point[0], point[1], 4);
+            shapeRenderer.circle(point[0], point[1], 1);
         }
 
         shapeRenderer.end();

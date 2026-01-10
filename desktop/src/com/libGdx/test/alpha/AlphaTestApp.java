@@ -17,11 +17,9 @@ public class AlphaTestApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-//        TextureRegion region1 = new TextureRegion(Asset.getAsset().getTexture("assets/3_34_24.png"));
-//        TextureRegion region2 = new TextureRegion(Asset.getAsset().getTexture("assets/ui_hole.png"));
-//        ClipActor clipActor = new ClipActor(region2,region1);
-//        addActor(clipActor);
-        AlphaTest alphaTest = new AlphaTest();
-        addActor(alphaTest);
+        TextureRegion region1 = new TextureRegion(Asset.getAsset().getTexture("assets/3_34_24.png"));
+        TextureRegion region2 = new TextureRegion(Asset.getAsset().getTexture("assets/ui_hole.png"));
+        ClipActor clipActor = new ClipActor(region2,region1);
+        addActor(clipActor);
     }
 }

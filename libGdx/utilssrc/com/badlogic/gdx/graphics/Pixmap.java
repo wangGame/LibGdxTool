@@ -116,7 +116,7 @@ public class Pixmap implements Disposable {
 
 	/** Sets the type of {@link Blending} to be used for all operations. Default is {@link Blending#SourceOver}.
 	 * @param blending the blending type */
-	public void setBlending (Blending blending) {
+	public void setBlending(Blending blending) {
 		this.blending = blending;
 		pixmap.setBlend(blending == Blending.None ? 0 : 1);
 	}
