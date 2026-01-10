@@ -1,5 +1,6 @@
 package com.libGdx.test.bloom;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Mesh;
@@ -9,13 +10,14 @@ import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
-public class Bloom {
+public class Bloom extends ApplicationAdapter {
     public static boolean useAlphaChannelAsMask = false;
-    /* renamed from: a */
-    private float f1092a;
-
-    /* renamed from: b */
-    private float f1093b;
+    /* renamed from: r */
+    private float r;
+    /* renamed from: g */
+    private float g;
+    private float b;
+    private float a;
     private boolean blending;
     private float bloomIntensity;
     private ShaderProgram bloomShader;
@@ -25,8 +27,7 @@ public class Bloom {
     private boolean disposeFBO;
     private FrameBuffer frameBuffer;
     private Mesh fullScreenQuad;
-    /* renamed from: g */
-    private float f1094g;
+
     /* renamed from: h */
     private int f1095h;
     private Texture original;
@@ -36,8 +37,6 @@ public class Bloom {
     private Texture pingPongTex1;
     private Texture pingPongTex2;
 
-    /* renamed from: r */
-    private float f1096r;
     private float treshold;
     private ShaderProgram tresholdShader;
 
@@ -58,70 +57,44 @@ public class Bloom {
         this.pingPongTex2 = this.pingPongBuffer2.getColorBufferTexture();
     }
 
-    public Bloom() {
+    public Bloom(int width, int height, boolean alphaMask, boolean blending, boolean RGBA) {
         this.blurPasses = 1;
         this.blending = false;
         this.capturing = false;
-        this.f1096r = 0;
-        this.f1094g = 0;
-        this.f1093b = 0;
-        this.f1092a = 1.0f;
+        this.r = 0;
+        this.g = 0;
+        this.b = 0;
+        this.a = 1.0f;
         this.disposeFBO = true;
-        initialize(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4,
-                null, true, false, true);
+        initialize(width, height, null, alphaMask, blending, RGBA);
     }
 
-    public Bloom(int i, int i2, boolean z, boolean z2, boolean z3) {
-        this.blurPasses = 1;
-        this.blending = false;
-        this.capturing = false;
-        this.f1096r = 0;
-        this.f1094g = 0;
-        this.f1093b = 0;
-        this.f1092a = 1.0f;
-        this.disposeFBO = true;
-        initialize(i, i2, null, z, z2, z3);
-    }
-
-    public Bloom(int i, int i2, FrameBuffer frameBuffer, boolean z, boolean z2) {
-        this.blurPasses = 1;
-        this.blending = false;
-        this.capturing = false;
-        this.f1096r = 0;
-        this.f1094g = 0;
-        this.f1093b = 0;
-        this.f1092a = 1.0f;
-        this.disposeFBO = true;
-        initialize(i, i2, frameBuffer, false, z, z2);
-        this.disposeFBO = false;
-    }
-
-    private void initialize(int i, int i2, FrameBuffer frameBuffer, boolean z, boolean z2, boolean z3) {
+    private void initialize(int width, int height, FrameBuffer frameBuffer, boolean alphaMask, boolean blending, boolean RGBA) {
         Pixmap.Format format;
-        this.blending = z2;
-        if (z3) {
-            if (z2) {
+        this.blending = blending;
+        if (RGBA) {
+            if (blending) {
                 format = Pixmap.Format.RGBA8888;
             } else {
                 format = Pixmap.Format.RGB888;
             }
-        } else if (z2) {
+        } else if (blending) {
             format = Pixmap.Format.RGBA4444;
         } else {
             format = Pixmap.Format.RGB565;
         }
         if (frameBuffer == null) {
-            this.frameBuffer = new FrameBuffer(format, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), z);
+            this.frameBuffer = new FrameBuffer(format, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), alphaMask);
         } else {
             this.frameBuffer = frameBuffer;
         }
-        this.pingPongBuffer1 = new FrameBuffer(format, i, i2, false);
-        this.pingPongBuffer2 = new FrameBuffer(format, i, i2, false);
+        this.pingPongBuffer1 = new FrameBuffer(format, width, height, false);
+        this.pingPongBuffer2 = new FrameBuffer(format, width, height, false);
         this.original = this.frameBuffer.getColorBufferTexture();
         this.pingPongTex1 = this.pingPongBuffer1.getColorBufferTexture();
         this.pingPongTex2 = this.pingPongBuffer2.getColorBufferTexture();
         this.fullScreenQuad = createFullScreenQuad();
-        String str = z2 ? "alpha_" : "";
+        String str = blending ? "alpha_" : "";
         this.bloomShader = BloomShaderLoader.createShader("screenspace", String.valueOf(str) + "bloom");
         if (useAlphaChannelAsMask) {
             this.tresholdShader = BloomShaderLoader.createShader("screenspace", "maskedtreshold");
@@ -129,7 +102,7 @@ public class Bloom {
             this.tresholdShader = BloomShaderLoader.createShader("screenspace", String.valueOf(str) + "treshold");
         }
         this.blurShader = BloomShaderLoader.createShader("blurspace", String.valueOf(str) + "gaussian");
-        setSize(i, i2);
+        setSize(width, height);
         setBloomIntesity(2.5f);
         setOriginalIntesity(0.8f);
         setTreshold(0.5f);
@@ -140,17 +113,17 @@ public class Bloom {
     }
 
     public void setClearColor(float f, float f2, float f3, float f4) {
-        this.f1096r = f;
-        this.f1094g = f2;
-        this.f1093b = f3;
-        this.f1092a = f4;
+        this.r = f;
+        this.g = f2;
+        this.b = f3;
+        this.a = f4;
     }
 
     public void capture() {
         if (!this.capturing) {
             this.capturing = true;
             this.frameBuffer.begin();
-            Gdx.gl.glClearColor(this.f1096r, this.f1094g, this.f1093b, this.f1092a);
+            Gdx.gl.glClearColor(this.r, this.g, this.b, this.a);
             Gdx.gl.glClear(16640);
         }
     }

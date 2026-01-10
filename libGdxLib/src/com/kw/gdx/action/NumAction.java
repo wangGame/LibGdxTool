@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Pool;
 public class NumAction extends TemporalAction {
     private double start, end;
     private double value;
-    private Runnable updateRunnable;
+    private NumActionListener numActionListener;
     private boolean isPause;
     private boolean loop;
     public NumAction(){
@@ -29,12 +29,12 @@ public class NumAction extends TemporalAction {
         this.value = this.start;
     }
 
-    public void setUpdateRunnable(Runnable updateRunnable) {
-        this.updateRunnable = updateRunnable;
+    public void setNumActionListener(NumActionListener numActionListener) {
+        this.numActionListener = numActionListener;
     }
 
-    public Runnable getUpdateRunnable() {
-        return updateRunnable;
+    public NumActionListener getUpdateRunnable() {
+        return numActionListener;
     }
 
     protected void begin () {
@@ -43,8 +43,12 @@ public class NumAction extends TemporalAction {
 
     protected void update (float percent) {
         value = start + (end - start) * percent;
-        if (updateRunnable!=null) {
-            updateRunnable.run();
+        runNumberActionListener();
+    }
+
+    private void runNumberActionListener() {
+        if (numActionListener!=null) {
+            numActionListener.update((float) value);
         }
     }
 
@@ -56,26 +60,22 @@ public class NumAction extends TemporalAction {
         return isPause;
     }
 
-    private Runnable endRunable;
+    private NumActionListener endNumActionListener;
 
-    public void setEndRunable(Runnable endRunable) {
-        this.endRunable = endRunable;
+    public void setEndRunable(NumActionListener endNumActionListener) {
+        this.endNumActionListener = endNumActionListener;
     }
 
     @Override
     protected void end() {
         super.end();
         value = end;
-
-        if (updateRunnable!=null){
-            updateRunnable.run();
-        }
-        if (endRunable!=null) {
-            endRunable.run();
+        if (endNumActionListener!=null) {
+            endNumActionListener.update((float) value);
         }
         if (!loop) {
-            updateRunnable = null;
-            endRunable = null;
+            endNumActionListener = null;
+            numActionListener = null;
         }
     }
 

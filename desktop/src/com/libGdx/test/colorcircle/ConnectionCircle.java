@@ -35,7 +35,7 @@ public class ConnectionCircle extends Actor {
         batch.setBlendFunction(GL20.GL_SRC_COLOR, GL20.GL_ONE);
         batch.draw(frame, getX()-w/2, getY()-h/2);
         batch.draw(frame2, getX()-w, getY()-h,frame.getRegionWidth()*2,frame.getRegionHeight()*2);
-        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//        batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         batch.flush();
     }
 

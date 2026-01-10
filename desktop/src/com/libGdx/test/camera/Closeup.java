@@ -41,20 +41,6 @@ public class Closeup extends ApplicationAdapter {
         renderer.dispose();
     }
 
-    /**
-     * There are two new things we need to do when using a camera. The first is calling
-     * camera.update(). Whenever we adjust the properties of a camera (like its position), it needs
-     * to fold those changes into the matrices that define how it looks at the world. The easiest
-     * way to make sure that happens is just to call update every frame. It's a fast operation, so
-     * no worries.
-     *
-     * The second thing we need to do is to tell our ShapeRenderer that we want to use our camera.
-     * We do this by setting the ShapeRenderer's projection matrix to the camera's combined matrix.
-     * The combined matrix is the combination of the camera's view and projection matrices. Yeah,
-     * there's a lot of matrices flying around. Basically ShapeRenderer doesn't have a notion of
-     * position in some larger world, so all it's got is a projection matrix.
-     */
-
     @Override
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 1);

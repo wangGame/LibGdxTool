@@ -8,7 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-public class FileDownloadRandomAccessFile implements FileDownloadOutputStream{
+public class FileDownloadRandomAccessFile implements FileDownloadOutputStream,
+        AutoCloseable{
 
     private final BufferedOutputStream out;
     private final FileDescriptor fd;

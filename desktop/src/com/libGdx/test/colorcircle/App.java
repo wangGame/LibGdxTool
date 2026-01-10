@@ -14,12 +14,13 @@ public class App extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-//        ColorCircle colorCircle = new ColorCircle(1);
-//        addActor(colorCircle);
-        ConnectionCircle connectionCircle = new ConnectionCircle();
-        addActor(connectionCircle);
-        connectionCircle.setScale(1);
-        connectionCircle.setDebug(true);
-        connectionCircle.setPosition(100,100);
+        ColorCircle colorCircle = new ColorCircle(1);
+        addActor(colorCircle);
+
+//        ConnectionCircle connectionCircle = new ConnectionCircle();
+//        addActor(connectionCircle);
+//        connectionCircle.setScale(1);
+//        connectionCircle.setDebug(true);
+//        connectionCircle.setPosition(100,100);
     }
 }

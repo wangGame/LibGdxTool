@@ -53,7 +53,6 @@ public class MusicAction extends TemporalAction {
     protected void update (float percent) {
         value = start + (end - start) * percent;
         if (music!=null) {
-            System.out.println(value);
             music.setVolume((float) value);
         }
     }

@@ -50,19 +50,6 @@ public class BulletFlow extends Group {
     @Override
     public void act(float delta) {
         super.act(delta);
-//        targetAV2.set(targetA.getX(Align.center),targetA.getY(Align.center));
-//        sourceV2.set(sourceA.getX(Align.center),sourceA.getY(Align.center));
-//
-//
-//        Vector2 normalizeVec = targetAV2.sub(sourceV2).nor();
-//        this.sourceA.setX(this.sourceA.getX(Align.center) + normalizeVec.x * this.bulletSpeed * delta);
-//        this.sourceA.setY(this.sourceA.getY(Align.center) + normalizeVec.y * this.bulletSpeed * delta);
-//        // 角度变化以y轴正方向为起点，逆时针角度递增
-//        Vector2 vs = new Vector2(0,1);
-//        this.sourceA.setRotation((float) (vs.angle(normalizeVec) * 180 / Math.PI));
-
-//        let rect = this.target.getBoundingBox();
-//        if (rect.contains(bulletPos)) this.hitTheTarget();
 
         // 取中心点
         targetAV2.set(targetA.getX(Align.center), targetA.getY(Align.center));
@@ -84,8 +71,11 @@ public class BulletFlow extends Group {
         sourceA.setRotation(angle);
 
         // 碰撞判断（用 contains）
-//        if (targetA.getBoundingRectangle().contains(sourceA.getX(Align.center), sourceA.getY(Align.center))) {
-//            hitTarget();
-//        }
+        if (targetA.getX()<=sourceA.getX(Align.center)&&
+                targetA.getY()<=sourceA.getY(Align.center) &&
+                targetA.getX()+targetA.getWidth() >=sourceA.getX(Align.center)&&
+                targetA.getY()+targetA.getHeight()>=sourceA.getY(Align.center)) {
+            targetA.setPosition((float) (Math.random() * Constant.GAMEWIDTH), (float) (Math.random() * Constant.GAMEHIGHT));
+        }
     }
 }

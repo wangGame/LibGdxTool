@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.action.NumAction;
+import com.kw.gdx.action.NumActionListener;
 import com.kw.gdx.animation.effect.EffectTool;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.resource.annotation.GameInfo;
@@ -64,11 +65,9 @@ public class EffectTest extends LibGdxTestMain {
             stage.addAction(Actions.forever(sAction));
 
 
-            action.setUpdateRunnable(new Runnable() {
+            action.setNumActionListener(new NumActionListener(){
                 @Override
-                public void run() {
-
-                    System.out.println((float) action.getValue());
+                public void update(float value) {
                     Array<ParticleEmitter> emitters = tool.getEffect().getEmitters();
                     for (ParticleEmitter emitter : emitters) {
                         ParticleEmitter.ScaledNumericValue spawnWidth = emitter.getSpawnWidth();
@@ -80,10 +79,9 @@ public class EffectTest extends LibGdxTestMain {
                 }
             });
 
-            actionM.setUpdateRunnable(new Runnable() {
+            actionM.setNumActionListener(new NumActionListener() {
                 @Override
-                public void run() {
-                    System.out.println((float) actionM.getValue());
+                public void update(float value) {
                     Array<ParticleEmitter> emitters = tool.getEffect().getEmitters();
                     for (ParticleEmitter emitter : emitters) {
                         ParticleEmitter.ScaledNumericValue spawnWidth = emitter.getSpawnWidth();

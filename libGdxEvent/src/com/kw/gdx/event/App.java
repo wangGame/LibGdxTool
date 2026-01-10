@@ -13,7 +13,7 @@ public class App {
                     System.out.println(e);
                 }
             });
-            instance.sumbit("addCoin", 10);
+            instance.submit("addCoin", 10);
         }
         {
             EventManager instance = EventManager.getInstance();
@@ -26,7 +26,7 @@ public class App {
             Data data = new Data();
             data.setAddr("xxxxxxxxxxx");
             data.setName("zzzzzzzzzzzzzzzz");
-            instance.sumbit("addCoin1", data);
+            instance.submit("addCoin1", data);
         }
         {
             EventManager instance = EventManager.getInstance();
@@ -36,7 +36,9 @@ public class App {
             PlayerInfo info = new PlayerInfo();
             info.setAge("xxxxxxxxxx");
             info.setName("xxxxxxxxxxxxxxxxxxxxx");
-            instance.sumbit("test",info);
+            instance.submit("test",info);
         }
+
+        //退出或者移除的时候清除
     }
 }

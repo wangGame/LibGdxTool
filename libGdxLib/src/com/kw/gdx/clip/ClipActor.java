@@ -38,7 +38,7 @@ public class ClipActor extends Actor {
     }
 
     private void drawAlphaMask(Batch batch) {
-        Gdx.gl.glColorMask(false, false, false, true);
+        Gdx.gl.glColorMask(true, true, true, true);
         mask.draw(batch, 1);
         batch.flush();
     }

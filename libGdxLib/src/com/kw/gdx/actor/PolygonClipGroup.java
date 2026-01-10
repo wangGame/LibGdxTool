@@ -11,12 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 public class PolygonClipGroup extends Group {
     private Polygon polygon;
     private ShapeRenderer sr;
-//    private ShaperRenerInteface shapeRenderer;
     private int blendSrcFunc = GL20.GL_SRC_ALPHA;
     private int blendDstFunc = GL20.GL_ONE_MINUS_SRC_ALPHA;
     private int blendSrcFuncAlpha = GL20.GL_SRC_ALPHA;
     private int blendDstFuncAlpha = GL20.GL_ONE_MINUS_SRC_ALPHA;
-    private float value;
+
 
     public PolygonClipGroup(ShaperRenerInteface shapeRenderer){
 //        this.shapeRenderer = shapeRenderer;
@@ -24,12 +23,6 @@ public class PolygonClipGroup extends Group {
         polygon.setVertices(new float[]{0,0,0,100,100,100,100,0});
         setPosition(200,200);
         sr = new ShapeRenderer();
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        value += delta;
     }
 
     @Override
