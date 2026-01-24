@@ -1,7 +1,6 @@
-package com.kw.gdx.event;
+package com.kw.gdx.event.simpleevent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -51,4 +50,6 @@ public class EventManager {
             }
         }
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.kw.gdx.event;
+package com.kw.gdx.event.simpleevent;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
