@@ -17,15 +17,26 @@ public class RenderGame extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-//        shapeRenderer = new ShapeRenderer();
-        CirImage cirImage = new CirImage();
-        addActor(cirImage);
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        for (int i = 0; i < 100; i++) {
+            for (int i1 = 0; i1 < 100; i1++) {
+                CirImage cirImage = new CirImage(shapeRenderer);
+                addActor(cirImage);
+                cirImage.setPosition(20*i,20*i1);
+
+//                CirImage2 depthGroup = new CirImage2(shapeRenderer);
+//                addActor(depthGroup);
+//                depthGroup.setPosition(20*i,20*i1);
+            }
+        }
     }
     private float startAngle = 90;  // 0度，水平向右
     private float sweepAngle = 360;
     @Override
     public void render() {
+        long l = System.currentTimeMillis();
         super.render();
+        System.out.println(System.currentTimeMillis()-l);
 //        if (shapeRenderer != null) {
 //            sweepAngle -= 0.4f;  // 每次减小角度，表示逆向绘制圆弧
 //            if (sweepAngle <= 0) {
