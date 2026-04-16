@@ -14,16 +14,23 @@ public class CirGroup extends Group {
     private int blendDstFunc = GL20.GL_ONE_MINUS_SRC_ALPHA;
     private int blendSrcFuncAlpha = GL20.GL_SRC_ALPHA;
     private int blendDstFuncAlpha = GL20.GL_ONE_MINUS_SRC_ALPHA;
-    private boolean showKong = true;
-
+    private boolean quf;
     protected ShapeRenderer sr;
-    public CirGroup(){
-        setPosition(200,200);
-        sr = new ShapeRenderer();
+    private boolean startModelTest;
+    public CirGroup(ShapeRenderer sr){
+        this.sr = sr;
     }
 
-    public void setShowKong(boolean showKong) {
-        this.showKong = showKong;
+    public boolean isStartModelTest() {
+        return startModelTest;
+    }
+
+    public void setStartModelTest(boolean startModelTest) {
+        this.startModelTest = startModelTest;
+    }
+
+    public void setQuf(boolean quf) {
+        this.quf = quf;
     }
 
     @Override
@@ -33,7 +40,7 @@ public class CirGroup extends Group {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (showKong) {
+        if (startModelTest) {
             if (isTransform()) applyTransform(batch, computeTransform());
             batch.end();
             Gdx.gl.glEnable(GL20.GL_STENCIL_TEST);
@@ -41,14 +48,18 @@ public class CirGroup extends Group {
             Gdx.gl.glStencilFunc(GL20.GL_ALWAYS, 1, 0xFF);
             sr.setProjectionMatrix(batch.getProjectionMatrix());
             sr.setTransformMatrix(batch.getTransformMatrix());
-            sr.setColor(Color.valueOf("FF000000"));
+            sr  .setColor(Color.valueOf("00000000"));
             sr.begin(ShapeRenderer.ShapeType.Filled);
             drawCir();
             Gdx.gl.glEnable(GL20.GL_BLEND);
             Gdx.gl.glBlendFuncSeparate(blendSrcFunc, blendDstFunc, blendSrcFuncAlpha, blendDstFuncAlpha);
             sr.end();
             Gdx.gl.glDisable(GL20.GL_BLEND);
-            Gdx.gl.glStencilFunc(GL20.GL_NOTEQUAL, 0x1, 0xFF);//等于1 通过测试 ,就是上次绘制的图 的范围 才通过测试。
+            if (quf) {
+                Gdx.gl.glStencilFunc(GL20.GL_NOTEQUAL, 0x1, 0xFF);//等于1 通过测试 ,就是上次绘制的图 的范围 才通过测试。
+            }else {
+                Gdx.gl.glStencilFunc(GL20.GL_EQUAL, 0x1, 0xFF);//等于1 通过测试 ,就是上次绘制的图 的范围 才通过测试。
+            }
             Gdx.gl.glStencilOp(GL20.GL_KEEP, GL20.GL_KEEP, GL20.GL_KEEP);//没有通过测试的，保留原来的，也就是保留上一次的值。
             batch.begin();
             drawChildren(batch, parentAlpha);
@@ -64,28 +75,7 @@ public class CirGroup extends Group {
         }
     }
 
-    private float startAngle = 90;  // 0度，水平向右
-    private float sweepAngle = 360;
     protected void drawCir(){
-
-        sweepAngle -= 0.4f;  // 每次减小角度，表示逆向绘制圆弧
-        if (sweepAngle <= 0) {
-            sweepAngle = 0; // 防止角度小于0
-        }
-
-
-
-        // 圆心坐标
-        float centerX = 71;
-        float centerY = 71;
-
-        // 圆的半径
-        float radius = 90;
-
-
-        sr.arc(centerX, centerY, radius, startAngle, sweepAngle);
-
-
 
     }
 }
