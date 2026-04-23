@@ -11,9 +11,10 @@ public class App {
                 @Override
                 public void listener(Integer e) {
                     System.out.println(e);
+
                 }
             });
-            instance.submit("addCoin", 10);
+            instance.submit(",mainAddCoin", 10);
         }
         {
             EventManager instance = EventManager.getInstance();
