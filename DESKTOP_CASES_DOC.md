@@ -1,9 +1,9 @@
-# 📖 LibgdxTool — Desktop 案例完整总结文档
+# 📖 LibgdxTool — Desktop 案例完整主文档
 
 > 仓库：[dm-kangwang/LibgdxTool](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test)
 > 分支：`libgdx1.13.1`
 > 语言：Java (98.7%) + GLSL (1.3%)
-> 文档更新：2026-04-24
+> 最后更新：2026-04-24
 
 ---
 
@@ -14,14 +14,13 @@ desktop/
 ├── build.gradle
 ├── libs/
 └── src/
-    └── com/libGdx/test/        ← 所有案例根目录
-        ├── base/               ← 基础框架（所有案例的公共父类）
+    └── com/libGdx/test/        ← 所有案例根目录（共 109+ 个子模块）
+        ├── base/               ← 公共基础框架
         ├── action/             ← Action 动画系统
-        ├── alpha/              ← 透明度
         ├── shader/             ← GLSL Shader 着色器
         ├── spine/              ← Spine 骨骼动画
         ├── model/              ← 3D 模型
-        ... (共 109+ 个子模块)
+        └── ...
 ```
 
 ---
@@ -51,13 +50,14 @@ public class XxxApp extends LibGdxTestMain {
 
 ```java
 @GameInfo(width = 720, height = 1280, batch = Constant.COUPOLYGONBATCH)
+public class WorldPolygonTest extends LibGdxTestMain { ... }
 ```
 
-用于声明分辨率与渲染批次类型（SpriteBatch / PolygonBatch 等）。
+用于声明游戏分辨率与渲染批次类型（普通 SpriteBatch / PolygonBatch 等）。
 
 ---
 
-## 🗂️ 全部案例总结（按字母排序）
+## 🗂️ 全部案例详细总结
 
 ---
 
@@ -158,14 +158,21 @@ public class XxxApp extends LibGdxTestMain {
 ---
 
 ### 9. `bloom` — Bloom 辉光后处理
-**文件：** [Bloom.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/bloom/Bloom.java) | [BloomDemo.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/bloom/BloomDemo.java) | [BloomShaderLoader.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/bloom/BloomShaderLoader.java)
+**文件：** [Bloom.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/bloom/Bloom.java) | [BloomDemo.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/bloom/BloomDemo.java) | [BloomShaderLoader.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/bloom/BloomShaderLoader.java) | [Test.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/bloom/Test.java)
 
 完整的 Bloom（辉光/泛光）后处理特效实现。流程：先渲染场景到 `FrameBuffer`，对高亮区域做高斯模糊，最后叠加到原画面，产生发光效果。
 
+**完整渲染流程：**
+
+```
+原始场景 → FrameBuffer → 亮度提取 Shader → 高斯模糊(横向) → 高斯模糊(纵向) → 叠加输出
+```
+
 **关键知识点：**
-- `FrameBuffer` 离屏渲染
-- 亮度提取 Shader
-- 高斯模糊 Shader
+- `FrameBuffer` 离屏渲染（RTT）
+- 亮度提取 Fragment Shader（高于阈值的像素保留）
+- 高斯模糊 Shader（横向 + 纵向两 Pass）
+- `BloomShaderLoader` 统一管理 Shader 加载
 - 多 Pass 后处理流程
 
 ---
@@ -185,7 +192,14 @@ public class XxxApp extends LibGdxTestMain {
 ### 11. `camera` — 摄像机控制
 **文件：** [App.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/camera/App.java) | [Closeup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/camera/Closeup.java) | [DemoCamera.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/camera/DemoCamera.java) | [OrthographicProjection.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/camera/OrthographicProjection.java)
 
-四个摄像机相关演示：基础摄像机控制、近景特写（Closeup）、完整相机 Demo、正交投影原理。覆盖 2D 正交摄像机的平移、缩放、边界限制。
+四个摄像机相关演示：基础摄像机控制、近景特写（Closeup）、完整相机 Demo、正交投影原理。
+
+| 文件 | 演示内容 |
+|------|----------|
+| `App.java` | 基础摄像机初始化与使用 |
+| `Closeup.java` | 近景特写，camera.zoom 放大局部 |
+| `DemoCamera.java` | 完整相机控制（平移+缩放+边界限制） |
+| `OrthographicProjection.java` | 正交投影矩阵原理演示 |
 
 **关键知识点：**
 - `OrthographicCamera` 正交摄像机
@@ -249,10 +263,18 @@ public class XxxApp extends LibGdxTestMain {
 
 演示用自研的 `CocosResource` 工具直接加载 Cocos Creator 导出的 JSON 场景文件，在 LibGDX 中还原节点树（位置、大小、层级关系），实现 Cocos → LibGDX 无缝迁移。
 
+```java
+// 直接加载 Cocos Creator 导出的场景 JSON
+group = CocosResource.loadFile("cocos/level2.json");
+addActor(group);
+// 居中显示
+group.setPosition(Constant.GAMEWIDTH / 2.0f, Constant.GAMEHIGHT / 2.0f, Align.center);
+```
+
 **关键知识点：**
 - Cocos `.json` 场景格式解析
 - `CocosResource.loadFile()` 转换为 LibGDX `Group`
-- 坐标系差异处理（Y 轴方向）
+- 坐标系差异处理（Y 轴方向不同）
 
 ---
 
@@ -260,8 +282,21 @@ public class XxxApp extends LibGdxTestMain {
 **文件：** [ImageColor.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/color/ImageColor.java) | [ColorConvert.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/color/ColorConvert.java)
 
 两个颜色工具演示：
-- `ImageColor`：通过 HSV 色彩模型批量生成色块，点击输出色值
-- `ColorConvert`：将十六进制颜色字符串 `#RRGGBB` 解析为 LibGDX `Color` 的 RGB 分量
+
+**`ImageColor.java` — HSV 色彩模型色块：**
+```java
+// 通过 HSV 创建颜色并应用到 Image
+color.fromHsv(index, 0.7F, 0.8F);
+image.setColor(color);
+// 点击色块时打印颜色 RGB 值
+```
+
+**`ColorConvert.java` — Hex 颜色解析：**
+```java
+// 十六进制字符串 → LibGDX Color 分量
+Color color = Color.valueOf("#4c493f");
+System.out.println(color.r + " " + color.g + " " + color.b);
+```
 
 **关键知识点：**
 - `Color.fromHsv(h, s, v)` HSV 模型
@@ -400,7 +435,7 @@ public class XxxApp extends LibGdxTestMain {
 ### 29. `event` — 事件系统
 **文件：** [event 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/event)
 
-演示 LibGDX Event Bus（事件总线）的使用，实现模块间解耦通信。使用 `libGdxEvent` 库的事件发布/订阅机制，避免直接依赖。
+演示 LibGDX Event Bus（事件总线）的使用，实现模块间解耦通信，避免直接依赖。
 
 **关键知识点：**
 - 事件发布 `EventManager.post()`
@@ -412,9 +447,12 @@ public class XxxApp extends LibGdxTestMain {
 ### 30. `file` — 文件读写/坐标格式转换
 **文件：** [TestFile.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/file/TestFile.java) | [FileConvert.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/file/FileConvert.java)
 
-两个文件工具演示：
-- `TestFile`：测试自定义 `FileTest` 工具的读写功能（版本记录文件）
-- `FileConvert`：**libGDX ↔ Cocos 物理刚体坐标批量转换工具**，读取 `.xml`/`.plist` 格式坐标，输出以图片中心为原点的新坐标文件
+**`TestFile.java`：** 测试自定义 `FileTest` 工具的文件读写功能（版本记录文件的读取与写入）。
+
+**`FileConvert.java` — libGDX ↔ Cocos 坐标批量转换工具：**
+- 读取 `.xml` 或 `.plist` 格式的多边形顶点数据
+- 将坐标从图片左上角局部坐标系转换为以**图片中心为原点**的坐标系
+- 批量处理后输出为新文件，供 LibGDX 物理引擎直接使用
 
 **关键知识点：**
 - `Gdx.files.internal()` / `Gdx.files.local()` 文件访问
@@ -462,7 +500,7 @@ public class XxxApp extends LibGdxTestMain {
 ### 34. `game` — 游戏逻辑综合
 **文件：** [GameTest.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/game/GameTest.java)
 
-综合游戏逻辑入口测试，用于快速验证核心模块集成，通常是在整个游戏框架搭建后的启动测试入口。
+综合游戏逻辑入口测试，用于快速验证核心模块集成，通常是整个游戏框架搭建后的启动测试入口。
 
 ---
 
@@ -496,14 +534,33 @@ public class XxxApp extends LibGdxTestMain {
 **文件：** [json 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/json)
 
 包含两个功能：
-1. **LibGDX Json 解析**：使用 `com.badlogic.gdx.utils.Json` 序列化/反序列化对象（`Bean.java`）
-2. **自动 JavaBean 生成器**（`JsonToJavaBeanGenerator.java`）：输入 JSON 字符串，自动生成带 getter/setter 的 Java 类文件，支持嵌套对象和数组
+
+**1. LibGDX Json 序列化/反序列化：**
+```java
+Json json = new Json();
+String jsonStr = json.toJson(myBean);  // 对象 → JSON
+MyBean bean = json.fromJson(MyBean.class, jsonStr);  // JSON → 对象
+```
+
+**2. `JsonToJavaBeanGenerator` — 自动 JavaBean 生成器：**
+输入 JSON 字符串，自动生成带 getter/setter 的 Java 类文件，支持嵌套对象和数组。
 
 ```java
-// 字段类型推断：String/int/double/boolean/嵌套class
-generateJavaBeans(jsonStr, "Person");
-// 输出 Person.java, Address.java ...
+String json = "{ \"name\": \"John\", \"age\": 30, \"address\": { \"city\": \"Beijing\" } }";
+generateJavaBeans(json, "Person");
+// → 自动生成 Person.java, Address.java
 ```
+
+**字段类型推断规则：**
+
+| JSON 类型 | 推断 Java 类型 |
+|-----------|----------------|
+| 字符串 `"abc"` | `String` |
+| 整数 `30` | `int` |
+| 浮点 `3.14` | `double` |
+| 布尔 `true` | `boolean` |
+| 嵌套对象 `{}` | 生成新的嵌套 class |
+| 数组 `[]` | 嵌套 class 或 `Object` |
 
 ---
 
@@ -523,7 +580,7 @@ generateJavaBeans(jsonStr, "Person");
 ### 40. `language` — 国际化/多语言
 **文件：** [language 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/language)
 
-演示多语言本地化方案，通过 `.properties` 文件或 JSON 文件存储各语言文本，运行时根据系统语言动态切换，支持中英文等多语言。
+演示多语言本地化方案，通过 `.properties` 文件或 JSON 文件存储各语言文本，运行时根据系统语言动态切换。
 
 **关键知识点：**
 - `I18NBundle` 国际化包
@@ -535,10 +592,11 @@ generateJavaBeans(jsonStr, "Person");
 ### 41. `learn` — 学习示例
 **文件：** [App2.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/learn/demo2/App2.java)
 
-收录学习过程中的教学案例，其中 `demo2` 包含来自 **Udacity 游戏开发课程**的 `IciclesGame`（冰柱躲避游戏）。
+收录学习过程中的教学案例，`demo2` 包含来自 **Udacity 游戏开发课程**的 `IciclesGame`（冰柱躲避游戏）。
 
 ```java
-// 窗口配置为手机比例
+// 按手机比例配置窗口（1/4 高度，1/2 宽度）
+LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 config.height = (int)(1920 * 0.25f);
 config.width  = (int)(1080 * 0.5f);
 new LwjglApplication(new IciclesGame(), config);
@@ -575,10 +633,13 @@ LibGDX 3D 功能入门演示，包括 3D 场景搭建、ModelBatch 渲染、Envi
 ### 44. `line` — 线段/LineTime 动画
 **文件：** [LineTime.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/line/LineTime.java)
 
-利用 `Texture.TextureWrap.Repeat` 纹理重复模式 + 自定义 `NumAction` 数值动画，实现图像宽度从 0 逐渐增长到 1000 的**进度线填充动画**（3秒完成）。
+利用 `Texture.TextureWrap.Repeat` 纹理重复模式 + 自定义 `NumAction` 数值动画，实现图像宽度从 0 逐渐增长到 1000 的**进度线填充动画**（3 秒完成）。
 
 ```java
+// 设置纹理重复模式
 texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+
+// 自定义 NumAction：每帧更新 region 宽度
 NumAction action = new NumAction(0, 1000) {
     public boolean act(float delta) {
         region.setRegionWidth((int) getValue());
@@ -586,8 +647,14 @@ NumAction action = new NumAction(0, 1000) {
         return super.act(delta);
     }
 };
-action.setDuration(3);
+action.setDuration(3);  // 3 秒完成
+image.addAction(action);
 ```
+
+**关键知识点：**
+- `TextureWrap.Repeat` 纹理平铺重复
+- `TextureRegion.setRegionWidth()` 动态修改显示宽度
+- 自定义 `NumAction` 数值插值
 
 ---
 
@@ -601,7 +668,13 @@ action.setDuration(3);
 ### 46. `lizi` — 粒子系统
 **文件：** [LiziUtils.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/lizi/LiziUtils.java) | [BtnGroup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/lizi/BtnGroup.java) | [ProcessGroup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/lizi/ProcessGroup.java)
 
-粒子系统工具演示，`LiziUtils` 封装了粒子特效的加载与播放，`BtnGroup` 是带粒子效果的按钮组件，`ProcessGroup` 是带粒子动效的进度组件。
+粒子系统工具演示：
+
+| 文件 | 作用 |
+|------|------|
+| `LiziUtils` | 粒子特效加载与播放的封装工具 |
+| `BtnGroup` | 带粒子爆炸效果的按钮组件 |
+| `ProcessGroup` | 带粒子流动效果的进度条组件 |
 
 **关键知识点：**
 - `ParticleEffect` 加载 `.p` 粒子文件
@@ -622,18 +695,26 @@ action.setDuration(3);
 
 ---
 
-### 48. `mdesl` — 虚拟滑动列表
+### 48. `mdesl` — 虚拟滑动列表 / FixedList
 **文件：** [FixedList.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/mdesl/swipe/FixedList.java)
 
-`FixedList<T>` 扩展 LibGDX `Array<T>`，实现**头部插入不扩容**的固定容量数组，用于拖尾轨迹点管理（最多保存 N 个最新点位，旧点自动丢弃）。
+`FixedList<T>` 扩展 LibGDX `Array<T>`，实现**头部插入、固定容量、不扩容**的环形数组，用于拖尾轨迹点管理（最多保存 N 个最新点位，旧点自动丢弃）。
 
 ```java
 public void insert(T t) {
     size = Math.min(size + 1, items.length);
-    for (int i = size - 1; i > 0; i--) items[i] = items[i - 1];
-    items[0] = t; // 新点插入头部，尾部自动丢弃
+    // 所有元素整体右移一位
+    for (int i = size - 1; i > 0; i--) {
+        items[i] = items[i - 1];
+    }
+    items[0] = t;  // 新点插入头部，末尾旧点自动丢弃
 }
 ```
+
+**关键知识点：**
+- 固定容量头部插入算法
+- 与 `pictureTrail` 拖尾效果配合使用
+- 高效复用避免 GC 压力
 
 ---
 
@@ -650,13 +731,19 @@ public void insert(T t) {
 ---
 
 ### 50. `model` — 3D 模型加载
-**文件：** [ModelExample.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/model/ModelExample.java) | [ModelTest.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/model/ModelTest.java) | [TransparentModelApp.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/model/TransparentModelApp.java) | [DecalExample.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/model/DecalExample.java)
+**文件：** [ModelExample.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/model/ModelExample.java) | [TransparentModelApp.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/model/TransparentModelApp.java) | [DecalExample.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/model/DecalExample.java) | [MyGdxGame2.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/model/MyGdxGame2.java)
 
 完整的 3D 模型系列演示：
-- **ModelExample**：加载 `.g3db`/`.obj` 模型文件，`ModelBatch` 渲染，`PerspectiveCamera` 透视相机
-- **TransparentModelApp**：半透明 3D 模型渲染（开启深度测试 + 透明混合）
-- **DecalExample**：`Decal` 公告板（始终面向摄像机的 2D 图片）
-- **MyGdxGame2/3**：复杂 3D 场景搭建
+
+| 文件 | 演示内容 |
+|------|----------|
+| `ModelExample` | 加载 `.g3db`/`.obj` 模型，PerspectiveCamera 渲染 |
+| `ModelTest` | 模型基础测试（加载、旋转、缩放） |
+| `TransparentModelApp` | 半透明 3D 模型渲染（深度测试 + Alpha 混合） |
+| `DecalExample` | Decal 公告板（始终面向摄像机的 2D 图片） |
+| `MyGdxGame2` | 复杂 3D 场景（多模型 + 动画 + 光照） |
+| `ThreeActor` | 3D 模型封装为 LibGDX Actor |
+| `ModelUtils` | 3D 模型工具类 |
 
 ---
 
@@ -686,7 +773,7 @@ public void insert(T t) {
 
 ---
 
-### 54. `mult` — 多处理/批量操作
+### 54. `mult` — 批量对象处理
 **文件：** [mult 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/mult)
 
 演示批量创建、管理多个游戏对象（如大量子弹、敌人），测试 LibGDX 对大量 Actor 的渲染性能与对象池优化。
@@ -704,11 +791,15 @@ public void insert(T t) {
 演示 LibGDX 的 HTTP 网络请求，发送 GET/POST 请求获取服务器数据（如玩家排行榜、游戏配置），处理异步响应回调。
 
 ```java
+HttpRequest request = new HttpRequest(HttpMethods.GET);
+request.setUrl("https://api.example.com/rank");
 Gdx.net.sendHttpRequest(request, new HttpResponseListener() {
     public void handleHttpResponse(HttpResponse response) {
         String json = response.getResultAsString();
-        // 解析响应...
+        // 解析响应数据...
     }
+    public void failed(Throwable t) { /* 请求失败处理 */ }
+    public void cancelled() { }
 });
 ```
 
@@ -729,13 +820,20 @@ Gdx.net.sendHttpRequest(request, new HttpResponseListener() {
 ### 57. `other` — GLSL 曲线变形 Shader
 **文件：** [Desk.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/other/Desk.java)
 
-完整的 LibGDX `ApplicationListener` 实现，加载外部 GLSL 文件（`vvv.glsl` / `fff.glsl`）实现图像曲线变形效果，展示 ShaderProgram 的完整使用流程。
+完整的 LibGDX `ApplicationListener` 实现，加载外部 GLSL 文件实现图像曲线变形效果，展示 `ShaderProgram` 的完整使用流程。
 
 ```java
-shader = new ShaderProgram(vertCode, fragCode);
+// 从文件加载 GLSL 代码
+String vertexShaderCode   = Gdx.files.internal("vvv.glsl").readString();
+String fragmentShaderCode = Gdx.files.internal("fff.glsl").readString();
+
+// 编译并应用 Shader
+shader = new ShaderProgram(vertexShaderCode, fragmentShaderCode);
+if (!shader.isCompiled()) Gdx.app.error("Shader", shader.getLog());
+
 batch.setShader(shader);
 batch.draw(texture, 0, 0, width, height);
-batch.setShader(null); // 恢复默认
+batch.setShader(null);  // 渲染完毕后恢复默认 Shader
 ```
 
 ---
@@ -755,7 +853,7 @@ batch.setShader(null); // 恢复默认
 ### 59. `path` — 路径跟随动画
 **文件：** [path 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/path)
 
-演示对象沿预定义路径（折线、贝塞尔曲线）运动，常见于游戏中的巡逻路径、弹道路径、引导动画。
+演示对象沿预定义路径（折线、贝塞尔曲线、样条曲线）运动，常见于巡逻路径、弹道路径、引导动画。
 
 **关键知识点：**
 - `CatmullRomSpline` 样条曲线
@@ -826,8 +924,8 @@ batch.setShader(null); // 恢复默认
 
 **关键知识点：**
 - `new Pixmap(w, h, Format.RGBA8888)` 创建
-- `pixmap.setColor()` + 绘制方法
-- `new Texture(pixmap)` + `pixmap.dispose()`
+- `pixmap.setColor()` + 各种绘制方法
+- `new Texture(pixmap)` + `pixmap.dispose()` 释放
 
 ---
 
@@ -846,15 +944,31 @@ batch.setShader(null); // 恢复默认
 ### 67. `poly` — 多边形绘制与裁剪
 **文件：** [PolyActor.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/poly/PolyActor.java) | [WorldPolygonTest.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/poly/WorldPolygonTest.java)
 
-两个多边形演示：
-- `PolyActor`：用耳切法将任意多边形顶点三角化，使用 `PolygonSprite` 渲染带纹理的多边形
-- `WorldPolygonTest`：从文件读取顶点，用 `ShapeRenderer` 绘制多边形轮廓
+**`PolyActor.java` — 带纹理的多边形精灵：**
+
+通过耳切法将任意多边形顶点三角化，使用 `PolygonSprite` 渲染带纹理的多边形区域。
+
+| 核心类 | 用途 |
+|--------|------|
+| `EarClippingTriangulator` | 耳切法三角剖分，将多边形分解为三角形集合 |
+| `PolygonRegion` | 多边形纹理区域（顶点 + 三角形索引 + 纹理） |
+| `PolygonSprite` | 多边形精灵渲染（需配合 `PolygonSpriteBatch`） |
 
 ```java
-EarClippingTriangulator t = new EarClippingTriangulator();
-ShortArray indices = t.computeTriangles(vertices);
+float[] vertices = { /* 7 个顶点的 x,y 坐标 */ };
+EarClippingTriangulator triangulator = new EarClippingTriangulator();
+ShortArray indices = triangulator.computeTriangles(vertices);
 PolygonRegion polyReg = new PolygonRegion(region, vertices, indices.toArray());
 poly = new PolygonSprite(polyReg);
+```
+
+**`WorldPolygonTest.java` — 从文件绘制多边形轮廓：**
+
+从文件读取 `(x,y)` 格式顶点，用 `ShapeRenderer` 绘制世界坐标系多边形轮廓。
+
+```java
+@GameInfo(width = 720, height = 1280, batch = Constant.COUPOLYGONBATCH)
+public class WorldPolygonTest extends LibGdxTestMain { ... }
 ```
 
 ---
@@ -862,14 +976,14 @@ poly = new PolygonSprite(polyReg);
 ### 68. `position` — 坐标系/定位
 **文件：** [position 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/position)
 
-演示 LibGDX 中各种对齐定位方式：`Align.center`、相对父容器定位、锚点设置、以及不同分辨率下的自适应布局。
+演示 LibGDX 中各种对齐定位方式：`Align.center`、相对父容器定位、锚点设置，以及不同分辨率下的自适应布局。
 
 ---
 
 ### 69. `process` — 进度条
 **文件：** [process 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/process)
 
-演示水平进度条的实现，包括 LibGDX 内置 `ProgressBar` 控件的使用，以及自定义进度条（带填充动画、分段颜色变化）。
+演示水平进度条的实现，包括 LibGDX 内置 `ProgressBar` 控件使用，以及自定义进度条（带填充动画、分段颜色变化）。
 
 **关键知识点：**
 - `ProgressBar` + `ProgressBarStyle`
@@ -904,7 +1018,7 @@ poly = new PolygonSprite(polyReg);
 
 **关键知识点：**
 - `FrameBuffer.begin()` / `end()` 离屏渲染
-- 渲染到纹理（RTT）
+- 渲染到纹理（Render To Texture）
 - 后处理 Shader 应用
 
 ---
@@ -919,13 +1033,33 @@ poly = new PolygonSprite(polyReg);
 ### 74. `sc` — 虚拟列表（View Recycling）
 **文件：** [App.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/sc/App.java)
 
-高性能**虚拟列表**（类 Android RecyclerView），只创建屏幕可见行数 + 缓冲行数量的 `EmailRow` 视图对象，滚动时复用行组件并更新绑定数据，避免为所有数据项创建 Actor。
+高性能**虚拟列表**（类 Android RecyclerView）实现。只创建屏幕可见行数 + 缓冲行数量的视图对象，滚动时复用行组件并更新绑定数据，大量数据下保持流畅性能。
+
+**核心技术要点：**
+
+| 要素 | 说明 |
+|------|------|
+| `EmailData` | 数据模型（from / subject / preview 字段） |
+| `EmailRow` | 可复用行视图，继承 `Table` |
+| `visibleRows` | 固定大小的可见行对象池（屏幕高度 / 行高 + 缓冲） |
+| `updateRows()` | 根据 `scrollPane.getVisualScrollY()` 计算首行索引，动态 bind 数据 |
+| `FixedList<T>` | 固定容量数组，支持头部插入不扩容 |
 
 ```java
-// 核心：根据滚动位置动态 bind 数据，而不是创建新对象
-int firstIndex = (int)(scrollY / rowHeight);
-for (int i = 0; i < visibleRows.size; i++) {
-    visibleRows.get(i).bind(emails.get(firstIndex + i));
+// 核心更新逻辑：不创建新对象，只复用并更新数据
+private void updateRows() {
+    float scrollY = scrollPane.getVisualScrollY();
+    int firstIndex = (int)(scrollY / rowHeight);
+    for (int i = 0; i < visibleRows.size; i++) {
+        int index = firstIndex + i;
+        EmailRow row = visibleRows.get(i);
+        if (index >= 0 && index < emails.size) {
+            row.setVisible(true);
+            row.bind(emails.get(index));  // 复用行，只更新数据
+        } else {
+            row.setVisible(false);
+        }
+    }
 }
 ```
 
@@ -965,22 +1099,39 @@ for (int i = 0; i < visibleRows.size; i++) {
 ---
 
 ### 79. `shader` — GLSL Shader 特效集合
-**文件：** [HuiDuZhuanC.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/HuiDuZhuanC.java) | [ShaderDemo.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/ShaderDemo.java) | [StarField.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/StarField.java) | [WaterGroup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/WaterGroup.java) | [ChristmasTree.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/ChristmasTree.java) | [OpenAiGroup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/OpenAiGroup.java)
+**文件：** [shader 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/shader)
 
-**Shader 特效大集合，共 10+ 个效果：**
+**Shader 特效大集合（10+ 个效果）：**
 
-| 文件 | Shader 效果 |
-|------|-------------|
-| `HuiDuZhuanC` | 灰度/波浪扭曲 |
-| `ShaderDemo` | 基础 Shader 演示 |
-| `StarField` | 星空粒子流（纯 GLSL 实现） |
-| `WaterGroup` / `WaterShader` | 水面波纹涟漪效果 |
-| `ChristmasTree` | 圣诞树动态光效 |
-| `OpenAiGroup` | OpenAI Logo 旋转光圈 Shader |
-| `TreeGroup` | 树木摇摆风效果 |
-| `ColorCirGroup` | 彩色圆形 Shader |
-| `FullQuadToy` | 全屏 ShaderToy 效果 |
-| `CollapsableTextWindow` | 可折叠文本 Shader 窗口 |
+| 文件 | Shader 效果 | 说明 |
+|------|-------------|------|
+| [HuiDuZhuanC.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/HuiDuZhuanC.java) | 灰度/波浪扭曲 | Shader 文件：`shader/huidu/wave.vert` + `wave.glsl` |
+| [StarField.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/StarField.java) | 星空粒子流 | 纯 GLSL 实现星空飞行效果 |
+| [WaterGroup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/WaterGroup.java) | 水面波纹涟漪 | 正弦波 UV 扭曲 |
+| [ChristmasTree.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/ChristmasTree.java) | 圣诞树动态光效 | 随时间变化的彩灯闪烁 |
+| [OpenAiGroup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/OpenAiGroup.java) | OpenAI Logo 旋转光圈 | 渐变色圆环旋转动画 |
+| [TreeGroup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/TreeGroup.java) | 树木摇摆风效果 | 顶点位移模拟风力 |
+| [ColorCirGroup.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/ColorCirGroup.java) | 彩色圆形 Shader | HSV 渐变色圆环 |
+| [FullQuadToy.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/FullQuadToy.java) | 全屏 ShaderToy 效果 | 仿 ShaderToy 全屏渲染 |
+| [CollapsableTextWindow.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/CollapsableTextWindow.java) | 可折叠文本窗口 | 展开/折叠过渡 Shader |
+| [ShaderDemo.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/shader/ShaderDemo.java) | 基础 Shader 演示 | 入门级着色器使用 |
+
+**`HuiDuZhuanC` 核心代码示例：**
+
+```java
+// 继承 BaseGroup，传入 vert 和 frag 路径，自动完成 ShaderProgram 编译
+public class HuiDuZhuanC extends BaseGroup {
+    public HuiDuZhuanC() {
+        super("shader/huidu/wave.vert", "shader/huidu/wave.glsl");
+        image = new Image(Asset.getAsset().getTexture("img_1.png"));
+        addActor(image);
+        image.setPosition(0, 0, Align.center);
+    }
+}
+```
+
+**`BaseGroup` — Shader 通用基类：**
+封装了 `ShaderProgram` 的创建与应用，子类只需传入 vert/frag 路径即可使用自定义着色器。
 
 ---
 
@@ -1006,13 +1157,15 @@ for (int i = 0; i < visibleRows.size; i++) {
 ### 82. `spine` — Spine 骨骼动画
 **文件：** [SpineTest.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/spine/SpineTest.java) | [ActorSpine.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/spine/ActorSpine.java)
 
-演示 Spine 骨骼动画在 LibGDX 中的集成，`ActorSpine` 将 Spine 动画封装为 `Actor` 便于加入 Stage 管理，`SpineTest` 是完整的动画播放测试。
+演示 Spine 骨骼动画在 LibGDX 中的集成：
+- `ActorSpine`：将 Spine 动画封装为 `Actor`，便于加入 Stage 管理
+- `SpineTest`：完整的 Spine 动画播放与资源加载测试
 
 **关键知识点：**
 - `SkeletonRenderer` 骨骼渲染器
 - `AnimationState.setAnimation()` 设置动画
-- `SpineActor` 封装（`com.esotericsoftware.spine`）
 - 动画混合与过渡
+- `com.esotericsoftware.spine` 库集成
 
 ---
 
@@ -1035,7 +1188,7 @@ for (int i = 0; i < visibleRows.size; i++) {
 
 **关键知识点：**
 - `Sprite` vs `Image` 的区别
-- `SpriteBatch.draw()` 参数
+- `SpriteBatch.draw()` 参数详解
 - Atlas 精灵表动画帧序列
 
 ---
@@ -1044,14 +1197,26 @@ for (int i = 0; i < visibleRows.size; i++) {
 **文件：** [Cir.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/stencil/Cir.java) | [SeneTest.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/stencil/SeneTest.java) | [Test.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/stencil/Test.java)
 
 演示 OpenGL Stencil Buffer（模板缓冲）的实际应用：
-- `Cir`：圆形 Stencil 遮罩（圆形内显示内容）
-- `SeneTest`：场景级 Stencil 效果（如探照灯视野）
-- 控制 `GL_STENCIL_TEST` 实现复杂遮罩
 
-**关键知识点：**
-- `Gdx.gl.glEnable(GL20.GL_STENCIL_TEST)`
-- `glStencilFunc` / `glStencilOp` 配置
-- Stencil 写入遮罩 → 根据 Stencil 值渲染内容
+| 文件 | 效果 |
+|------|------|
+| `Cir.java` | 圆形 Stencil 遮罩（只在圆形区域内显示内容） |
+| `SeneTest.java` | 场景级 Stencil 效果（探照灯视野） |
+| `Test.java` | Stencil 基础用法入口 |
+
+**核心步骤：**
+```java
+// 1. 开启 Stencil 测试
+Gdx.gl.glEnable(GL20.GL_STENCIL_TEST);
+// 2. 写入遮罩形状到 Stencil Buffer
+Gdx.gl.glStencilFunc(GL20.GL_ALWAYS, 1, 0xFF);
+Gdx.gl.glStencilOp(GL20.GL_KEEP, GL20.GL_KEEP, GL20.GL_REPLACE);
+// 绘制圆形（只写入 Stencil，不输出颜色）
+// 3. 根据 Stencil 值渲染实际内容
+Gdx.gl.glStencilFunc(GL20.GL_EQUAL, 1, 0xFF);
+Gdx.gl.glStencilOp(GL20.GL_KEEP, GL20.GL_KEEP, GL20.GL_KEEP);
+// 绘制被遮罩区域内的内容
+```
 
 ---
 
@@ -1083,11 +1248,22 @@ for (int i = 0; i < visibleRows.size; i++) {
 ### 88. `terrin` — 地形高度图生成
 **文件：** [TerrinApp.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/terrin/TerrinApp.java)
 
-将灰度图转换为 1000×1000 浮点高度图数组，用于 3D 地形网格生成。像素 R 通道值（0-1）映射为高度（-10 到 +10），是程序化地形的基础。
+将灰度图转换为 1000×1000 浮点高度图数组，用于 3D 地形网格生成。像素 R 通道值（0～1）映射为高度（-10 到 +10），是程序化地形的基础。
 
 ```java
-// 灰度图 R 通道 → 地形高度
-heightMap[y][x] = AMPLITUDE * (sample.r - 0.5f);
+Pixmap pixmap = new Pixmap(Gdx.files.internal("heightmap.png"));
+float[][] heightMap = new float[1000][1000];
+Color sample = new Color();
+
+for (int y = 0; y < 1000; y++) {
+    for (int x = 0; x < 1000; x++) {
+        int rgba = pixmap.getPixel(x, y);
+        sample.set(rgba);
+        // 灰度图 R 通道 → 地形高度，范围 [-10, 10]
+        heightMap[y][x] = AMPLITUDE * (sample.r - 0.5f);
+    }
+}
+pixmap.dispose();
 ```
 
 ---
@@ -1101,7 +1277,7 @@ heightMap[y][x] = AMPLITUDE * (sample.r - 0.5f);
 - 二维格子数组表示棋盘
 - 方块旋转矩阵变换
 - 碰撞检测与消行算法
-- 游戏循环（下落计时）
+- 游戏循环（下落计时器）
 
 ---
 
@@ -1124,8 +1300,21 @@ heightMap[y][x] = AMPLITUDE * (sample.r - 0.5f);
 
 ```java
 threadUtils.doTask(new Task<Boolean>() {
-    public Boolean doRunnable() { /* 后台线程 */ }
-    public void success(Boolean r) { /* GL 主线程回调 */ }
+    @Override
+    public Boolean doRunnable() {
+        Thread.sleep(3000);  // 后台线程：模拟耗时操作（网络请求、文件解析等）
+        return true;
+    }
+    @Override
+    public void success(Boolean result) {
+        // 自动切回 GL 主线程，安全操作 UI
+        Image image = new Image(Asset.getAsset().getTexture("assets/000.png"));
+        stage.addActor(image);
+    }
+    @Override
+    public void failed(Throwable t) {
+        Gdx.app.error("Thread", "任务失败", t);
+    }
 });
 ```
 
@@ -1137,7 +1326,7 @@ threadUtils.doTask(new Task<Boolean>() {
 演示抛体运动物理模拟，计算给定初速度和角度的抛物线轨迹，可视化落点预测，用于投掷武器、炮弹轨迹等游戏场景。
 
 **关键知识点：**
-- 抛体运动公式（x=v₀cosθ·t, y=v₀sinθ·t-½gt²）
+- 抛体运动公式（x=v₀cosθ·t, y=v₀sinθ·t−½gt²）
 - 轨迹预测点计算
 - `ShapeRenderer` 绘制轨迹曲线
 
@@ -1162,9 +1351,18 @@ threadUtils.doTask(new Task<Boolean>() {
 
 ```java
 // 解析服务器时间 "Fri, 23 Feb 2024 08:14:55 GMT"
-SimpleDateFormat fmt = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
+SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.ENGLISH);
+Date serverDate = formatter.parse(serverTimeStr);
+
 // 每秒更新倒计时
-timer.schedule(task, 0, 1000);
+long elapsed = 0;
+timer.schedule(new TimerTask() {
+    public void run() {
+        elapsed += 1000;
+        long remaining = deadlineTime - serverDate.getTime() - elapsed;
+        showEnd(remaining);  // 格式化为 天 HH:MM:SS 显示
+    }
+}, 0, 1000);
 ```
 
 ---
@@ -1242,7 +1440,7 @@ timer.schedule(task, 0, 1000);
 ### 102. `video` — 视频播放
 **文件：** [video 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/video)
 
-演示在 LibGDX 中播放视频文件（通常借助 `gdx-video` 扩展库），用于游戏开场动画、过场 CG 等。
+演示在 LibGDX 中播放视频文件（借助 `gdx-video` 扩展库），用于游戏开场动画、过场 CG 等。
 
 **关键知识点：**
 - `VideoPlayer` 视频播放器
@@ -1254,13 +1452,19 @@ timer.schedule(task, 0, 1000);
 ### 103. `view` — 视图/视口管理
 **文件：** [view 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/view)
 
-演示 LibGDX 各种 `Viewport`（视口）类型的使用与差异比较：`FitViewport`、`StretchViewport`、`ExtendViewport`，解决多分辨率适配问题。
+演示 LibGDX 各种 `Viewport`（视口）类型的使用与差异比较，解决多分辨率适配问题。
 
-**关键知识点：**
-- `FitViewport`：保持比例，两侧留黑边
-- `StretchViewport`：拉伸填满（可能变形）
-- `ExtendViewport`：扩展显示区域
-- `viewport.update(w, h, true)` 窗口大小变化响应
+| Viewport 类型 | 行为 |
+|---------------|------|
+| `FitViewport` | 保持宽高比，两侧留黑边 |
+| `StretchViewport` | 拉伸填满（可能变形） |
+| `ExtendViewport` | 扩展显示区域（不变形不裁切） |
+| `ScreenViewport` | 与屏幕分辨率一致 |
+
+```java
+// 窗口大小变化时调用
+viewport.update(width, height, true);
+```
 
 ---
 
@@ -1279,7 +1483,14 @@ timer.schedule(task, 0, 1000);
 ### 105. `wakong` — 挖空/遮罩效果
 **文件：** [App.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/wakong/App.java) | [Wk.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/wakong/Wk.java)
 
-演示挖空（Punch-through/Knockout）遮罩效果，在黑暗遮罩层上挖出透明孔洞显示下方场景，常用于新手引导聚光灯、探照灯视野效果。基于 Stencil Buffer 或 Alpha 混合实现。
+演示挖空（Punch-through）遮罩效果，在黑暗遮罩层上挖出透明孔洞显示下方场景，常用于**新手引导聚光灯**、探照灯视野效果。
+
+```java
+// Wk.java：基于 Stencil Buffer 实现圆形挖空
+// 1. 将圆形区域写入 Stencil Buffer（标记为可见区域）
+// 2. 绘制全屏黑色遮罩，但跳过 Stencil 标记区域
+// → 效果：只有圆形区域透明，其他区域被黑色遮盖
+```
 
 **关键知识点：**
 - Stencil Buffer 挖空技术
@@ -1288,7 +1499,7 @@ timer.schedule(task, 0, 1000);
 
 ---
 
-### 106. `watch` — 表盘/看门狗
+### 106. `watch` — 看门狗监控
 **文件：** [WatchDogTest.java](https://github.com/dm-kangwang/LibgdxTool/blob/libgdx1.13.1/desktop/src/com/libGdx/test/watch/WatchDogTest.java)
 
 演示 WatchDog（看门狗）机制测试，监控主线程是否正常运行，防止游戏卡死不响应，超时后触发报警或强制重启。
@@ -1317,13 +1528,26 @@ timer.schedule(task, 0, 1000);
 ### 109. `zhujie` — 注解/Annotation
 **文件：** [zhujie 目录](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test/zhujie)
 
-演示 Java 自定义注解在游戏框架中的应用，如 `@GameInfo`（声明游戏分辨率）、`@Subscribe`（事件订阅）、`@Resource`（资源路径注入）等，实现声明式编程。
+演示 Java 自定义注解在游戏框架中的应用，如 `@GameInfo`（声明游戏分辨率）、`@Subscribe`（事件订阅）等，实现声明式编程。
 
-**关键知识点：**
-- `@interface` 定义注解
-- `RetentionPolicy.RUNTIME` 运行时注解
-- 反射读取注解参数
-- 注解驱动的框架配置
+```java
+// 自定义 @GameInfo 注解
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface GameInfo {
+    int width() default 720;
+    int height() default 1280;
+    int batch() default Constant.COUSPRITEBATCH;
+}
+
+// 使用注解声明游戏参数
+@GameInfo(width = 720, height = 1280, batch = Constant.COUPOLYGONBATCH)
+public class WorldPolygonTest extends LibGdxTestMain { ... }
+
+// 运行时通过反射读取注解
+GameInfo info = clazz.getAnnotation(GameInfo.class);
+int width = info.width();
+```
 
 ---
 
@@ -1336,14 +1560,15 @@ timer.schedule(task, 0, 1000);
 | 🦴 动画/运动 | spine, spineanimation, action, lizi, pictureTrail, line, path, movetest, roll, dyn | 10 |
 | 📐 UI/布局 | table, label, textfield, scrollpanel, scrollroll, sc, process, cirprogres, fivestar, view, position, format | 12 |
 | 🎮 游戏逻辑 | tetris, ball, pengzhuang, hit, ray, throwa, endless, pet, connectdot, mdesl | 10 |
-| 📁 数据/工具 | json, xml, csv, file, format, generator, zhujie, ecode, sixteen | 9 |
+| 📁 数据/工具 | json, xml, csv, file, generator, zhujie, ecode, sixteen | 8 |
 | 🧵 系统/并发 | thread, task, anr, event, listener, log, trycatch, watch | 8 |
 | 🌐 网络/下载 | net, down | 2 |
-| 📷 摄像机/视图 | camera, view, screen, freecenterscale, pan, touch | 6 |
+| 📷 摄像机/视图 | camera, screen, freecenterscale, pan, touch | 5 |
 | 🗺️ 地图/寻路 | trile, npath, dfs, wak, path | 5 |
 | 🎓 学习/兼容 | learn, cocos, language, version | 4 |
 | 🔧 基础/工具 | base, common, color, colorcircle, time, vect, point, interf, clip, cut, cir | 11 |
 | 🎲 3D | model, modelnew, lib3d, bullet, light, terrin | 6 |
+| **合计** | | **109+** |
 
 ---
 
@@ -1351,20 +1576,19 @@ timer.schedule(task, 0, 1000);
 
 ### 运行任意案例
 
-1. 找到对应包下的 `XxxApp.java` 或 `XxxTest.java`
-2. 直接运行其 `main()` 方法即可
+找到对应包下的 `XxxApp.java` 或 `XxxTest.java`，直接运行其 `main()` 方法即可：
 
 ```java
-// 示例：运行 Spine 案例
+// 示例：运行 Spine 骨骼动画案例
 public class SpineTest extends LibGdxTestMain {
     public static void main(String[] args) {
         SpineTest test = new SpineTest();
-        test.start();  // 启动 LibGDX 桌面窗口
+        test.start();  // 自动启动 LibGDX 桌面窗口
     }
 }
 ```
 
-### 添加新案例
+### 新建案例模板
 
 ```java
 package com.libGdx.test.mycase;
@@ -1372,7 +1596,9 @@ package com.libGdx.test.mycase;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.libGdx.test.base.LibGdxTestMain;
 
+@GameInfo(width = 720, height = 1280)
 public class MyCaseApp extends LibGdxTestMain {
+
     public static void main(String[] args) {
         new MyCaseApp().start();
     }
@@ -1380,11 +1606,12 @@ public class MyCaseApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        // 在这里添加你的演示代码
+        // 在这里编写你的演示代码
+        // stage.addActor(...)
     }
 }
 ```
 
 ---
 
-> 📌 **说明：** 本文档由 GitHub Copilot 基于 `desktop/src/com/libGdx/test/` 下全部 109+ 个子模块的源码结构与文件内容自动整理生成，最后更新于 2026-04-24。
+> 📌 **说明：** 本文档由 GitHub Copilot 基于 `desktop/src/com/libGdx/test/` 下全部 109+ 个子模块的源码结构与文件内容整理生成，最后更新于 2026-04-24。
