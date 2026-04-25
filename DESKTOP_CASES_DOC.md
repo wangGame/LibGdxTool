@@ -3,7 +3,7 @@
 > 仓库：[dm-kangwang/LibgdxTool](https://github.com/dm-kangwang/LibgdxTool/tree/libgdx1.13.1/desktop/src/com/libGdx/test)
 > 分支：`libgdx1.13.1`
 > 语言：Java (98.7%) + GLSL (1.3%)
-> 最后更新：2026-04-24
+> 最后更新：2026-04-25
 
 ---
 
