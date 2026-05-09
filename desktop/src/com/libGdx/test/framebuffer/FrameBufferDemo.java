@@ -42,13 +42,13 @@ public class FrameBufferDemo extends LibGdxTestMain {
             pack();
         }});
 
-        scrollPane.setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
+        scrollPane.setSize(Constant.GAMEWIDTH - 300, Constant.GAMEHIGHT-600);
         scrollPane.setDebug(true);
 
-        group = new FrameBufferGroup();
+        group = new FrameBufferGroup(scrollPane);
         addActor(group);
 
-        group.addActor(scrollPane);
+
 
         bufferTexture = group.getBufferTexture(1);
 

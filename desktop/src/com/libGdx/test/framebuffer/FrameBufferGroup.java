@@ -3,36 +3,27 @@ package com.libGdx.test.framebuffer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.kw.gdx.asset.Asset;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.kw.gdx.constant.Constant;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.kw.gdx.constant.Constant;
 
 public class FrameBufferGroup extends Group {
-
+    private Actor actor;
     private FrameBuffer frameBuffer;
     private TextureRegion region;
 
     private int fboW;
     private int fboH;
 
-    public FrameBufferGroup() {
+    public FrameBufferGroup(ScrollPane scrollPane) {
+        this.actor = scrollPane;
         fboW = (int) Constant.GAMEWIDTH;
         fboH = (int) Constant.GAMEHIGHT;
 
@@ -47,6 +38,8 @@ public class FrameBufferGroup extends Group {
         region.flip(false, true);
 
         setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
+
+        addActor(actor);
     }
 
     @Override
