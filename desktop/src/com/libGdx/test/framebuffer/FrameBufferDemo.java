@@ -28,58 +28,56 @@ public class FrameBufferDemo extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
+        Image image = new Image(Asset.getAsset().getTexture("white.png"));
+        image.setSize(10000,10000);
+        addActor(image);
 
-        ScrollPane scrollPane = new ScrollPane(new Table(){{
+        ScrollPane scrollPane = new ScrollPane(new Table() {{
             for (int i = 0; i < 100; i++) {
-                Image image = new Image(Asset.getAsset().getTexture("ad_progress.png"));
+                Image image = new Image(Asset.getAsset().getTexture("000.png"));
                 add(image);
-                image.setDebug(true);
+
                 row();
             }
             pack();
-        }}){
+        }});
 
-        };
-        scrollPane.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
+        scrollPane.setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
         scrollPane.setDebug(true);
-
-
 
         group = new FrameBufferGroup();
         addActor(group);
+
         group.addActor(scrollPane);
 
         bufferTexture = group.getBufferTexture(1);
+
         temp = new Image(bufferTexture){
             private ShaderProgram program = new ShaderProgram(
                     Gdx.files.internal("shaderjb/grayScale.vert"),
                     Gdx.files.internal("shaderjb/grayScale.glsl")
-            );
+                    );
             @Override
             public void draw(Batch batch, float parentAlpha) {
+                batch.setShader(program);
 
+                float v = 70.f / getHeight();
+                float h = 70.f / getWidth();
 
+                program.setUniformf("u_bottomFade", v);
+                program.setUniformf("u_topFade", v);
                 super.draw(batch, parentAlpha);
-
+                batch.setShader(null);
             }
         };
+        temp.setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
         temp.setDebug(true);
-        addActor(temp);
+
+        // 关键：否则 temp 会挡住 ScrollPane 的触摸
         temp.setTouchable(Touchable.disabled);
 
-        System.out.println(temp.getWidth()+"   "+temp.getHeight());
-    }
+        addActor(temp);
 
-    @Override
-    public void render() {
-//        bufferTexture = group.getBufferTexture(1);
-
-
-        super.render();
-        if (group!=null) {
-            bufferTexture = group.getBufferTexture(1);
-            ImageUtils.changeImageAtlas(temp,bufferTexture);
-        }
-
+        System.out.println(temp.getWidth() + "   " + temp.getHeight());
     }
 }
