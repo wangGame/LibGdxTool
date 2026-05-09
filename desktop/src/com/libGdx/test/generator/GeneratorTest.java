@@ -20,7 +20,7 @@ public class GeneratorTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("assets/fonts/game.ttf"));
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/game.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 100;
         parameter.borderColor = Color.RED;

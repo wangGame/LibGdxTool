@@ -1,4 +1,4 @@
-package com.kw.gdx.event;
+package com.kw.gdx.event.simpleevent;
 
 /**
  * event事件system

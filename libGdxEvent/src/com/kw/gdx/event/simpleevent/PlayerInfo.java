@@ -1,8 +1,8 @@
-package com.kw.gdx.event;
+package com.kw.gdx.event.simpleevent;
 
-public class Data {
+public class PlayerInfo {
     private String name;
-    private String addr;
+    private String age;
 
     public String getName() {
         return name;
@@ -12,19 +12,20 @@ public class Data {
         this.name = name;
     }
 
-    public String getAddr() {
-        return addr;
+    public String getAge() {
+        return age;
     }
 
-    public void setAddr(String addr) {
-        this.addr = addr;
+    public void setAge(String age) {
+        this.age = age;
     }
 
     @Override
     public String toString() {
-        return "Data{" +
+        return "PlayerInfo{" +
                 "name='" + name + '\'' +
-                ", addr='" + addr + '\'' +
+                ", age='" + age + '\'' +
                 '}';
     }
 }
+
