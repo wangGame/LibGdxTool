@@ -33,10 +33,15 @@ public class FrameBufferGroup extends Group {
                 fboH,
                 false
         );
+        scrollPane.setPosition(0,0);
 
-        region = new TextureRegion(frameBuffer.getColorBufferTexture());
+        region = new TextureRegion(
+                frameBuffer.getColorBufferTexture(),
+                (int) scrollPane.getX(),
+                (int)scrollPane.getY(),
+                (int) scrollPane.getWidth(),
+                (int) scrollPane.getHeight());
         region.flip(false, true);
-
         setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
 
         addActor(actor);
@@ -86,6 +91,8 @@ public class FrameBufferGroup extends Group {
     }
 
     public TextureRegion getBufferTexture(float globalScale) {
+        region.setRegionWidth((int) actor.getWidth());
+        region.setRegionHeight((int) actor.getHeight());
         return region;
     }
 

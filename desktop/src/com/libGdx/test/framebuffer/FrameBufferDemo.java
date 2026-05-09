@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.utils.ImageUtils;
@@ -41,17 +42,10 @@ public class FrameBufferDemo extends LibGdxTestMain {
             }
             pack();
         }});
-
-        scrollPane.setSize(Constant.GAMEWIDTH - 300, Constant.GAMEHIGHT-600);
-        scrollPane.setDebug(true);
-
+        scrollPane.setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT - 800);
         group = new FrameBufferGroup(scrollPane);
         addActor(group);
-
-
-
         bufferTexture = group.getBufferTexture(1);
-
         temp = new Image(bufferTexture){
             private ShaderProgram program = new ShaderProgram(
                     Gdx.files.internal("shaderjb/grayScale.vert"),
@@ -59,19 +53,20 @@ public class FrameBufferDemo extends LibGdxTestMain {
                     );
             @Override
             public void draw(Batch batch, float parentAlpha) {
+
                 batch.setShader(program);
-
-                float v = 70.f / getHeight();
-                float h = 70.f / getWidth();
-
+//
+                float v = 110.f / getHeight();
                 program.setUniformf("u_bottomFade", v);
                 program.setUniformf("u_topFade", v);
+                program.setUniformf("top",bufferTexture.getV());
                 super.draw(batch, parentAlpha);
                 batch.setShader(null);
             }
         };
-        temp.setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
+
         temp.setDebug(true);
+        temp.setPosition(Constant.GAMEWIDTH/2f,Constant.GAMEHIGHT/2f, Align.center);
 
         // 关键：否则 temp 会挡住 ScrollPane 的触摸
         temp.setTouchable(Touchable.disabled);
