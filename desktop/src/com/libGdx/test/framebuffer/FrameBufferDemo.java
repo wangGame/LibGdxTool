@@ -29,27 +29,26 @@ public class FrameBufferDemo extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
 
-//        ScrollPane scrollPane = new ScrollPane(new Table(){{
-//            for (int i = 0; i < 100; i++) {
-//                Image image = new Image(Asset.getAsset().getTexture("ad_progress.png"));
-//                add(image);
-//                image.setDebug(true);
-//                row();
-//            }
-//            pack();
-//        }}){
-//
-//        };
-//        scrollPane.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
-//        scrollPane.setDebug(true);
+        ScrollPane scrollPane = new ScrollPane(new Table(){{
+            for (int i = 0; i < 100; i++) {
+                Image image = new Image(Asset.getAsset().getTexture("ad_progress.png"));
+                add(image);
+                image.setDebug(true);
+                row();
+            }
+            pack();
+        }}){
+
+        };
+        scrollPane.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
+        scrollPane.setDebug(true);
 
 
-        Image image = new Image(Asset.getAsset().getTexture("000.png"));
 
         group = new FrameBufferGroup();
         addActor(group);
-        group.addActor(image);
-        addActor(image);
+        group.addActor(scrollPane);
+
         bufferTexture = group.getBufferTexture(1);
         temp = new Image(bufferTexture){
             private ShaderProgram program = new ShaderProgram(
@@ -65,7 +64,7 @@ public class FrameBufferDemo extends LibGdxTestMain {
             }
         };
         temp.setDebug(true);
-//        addActor(temp);
+        addActor(temp);
         temp.setTouchable(Touchable.disabled);
 
         System.out.println(temp.getWidth()+"   "+temp.getHeight());
