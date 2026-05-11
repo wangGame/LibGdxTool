@@ -6,19 +6,31 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class EventManager {
     private Map<String, ArrayList<EventListener>> eventListenerMap = new ConcurrentHashMap<>();
+    private Map<String, ArrayList<DelayEventListener>> delayEventListenerMap = new ConcurrentHashMap<>();
 
     public static EventManager getInstance() {
         return Singleton.getInstance(EventManager.class);
     }
 
     public <T> void addEventListener(String name,EventListener<T> eventListener){
-        ArrayList<EventListener> eventListeners = this.eventListenerMap.get(name);
-        if (eventListeners == null){
-            eventListeners = new ArrayList<>();
-            this.eventListenerMap.put(name,eventListeners);
-        }
-        if (!eventListeners.contains(eventListener)){
-            eventListeners.add(eventListener);
+        if (eventListener instanceof DelayEventListener){
+            ArrayList<DelayEventListener> eventListeners = this.delayEventListenerMap.get(name);
+            if (eventListeners == null){
+                eventListeners = new ArrayList<>();
+                this.delayEventListenerMap.put(name,eventListeners);
+            }
+            if (!eventListeners.contains(eventListener)){
+                eventListeners.add((DelayEventListener) eventListener);
+            }
+        }else {
+            ArrayList<EventListener> eventListeners = this.eventListenerMap.get(name);
+            if (eventListeners == null){
+                eventListeners = new ArrayList<>();
+                this.eventListenerMap.put(name,eventListeners);
+            }
+            if (!eventListeners.contains(eventListener)){
+                eventListeners.add(eventListener);
+            }
         }
     }
 
@@ -42,6 +54,27 @@ public class EventManager {
         }
     }
 
+    public <T> void delayOnce(String name,T t){
+        ArrayList<EventListener> removeList = this.eventListenerMap.remove(name);
+        if (removeList!=null){
+            for (EventListener eventListener : removeList) {
+                eventListener.listener(t);
+            }
+        }
+    }
+
+    public <T> void submit(String name,T t,float time){
+        ArrayList<DelayEventListener> eventListeners = this.delayEventListenerMap.get(name);
+        if (eventListeners!=null){
+            for (DelayEventListener eventListener : eventListeners) {
+                SubTaskManager subTaskManager = new SubTaskManager();
+                subTaskManager.setTime(time);
+                subTaskManager.setData(t);
+                eventListener.addSubTaskManagers(subTaskManager);
+            }
+        }
+    }
+
     public <T> void submit(String name,T t){
         ArrayList<EventListener> eventListeners = this.eventListenerMap.get(name);
         if (eventListeners!=null){
@@ -51,5 +84,14 @@ public class EventManager {
         }
     }
 
+    public void update(float dt){
+        if (delayEventListenerMap.size()>0) {
+            for (ArrayList<DelayEventListener> value : delayEventListenerMap.values()) {
+                for (DelayEventListener delayEventListener : value) {
+                    delayEventListener.update(dt);
+                }
+            }
+        }
+    }
 
 }

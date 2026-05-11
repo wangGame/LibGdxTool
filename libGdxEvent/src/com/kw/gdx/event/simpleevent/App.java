@@ -11,7 +11,6 @@ public class App {
                 @Override
                 public void listener(Integer e) {
                     System.out.println(e);
-
                 }
             });
             instance.submit(",mainAddCoin", 10);
@@ -29,16 +28,22 @@ public class App {
             data.setName("zzzzzzzzzzzzzzzz");
             instance.submit("addCoin1", data);
         }
+
         {
             EventManager instance = EventManager.getInstance();
-            instance.addEventListener("test",(PlayerInfo data)->{
-                System.out.println(data);
+            instance.addEventListener("addCoin1", new DelayEventListener<Data>() {
+                @Override
+                public void listener(Data e) {
+                    System.out.println(e);
+                }
             });
-            PlayerInfo info = new PlayerInfo();
-            info.setAge("xxxxxxxxxx");
-            info.setName("xxxxxxxxxxxxxxxxxxxxx");
-            instance.submit("test",info);
+            Data data = new Data();
+            data.setAddr("xxxxxxxxxxx");
+            data.setName("zzzzzzzzzzzzzzzz");
+            instance.submit("addCoin1", data);
+
         }
+
 
         //退出或者移除的时候清除
     }
