@@ -6,9 +6,12 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.constant.Constant;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -49,6 +52,11 @@ public class FrameBufferGroup extends Group {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+
+        actor.setX(0);
+        actor.setY(0);
+
+
         batch.flush();
 
         Stage stage = getStage();
@@ -88,6 +96,20 @@ public class FrameBufferGroup extends Group {
             viewport.setScreenBounds(oldX, oldY, oldW, oldH);
             viewport.apply(false);
         }
+
+
+        if (temp!=null){
+            float x = temp.getX(Align.center);
+            float y = temp.getY(Align.center);
+            Vector2 tempV2 = new Vector2(x,y);
+            temp.getParent().localToStageCoordinates(tempV2);
+            actor.getParent().stageToLocalCoordinates(tempV2);
+            actor.setPosition(tempV2.x - 100,tempV2.y,Align.center);
+        }
+
+
+        super.draw(batch,parentAlpha);
+
     }
 
     public TextureRegion getBufferTexture(float globalScale) {
@@ -101,5 +123,10 @@ public class FrameBufferGroup extends Group {
             frameBuffer.dispose();
             frameBuffer = null;
         }
+    }
+
+    private Image temp;
+    public void setDrawContent(Image temp) {
+        this.temp = temp;
     }
 }

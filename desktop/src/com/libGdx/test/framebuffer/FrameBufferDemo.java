@@ -42,8 +42,9 @@ public class FrameBufferDemo extends LibGdxTestMain {
             }
             pack();
         }});
-        scrollPane.setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT - 800);
+        scrollPane.setSize(Constant.GAMEWIDTH - 400, Constant.GAMEHIGHT - 800);
         group = new FrameBufferGroup(scrollPane);
+        scrollPane.setPosition(600,600);
         addActor(group);
         bufferTexture = group.getBufferTexture(1);
         temp = new Image(bufferTexture){
@@ -56,7 +57,7 @@ public class FrameBufferDemo extends LibGdxTestMain {
 
                 batch.setShader(program);
 //
-                float v = 110.f / getHeight();
+                float v = 60.f / getHeight();
                 program.setUniformf("u_bottomFade", v);
                 program.setUniformf("u_topFade", v);
                 program.setUniformf("top",bufferTexture.getV());
@@ -64,7 +65,7 @@ public class FrameBufferDemo extends LibGdxTestMain {
                 batch.setShader(null);
             }
         };
-
+        group.setDrawContent(temp);
         temp.setDebug(true);
         temp.setPosition(Constant.GAMEWIDTH/2f,Constant.GAMEHIGHT/2f, Align.center);
 
