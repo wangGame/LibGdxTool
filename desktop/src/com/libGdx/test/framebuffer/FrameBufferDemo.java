@@ -42,10 +42,13 @@ public class FrameBufferDemo extends LibGdxTestMain {
             }
             pack();
         }});
+
         scrollPane.setSize(Constant.GAMEWIDTH - 400, Constant.GAMEHIGHT - 800);
+        scrollPane.setOrigin(Align.center);
         group = new FrameBufferGroup(scrollPane);
-        scrollPane.setPosition(600,600);
         addActor(group);
+        scrollPane.setOrigin(Align.center);
+        scrollPane.setScale(0.4f);
         bufferTexture = group.getBufferTexture(1);
         temp = new Image(bufferTexture){
             private ShaderProgram program = new ShaderProgram(
@@ -63,6 +66,12 @@ public class FrameBufferDemo extends LibGdxTestMain {
                 program.setUniformf("top",bufferTexture.getV());
                 super.draw(batch, parentAlpha);
                 batch.setShader(null);
+            }
+
+            @Override
+            protected void positionChanged() {
+                super.positionChanged();
+                group.setNeedUpdate(true);
             }
         };
         group.setDrawContent(temp);

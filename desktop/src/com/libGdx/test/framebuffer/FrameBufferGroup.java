@@ -46,8 +46,9 @@ public class FrameBufferGroup extends Group {
                 (int) scrollPane.getHeight());
         region.flip(false, true);
         setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
-
         addActor(actor);
+
+
     }
 
     @Override
@@ -99,22 +100,33 @@ public class FrameBufferGroup extends Group {
 
 
         if (temp!=null){
-            float x = temp.getX(Align.center);
-            float y = temp.getY(Align.center);
-            Vector2 tempV2 = new Vector2(x,y);
-            temp.getParent().localToStageCoordinates(tempV2);
-            actor.getParent().stageToLocalCoordinates(tempV2);
-            actor.setPosition(tempV2.x - 100,tempV2.y,Align.center);
+            if (needUpdate) {
+                needUpdate = false;
+                float x = temp.getX(Align.center);
+                float y = temp.getY(Align.center);
+                tempV2.set(x, y);
+                temp.getParent().localToStageCoordinates(tempV2);
+                actor.getParent().stageToLocalCoordinates(tempV2);
+                actor.setPosition(tempV2.x, tempV2.y, Align.center);
+            }else {
+                actor.setPosition(tempV2.x, tempV2.y, Align.center);
+            }
         }
 
-
-        super.draw(batch,parentAlpha);
-
+//        super.draw(batch,parentAlpha);
     }
 
+    public boolean needUpdate;
+    public void setNeedUpdate(boolean needUpdate){
+        this.needUpdate = needUpdate;
+    }
+
+    Vector2 tempV2 = new Vector2();
     public TextureRegion getBufferTexture(float globalScale) {
-        region.setRegionWidth((int) actor.getWidth());
-        region.setRegionHeight((int) actor.getHeight());
+        region.setRegionX((int) (actor.getWidth() * (1 - actor.getScaleX())));
+        region.setRegionY((int) (actor.getHeight() * (1 - actor.getScaleY()) * actor.getScaleX()));
+        region.setRegionWidth((int) ((int) actor.getWidth() * actor.getScaleX()));
+        region.setRegionHeight((int) ((int) actor.getHeight() * actor.getScaleY()));
         return region;
     }
 
