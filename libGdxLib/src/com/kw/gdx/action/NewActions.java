@@ -15,7 +15,7 @@ public class NewActions {
         return action;
     }
 
-    static public MoveXAction moveXTo (float x, float y, float duration, Interpolation interpolation) {
+    static public MoveXAction moveXTo (float x, float duration, Interpolation interpolation) {
         MoveXAction action = action(MoveXAction.class);
         action.setEndX(x);
         action.setDuration(duration);
@@ -23,9 +23,9 @@ public class NewActions {
         return action;
     }
 
-    static public MoveYAction moveYTo (float x, float y, float duration, Interpolation interpolation) {
+    static public MoveYAction moveYTo (float y, float duration, Interpolation interpolation) {
         MoveYAction action = action(MoveYAction.class);
-        action.setY(x);
+        action.setY(y);
         action.setDuration(duration);
         action.setInterpolation(interpolation);
         return action;
