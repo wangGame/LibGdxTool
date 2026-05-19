@@ -3,7 +3,10 @@ package com.libGdx.test.spineanimation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 
-public class ScaleTemporalAction extends NewTemporalAction {
+public class MoveTimeLine extends NewTemporalAction{
+    private static final int X = 0;
+    private static final int Y = 1;
+
     private float startX;
     private float startY;
     private float endX;
@@ -13,7 +16,8 @@ public class ScaleTemporalAction extends NewTemporalAction {
 
     private float baseX;
     private float baseY;
-    public ScaleTemporalAction(){
+    private float lastTime;
+    public MoveTimeLine(){
         curvesX = new float[18];
         curvesY = new float[18];
     }
@@ -25,22 +29,23 @@ public class ScaleTemporalAction extends NewTemporalAction {
 
     @Override
     protected void update(float time) {
-        float currentX = getBezierValue(curvesX, time, 0);
-        float currentY = getBezierValue(curvesY, time, 1);
-
+        float currentX = getBezierValue(curvesX, time, X);
+        float currentY = getBezierValue(curvesY, time, Y);
         target.setPosition(baseX + currentX,baseY + currentY, Align.center);
-        System.out.println(target.getX(Align.center) + "     "+ target.getY(Align.center));
+        System.out.println(target.getX(Align.center)+"============"+target.getY(Align.center));
     }
 
     public void setCurvesX(float cx1, float cx2, float cx3, float cx4){
-        setBezier(curvesX,0,cx1,cx2,cx3,cx4,getDuration(),endX);
+        setBezier(curvesX,lastTime,startX,cx1,cx2,cx3,cx4,getDuration(),endX);
     }
 
     public void setCurvesY(float cx1,float cx2,float cx3,float cx4){
-        setBezier(curvesY,1512,cx1,cx2,cx3,cx4,getDuration(),endY);
+        setBezier(curvesY,lastTime,startY,cx1,cx2,cx3,cx4,getDuration(),endY);
     }
 
-    public void setBezier (float []curves,float value1, float cx1, float cy1, float cx2, float cy2, float time2, float value2) {
+    public void setBezier (float []curves,float lastTime,float value1, float cx11, float cy1, float cx22, float cy2, float time2, float value2) {
+        float cx1 = cx11 - lastTime;
+        float cx2 = cx22 - lastTime;
         int i = 0;
         float tmpx = (- cx1 * 2 + cx2) * 0.03f, tmpy = (value1 - cy1 * 2 + cy2) * 0.03f;
         float dddx = ((cx1 - cx2) * 3 + time2) * 0.006f, dddy = ((cy1 - cy2) * 3 - value1 + value2) * 0.006f;
@@ -60,13 +65,15 @@ public class ScaleTemporalAction extends NewTemporalAction {
     }
 
     public float getBezierValue (float[] curves,float time,int type) {
+        if (time <= 0) return getStartValue(type);
+        if (time >= getDuration()) {
+            return getEndValue(type);
+        }
+
         int i = 0;
         int n = 18;
         if (curves[i] > time) {
-            float x = 0, y = startY;
-            if (type == 0){
-                y = startX;
-            }
+            float x = 0, y = getStartValue(type);
             return y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
         }
         for (i += 2; i < n; i += 2) {
@@ -75,12 +82,22 @@ public class ScaleTemporalAction extends NewTemporalAction {
                 return y + (time - x) / (curves[i] - x) * (curves[i + 1] - y);
             }
         }
-        if (type == 0){
-            return endX;
-        }else if (type == 1){
-            return endY;
-        }
-        return 0;
+        float lastValue = getEndValue(type);
+
+        int length = curves.length;
+        float ltime = curves[length - 1 - 1]; // 时间
+        float lr = curves[length - 1]; //旋转角度
+        if (getDuration() <= ltime) return lastValue;
+        return  lr + (time - ltime) / (getDuration() - ltime) * (lastValue - lr);
+
+    }
+
+    private float getStartValue(int type) {
+        return type == X ? startX : startY;
+    }
+
+    private float getEndValue(int type) {
+        return type == X ? endX : endY;
     }
 
     public float getStartX() {
@@ -137,5 +154,9 @@ public class ScaleTemporalAction extends NewTemporalAction {
 
     public void setBaseY(float baseY) {
         this.baseY = baseY;
+    }
+
+    public void setLastTime(float lastTime) {
+        this.lastTime = lastTime;
     }
 }

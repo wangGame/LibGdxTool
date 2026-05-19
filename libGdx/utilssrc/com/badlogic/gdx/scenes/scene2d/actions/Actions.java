@@ -80,6 +80,23 @@ public class Actions {
 		return action;
 	}
 
+	static public MoveToAction moveXTo (float x, float y, float duration, @Null Interpolation interpolation) {
+		MoveToAction action = action(MoveToAction.class);
+		action.setPosition(x, y);
+		action.setDuration(duration);
+		action.setInterpolation(interpolation);
+		return action;
+	}
+
+	static public MoveToAction moveYTo (float x, float y, float duration, @Null Interpolation interpolation) {
+		MoveToAction action = action(MoveToAction.class);
+		action.setPosition(x, y);
+		action.setDuration(duration);
+		action.setInterpolation(interpolation);
+		return action;
+	}
+
+
 	static public MoveToAction moveToAligned (float x, float y, int alignment) {
 		return moveToAligned(x, y, alignment, 0, null);
 	}

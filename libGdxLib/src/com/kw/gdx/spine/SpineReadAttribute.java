@@ -1,13 +1,16 @@
 package com.kw.gdx.spine;
 
+
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ArrayMap;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Bone;
 import com.esotericsoftware.spine.Slot;
 import com.esotericsoftware.spine.loader.SpineActor;
+import com.kw.gdx.utils.Layer;
 
 public class SpineReadAttribute {
     private SpineActor spineActor;
@@ -17,8 +20,17 @@ public class SpineReadAttribute {
     private ArrayMap<Actor, Slot> colorMap;
     private ArrayMap<Actor, TransBean> transMap;
     private boolean onceTimes = true;
+    private boolean stopController;
 
-    public SpineReadAttribute(Actor actor,SpineActor spineActor){
+    public void setStopController(boolean stopController) {
+        this.stopController = stopController;
+    }
+
+    public boolean isStopController() {
+        return stopController;
+    }
+
+    public SpineReadAttribute(Actor actor, SpineActor spineActor){
         this.spineActor = spineActor;
         this.targetActor = actor;
     }
@@ -27,7 +39,12 @@ public class SpineReadAttribute {
         this.onceTimes = onceTimes;
     }
 
+
     public void startAnimation(String animationName, boolean isLoop){
+        startAnimation(animationName,isLoop,true);
+    }
+
+    public void startAnimation(String animationName, boolean isLoop,boolean delete){
         if (spineActor==null || targetActor == null)return;
         isAnimationing = true;
         spineActor.setAnimation(animationName,isLoop);
@@ -41,6 +58,7 @@ public class SpineReadAttribute {
         targetActor.addAction(new Action() {
             @Override
             public boolean act(float delta) {
+                if (stopController)return true;
                 if (scaleMap!=null){
                     if (scaleMap.size>0) {
                         for (int i = 0; i < scaleMap.size; i++) {
@@ -48,7 +66,12 @@ public class SpineReadAttribute {
                             Bone bone = scaleMap.get(actorTemp);
                             float scaleX = bone.getScaleX();
                             float scaleY = bone.getScaleY();
-                            actorTemp.setScale(scaleX,scaleY);
+                            if (actorTemp instanceof Label){
+                                Label label  = ((Label)(actorTemp));
+                                ((Label) actorTemp).setFontScale(scaleX,scaleY);
+                            }else {
+                                actorTemp.setScale(scaleX,scaleY);
+                            }
                         }
                     }
                 }
@@ -71,15 +94,17 @@ public class SpineReadAttribute {
                             Bone bone = transBean.getBone();
                             float xx = bone.getX();
                             float yy = bone.getY();
-                            targetActor.setPosition(transBean.getBaseX()+xx - transBean.getWorldOffX(),transBean.getBaseY() + yy- transBean.getWorldOffY(), Align.center);
+                            actorTemp.setPosition(transBean.getBaseX()+xx - transBean.getWorldOffX(),transBean.getBaseY() + yy- transBean.getWorldOffY(), Align.center);
                         }
                     }
                 }
 
                 if (!isLoop) {
-                    if (!isAnimationing) {
-                        if (onceTimes) {
-                            spineActor.remove();
+                    if (delete) {
+                        if (!isAnimationing) {
+                            if (onceTimes) {
+                                spineActor.remove();
+                            }
                         }
                     }
                     return !isAnimationing;
@@ -136,6 +161,24 @@ public class SpineReadAttribute {
         transBean.setBone(bone);
         transMap.put(actor,transBean);
     }
+
+    public void setTrans(float baseX,float baseY,String name,Actor actor,float wordx,float worldy){
+        if (actor == null)return;
+
+        Bone bone = spineActor.getSkeleton().findBone(name);
+        if (transMap == null) {
+            transMap = new ArrayMap<>();
+        }
+        TransBean transBean = new TransBean();
+        transBean.setBaseX(baseX);
+        transBean.setBaseY(baseY);
+        transBean.setWorldOffX(wordx);
+        transBean.setWorldOffY(worldy);
+        transBean.setBone(bone);
+        transMap.put(actor,transBean);
+    }
+
+
 
     class TransBean{
         private float worldOffX;

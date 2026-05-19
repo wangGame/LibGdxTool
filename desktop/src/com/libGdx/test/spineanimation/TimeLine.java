@@ -23,17 +23,19 @@ public class TimeLine extends LibGdxTestMain {
             }
         };
         addActor(image);
-        ScaleTemporalAction action = new ScaleTemporalAction();
+        MoveTimeLine action = new MoveTimeLine();
         action.setBaseX(1);
         action.setBaseY(1);
-        action.setStartX(1);
-        action.setStartY(1);
-        action.setEndX(5);
-        action.setEndY(5);
+        action.setStartX(0);
+        action.setStartY(0);
+        action.setEndX(0);
+        action.setEndY(1512.31f);
         action.setDuration(0.233333f);
-        action.setCurvesX(0.078f,1,0.156f,5);
-        action.setCurvesY(0.078f,1,0.156f,5);
+        action.setCurvesX(0.067f,0,0.2f,0);
+        action.setCurvesY(0.067f,1512.31F,0.2f,0);
         image.addAction(Actions.delay(2,action));
+
+
 
 
 //

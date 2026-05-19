@@ -1,30 +1,29 @@
 package com.kw.gdx.action;
 
-import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 import com.badlogic.gdx.utils.Align;
 
 /** Moves an actor from its current position to a specific position.
  * @author Nathan Sweet */
-public class MoveXAction extends TemporalAction {
-    private float startX;
-    private float endX;
+public class MoveYAction extends TemporalAction {
+    private float startY;
+    private float endY;
     private int alignment = Align.bottomLeft;
 
     protected void begin () {
-        startX = target.getX(alignment);
+        startY = target.getY(alignment);
     }
 
     protected void update (float percent) {
-        float x;
+        float y;
         if (percent == 0) {
-            x = startX;
+            y = startY;
         } else if (percent == 1) {
-            x = endX;
+            y = endY;
         } else {
-            x = startX + (endX - startX) * percent;
+            y = startY + (endY - startY) * percent;
         }
-        target.setX(x, alignment);
+        target.setY(y, alignment);
     }
 
     public void reset () {
@@ -32,7 +31,19 @@ public class MoveXAction extends TemporalAction {
         alignment = Align.bottomLeft;
     }
 
-    public void setEndX(float endX) {
-        this.endX = endX;
+    public void setY (float y) {
+        endY = y;
+    }
+
+    public float getY () {
+        return endY;
+    }
+
+    public int getAlignment () {
+        return alignment;
+    }
+
+    public void setAlignment (int alignment) {
+        this.alignment = alignment;
     }
 }

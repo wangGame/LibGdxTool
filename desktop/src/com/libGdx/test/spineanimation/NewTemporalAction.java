@@ -4,6 +4,11 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.utils.Pool;
 
+
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.utils.Pool;
+
 public abstract class NewTemporalAction extends Action {
     private float duration, time;
     private Interpolation interpolation;
@@ -32,11 +37,17 @@ public abstract class NewTemporalAction extends Action {
             }
             time += delta;
             complete = time >= duration;
-            System.out.println(time);
             if (complete){
                 time = duration;
             }
-            update(time);
+            float appliedTime = time;
+            if (duration > 0) {
+                float percent = time / duration;
+                if (reverse) percent = 1 - percent;
+                if (interpolation != null) percent = interpolation.apply(percent);
+                appliedTime = percent * duration;
+            }
+            update(appliedTime);
             if (complete) end();
             return complete;
         } finally {
@@ -45,6 +56,7 @@ public abstract class NewTemporalAction extends Action {
     }
 
     public float getBasePercent(){
+        if (duration <= 0) return 1;
         return time / duration;
     }
 
@@ -58,9 +70,9 @@ public abstract class NewTemporalAction extends Action {
     }
 
     /** Called each frame.
-     * @param percent The percentage of completion for this action, growing from 0 to 1 over the duration. If
-     *           {@link #setReverse(boolean) reversed}, this will shrink from 1 to 0. */
-    abstract protected void update (float percent);
+     * @param time The interpolated local time for this action, growing from 0 to {@link #getDuration()}. If
+     *           {@link #setReverse(boolean) reversed}, this will shrink from the duration to 0. */
+    abstract protected void update (float time);
 
     /** Skips to the end of the transition. */
     public void finish () {
@@ -75,6 +87,9 @@ public abstract class NewTemporalAction extends Action {
 
     public void reset () {
         super.reset();
+        time = 0;
+        began = false;
+        complete = false;
         reverse = false;
         interpolation = null;
     }
