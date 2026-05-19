@@ -18,8 +18,8 @@ import com.kw.gdx.screen.BaseScreen;
 @ANRDEMO
 @GameInfo(width = 1080,height = 1920)
 public class LibGdxTestMain extends BaseGame {
-    protected static float screenWidth = 2060;
-    protected static float screenHight = 1900;
+    protected static float screenWidth = 1080;
+    protected static float screenHight = 1920;
     private Stage stageMain;
 
     @Override

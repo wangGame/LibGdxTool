@@ -2,6 +2,10 @@ package com.kw.common.date;
 
 import java.io.DataInput;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -76,5 +80,24 @@ public class DateUtils {
 
     public static void main(String[] args) {
         System.out.println(getETAString(System.currentTimeMillis()));
+
+
+        long now = System.currentTimeMillis();
+
+        // 时间戳 -> 本地时间
+        LocalDateTime dateTime = LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(now),
+                ZoneId.systemDefault()
+        );
+
+        System.out.println("年: " + dateTime.getYear());
+        System.out.println("月: " + dateTime.getMonthValue());
+        System.out.println("日: " + dateTime.getDayOfMonth());
+
+        System.out.println("时: " + dateTime.getHour());
+        System.out.println("分: " + dateTime.getMinute());
+        System.out.println("秒: " + dateTime.getSecond());
+
+
     }
 }

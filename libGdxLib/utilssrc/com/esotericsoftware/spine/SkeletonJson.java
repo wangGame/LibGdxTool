@@ -162,6 +162,9 @@ public class SkeletonJson extends SkeletonLoader {
 			data.length = boneMap.getFloat("length", 0) * scale;
 			data.x = boneMap.getFloat("x", 0) * scale;
 			data.y = boneMap.getFloat("y", 0) * scale;
+
+			System.out.println(data.y);
+
 			data.rotation = boneMap.getFloat("rotation", 0);
 			data.scaleX = boneMap.getFloat("scaleX", 1);
 			data.scaleY = boneMap.getFloat("scaleY", 1);

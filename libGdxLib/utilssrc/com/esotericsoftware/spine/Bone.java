@@ -128,7 +128,6 @@ public class Bone implements Updatable {
 		float pa = parent.a, pb = parent.b, pc = parent.c, pd = parent.d;
 		worldX = pa * x + pb * y + parent.worldX;
 		worldY = pc * x + pd * y + parent.worldY;
-
 		switch (inherit) {
 		case normal: {
 			float rx = (rotation + shearX) * degRad;
@@ -643,7 +642,42 @@ public class Bone implements Updatable {
 
 	// ---
 
-	public String toString () {
-		return data.name;
+//	public String toString () {
+//		return data.name;
+//	}
+//
+//
+
+	@Override
+	public String toString() {
+		return "Bone{" +
+
+
+
+
+				", x=" + x +
+				", y=" + y +
+				", rotation=" + rotation +
+				", scaleX=" + scaleX +
+				", scaleY=" + scaleY +
+				", shearX=" + shearX +
+				", shearY=" + shearY +
+				", ax=" + ax +
+				", ay=" + ay +
+				", arotation=" + arotation +
+				", ascaleX=" + ascaleX +
+				", ascaleY=" + ascaleY +
+				", ashearX=" + ashearX +
+				", ashearY=" + ashearY +
+				", a=" + a +
+				", b=" + b +
+				", worldX=" + worldX +
+				", c=" + c +
+				", d=" + d +
+				", worldY=" + worldY +
+				", inherit=" + inherit +
+				", sorted=" + sorted +
+				", active=" + active +
+				'}';
 	}
 }

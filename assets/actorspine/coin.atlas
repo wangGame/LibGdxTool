@@ -1,0 +1,6 @@
+coin.png
+size:107,110
+filter:Linear,Linear
+ic_coin
+bounds:2,2,103,106
+offsets:1,1,105,107

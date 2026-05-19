@@ -189,13 +189,14 @@ public class SkeletonRenderer {
 				Actor actor = attachment1.getActor();
 				Bone bone = slot.getBone();
 				if (attachment1.isFlower()) {
-					actor.setOrigin(Align.center);
-                	 actor.setPosition(bone.getX()+ bone.worldX + attachment1.getOffsetX(),
-							 bone.getY()+ bone.worldY + attachment1.getOffsetY(),Align.center);
-					 actor.setScale(bone.getScaleX()*bone.getWorldScaleX()*attachment1.getScale(),bone.getScaleY()*bone.getWorldScaleY()*attachment1.getScale());
-					actor.draw(batch,skeleton.color.a * slot.getColor().a);
+					 actor.setOrigin(Align.center);
+                	 actor.setPosition(bone.worldX + attachment1.getOffsetX(),
+							 bone.worldY + attachment1.getOffsetY(),Align.center);
+					 actor.setScale(bone.getScaleX()*bone.getWorldScaleX()*attachment1.getScale(),
+							 bone.getScaleY()*bone.getWorldScaleY()*attachment1.getScale());
+					 actor.draw(batch,skeleton.color.a * slot.getColor().a);
 				}else {
-					actor.draw(batch,skeleton.color.a);
+					 actor.draw(batch,skeleton.color.a);
 				}
 			}
 

@@ -1,7 +1,5 @@
 package com.test.down.bean;
 
-import java.io.File;
-
 public class DownLoadInfo {
     private String url;
     private int threadNum;
