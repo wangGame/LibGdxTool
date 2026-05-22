@@ -13,13 +13,13 @@ import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
 
 public class BufferBufferUtils extends Group {
-   private FrameBuffer buffer = Asset.getAsset().buffer();
+   private FrameBuffer buffer;
    private int type = 1; //0 一直更新    1只更新一次
    private boolean isBatched;
    private Actor actor;
 
    public BufferBufferUtils(Actor group){
-      buffer = Asset.getAsset().buffer();
+      buffer = Asset.getAsset().buffer(false);
       this.actor = group;
       addActor(group);
    }

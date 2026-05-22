@@ -42,13 +42,14 @@ public class SharedLibraryLoader {
     static public Architecture architecture = Architecture.x86;
 
     static {
+        //当前系统
         if (System.getProperty("os.name").contains("Windows"))
             os = Os.Windows;
         else if (System.getProperty("os.name").contains("Linux"))
             os = Os.Linux;
         else if (System.getProperty("os.name").contains("Mac"))
             os = Os.MacOsX;
-
+        //cpu 架构
         if (System.getProperty("os.arch").startsWith("arm") || System.getProperty("os.arch").startsWith("aarch64"))
             architecture = Architecture.ARM;
         else if (System.getProperty("os.arch").startsWith("riscv"))

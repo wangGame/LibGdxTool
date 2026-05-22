@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.esotericsoftware.spine.SkeletonRenderer;
+import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.loader.CsvLoader;
 import com.kw.gdx.loader.bean.ArrayResult;
@@ -57,6 +58,7 @@ public class Asset {
     private static AssetManager localAssetManager;
     private int i=0;
     private SkeletonRenderer renderer;
+    private SkeletonRendererDebug rendererDebug;
     private FrameBuffer frameBuffer;
     public void loadAsset(Object ob){
         loadAsset(ob,Asset.assetManager);
@@ -320,6 +322,13 @@ public class Asset {
         return renderer;
     }
 
+    public SkeletonRendererDebug rendererDebug() {
+        if (rendererDebug == null){
+            rendererDebug = new SkeletonRendererDebug();
+        }
+        return rendererDebug;
+    }
+
     public BitmapFont loadBitFont(String path){
         return loadBitFont(path,Asset.assetManager);
     }
@@ -371,31 +380,54 @@ public class Asset {
         return update(Asset.assetManager);
     }
 
-
-    public FrameBuffer buffer(){
+    public FrameBuffer buffer(boolean alpha){
         if (frameBuffer == null) {
 //            Graphics.BufferFormat bufferFormat = Gdx.graphics.getBufferFormat();
 //            Alpha, Intensity, LuminanceAlpha, RGB565, RGBA4444, RGB888, RGBA8888;
             Graphics.BufferFormat format = Gdx.graphics.getBufferFormat();
-            if(format.r < 8){
-                frameBuffer = new FrameBuffer(
-                        Pixmap.Format.RGB565,
-                        (int) Constant.GAMEWIDTH,
-                        (int) Constant.GAMEHIGHT,
-                        false);
-            }else{
-                try {
-                    frameBuffer = new FrameBuffer(
-                            Pixmap.Format.RGB888,
-                            (int) Constant.GAMEWIDTH,
-                            (int) Constant.GAMEHIGHT,
-                            false);
-                }catch (Exception e){
+            if (alpha) {
+                if (format.r < 8) {
                     frameBuffer = new FrameBuffer(
                             Pixmap.Format.RGB565,
                             (int) Constant.GAMEWIDTH,
                             (int) Constant.GAMEHIGHT,
                             false);
+                } else {
+                    try {
+                        frameBuffer = new FrameBuffer(
+                                Pixmap.Format.RGB888,
+                                (int) Constant.GAMEWIDTH,
+                                (int) Constant.GAMEHIGHT,
+                                false);
+                    } catch (Exception e) {
+                        frameBuffer = new FrameBuffer(
+                                Pixmap.Format.RGB565,
+                                (int) Constant.GAMEWIDTH,
+                                (int) Constant.GAMEHIGHT,
+                                false);
+                    }
+                }
+            }else {
+                if (format.r < 8) {
+                    frameBuffer = new FrameBuffer(
+                            Pixmap.Format.RGBA4444,
+                            (int) Constant.GAMEWIDTH,
+                            (int) Constant.GAMEHIGHT,
+                            false);
+                } else {
+                    try {
+                        frameBuffer = new FrameBuffer(
+                                Pixmap.Format.RGBA8888,
+                                (int) Constant.GAMEWIDTH,
+                                (int) Constant.GAMEHIGHT,
+                                false);
+                    } catch (Exception e) {
+                        frameBuffer = new FrameBuffer(
+                                Pixmap.Format.RGBA4444,
+                                (int) Constant.GAMEWIDTH,
+                                (int) Constant.GAMEHIGHT,
+                                false);
+                    }
                 }
             }
         }

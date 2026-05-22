@@ -6,14 +6,12 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../android/assets"]
 sourceCompatibility = 1.8
 
+project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
+project.ext.assetsDir = new File("../android/assets");
+
 dependencies {
-//    implementation files('libs/gdx-backend-lwjgl.jar')
-//    implementation files('libs/gdx-backend-lwjgl-natives.jar')
-//    implementation files('libs/gdx-natives.jar')
     implementation files('libs/gdx-backend-lwjgl.jar')
     implementation files('libs/gdx-platform-1.13.1-natives-desktop.jar')
-//    implementation files('libs/gdx-natives.jar')
-
     implementation files('libs/gdx-tools.jar')
     implementation files('libs/gdx-PVR-0.2.1-b34.jar')
     implementation files('libs/solvitaire.jar')
@@ -21,46 +19,22 @@ dependencies {
     implementation project (':libGdx')
     implementation project(":libCommon")
     implementation project(":libGdxLib3D")
-
     implementation 'junit:junit:4.12'
     implementation "com.badlogicgames.gdx:gdx-freetype-platform:1.9.8:natives-desktop"
     implementation "com.badlogicgames.gdx:gdx-freetype:1.9.8"
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
     implementation project(':libgdxbox2d')
     implementation project(":libGdxLibTool3D")
     implementation project(":libGdxEvent")
-
     implementation "com.kotcrab.vis:vis-ui:1.2.3"
-
-
-//    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-core
-//    implementation 'org.deeplearning4j:rl4j-core:1.0.0-M1.1'
-
-//    implementation 'org.deeplearning4j:rl4j-api:1.0.0-beta3'
-//    implementation 'org.deeplearning4j:rl4j-ale:1.0.0-beta3'
-//    implementation 'org.deeplearning4j:rl4j-gym:1.0.0-beta3'
-    // https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core
-//    implementation 'org.deeplearning4j:deeplearning4j-core:1.0.0-M2.1'
-    // https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform
-//    implementation 'org.nd4j:nd4j-native-platform:1.0.0-M2.1'
-    // https://mvnrepository.com/artifact/org.deeplearning4j/rl4j-api
-
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
-//    implementation 'org.slf4j:slf4j-simple:2.1.0-alpha1'
 // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-platform
     implementation group: 'com.badlogicgames.gdx', name: 'gdx-platform', version: '1.13.1', ext: 'pom'
 // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-backend-lwjgl
     implementation group: 'com.badlogicgames.gdx', name: 'gdx-backend-lwjgl', version: '1.13.1'
     implementation project(':core')
-
-
     implementation "com.github.mgsx-dev.gdx-gltf:gltf:-SNAPSHOT"
-
 }
-project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
-project.ext.assetsDir = new File("../android/assets");
 
 task dist(type: Jar) {
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)

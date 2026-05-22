@@ -32,6 +32,10 @@ public class MoveXAction extends TemporalAction {
         alignment = Align.bottomLeft;
     }
 
+    public void setAlignment(int alignment) {
+        this.alignment = alignment;
+    }
+
     public void setEndX(float endX) {
         this.endX = endX;
     }
