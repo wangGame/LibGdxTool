@@ -1,4 +1,4 @@
-package com.kw.gdx.actor;
+package com.kw.gdx.polyGroup;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

@@ -1,16 +1,11 @@
 package com.libGdx.test.clip;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.kw.gdx.actor.PolygonClipGroup;
-import com.kw.gdx.actor.ShaperRenerInteface;
+import com.kw.gdx.polyGroup.PolygonClipGroup;
 import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
-import com.libGdx.test.stencil.Cir;
 
 public class ShapeRenderApp extends LibGdxTestMain {
     public static void main(String[] args) {
