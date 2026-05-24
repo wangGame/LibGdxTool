@@ -1,7 +1,9 @@
 package com.libGdx.test.action;
 
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.action.NewActions;
 import com.kw.gdx.asset.Asset;
@@ -21,6 +23,8 @@ public class ActionDemo extends LibGdxTestMain {
 
         image.addAction(NewActions.moveXTo(100,2, Interpolation.bounce));
         image.addAction(NewActions.moveYTo(500,2, Interpolation.sine));
+
+
 
     }
 }

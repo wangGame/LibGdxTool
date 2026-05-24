@@ -10,8 +10,6 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ShortArray;
 
 public class CircleProgress extends Actor {
@@ -35,7 +33,8 @@ public class CircleProgress extends Actor {
     private float speed = 1;
     private ProgressListener listener;
     private boolean start = false;
-
+    private EarClippingTriangulator earClippingTriangulator;
+    private PolygonRegion polyReg;
     //当前切割位置的枚举
     public enum IntersectAt {
         NONE, TOP, BOTTOM, LEFT, RIGHT;
@@ -45,6 +44,7 @@ public class CircleProgress extends Actor {
     public CircleProgress(TextureRegion ground, TextureRegion point, float radius) {
         setName("circle");
         setSize(ground.getRegionWidth(), ground.getRegionHeight());
+        earClippingTriangulator = new EarClippingTriangulator();
         this.textureRegion = ground;
         this.point = point;
         this.radius = radius;
@@ -246,9 +246,9 @@ public class CircleProgress extends Actor {
         } else {
             fv = null;
         }
-        EarClippingTriangulator e = new EarClippingTriangulator();
-        ShortArray sv = e.computeTriangles(fv);
-        PolygonRegion polyReg = new PolygonRegion(textureRegion, fv, sv.toArray());
+
+        ShortArray sv = earClippingTriangulator.computeTriangles(fv);
+        polyReg = new PolygonRegion(textureRegion, fv, sv.toArray());
         //创建 polySprite.
         if (poly == null) {
             poly = new PolygonSprite(polyReg);
@@ -269,11 +269,6 @@ public class CircleProgress extends Actor {
     //重新绘制函数
     @Override
     public void draw(Batch batch, float parentAlpha) {
-//        //裁剪
-
-        //创建 polygonRegion.
-
-        //(position, origin, rotation, color)
         //设置中心点
         if (percent <= 0) {
 

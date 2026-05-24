@@ -69,10 +69,10 @@ public interface Graphics {
 		public final int bitsPerPixel;
 
 		protected DisplayMode (int width, int height, int refreshRate, int bitsPerPixel) {
-			this.width = width;
-			this.height = height;
-			this.refreshRate = refreshRate;
-			this.bitsPerPixel = bitsPerPixel;
+			this.width = width; //宽
+			this.height = height; //高
+			this.refreshRate = refreshRate;//刷新率
+			this.bitsPerPixel = bitsPerPixel;//颜色bits
 		}
 
 		public String toString () {

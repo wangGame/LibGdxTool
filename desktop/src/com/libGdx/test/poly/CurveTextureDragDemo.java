@@ -27,18 +27,20 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 	private static final float HANDLE_RADIUS = 18f;
 	private static final float INSERT_EDGE_RADIUS = 32f;
 	private static final float CURVE_HIT_RADIUS = 28f;
-	private static final float FLY_SPEED = 420f;
-	private static final float FLY_MARKER_RADIUS = 10f;
+	private static final float CURVE_FLY_SPEED = 420f;
+	private static final float CURVE_EXIT_MARGIN = 80f;
 	private static final float DEFAULT_HALF_WIDTH = 60f;
 	private static final float DEFAULT_REPEAT_LENGTH = 180f;
 	private static final int MAX_CONTROL_POINTS = 24;
 
 	private final List<Vector2> controls = new ArrayList<>();
+	private final List<Vector2> initialControls = new ArrayList<>();
 	private final List<Vector2> casteljauCache = new ArrayList<>();
 	private final Vector3 mouse = new Vector3();
 	private final CurveHit curveHit = new CurveHit();
-	private final Vector2 projectilePosition = new Vector2();
-	private final Vector2 projectileDirection = new Vector2(1f, 0f);
+	private final Vector2 curveFlyDirection = new Vector2(1f, 0f);
+    private final Vector2 tmpHead = new Vector2();
+    private final Vector2 tmpHeadDir = new Vector2();
 
 	private PolygonSpriteBatch batch;
 	private ShapeRenderer shapeRenderer;
@@ -56,10 +58,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 	private Vector2[] sampledCurvePoints = new Vector2[0];
 	private float[] sampledCurveDistances = new float[0];
 	private float sampledCurveLength = 0f;
-	private boolean projectileActive = false;
-	private boolean projectileOffCurve = false;
-	private float projectileDistance = 0f;
-	private float projectileOffDistance = 0f;
+	private boolean curveFlying = false;
 	private float halfWidth = DEFAULT_HALF_WIDTH;
 	private float repeatLength = DEFAULT_REPEAT_LENGTH;
 	private boolean repeatTexture = true;
@@ -88,6 +87,9 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		controls.add(new Vector2(340f, 620f));
 		controls.add(new Vector2(920f, 100f));
 		controls.add(new Vector2(1140f, 560f));
+		for (Vector2 p : controls) {
+			initialControls.add(new Vector2(p));
+		}
 
 		texture = new Texture(Gdx.files.internal("assets/wood.png"));
 		texture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
@@ -98,7 +100,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 	@Override
 	public void render () {
 		handleInput();
-		updateProjectile(Gdx.graphics.getDeltaTime());
+		updateCurveFlight(Gdx.graphics.getDeltaTime());
 		camera.update();
 
 		ScreenUtils.clear(0.1f, 0.1f, 0.13f, 1f);
@@ -117,9 +119,9 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		font.draw(batch, "Curve mesh demo (not RepeatablePolygonSprite)", 20f, WORLD_HEIGHT - 20f);
 		font.draw(batch, "Drag control points with left mouse.", 20f, WORLD_HEIGHT - 48f);
 		font.draw(batch, "Up/Down = width, Left/Right = repeat length, Space = repeat/stretch", 20f, WORLD_HEIGHT - 76f);
-		font.draw(batch, "Left(curve) = launch to head, Left(point) = drag", 20f, WORLD_HEIGHT - 104f);
+		font.draw(batch, "Left(curve) = whole curve fly out from head, Left(point) = drag", 20f, WORLD_HEIGHT - 104f);
 		font.draw(batch, "Shift+Left(segment) = insert, Shift+Left(empty) = append", 20f, WORLD_HEIGHT - 132f);
-		font.draw(batch, "Right on point or Del = remove", 20f, WORLD_HEIGHT - 160f);
+		font.draw(batch, "Right on point or Del = remove, R = reset points", 20f, WORLD_HEIGHT - 160f);
 		font.draw(batch, "Mode: " + (repeatTexture ? "Repeat" : "Stretch") + "   points: " + controls.size() + "/" + MAX_CONTROL_POINTS, 20f, WORLD_HEIGHT - 188f);
 		font.draw(batch, "Width: " + halfWidth * 2f + "   repeatLength: " + repeatLength, 20f, WORLD_HEIGHT - 216f);
 		if (!statusText.isEmpty()) {
@@ -148,14 +150,14 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 			shapeRenderer.setColor(i == draggedHandle ? Color.YELLOW : (i == selectedHandle ? Color.LIME : Color.RED));
 			shapeRenderer.circle(controls.get(i).x, controls.get(i).y, HANDLE_RADIUS);
 		}
-		if (projectileActive) {
-			shapeRenderer.setColor(Color.WHITE);
-			shapeRenderer.circle(projectilePosition.x, projectilePosition.y, FLY_MARKER_RADIUS);
-		}
 		shapeRenderer.end();
 	}
 
 	private void handleInput () {
+		if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+			resetCurve();
+		}
+
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			repeatTexture = !repeatTexture;
 			rebuildMesh();
@@ -191,12 +193,14 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
 			int touched = findHandle(mouse.x, mouse.y);
 			boolean shift = Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT);
-			if (touched >= 0) {
+			if (curveFlying) {
+				statusText = "Curve is flying. Press R to reset.";
+			} else if (touched >= 0) {
 				draggedHandle = touched;
 				selectedHandle = touched;
 				statusText = "";
 			} else if (!shift && findCurveHit(mouse.x, mouse.y, curveHit)) {
-				launchTowardsHead(curveHit.distance);
+				launchCurveFlightFromHead();
 			} else {
 				if (shift) {
 					int insertIndex = findInsertIndex(mouse.x, mouse.y);
@@ -238,6 +242,18 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 			controls.get(draggedHandle).set(mouse.x, mouse.y);
 			rebuildMesh();
 		}
+	}
+
+	private void resetCurve () {
+		curveFlying = false;
+		draggedHandle = -1;
+		selectedHandle = -1;
+		controls.clear();
+		for (Vector2 p : initialControls) {
+			controls.add(new Vector2(p));
+		}
+		rebuildMesh();
+		statusText = "Curve reset.";
 	}
 
 	private int findHandle (float x, float y) {
@@ -307,39 +323,54 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		return true;
 	}
 
-	private void launchTowardsHead (float startDistance) {
+	private void launchCurveFlightFromHead () {
 		if (sampledCurvePoints.length < 2) {
 			return;
 		}
-		projectileActive = true;
-		projectileOffCurve = false;
-		projectileDistance = MathUtils.clamp(startDistance, 0f, sampledCurveLength);
-		projectileOffDistance = 0f;
-		positionAndDirectionAtDistance(projectileDistance, projectilePosition, projectileDirection);
-		statusText = "Launched toward head.";
+		positionAndDirectionAtDistance(sampledCurveLength, tmpHead, tmpHeadDir);
+		curveFlyDirection.set(tmpHeadDir);
+		if (curveFlyDirection.isZero(0.0001f)) {
+			curveFlyDirection.set(1f, 0f);
+		}
+		curveFlyDirection.nor();
+		curveFlying = true;
+		statusText = "Whole curve flying out from head.";
 	}
 
-	private void updateProjectile (float delta) {
-		if (!projectileActive || sampledCurvePoints.length < 2) {
+	private void updateCurveFlight (float delta) {
+		if (!curveFlying || controls.isEmpty()) {
 			return;
 		}
-		if (!projectileOffCurve) {
-			projectileDistance += FLY_SPEED * delta;
-			if (projectileDistance >= sampledCurveLength) {
-				projectileDistance = sampledCurveLength;
-				positionAndDirectionAtDistance(projectileDistance, projectilePosition, projectileDirection);
-				projectileOffCurve = true;
-				projectileOffDistance = 0f;
-			} else {
-				positionAndDirectionAtDistance(projectileDistance, projectilePosition, projectileDirection);
-			}
-		} else {
-			projectileOffDistance += FLY_SPEED * delta;
-			projectilePosition.mulAdd(projectileDirection, FLY_SPEED * delta);
-			if (projectileOffDistance > WORLD_WIDTH * 1.5f) {
-				projectileActive = false;
-			}
+
+		float dx = curveFlyDirection.x * CURVE_FLY_SPEED * delta;
+		float dy = curveFlyDirection.y * CURVE_FLY_SPEED * delta;
+		for (Vector2 p : controls) {
+			p.add(dx, dy);
 		}
+		rebuildMesh();
+
+		if (isCurveOutOfWorld()) {
+			curveFlying = false;
+			statusText = "Curve flew out. Press R to reset.";
+		}
+	}
+
+	private boolean isCurveOutOfWorld () {
+		if (sampledCurvePoints.length == 0) {
+			return true;
+		}
+		float minX = Float.MAX_VALUE;
+		float minY = Float.MAX_VALUE;
+		float maxX = -Float.MAX_VALUE;
+		float maxY = -Float.MAX_VALUE;
+		for (Vector2 p : sampledCurvePoints) {
+			minX = Math.min(minX, p.x);
+			minY = Math.min(minY, p.y);
+			maxX = Math.max(maxX, p.x);
+			maxY = Math.max(maxY, p.y);
+		}
+		return maxX < -CURVE_EXIT_MARGIN || minX > WORLD_WIDTH + CURVE_EXIT_MARGIN || maxY < -CURVE_EXIT_MARGIN
+			|| minY > WORLD_HEIGHT + CURVE_EXIT_MARGIN;
 	}
 
 	private void positionAndDirectionAtDistance (float distance, Vector2 outPosition, Vector2 outDirection) {
@@ -434,7 +465,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 			sampledCurvePoints = new Vector2[0];
 			sampledCurveDistances = new float[0];
 			sampledCurveLength = 0f;
-			projectileActive = false;
+			curveFlying = false;
 			return;
 		}
 
@@ -451,7 +482,6 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		sampledCurvePoints = points;
 		sampledCurveDistances = distances;
 		sampledCurveLength = distances[SAMPLE_COUNT - 1];
-		projectileActive = false;
 
 		meshVertices = new float[SAMPLE_COUNT * 10];
 		meshIndices = new short[(SAMPLE_COUNT - 1) * 6];
