@@ -56,6 +56,7 @@ public class ManagerUIEditor extends BaseCocoStudioUIEditor implements Disposabl
 	AssetManager assetManager;
 	//销毁
 	private boolean unloaded=false;
+	private CCExport export1;
 
 	//默认图片过滤方式
 	TextureLoader.TextureParameter textureParameter = new TextureLoader.TextureParameter() {{
@@ -78,7 +79,7 @@ public class ManagerUIEditor extends BaseCocoStudioUIEditor implements Disposabl
 	public ManagerUIEditor (FileHandle jsonFile, String dirName) {
 		this(jsonFile,dirName,null);
 	}
-	private CCExport export1;
+
 	//初始化函数
 	public ManagerUIEditor (FileHandle jsonFile, String dirName, AssetManager assetManager) {
 		super(jsonFile);

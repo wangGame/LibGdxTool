@@ -2,6 +2,9 @@ package com.kw.gdx.action;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import com.kw.gdx.spine.SpineCurveMoveAction;
@@ -15,8 +18,13 @@ public class NewActions {
     }
 
     static public MoveXAction moveXTo (float x, float duration, Interpolation interpolation) {
+        return moveXTo(x, duration, Align.bottomLeft,interpolation);
+    }
+
+    static public MoveXAction moveXTo (float x, float duration,int align, Interpolation interpolation) {
         MoveXAction action = action(MoveXAction.class);
         action.setEndX(x);
+        action.setAlignment(align);
         action.setDuration(duration);
         action.setInterpolation(interpolation);
         return action;

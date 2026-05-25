@@ -18,6 +18,7 @@ import com.esotericsoftware.spine.AnimationStateData;
 import com.esotericsoftware.spine.Skeleton;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonRenderer;
+import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.esotericsoftware.spine.Skin;
 import com.esotericsoftware.spine.attachments.AtlasAttachmentLoader;
 import com.esotericsoftware.spine.attachments.Attachment;
@@ -29,6 +30,7 @@ public class SpineActor extends Actor {
     protected Skeleton skeleton;
     private AnimationState state;
     private SkeletonRenderer renderer;
+    private SkeletonRendererDebug rendererDebug;
     private AnimationStateData animData;
     private String path;
     private float rootBoneScaleX  = 1,rootBoneScaleY=1;
@@ -226,11 +228,16 @@ public class SpineActor extends Actor {
         }else {
             renderer.draw(batch, skeleton);
         }
-
         batch.setBlendFunction(src,dst);
         color.a = oldAlpha;
 
         super.draw(batch,parentAlpha);
+        if (getDebug()) {
+            if (rendererDebug != null){
+                rendererDebug = Asset.getAsset().rendererDebug();
+            }
+            rendererDebug.draw(skeleton);
+        }
     }
 
     public void setH(float h) {

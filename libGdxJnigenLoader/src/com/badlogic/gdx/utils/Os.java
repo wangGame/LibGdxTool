@@ -1,6 +1,10 @@
 package com.badlogic.gdx.utils;
 
-/** The target operating system of a build target. */
+/**
+ * The target operating system of a build target.
+ *
+ * 确定开头和文件结尾
+ * */
 public enum Os {
     Windows, Linux, MacOsX, Android, IOS;
 

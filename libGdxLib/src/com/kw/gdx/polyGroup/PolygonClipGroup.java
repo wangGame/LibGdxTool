@@ -1,4 +1,4 @@
-package com.kw.gdx.actor;
+package com.kw.gdx.polyGroup;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -16,13 +16,11 @@ public class PolygonClipGroup extends Group {
     private int blendSrcFuncAlpha = GL20.GL_SRC_ALPHA;
     private int blendDstFuncAlpha = GL20.GL_ONE_MINUS_SRC_ALPHA;
 
-
-    public PolygonClipGroup(ShaperRenerInteface shapeRenderer){
-//        this.shapeRenderer = shapeRenderer;
+    public PolygonClipGroup(ShapeRenderer shaperRener){
         polygon = new Polygon();
         polygon.setVertices(new float[]{0,0,0,100,100,100,100,0});
         setPosition(200,200);
-        sr = new ShapeRenderer();
+        sr = shaperRener;
     }
 
     @Override

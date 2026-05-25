@@ -2,6 +2,7 @@ package com.libGdx.test.cut;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.esotericsoftware.spine.loader.SpineActor;
+import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
 import com.libGdx.test.spine.SpineTest;
 
@@ -18,8 +19,10 @@ public class CutTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        SpineActor spineActor = new SpineActor("assets/spine/root1");
+
+        SpineActor spineActor = new SpineActor("assets/spine/idle");
         addActor(spineActor);
+        spineActor.setAnimation("1_2",true);
         spineActor.setPosition(300,0);
     }
 }

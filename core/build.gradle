@@ -1,8 +1,5 @@
 apply plugin: "java"
 
-//apply plugin: 'com.github.dcendents.android-maven'
-//group='com.github.wangGame'
-
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../android/assets"]
 sourceCompatibility = 1.8
@@ -14,6 +11,7 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
+
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
 
