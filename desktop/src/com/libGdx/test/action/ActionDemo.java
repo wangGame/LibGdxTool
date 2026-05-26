@@ -1,5 +1,7 @@
 package com.libGdx.test.action;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -19,8 +21,6 @@ public class ActionDemo extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-
-
 
         FileHandle internal = Gdx.files.internal("assets/actorspine/coin.json");
         System.out.println(internal);

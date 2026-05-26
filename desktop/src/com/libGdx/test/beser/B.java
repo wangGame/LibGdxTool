@@ -55,7 +55,7 @@ public class B extends LibGdxTestMain {
         a.add(new Vector2(10, 1200));
         a.add(new Vector2(700, 0));
         a.add(new Vector2(80, 200));
-        BUL1 bu = new BUL1(a);
+        BUL2 bu = new BUL2(a);
         bu.setDuration(2);
         bu.setInterpolation(Interpolation.sineOut);
         image.addAction(bu);

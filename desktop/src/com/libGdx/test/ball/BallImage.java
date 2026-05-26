@@ -22,8 +22,8 @@ public class BallImage extends Image {
     Vector3 lightPos = new Vector3();
     private static final ShaderProgram shaderProgram
             = new ShaderProgram(
-            Gdx.files.internal("ball.vert"),
-            Gdx.files.internal("ball.frag"));
+            Gdx.files.internal("ball/ball.vert"),
+            Gdx.files.internal("ball/ball.frag"));
     private static final Cubemap cubemap = new Cubemap(
             Gdx.files.internal("cube/C_left.png"),
             Gdx.files.internal("cube/C_right.png"),
