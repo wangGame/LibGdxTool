@@ -33,7 +33,7 @@ public class B extends LibGdxTestMain {
         points.add(new Vector2(100, 0));
         points.add(new Vector2(110, 1200));
         points.add(new Vector2(700, 0));
-        points.add(new Vector2(680, 200));
+        points.add(new Vector2(180, 1200));
 
         BUL1 bezier = new BUL1(points);
 
@@ -46,7 +46,7 @@ public class B extends LibGdxTestMain {
         trail.setDrawDuration(0.2F);
 
         // 第二段：尾部收缩，头部飞出去
-        trail.setFlyOutDuration(0.2F);
+        trail.setFlyOutDuration(.2F);
         trail.setAutoFlyDistance(true);
 
 // 飞出距离 = 曲线长度 * 0.35
@@ -55,7 +55,7 @@ public class B extends LibGdxTestMain {
 //        trail.setFlyDistance(600F);
 
         // 第二段结束后继续飞出去的速度
-        trail.setContinueFlySpeed(2300F);
+        trail.setContinueFlySpeed(1300F);
 
         // 曲线宽度
         trail.setWidth(30F);
