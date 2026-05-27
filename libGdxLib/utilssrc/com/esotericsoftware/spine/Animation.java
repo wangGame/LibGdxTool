@@ -52,6 +52,28 @@ public class Animation {
 	Array<Timeline> timelines;
 	final ObjectSet<String> timelineIds;
 	float duration;
+	private static float userScaleX = 1f;
+	private static float userScaleY = 1f;
+
+	public ObjectSet<String> getTimelineIds() {
+		return timelineIds;
+	}
+
+	public float getUserScaleX() {
+		return userScaleX;
+	}
+
+	public void setUserScaleX(float userScaleX) {
+		this.userScaleX = userScaleX;
+	}
+
+	public float getUserScaleY() {
+		return userScaleY;
+	}
+
+	public void setUserScaleY(float userScaleY) {
+		this.userScaleY = userScaleY;
+	}
 
 	public Animation (String name, Array<Timeline> timelines, float duration) {
 		if (name == null) throw new IllegalArgumentException("name cannot be null.");
@@ -581,7 +603,6 @@ public class Animation {
 
 		public void apply (Skeleton skeleton, float lastTime, float time, @Null Array<Event> events, float alpha, MixBlend blend,
 			MixDirection direction) {
-
 			Bone bone = skeleton.bones.get(boneIndex);
 			if (!bone.active) return;
 
@@ -633,6 +654,8 @@ public class Animation {
 				bone.x += x * alpha;
 				bone.y += y * alpha;
 			}
+
+			bone.x = bone.x + bone.x * userScaleX;
 		}
 	}
 
