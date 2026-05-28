@@ -1,4 +1,4 @@
-package com.libGdx.test;
+package com.libGdx.test.deal;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

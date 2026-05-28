@@ -1,18 +1,19 @@
-package com.libGdx.test.wak;
+package com.libGdx.test.sc;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.libGdx.test.base.LibGdxTestMain;
 
-public class WaKongApp extends LibGdxTestMain {
+public class ScrollApp extends LibGdxTestMain {
     public static void main(String[] args) {
-        WaKongApp app = new WaKongApp();
-        app.start();
+        ScrollApp scrollApp=  new ScrollApp();
+        scrollApp.start();
     }
 
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        WakongGroup wakongGroup = new WakongGroup();
-        addActor(wakongGroup);
+
+        SeneTest seneTest = new SeneTest();
+        addActor(seneTest);
     }
 }

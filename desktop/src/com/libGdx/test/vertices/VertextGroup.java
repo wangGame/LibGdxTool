@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kw.gdx.asset.Asset;
 
+/**
+ * 三角形
+ */
 public class VertextGroup extends Actor {
     private Texture texture;
     private Color temp = Color.valueOf("#FFFFFF");
@@ -24,7 +27,7 @@ public class VertextGroup extends Actor {
         vertices[idx + 1] = 1000;
         vertices[idx + 2] = color;
         vertices[idx + 3] = 0;
-        vertices[idx + 4] = 0;
+        vertices[idx + 4] = 0f;
 
         vertices[idx + 5] = 0;
         vertices[idx + 6] = 0;
@@ -32,7 +35,7 @@ public class VertextGroup extends Actor {
         vertices[idx + 8] = 0;
         vertices[idx + 9] = 1;
 
-        vertices[idx + 10] = 1000;
+        vertices[idx + 10] = 500;
         vertices[idx + 11] = 0;
         vertices[idx + 12] = color;
         vertices[idx + 13] = 1;

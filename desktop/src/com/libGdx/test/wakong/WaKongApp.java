@@ -1,18 +1,18 @@
-package com.libGdx.test.tetris;
+package com.libGdx.test.wakong;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.libGdx.test.base.LibGdxTestMain;
 
-public class TetrisApp extends LibGdxTestMain {
+public class WaKongApp extends LibGdxTestMain {
     public static void main(String[] args) {
-        TetrisApp app = new TetrisApp();
+        WaKongApp app = new WaKongApp();
         app.start();
     }
 
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-
+        WakongGroup wakongGroup = new WakongGroup();
+        addActor(wakongGroup);
     }
 }

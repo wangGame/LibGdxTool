@@ -39,7 +39,7 @@ public class DemoGroup extends Group {
 
     public void setIndex(int i) {
         Label label = new Label("",new Label.LabelStyle(){{
-            font = Asset.getAsset().loadBitFont("font/Bahnschrift-Regular_40_1.fnt");
+            font = Asset.getAsset().loadBitFont("font/inter-bold-20.fnt");
         }});
         addActor(label);
         label.setAlignment(Align.center);

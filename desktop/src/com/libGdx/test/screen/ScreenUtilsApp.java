@@ -12,6 +12,5 @@ public class ScreenUtilsApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-
     }
 }

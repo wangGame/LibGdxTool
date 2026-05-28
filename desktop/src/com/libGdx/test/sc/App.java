@@ -18,8 +18,6 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kw.gdx.asset.Asset;
-import com.libGdx.test.AppC;
-import com.libGdx.test.base.LibGdxTestMain;
 
 public class App extends ScreenAdapter {
 
