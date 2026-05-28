@@ -45,6 +45,7 @@ public class PolygonRegion {
 			textureCoords[i] = u + uvWidth * (vertices[i] / width);
 			textureCoords[i + 1] = v + uvHeight * (1 - (vertices[i + 1] / height));
 		}
+		System.out.println("======================");
 	}
 
 	/** Returns the vertices in local space. */

@@ -27,7 +27,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
-public class B extends LibGdxTestMain {
+public class BezierTool extends LibGdxTestMain {
     private static final String DEFAULT_JSON_FILE = "bezier_points.json";
 
     private ShapeRenderer renderer;
@@ -38,7 +38,7 @@ public class B extends LibGdxTestMain {
     private String lastJsonPath = DEFAULT_JSON_FILE;
 
     public static void main(String[] args) {
-        B b = new B();
+        BezierTool b = new BezierTool();
         b.start();
     }
 

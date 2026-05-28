@@ -21,13 +21,10 @@ public class JsonToJavaBeanGenerator {
     public static void generateJavaBeans(String json, String className) throws IOException {
         JsonNode rootNode = objectMapper.readTree(json);
         StringBuilder javaClass = new StringBuilder();
-
         // 生成类头
         javaClass.append("public class ").append(className).append(" {\n\n");
-
         // 递归分析 JSON 并生成字段和 getter/setter
         generateFieldsAndMethods(rootNode, javaClass, className);
-
         // 生成类尾
         javaClass.append("\n}\n");
 

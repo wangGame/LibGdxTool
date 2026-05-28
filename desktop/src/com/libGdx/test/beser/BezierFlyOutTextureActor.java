@@ -12,6 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
+/**
+ * 启示：
+ *  坐标可以随意写， 写完之后进行归一化处理
+ */
 public class BezierFlyOutTextureActor extends Actor {
 
     private final BUL1 curve;
