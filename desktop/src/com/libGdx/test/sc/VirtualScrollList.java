@@ -20,23 +20,12 @@ import java.util.List;
  * 5. 复用已有 Actor，重新 setData。
  */
 public class VirtualScrollList<T> extends Group {
-
-    public interface Adapter<T> {
-
-        Actor createView();
-
-        void bindView(Actor view, T data, int index);
-    }
-
     private final ScrollPane scrollPane;
     private final Group content;
-
     private final Adapter<T> adapter;
     private final List<T> dataList = new ArrayList<>();
     private final List<Actor> viewPool = new ArrayList<>();
-
-    private final float itemHeight;
-
+    private float itemHeight;
     private int lastFirstIndex = -1;
     private int lastVisibleCount = -1;
 
@@ -48,39 +37,32 @@ public class VirtualScrollList<T> extends Group {
     ) {
         this.itemHeight = itemHeight;
         this.adapter = adapter;
-
         setSize(width, height);
-
         content = new Group();
         content.setSize(width, height);
         content.setTouchable(Touchable.childrenOnly);
-
         scrollPane = new ScrollPane(content);
-        scrollPane.setBounds(0, 0, width, height);
-
         scrollPane.setScrollingDisabled(true, false);
         scrollPane.setFadeScrollBars(false);
         scrollPane.setSmoothScrolling(false);
         scrollPane.setOverscroll(false, false);
         scrollPane.setFlickScroll(true);
-
+        scrollPane.setSize(width,height);
+        scrollPane.setDebug(true);
         addActor(scrollPane);
     }
 
     public void setItems(List<T> items) {
-        dataList.clear();
 
+
+        dataList.clear();
         if (items != null) {
             dataList.addAll(items);
         }
-
-        float contentHeight = dataList.size() * itemHeight;
-
-        content.setSize(getWidth(), contentHeight);
-
         scrollPane.setScrollY(0);
         scrollPane.updateVisualScroll();
-
+        float contentHeight = dataList.size() * itemHeight;
+        content.setSize(getWidth(), contentHeight);
         forceRefresh();
     }
 

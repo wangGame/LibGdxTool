@@ -1,4 +1,4 @@
-package com.libGdx.test.sc;
+package com.libGdx.test.sc.method1;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
