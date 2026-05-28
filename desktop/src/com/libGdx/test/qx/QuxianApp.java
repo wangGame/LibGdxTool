@@ -19,9 +19,7 @@ public class QuxianApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        Vector2 startV2 = new Vector2(0,0);
         Vector2 middelV2 = new Vector2(100,100);
-
         for (int i = 0; i < 15; i++) {
             Image image = new Image(Asset.getAsset().getTexture("assets/7.png"));
             addActor(image);

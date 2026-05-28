@@ -1,0 +1,25 @@
+{
+version: 1
+name: bezier_points1
+points: [
+	{
+		x: 100
+		y: 260
+	}
+	{
+		index: 1
+		x: 280
+		y: 1100
+	}
+	{
+		index: 2
+		x: 700
+		y: 1300
+	}
+	{
+		index: 3
+		x: 900
+		y: 380
+	}
+]
+}

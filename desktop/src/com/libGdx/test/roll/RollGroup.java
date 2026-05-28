@@ -10,10 +10,6 @@ public class RollGroup extends Group {
     float time = 0;
     public RollGroup(){
         setSize(500,500);
-//        Group group = new Group();
-//        addActor(group);
-//        group.setSize(300,300);
-//        setPosition(getWidth()/2.0f,getHeight()/2.0f, Align.center);
         setDebug(true);
         for (int i = 0; i < 10; i++) {
             Image image = new Image(Asset.getAsset().getTexture("assets/7.png")){
@@ -42,6 +38,5 @@ public class RollGroup extends Group {
             fushu = -1;
         }
     }
-
     private int fushu = -1;
 }

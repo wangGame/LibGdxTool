@@ -6,9 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 import com.badlogic.gdx.utils.Array;
 
 public class BUL1 extends TemporalAction {
-
     private final Array<Vector2> controlPoints;
-    private final Array<Vector2> tempPoints = new Array<>();
+    private final Array<Vector2> tempPoints;
     private final Vector2 out = new Vector2();
 
     private float moveT = 0F;
@@ -16,7 +15,7 @@ public class BUL1 extends TemporalAction {
 
     public BUL1(Array<Vector2> controlPoints) {
         this.controlPoints = new Array<>();
-
+        this.tempPoints = new Array<>();
         for (Vector2 v : controlPoints) {
             this.controlPoints.add(new Vector2(v));
             this.tempPoints.add(new Vector2());

@@ -3,6 +3,7 @@ package com.libGdx.test.beser;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 public class BUL2 extends TemporalAction {
@@ -24,7 +25,7 @@ public class BUL2 extends TemporalAction {
     @Override
     protected void update(float t) {
         calculateBezierP(t, out);
-        target.setPosition(out.x, out.y);
+        target.setPosition(out.x, out.y, Align.center);
     }
 
     /**
