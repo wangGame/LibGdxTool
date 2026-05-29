@@ -12,24 +12,19 @@ import com.libGdx.test.base.LibGdxTestMain;
 
 @GameInfo(width = 720,height = 1280,batch = Constant.COUPOLYGONBATCH)
 public class WorldPolygonTest extends LibGdxTestMain {
+    private ShapeRenderer shapeRenderer;
+    private Polygon polygon;
+    private boolean init = false;
     public static void main(String[] args) {
         PolygonTest polygonTest = new PolygonTest();
         polygonTest.start(polygonTest);
     }
 
-    private ShapeRenderer shapeRenderer;
-    private Polygon polygon;
-    private boolean init = false;
-
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        /*        stage.addActor(new PolyActor());*/
-
-        /*PolygonRegion polygonRegion = new PolygonRegion();*/
         polygon = new Polygon();
         shapeRenderer = new ShapeRenderer();
-
 
         FileHandle internal = Gdx.files.internal("assets/124/out.file");
         String content = internal.readString();
@@ -56,10 +51,8 @@ public class WorldPolygonTest extends LibGdxTestMain {
         if (!init)return;
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.RED);  // 设置绘制颜色为红色
-
         // 绘制多边形
         shapeRenderer.polygon(polygon.getVertices());
-
         shapeRenderer.end();
     }
 }

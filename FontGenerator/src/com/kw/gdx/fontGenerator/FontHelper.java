@@ -1251,15 +1251,7 @@ public class FontHelper{
         /* 1486 */     layout.setText(font, msg);
         /* 1487 */     renderFont(sb, font, msg, x, y + layout.height / 2.0F, Color.WHITE);
            }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
        public static String colorString(String input, String colorValue) {
         /* 1499 */     newMsg.setLength(0);
         /* 1500 */     for (String word : input.split(" ")) {
@@ -1267,15 +1259,7 @@ public class FontHelper{
                  }
         /* 1503 */     return newMsg.toString().trim();
            }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
        public static float getWidth(BitmapFont font, String text, float scale) {
         /* 1515 */     layout.setText(font, text);
         /* 1516 */     return layout.width * scale;

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -29,6 +30,14 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 	private static final float CURVE_HIT_RADIUS = 28f;
 	private static final float CURVE_FLY_SPEED = 420f;
 	private static final float CURVE_EXIT_MARGIN = 80f;
+	private static final float ARROW_FLY_SPEED = 920f;
+	private static final float ARROW_EXIT_MARGIN = 120f;
+	private static final float ARROW_TRAIL_LIFE = 0.55f;
+	private static final int ARROW_TRAIL_MAX = 22;
+	private static final float ARROW_BODY_LENGTH = 58f;
+	private static final float ARROW_BODY_WIDTH = 14f;
+	private static final float ARROW_HEAD_LENGTH = 34f;
+	private static final float ARROW_HEAD_WIDTH = 44f;
 	private static final float DEFAULT_HALF_WIDTH = 60f;
 	private static final float DEFAULT_REPEAT_LENGTH = 180f;
 	private static final int MAX_CONTROL_POINTS = 24;
@@ -39,8 +48,12 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 	private final Vector3 mouse = new Vector3();
 	private final CurveHit curveHit = new CurveHit();
 	private final Vector2 curveFlyDirection = new Vector2(1f, 0f);
-    private final Vector2 tmpHead = new Vector2();
-    private final Vector2 tmpHeadDir = new Vector2();
+	private final Vector2 arrowPosition = new Vector2();
+	private final Vector2 arrowDirection = new Vector2(1f, 0f);
+	private final List<TrailPoint> arrowTrail = new ArrayList<>();
+	private final Vector2 tmpHead = new Vector2();
+	private final Vector2 tmpHeadDir = new Vector2();
+	private final Vector2 tmpNormal = new Vector2();
 
 	private PolygonSpriteBatch batch;
 	private ShapeRenderer shapeRenderer;
@@ -59,6 +72,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 	private float[] sampledCurveDistances = new float[0];
 	private float sampledCurveLength = 0f;
 	private boolean curveFlying = false;
+	private boolean arrowFlying = false;
 	private float halfWidth = DEFAULT_HALF_WIDTH;
 	private float repeatLength = DEFAULT_REPEAT_LENGTH;
 	private boolean repeatTexture = true;
@@ -100,7 +114,9 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 	@Override
 	public void render () {
 		handleInput();
-		updateCurveFlight(Gdx.graphics.getDeltaTime());
+		float delta = Gdx.graphics.getDeltaTime();
+		updateCurveFlight(delta);
+		updateArrowFlight(delta);
 		camera.update();
 
 		ScreenUtils.clear(0.1f, 0.1f, 0.13f, 1f);
@@ -112,6 +128,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		batch.end();
 
 		drawDebug();
+		drawFlyArrowEffect();
 	}
 
 	private void drawLabels () {
@@ -119,7 +136,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		font.draw(batch, "Curve mesh demo (not RepeatablePolygonSprite)", 20f, WORLD_HEIGHT - 20f);
 		font.draw(batch, "Drag control points with left mouse.", 20f, WORLD_HEIGHT - 48f);
 		font.draw(batch, "Up/Down = width, Left/Right = repeat length, Space = repeat/stretch", 20f, WORLD_HEIGHT - 76f);
-		font.draw(batch, "Left(curve) = whole curve fly out from head, Left(point) = drag", 20f, WORLD_HEIGHT - 104f);
+		font.draw(batch, "Left(curve) = curve + glowing arrow fly out from head, Left(point) = drag", 20f, WORLD_HEIGHT - 104f);
 		font.draw(batch, "Shift+Left(segment) = insert, Shift+Left(empty) = append", 20f, WORLD_HEIGHT - 132f);
 		font.draw(batch, "Right on point or Del = remove, R = reset points", 20f, WORLD_HEIGHT - 160f);
 		font.draw(batch, "Mode: " + (repeatTexture ? "Repeat" : "Stretch") + "   points: " + controls.size() + "/" + MAX_CONTROL_POINTS, 20f, WORLD_HEIGHT - 188f);
@@ -246,6 +263,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 
 	private void resetCurve () {
 		curveFlying = false;
+		clearArrowFlight();
 		draggedHandle = -1;
 		selectedHandle = -1;
 		controls.clear();
@@ -333,8 +351,9 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 			curveFlyDirection.set(1f, 0f);
 		}
 		curveFlyDirection.nor();
+		startArrowFlight(tmpHead, curveFlyDirection);
 		curveFlying = true;
-		statusText = "Whole curve flying out from head.";
+		statusText = "Curve and glowing arrow flying out from head.";
 	}
 
 	private void updateCurveFlight (float delta) {
@@ -355,6 +374,116 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		}
 	}
 
+
+	private void startArrowFlight (Vector2 start, Vector2 direction) {
+		arrowPosition.set(start);
+		arrowDirection.set(direction);
+		if (arrowDirection.isZero(0.0001f)) {
+			arrowDirection.set(1f, 0f);
+		}
+		arrowDirection.nor();
+		arrowFlying = true;
+		arrowTrail.clear();
+		addArrowTrailPoint();
+	}
+
+	private void updateArrowFlight (float delta) {
+		for (int i = arrowTrail.size() - 1; i >= 0; i--) {
+			TrailPoint point = arrowTrail.get(i);
+			point.age += delta;
+			if (point.age >= ARROW_TRAIL_LIFE) {
+				arrowTrail.remove(i);
+			}
+		}
+
+		if (!arrowFlying) {
+			return;
+		}
+
+		arrowPosition.mulAdd(arrowDirection, ARROW_FLY_SPEED * delta);
+		addArrowTrailPoint();
+
+		if (isArrowOutOfWorld()) {
+			arrowFlying = false;
+		}
+	}
+
+	private void addArrowTrailPoint () {
+		arrowTrail.add(new TrailPoint(arrowPosition.x, arrowPosition.y));
+		while (arrowTrail.size() > ARROW_TRAIL_MAX) {
+			arrowTrail.remove(0);
+		}
+	}
+
+	private void clearArrowFlight () {
+		arrowFlying = false;
+		arrowTrail.clear();
+	}
+
+	private boolean isArrowOutOfWorld () {
+		return arrowPosition.x < -ARROW_EXIT_MARGIN || arrowPosition.x > WORLD_WIDTH + ARROW_EXIT_MARGIN
+				|| arrowPosition.y < -ARROW_EXIT_MARGIN || arrowPosition.y > WORLD_HEIGHT + ARROW_EXIT_MARGIN;
+	}
+
+	private void drawFlyArrowEffect () {
+		if (!arrowFlying && arrowTrail.isEmpty()) {
+			return;
+		}
+
+		shapeRenderer.setProjectionMatrix(camera.combined);
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+		for (int i = 0; i < arrowTrail.size(); i++) {
+			TrailPoint point = arrowTrail.get(i);
+			float lifeAlpha = 1f - MathUtils.clamp(point.age / ARROW_TRAIL_LIFE, 0f, 1f);
+			float orderAlpha = (i + 1f) / Math.max(1f, arrowTrail.size());
+			float alpha = lifeAlpha * orderAlpha;
+			float radius = 6f + 22f * alpha;
+
+			shapeRenderer.setColor(1f, 0.55f, 0.08f, 0.10f * alpha);
+			shapeRenderer.circle(point.x, point.y, radius * 1.8f, 18);
+			shapeRenderer.setColor(1f, 0.85f, 0.18f, 0.42f * alpha);
+			shapeRenderer.circle(point.x, point.y, radius, 18);
+		}
+
+		if (arrowFlying) {
+			drawArrowShape();
+		}
+
+		shapeRenderer.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
+	}
+
+	private void drawArrowShape () {
+		tmpNormal.set(-arrowDirection.y, arrowDirection.x);
+
+		float tipX = arrowPosition.x;
+		float tipY = arrowPosition.y;
+		float headBaseX = tipX - arrowDirection.x * ARROW_HEAD_LENGTH;
+		float headBaseY = tipY - arrowDirection.y * ARROW_HEAD_LENGTH;
+		float tailX = headBaseX - arrowDirection.x * ARROW_BODY_LENGTH;
+		float tailY = headBaseY - arrowDirection.y * ARROW_BODY_LENGTH;
+
+		shapeRenderer.setColor(1f, 0.75f, 0.08f, 0.18f);
+		shapeRenderer.circle(tipX, tipY, 34f, 24);
+
+		shapeRenderer.setColor(1f, 0.88f, 0.18f, 0.92f);
+		shapeRenderer.rectLine(tailX, tailY, headBaseX, headBaseY, ARROW_BODY_WIDTH);
+
+		shapeRenderer.setColor(1f, 0.95f, 0.22f, 1f);
+		shapeRenderer.triangle(
+				tipX,
+				tipY,
+				headBaseX + tmpNormal.x * ARROW_HEAD_WIDTH * 0.5f,
+				headBaseY + tmpNormal.y * ARROW_HEAD_WIDTH * 0.5f,
+				headBaseX - tmpNormal.x * ARROW_HEAD_WIDTH * 0.5f,
+				headBaseY - tmpNormal.y * ARROW_HEAD_WIDTH * 0.5f
+		);
+	}
+
 	private boolean isCurveOutOfWorld () {
 		if (sampledCurvePoints.length == 0) {
 			return true;
@@ -370,7 +499,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 			maxY = Math.max(maxY, p.y);
 		}
 		return maxX < -CURVE_EXIT_MARGIN || minX > WORLD_WIDTH + CURVE_EXIT_MARGIN || maxY < -CURVE_EXIT_MARGIN
-			|| minY > WORLD_HEIGHT + CURVE_EXIT_MARGIN;
+				|| minY > WORLD_HEIGHT + CURVE_EXIT_MARGIN;
 	}
 
 	private void positionAndDirectionAtDistance (float distance, Vector2 outPosition, Vector2 outDirection) {
@@ -466,6 +595,7 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 			sampledCurveDistances = new float[0];
 			sampledCurveLength = 0f;
 			curveFlying = false;
+			clearArrowFlight();
 			return;
 		}
 
@@ -569,5 +699,16 @@ public class CurveTextureDragDemo extends ApplicationAdapter {
 		int segment;
 		float alpha;
 		float distance;
+	}
+
+	private static class TrailPoint {
+		float x;
+		float y;
+		float age;
+
+		TrailPoint (float x, float y) {
+			this.x = x;
+			this.y = y;
+		}
 	}
 }
