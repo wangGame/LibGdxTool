@@ -105,6 +105,7 @@ public class PolygonTest extends LibGdxTestMain {
         polygon4.setScale(0.5f,0.5f);
         polygon.setScale(1,1);
 
+
         init = true;
     }
 

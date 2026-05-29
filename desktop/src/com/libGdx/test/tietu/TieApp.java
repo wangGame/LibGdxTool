@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
+import com.kw.gdx.tietu.TietuGroup;
 import com.libGdx.test.base.LibGdxTestMain;
 
 public class TieApp extends LibGdxTestMain {
@@ -24,7 +25,11 @@ public class TieApp extends LibGdxTestMain {
         BodyImage bodyImage = new BodyImage();
         addActor(bodyImage);
         bodyImage.setPosition(Constant.GAMEWIDTH/2.0f,Constant.GAMEHIGHT/2.0f,Align.center);
-        bodyImage.setScale(6);
+        bodyImage.setCir(new Image(){{
+            setPosition(10,100);
+        }});
+
+        bodyImage.setSize(300,300);
 
 
 //        Texture model = Asset.getAsset().getTexture("0_1_41_512.jpg");

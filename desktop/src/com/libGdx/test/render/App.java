@@ -22,7 +22,6 @@ public class App extends LibGdxTestMain {
     public void render() {
         super.render();
         if (shapeRenderer!=null){
-
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled); // 使用填充模式绘制
             // 绘制一个圆，参数为圆心(x, y)，半径，颜色
             shapeRenderer.setColor(Color.RED);

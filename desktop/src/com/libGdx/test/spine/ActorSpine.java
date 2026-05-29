@@ -3,6 +3,7 @@ package com.libGdx.test.spine;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -31,34 +32,44 @@ public class ActorSpine extends LibGdxTestMain {
 
             SpineActor coin = new SpineActor("assets/actorspine/coin");
             addActor(coin);
+
+            coin.setPosition(100,400);
             for (Animation animation : coin.getsData().getAnimations()) {
                 System.out.println(animation.getName());
             }
 
-            Image img = new Image(Asset.getAsset().getTexture("assets/7.png")){
-                @Override
-                public void draw(Batch batch, float parentAlpha) {
-                    super.draw(batch, parentAlpha);
-                    System.out.println(getY());
-                }
-            };
 
-            SkeletonData data = coin.getSkeleton().getData();
-            Skin defaultSkin = data.getDefaultSkin();
+            coin.addAction(
+                    Actions.sequence(
+                            Actions.delay(0.3f),
+                            Actions.moveToAligned(700,400,Align.center,0.2f)
+                    )
+            );
+//            Image img = new Image(Asset.getAsset().getTexture("assets/7.png")){
+//                @Override
+//                public void draw(Batch batch, float parentAlpha) {
+//                    super.draw(batch, parentAlpha);
+//                    System.out.println(getY());
+//                }
+//            };
+//
+
+//            SkeletonData data = coin.getSkeleton().getData();
+//            Skin defaultSkin = data.getDefaultSkin();
 
 //            Array<SlotData> slots = data.getSlots();
 
 
 
-            for (Skin.SkinEntry attachment : defaultSkin.getAttachments()) {
-                System.out.println(attachment.getName());
-                if (attachment.getName().equals("ic_coin")) {
-                    ActorAttachment actorAttachment = new ActorAttachment("img");
-                    actorAttachment.setActor(img);
-                    actorAttachment.setFlower(true);
-                    attachment.setAttachment(actorAttachment);
-                }
-            }
+//            for (Skin.SkinEntry attachment : defaultSkin.getAttachments()) {
+//                System.out.println(attachment.getName());
+//                if (attachment.getName().equals("ic_coin")) {
+//                    ActorAttachment actorAttachment = new ActorAttachment("img");
+//                    actorAttachment.setActor(img);
+//                    actorAttachment.setFlower(true);
+//                    attachment.setAttachment(actorAttachment);
+//                }
+//            }
             coin.setAnimation("obtain",true);
 //
 

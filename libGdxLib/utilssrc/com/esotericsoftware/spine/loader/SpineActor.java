@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.esotericsoftware.spine.Animation;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.AnimationStateData;
 import com.esotericsoftware.spine.Skeleton;
@@ -346,5 +347,11 @@ public class SpineActor extends Actor {
     public void sdebug() {
         setSize(400,400);
         setDebug(true);
+    }
+
+    public void setTransformScale(int i, int i1) {
+        Animation animation = state.getData().getSkeletonData().findAnimation("obtain");
+        animation.setUserScaleX(i);
+        animation.setUserScaleY(i1);
     }
 }

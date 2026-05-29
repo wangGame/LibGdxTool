@@ -34,10 +34,9 @@ public class Sq extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        threeStage = new ThreeStage(stage.getBatch());
-        Image image = new Image(Asset.getAsset().getTexture("board1.png"));
-        addActor(image);
-        image.setScale(5);
+        threeStage = new ThreeStage();
+
+
 
 
         Actor actor = new Actor();
@@ -46,19 +45,25 @@ public class Sq extends LibGdxTestMain {
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 super.touchDragged(event, x, y, pointer);
-                threeStage.ro(x,y);
+
             }
         });
 
         addActor(actor);
     }
-
+    float rx = 0;
+    float ry = 0;
     @Override
     public void render() {
         Gdx.gl.glClearColor(0.455f, 0.725f, 1.0f, 1.0f);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT);
         super.render();
+
         if (threeStage!=null) {
+            rx += 1f;
+            ry += 0.5f;
+
+            threeStage.rotate(rx, ry);
             threeStage.render();
         }
     }

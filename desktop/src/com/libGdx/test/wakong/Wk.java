@@ -20,9 +20,9 @@ public class Wk extends Group {
             public void draw(Batch batch, float parentAlpha) {
                 batch.flush();
                 batch.setShader(program);
-                program.setUniformf("posx",-0.8f);
-                program.setUniformf("posy",-0.8f);
-                program.setUniformf("rr",0.05f);
+                program.setUniformf("posx",-0.2f);
+                program.setUniformf("posy",-0.2f);
+                program.setUniformf("rr",40/getHeight());
                 super.draw(batch, parentAlpha);
                 batch.flush();
                 batch.setShader(null);

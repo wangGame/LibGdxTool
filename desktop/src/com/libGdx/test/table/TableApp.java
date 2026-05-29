@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
-import com.libGdx.test.alpha.AlphaTest;
 import com.libGdx.test.base.LibGdxTestMain;
 
 public class TableApp extends LibGdxTestMain {

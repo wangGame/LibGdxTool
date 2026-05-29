@@ -21,13 +21,10 @@ import com.kw.gdx.asset.Asset;
 public class PolyActor extends Actor {
     private PolygonSprite poly;
 
-//    Image image1 = new Image(Asset.getAsset().getTexture("assets/hand1.png"));
     public PolyActor(){
         setSize(500,500);
-        setDebug(true);
         Texture texture = new Texture("assets/hand1.png");
         TextureRegion region = new TextureRegion(texture);
-//        image = new Image(texture);
         float rwidth = region.getRegionWidth();
         float rheight = region.getRegionHeight();
         float fv[] = {
@@ -48,8 +45,6 @@ public class PolyActor extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-//        super.draw(batch, parentAlpha);
-//        image1.draw(batch,parentAlpha);
         poly.draw((PolygonSpriteBatch) batch);
     }
 }

@@ -25,7 +25,6 @@ public class WorldPolygonTest extends LibGdxTestMain {
         super.useShow(stage);
         polygon = new Polygon();
         shapeRenderer = new ShapeRenderer();
-
         FileHandle internal = Gdx.files.internal("assets/124/out.file");
         String content = internal.readString();
         String[] split = content.split("\n");
@@ -38,9 +37,6 @@ public class WorldPolygonTest extends LibGdxTestMain {
             vertices[x++] = Float.parseFloat(split1[0])* 10 + 300;
             vertices[x++] = Float.parseFloat(split1[1])*10 + 300;
         }
-
-        // 创建一个五边形
-
         polygon = new Polygon(vertices);
         init = true;
     }
@@ -51,8 +47,10 @@ public class WorldPolygonTest extends LibGdxTestMain {
         if (!init)return;
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.RED);  // 设置绘制颜色为红色
+
         // 绘制多边形
         shapeRenderer.polygon(polygon.getVertices());
+
         shapeRenderer.end();
     }
 }
