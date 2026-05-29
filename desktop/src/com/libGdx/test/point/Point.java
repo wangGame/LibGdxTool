@@ -7,6 +7,9 @@ import com.kw.gdx.asset.Asset;
 import com.libGdx.test.base.LibGdxTestMain;
 
 public class Point extends LibGdxTestMain {
+    private int TABLE_SIZE =  20;                     // 正弦波一周期点数 N = 20
+    private float sine_table[];
+    float output_buffer[] =new float[200];
     public static void main(String[] args) {
         Point p = new Point();
         p.start();
@@ -16,7 +19,6 @@ public class Point extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
         init_sine_table();
-
         int i = 0;
         for (float v : sine_table) {
             Image image = new Image(Asset.getAsset().getTexture("assets/next.png"));
@@ -36,12 +38,6 @@ public class Point extends LibGdxTestMain {
             i+=30;
         }
     }
-    int TABLE_SIZE =  20;                     // 正弦波一周期点数 N = 20
-            int  SAMPLE_RATE =  100000;               // Fs = 100kHz
-//            #define SINE_FREQ (SAMPLE_RATE / TABLE_SIZE)  // 输出频率应为 5kHz
-//#define SAMPLE_COUNT 200
-    float sine_table[];
-//    float output_buffer[SAMPLE_COUNT];
 
     void init_sine_table() {
         sine_table = new float[TABLE_SIZE];
@@ -51,7 +47,7 @@ public class Point extends LibGdxTestMain {
         }
     }
 
-    float output_buffer[] =new float[200];
+
     void generate_wave() {
         int index = 0;
         for (int i = 0; i < 200; i++) {

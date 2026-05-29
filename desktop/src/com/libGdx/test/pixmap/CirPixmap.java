@@ -21,11 +21,11 @@ public class CirPixmap extends LibGdxTestMain {
 
     public void splitAndSaveRounded() {
 
-        Pixmap big = new Pixmap(Gdx.files.internal("0_1_41_512.jpg"));
+        Pixmap big = new Pixmap(Gdx.files.internal("assets/0_1_41_512.jpg"));
 
         int tileWidth = 256;
         int tileHeight = 256;
-        int radius = 10;   // 圆角半径
+        int radius = 30;   // 圆角半径
 
         int cols = 4;
         int rows = 4;
@@ -35,9 +35,7 @@ public class CirPixmap extends LibGdxTestMain {
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
-
                 Pixmap small = new Pixmap(tileWidth, tileHeight, Pixmap.Format.RGBA8888);
-
                 // copy tile
                 small.drawPixmap(
                         big,
