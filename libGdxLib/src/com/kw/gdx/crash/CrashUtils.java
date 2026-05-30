@@ -13,7 +13,6 @@ public class CrashUtils {
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread thread, Throwable throwable) {
-                Throwable cause = throwable.getCause();
                 StackTraceElement element = parseThrowable("", throwable);
                 if (element == null) return;
                 System.out.println(element.getLineNumber());
