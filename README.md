@@ -2,7 +2,6 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/wangGame/LibGdxTool/gradle.yml?branch=master)](https://github.com/wangGame/LibGdxTool/actions)
 
-
 [![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool)
 
 ## 1.13.1
@@ -49,6 +48,11 @@ implementation 'com.github.wangGame.LibGdxTool:libGdxLib:pre-release1.0.0'
 //desktop快速启动
 implementation 'com.github.wangGame.LibGdxTool:desktop:pre-release1.0.0'
 ```
+
+## Desktop 案例文档
+
+- [Desktop 案例完整文档](DESKTOP_CASES_DOC.md)
+- [Desktop 案例运行说明](DESKTOP_CASES_RUNBOOK.md)
 
 ## spine插入任意类型的显示
 
@@ -146,6 +150,7 @@ public void setTransformMatrix (Matrix4 transform) {
 47 43 42 41 36 31 30 28 33 28 35
 
 原始数据
+
 46 41 40 40 37 31 29 28 31 28 35
 
 ESA
