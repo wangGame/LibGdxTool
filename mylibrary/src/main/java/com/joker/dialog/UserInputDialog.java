@@ -4,11 +4,14 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -90,7 +93,26 @@ public class UserInputDialog extends DialogFragment {
                 submitAndDismiss(et);
                 return true;
             });
+            et.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (listener != null && et != null) {
+                        listener.onSubmit(et.getText() != null ? et.getText().toString() : "");
+                    }
+                }
+            });
         }
+
 
         if (btn != null) {
             btn.setOnClickListener(v -> submitAndDismiss(et));
