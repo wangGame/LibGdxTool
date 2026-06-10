@@ -53,7 +53,7 @@ public class LiziUtils extends LibGdxTestMain {
                     spawnWidth.setLowMin(0);
 
                     float prcessValue = processGroup.getPrcessValue();
-                    spawnWidth.setHigh(prcessValue);
+                    spawnWidth.setHigh(prcessValue  * 100);
 
                 }
 

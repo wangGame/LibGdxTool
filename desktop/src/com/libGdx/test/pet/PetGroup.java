@@ -18,13 +18,11 @@ public class PetGroup extends Group {
     public PetGroup(){
 //        program = new ShaderProgram(Gdx.files.internal("shader/out/PlainVertex.glsl"),Gdx.files.internal("shader/out/PlainFragment.glsl"));
         program = new ShaderProgram(Gdx.files.internal("shader/out/PlainVertex.glsl"),Gdx.files.internal("shader/out/ComplexFragment.glsl"));
-
         image = new Image(Asset.getAsset().getTexture("dog_xuanguan.png"));
 //        addActor(image);
         setPosition(Constant.GAMEWIDTH/2f,Constant.HIGHT/2f, Align.center);
-
         image.setOrigin(Align.center);
-        image.setScale(10);
+
 
         SpineActor smallPeople = new SpineActor("spine/idle2","spine/idle.atlas");
         addActor(smallPeople);
@@ -34,7 +32,7 @@ public class PetGroup extends Group {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (true){
+        if (false){
             super.draw(batch, parentAlpha);
         }else {
             batch.setShader(program);
@@ -45,8 +43,6 @@ public class PetGroup extends Group {
             program.setUniformf("u_shadowColor", 1, 1, 1, 1);
             program.setUniformi("u_textureSize", (int) image.getWidth(), (int) image.getHeight());
             program.setUniformf("u_alpha", 1);
-
-
             super.draw(batch, parentAlpha);
             batch.setShader(null);
         }

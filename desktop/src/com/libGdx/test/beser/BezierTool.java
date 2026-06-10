@@ -6,6 +6,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
@@ -31,6 +32,7 @@ public class BezierTool extends LibGdxTestMain {
     private static final String DEFAULT_JSON_FILE = "bezier_points.json";
 
     private ShapeRenderer renderer;
+    private BitmapFont pointLabelFont;
     private final Array<Vector2> controlPoints = new Array<>();
     private Image previewImage;
     private BezierEditorCanvas editorCanvas;
@@ -47,12 +49,13 @@ public class BezierTool extends LibGdxTestMain {
         super.useShow(stage);
 
         renderer = new ShapeRenderer();
+        pointLabelFont = Asset.getAsset().loadBitFont("assets/font/ir42.fnt");
 
         // 给一个默认样例，打开后可以直接预览。
-        controlPoints.add(new Vector2(100, 260));
+        controlPoints.add(new Vector2(780, 1200));
         controlPoints.add(new Vector2(280, 1100));
         controlPoints.add(new Vector2(700, 1300));
-        controlPoints.add(new Vector2(900, 380));
+        controlPoints.add(new Vector2(540, 443.f));
 
         Texture texture = Asset.getAsset().getTexture("assets/7.png");
         if (texture == null) {
@@ -229,6 +232,8 @@ public class BezierTool extends LibGdxTestMain {
         private final int samples = 120;
         private final float pointRadius = 20f;
         private final float segmentHitRadius = 18f;
+        private final float labelOffsetX = 26f;
+        private final float labelOffsetY = 28f;
 
         private int selectedIndex = -1;
 
@@ -348,6 +353,13 @@ public class BezierTool extends LibGdxTestMain {
             renderer.end();
 
             batch.begin();
+
+            for (int i = 0; i < controlPoints.size; i++) {
+                Vector2 point = controlPoints.get(i);
+                pointLabelFont.setColor(i == selectedIndex ? Color.YELLOW : Color.LIGHT_GRAY);
+                String label = "(" + MathUtils.round(point.x) + ", " + MathUtils.round(point.y) + ")";
+                pointLabelFont.draw(batch, label, point.x + labelOffsetX, point.y + labelOffsetY);
+            }
         }
 
         private int findPointIndex(float x, float y) {

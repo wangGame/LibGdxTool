@@ -84,7 +84,7 @@ public class AndroidGraphics extends AbstractGraphics implements Renderer {
 	volatile boolean created = false;
 	volatile boolean running = false;
 	volatile boolean pause = false;
-	volatile boolean resume = false;
+	protected volatile boolean resume = false;
 	volatile boolean destroy = false;
 
 	private float ppiX = 0;
@@ -325,6 +325,10 @@ public class AndroidGraphics extends AbstractGraphics implements Renderer {
 		logConfig(config);
 		updatePpi();
 		updateSafeAreaInsets();
+
+//		int arr[] = new int[1];
+//		gl.glGetIntegerv(GL20.GL_MAX_TEXTURE_SIZE, IntBuffer.wrap(arr));
+//		System.out.println("--------xilaile -------------"+arr[0]);
 
 		Mesh.invalidateAllMeshes(app);
 		Texture.invalidateAllTextures(app);
@@ -802,5 +806,9 @@ public class AndroidGraphics extends AbstractGraphics implements Renderer {
 		public AndroidMonitor (int virtualX, int virtualY, String name) {
 			super(virtualX, virtualY, name);
 		}
+	}
+
+	public void setReume(boolean b) {
+		resume = true;
 	}
 }

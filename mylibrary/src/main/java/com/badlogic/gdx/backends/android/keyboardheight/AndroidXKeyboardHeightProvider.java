@@ -8,8 +8,7 @@ import android.view.View;
 import androidx.core.graphics.Insets;
 import androidx.core.view.OnApplyWindowInsetsListener;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import org.jetbrains.annotations.NotNull;
+import androidx.core.view.WindowInsetsCompat; 
 
 public class AndroidXKeyboardHeightProvider implements KeyboardHeightProvider {
 
@@ -31,9 +30,9 @@ public class AndroidXKeyboardHeightProvider implements KeyboardHeightProvider {
 	public void start () {
 		this.view = activity.findViewById(android.R.id.content);
 		ViewCompat.setOnApplyWindowInsetsListener(view, new OnApplyWindowInsetsListener() {
-			@NotNull
+	 
 			@Override
-			public WindowInsetsCompat onApplyWindowInsets (@NotNull View v, @NotNull WindowInsetsCompat windowInsets) {
+			public WindowInsetsCompat onApplyWindowInsets (  View v,  WindowInsetsCompat windowInsets) {
 				if (observer == null) return windowInsets;
 				int orientation = activity.getResources().getConfiguration().orientation;
 				boolean isVisible = windowInsets.isVisible(WindowInsetsCompat.Type.ime());

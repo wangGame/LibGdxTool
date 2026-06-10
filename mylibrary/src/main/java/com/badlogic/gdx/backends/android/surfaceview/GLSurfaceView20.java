@@ -115,7 +115,7 @@ public class GLSurfaceView20 extends GLSurfaceView {
 	private void init (boolean translucent, int depth, int stencil) {
 
 		/*
-		 * By default, GLSurfaceView() creates a RGB_888 opaque surface. If we want a translucent one, we should change the
+		 * By 10, GLSurfaceView() creates a RGB_888 opaque surface. If we want a translucent one, we should change the
 		 * surface's format here, using PixelFormat.TRANSLUCENT for GL Surfaces is interpreted as any 32-bit surface with alpha by
 		 * SurfaceFlinger.
 		 */

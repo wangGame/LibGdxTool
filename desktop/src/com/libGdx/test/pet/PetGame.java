@@ -21,7 +21,10 @@ public class PetGame extends LibGdxTestMain {
         bg.setOrigin(Align.center);
         bg.setScale(1000);
 
-        PetGroup petGroup = new PetGroup();
-        addActor(petGroup);
+//        PetGroup petGroup = new PetGroup();
+//        addActor(petGroup);
+        GradientOutlineImage outlineImage = new GradientOutlineImage(Asset.getAsset().getTexture("dog_xuanguan.png"));
+        addActor(outlineImage);
+        outlineImage.setScale(3);
     }
 }

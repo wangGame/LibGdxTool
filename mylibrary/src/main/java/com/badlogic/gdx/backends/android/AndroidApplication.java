@@ -68,7 +68,7 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	protected boolean renderUnderCutout = false;
 
 	/** This method has to be called in the {@link Activity#onCreate(Bundle)} method. It sets up all the things necessary to get
-	 * input, render via OpenGL and so on. Uses a default {@link AndroidApplicationConfiguration}.
+	 * input, render via OpenGL and so on. Uses a 10 {@link AndroidApplicationConfiguration}.
 	 * 
 	 * @param listener the {@link ApplicationListener} implementing the program logic **/
 	public void initialize (ApplicationListener listener) {
@@ -88,7 +88,7 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	}
 
 	/** This method has to be called in the {@link Activity#onCreate(Bundle)} method. It sets up all the things necessary to get
-	 * input, render via OpenGL and so on. Uses a default {@link AndroidApplicationConfiguration}.
+	 * input, render via OpenGL and so on. Uses a 10 {@link AndroidApplicationConfiguration}.
 	 * <p>
 	 * Note: you have to add the returned view to your layout!
 	 * 
@@ -142,7 +142,7 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 
 			@Override
 			public void pause () {
-				audio.pause();
+//				audio.pause();
 			}
 
 			@Override
@@ -247,7 +247,8 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 		graphics.setContinuousRendering(true);
 		// calls to setContinuousRendering(false) from other thread (ex: GLThread)
 		// will be ignored at this point...
-		graphics.pause();
+//		graphics.pause();
+//		graphics.setPause(true);
 
 		input.onPause();
 
@@ -263,6 +264,14 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 
 		super.onPause();
 		keyboardHeightProvider.setKeyboardHeightObserver(null);
+		try {
+			audio.pause();
+			Gdx.app.postRunnable(()->{
+				getApplicationListener().pause();
+			});
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -533,4 +542,6 @@ public class AndroidApplication extends Activity implements AndroidApplicationBa
 	public KeyboardHeightProvider getKeyboardHeightProvider () {
 		return keyboardHeightProvider;
 	}
+
+
 }

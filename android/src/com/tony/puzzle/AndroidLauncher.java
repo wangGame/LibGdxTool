@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.joker.domos.GameTest;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
 import com.tony.BaseAndroidLauncher;
@@ -41,7 +42,7 @@ public class AndroidLauncher extends BaseAndroidLauncher {
         if (Build.MODEL.equals("MediaPad 10 FHD")) {
             configuration.numSamples = 0;
         }
-
+        initialize(new GameTest(), configuration);
     }
 
     /**

@@ -82,7 +82,7 @@ public class GdxEglConfigChooser implements GLSurfaceView.EGLConfigChooser {
 	public EGLConfig chooseConfig (EGL10 egl, EGLDisplay display, EGLConfig[] configs) {
 		EGLConfig best = null;
 		EGLConfig bestAA = null;
-		EGLConfig safe = null; // default back to 565 when no exact match found
+		EGLConfig safe = null; // 10 back to 565 when no exact match found
 
 		for (EGLConfig config : configs) {
 			int d = findConfigAttrib(egl, display, config, EGL10.EGL_DEPTH_SIZE, 0);

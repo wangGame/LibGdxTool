@@ -199,7 +199,7 @@ public class PathAnimat extends LibGdxTestMain {
         PathAnimation pathAnimation = new PathAnimation();
         pathAnimation.setPosData(arr,0,0.25f);
         pathAnimation.setInterpolation(new BseInterpolation(0,0.01f,0.0561f,1.0f));
-        pathAnimation.setDuration(0.3667f);
+        pathAnimation.setDuration(10.3667f);
 
         Image image = new Image(Asset.getAsset().getTexture("ball.png"));
         image.addAction(

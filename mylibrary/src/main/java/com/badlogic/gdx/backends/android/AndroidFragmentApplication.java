@@ -20,12 +20,12 @@ import com.badlogic.gdx.utils.*;
 
 /** Implementation of the {@link AndroidApplicationBase} that is based on the {@link Fragment} class. This class is similar in use
  * to the {@link AndroidApplication} class, which is based on an {@link Activity}.
- * 
+ *
  * @author Bartol Karuza (me@bartolkaruza.com) */
 public class AndroidFragmentApplication extends Fragment implements AndroidApplicationBase {
 
 	/** Callbacks interface for letting the fragment interact with the Activitiy, parent fragment or target fragment.
-	 * 
+	 *
 	 * @author Bartol Karuza (me@bartolkaruza.com) */
 	public interface Callbacks {
 		void exit ();
@@ -98,11 +98,11 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 
 	/** This method has to be called in the
 	 * {@link Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)} method. It sets up all
-	 * the things necessary to get input, render via OpenGL and so on. Uses a default {@link AndroidApplicationConfiguration}.
+	 * the things necessary to get input, render via OpenGL and so on. Uses a 10 {@link AndroidApplicationConfiguration}.
 	 * <p/>
 	 * Note: you have to return the returned view from the
 	 * {@link Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}!
-	 * 
+	 *
 	 * @param listener the {@link ApplicationListener} implementing the program logic
 	 * @return the GLSurfaceView of the application */
 	public View initializeForView (ApplicationListener listener) {
@@ -117,7 +117,7 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 	 * <p/>
 	 * Note: you have to return the returned view from
 	 * {@link Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)}
-	 * 
+	 *
 	 * @param listener the {@link ApplicationListener} implementing the program logic
 	 * @param config the {@link AndroidApplicationConfiguration}, defining various settings of the application (use accelerometer,
 	 *           etc.).
@@ -401,7 +401,12 @@ public class AndroidFragmentApplication extends Fragment implements AndroidAppli
 		getActivity().runOnUiThread(runnable);
 	}
 
-	@Override
+    @Override
+    public void startActivity(Intent intent) {
+
+    }
+
+    @Override
 	public SnapshotArray<LifecycleListener> getLifecycleListeners () {
 		return lifecycleListeners;
 	}
