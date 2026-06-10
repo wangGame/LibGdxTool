@@ -8,8 +8,12 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.joker.dialog.UserInputDialog;
 import com.joker.domos.GameTest;
+import com.joker.domos.listener.UserInputListener;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
 import com.joker.BaseAndroidLauncher;
@@ -42,7 +46,32 @@ public class AndroidLauncher extends BaseAndroidLauncher {
         if (Build.MODEL.equals("MediaPad 10 FHD")) {
             configuration.numSamples = 0;
         }
-        initialize(new GameTest(), configuration);
+        initialize(new GameTest(new UserInputListener() {
+            @Override
+            public void showHandleInput(String hint, Input.TextInputListener callback) {
+                runOnUiThread(() -> {
+                    try {
+                        new UserInputDialog()
+                                .setHint(hint)
+                                .setOnSubmitListener(text -> {
+                                    if (callback != null) {
+                                        Gdx.app.postRunnable(() -> callback.input(text));
+                                    }
+                                })
+                                .setOnCancelListener(() -> {
+                                    if (callback != null) {
+                                        Gdx.app.postRunnable(callback::canceled);
+                                    }
+                                })
+                                .show(getFragmentManager(), "unity_input_bar");
+                    } catch (Exception e) {
+                        if (callback != null) {
+                            Gdx.app.postRunnable(callback::canceled);
+                        }
+                    }
+                });
+            }
+        }), configuration);
     }
 
     /**
