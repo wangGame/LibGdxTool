@@ -1,6 +1,5 @@
-package com.tony;
+package com.joker;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -10,24 +9,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
-import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.View;
 
-import androidx.annotation.RequiresApi;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.kw.gdx.constant.Configuration;
-import com.kw.gdx.constant.Constant;
-import com.tony.util.PackageUtils;
-import com.tony.util.Utils;
+import com.joker.util.Utils;
 
 import java.util.Random;
-import java.util.UUID;
 
 public class BaseAndroidLauncher extends AndroidApplication {
 

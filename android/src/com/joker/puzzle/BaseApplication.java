@@ -1,10 +1,6 @@
-package com.tony.puzzle;
+package com.joker.puzzle;
 
 import android.app.Application;
-
-import androidx.core.view.ViewCompat;
-
-import com.badlogic.gdx.backends.android.AndroidApplication;
 
 public class BaseApplication extends Application {
     @Override

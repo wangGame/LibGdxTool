@@ -1,4 +1,4 @@
-package com.tony.permissutils;
+package com.joker.permissutils;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;

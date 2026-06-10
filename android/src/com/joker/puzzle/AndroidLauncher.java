@@ -1,4 +1,4 @@
-package com.tony.puzzle;
+package com.joker.puzzle;
 
 import android.Manifest;
 import android.content.Context;
@@ -12,8 +12,8 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.joker.domos.GameTest;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
-import com.tony.BaseAndroidLauncher;
-import com.tony.TonyPermission;
+import com.joker.BaseAndroidLauncher;
+import com.joker.TonyPermission;
 
 import java.util.Random;
 

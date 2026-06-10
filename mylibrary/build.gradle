@@ -3,7 +3,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion 35
+    namespace "com.badlogic.gdx.backends.android"
+    compileSdk 35
 
     defaultConfig {
         minSdkVersion 23

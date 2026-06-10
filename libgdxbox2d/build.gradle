@@ -12,15 +12,6 @@ tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
-// 打包源码
-task sourcesJar(type: Jar) {
-    from sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-artifacts {
-    archives sourcesJar
-}
-
 
 dependencies {
     implementation project(':libGdx')

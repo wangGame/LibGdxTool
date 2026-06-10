@@ -1,4 +1,4 @@
-package com.tony;
+package com.joker;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -8,16 +8,13 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.widget.RemoteViews;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.tony.util.PackageUtils;
+import com.joker.util.PackageUtils;
 
 
 //推送  更改图片

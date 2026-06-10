@@ -78,6 +78,7 @@ public class AndroidFileHandle extends FileHandle {
 	public InputStream read () {
 		if (type == FileType.Internal) {
 			try {
+				System.out.println(file.getAbsolutePath());
 				return assets.open(file.getPath());
 			} catch (IOException ex) {
 				throw new GdxRuntimeException("Error reading file: " + file + " (" + type + ")", ex);
