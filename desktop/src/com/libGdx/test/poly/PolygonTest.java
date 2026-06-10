@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ShortArray;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.resource.annotation.GameInfo;
@@ -83,19 +84,19 @@ public class PolygonTest extends LibGdxTestMain {
         polygon = new Polygon(vertices);
         polygon.setVertices(wakongV);
         for (int i = 0; i < xx.length; i++) {
-            wakongV1[i] = (float) xx[i]+500;
+            wakongV1[i] = (float) xx[i] ;
         }
         polygon1 = new Polygon(wakongV1);
         for (int i = 0; i < xx.length; i++) {
-            wakongV2[i] = (float) xx[i]+300;
+            wakongV2[i] = (float) xx[i] ;
         }
         polygon2 = new Polygon(wakongV2);
         for (int i = 0; i < xx.length; i++) {
-            wakongV3[i] = (float) xx[i]+200;
+            wakongV3[i] = (float) xx[i] ;
         }
         polygon3 = new Polygon(wakongV3);
         for (int i = 0; i < xx.length; i++) {
-            wakongV4[i] = (float) xx[i]+100;
+            wakongV4[i] = (float) xx[i] ;
         }
         polygon4 = new Polygon(wakongV4);
         polygon1.setScale(0.4f,0.4f);

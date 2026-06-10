@@ -44,7 +44,25 @@ public final class Intersector {
 	 * check is performed that this is the case. <br>
 	 * If the Vector3 parameters contain both small and large values, such as one that contains 0.0001 and one that contains
 	 * 10000000.0, this can fail due to floating-point imprecision.
-	 * 
+	 *
+	 * 叉积（cross product）+ 点积（dot product）判断方向一致性
+	 * 检测点是不是在三角形内
+	 *
+	 * v0=A−P
+	 * v1=B−P
+	 * v2=C−P
+	 *
+	 * n
+	 * 1
+	 * 	​
+	 *
+	 * =(B−P)×(C−P)
+	 * n
+	 * 2
+	 * 	​
+	 *
+	 * =(C−P)×(A−P)
+	 *
 	 * @param t1 the first vertex of the triangle
 	 * @param t2 the second vertex of the triangle
 	 * @param t3 the third vertex of the triangle

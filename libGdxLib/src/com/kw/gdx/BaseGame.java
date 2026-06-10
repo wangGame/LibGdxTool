@@ -54,6 +54,7 @@ public class BaseGame extends Game {
 
     protected void initScreen() {
         Gdx.app.postRunnable(()->{
+            // 目前的问题是，需要存储权限
             if (Constant.crashlog){
                 Constant.SDPATH = Gdx.files.local("/").file().getAbsolutePath();
                 new CrashUtils();

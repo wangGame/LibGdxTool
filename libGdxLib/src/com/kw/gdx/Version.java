@@ -25,7 +25,7 @@ public final class Version {
     public static final String VERSION;
 
     static {
-        String internalVersion = "1.0.9";
+        String internalVersion = "1.13.1";
         VERSION = internalVersion;
     }
 }
