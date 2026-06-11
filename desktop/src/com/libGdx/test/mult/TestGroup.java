@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kw.gdx.asset.Asset;
 
-import jdk.nashorn.internal.ir.CallNode;
+
 
 public class TestGroup extends Group {
     public TestGroup(){

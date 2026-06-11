@@ -8,6 +8,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.graphics.Insets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -18,6 +21,7 @@ import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
 import com.joker.BaseAndroidLauncher;
 import com.joker.TonyPermission;
+
 
 import java.util.Random;
 
@@ -39,13 +43,32 @@ public class AndroidLauncher extends BaseAndroidLauncher {
         //指南针
         configuration.useCompass = false;
         //加速度
-        configuration.useAccelerometer = false;
+        configuration.useAccelerometer = true;
         configuration.useWakelock = true;
         configuration.numSamples = 2;
         Constant.realseDebug = isDebug;
         if (Build.MODEL.equals("MediaPad 10 FHD")) {
             configuration.numSamples = 0;
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(getWindow().getDecorView(), (v, insets) -> {
+            Insets systemBars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+            );
+
+            Insets cutout = insets.getInsets(
+                    WindowInsetsCompat.Type.displayCutout()
+            );
+
+            Configuration.left = Math.max(systemBars.left, cutout.left);
+            Configuration.top = Math.max(systemBars.top, cutout.top);
+            Configuration.right = Math.max(systemBars.right, cutout.right);
+            Configuration.bottom = Math.max(systemBars.bottom, cutout.bottom);
+
+            System.out.println(Configuration.left + " ===========> " + Configuration.top + " " + Configuration.right + " " + Configuration.bottom);
+
+            return insets;
+        });
         initialize(new GameTest(new UserInputListener() {
             @Override
             public void showHandleInput(String hint, Input.TextInputListener callback) {
@@ -72,7 +95,14 @@ public class AndroidLauncher extends BaseAndroidLauncher {
                 });
             }
         }), configuration);
+
+
+
+
+
+
     }
+
 
     /**
      * AB

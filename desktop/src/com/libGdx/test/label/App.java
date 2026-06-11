@@ -25,6 +25,8 @@ public class App extends LibGdxTestMain {
                 font.getData().markupEnabled = true;
             }});
             addActor(label);
+
+            label.setRotation(30);
         }
 
         {
