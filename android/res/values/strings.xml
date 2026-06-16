@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Libgdx Tool Android</string>
+    <string name="keyboard_case_title">Keyboard Height Callback Demo</string>
+    <string name="keyboard_case_status_idle">Tap \"Show Keyboard\" to start.</string>
+    <string name="keyboard_case_show">Show Keyboard</string>
+    <string name="keyboard_case_hide">Hide Keyboard</string>
+    <string name="keyboard_case_mode_adjust_nothing">Mode: ADJUST_NOTHING (tap to switch)</string>
+    <string name="keyboard_case_mode_adjust_resize">Mode: ADJUST_RESIZE (tap to switch)</string>
+    <string name="keyboard_case_tip">This panel follows keyboard height and insets.</string>
+    <string name="keyboard_case_hint">Type here to open IME</string>
+    <string name="keyboard_case_status_template">height=%1$d, leftInset=%2$d, rightInset=%3$d\ny=%4$.1f, x=%5$.1f, scaleX=%6$.3f\nobserverHeight=%7$d, mode=%8$s</string>
 </resources>

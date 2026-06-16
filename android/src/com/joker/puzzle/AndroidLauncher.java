@@ -2,6 +2,7 @@ package com.joker.puzzle;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.joker.dialog.UserInputDialog;
 import com.joker.domos.GameTest;
 import com.joker.domos.listener.UserInputListener;
+import com.joker.puzzle.demo.KeyboardHeightCaseDemoActivity;
 import com.kw.gdx.constant.Configuration;
 import com.kw.gdx.constant.Constant;
 import com.joker.BaseAndroidLauncher;
@@ -97,6 +99,8 @@ public class AndroidLauncher extends BaseAndroidLauncher {
         }), configuration);
 
 
+        Intent intent = new Intent(this, KeyboardHeightCaseDemoActivity.class);
+        startActivity(intent);
 
 
 

@@ -61,7 +61,8 @@ public class UserInputDialog extends DialogFragment {
         if (w != null) {
             // 底部对齐、宽度全屏
             w.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            w.setGravity(Gravity.BOTTOM);
+            //始终位于底部
+//            w.setGravity(Gravity.BOTTOM);
             // 关键：让窗口为键盘让位，并在弹出时直接弹出键盘（可选）
             w.setSoftInputMode(
                     WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
