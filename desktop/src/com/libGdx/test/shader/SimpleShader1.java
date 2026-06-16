@@ -55,7 +55,8 @@ public class SimpleShader1 extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         shader.bind();
-//        shader.setUniformf("u_time", time);
+        shader.setUniformf("u_time", time);
+//        shader.setUniformf("a", time * 0.1f);
         shader.setUniformf(
                 "u_resolution",
                 Gdx.graphics.getWidth(),
