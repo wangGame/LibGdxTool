@@ -1,18 +1,13 @@
 package com.libGdx.test.sixteen;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
-import com.kw.gdx.listener.OrdinaryButtonListener;
-import com.kw.gdx.resource.annotation.GameInfo;
 import com.libGdx.test.base.LibGdxTestMain;
-import com.libGdx.test.npath.NinePathNew;
 
 
 public class TipDesktop extends LibGdxTestMain {

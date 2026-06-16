@@ -33,16 +33,16 @@ public class Deal extends LibGdxTestMain {
             for (int j = 0; j < pixmap.getHeight(); ++j) {
                 Color color = new Color(pixmap.getPixel(i, j));
                 if (color.a == 0) {
-                    color.r = 251/255.0F;
-                    color.g = 227/255.0F;
-                    color.b = 196/255.0F;
+                    color.r = 255/255.0F;
+                    color.g = 255/255.0F;
+                    color.b = 255/255.0F;
                     color.a = 0f;
                 }
                 pixmap.drawPixel(i, j, Color.rgba8888(color));
             }
         }
         pixmap.setBlending(Pixmap.Blending.None);
-        PixmapIO.writePNG(new FileHandle("hh/out.png"), pixmap);
+        PixmapIO.writePNG(new FileHandle("hhx/"+a.getName()), pixmap);
         pixmap.dispose();
     }
 

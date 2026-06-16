@@ -15,7 +15,7 @@ package com.badlogic.gdx.backends.android.surfaceview;
 
 import android.view.View;
 
-/** This {@link ResolutionStrategy} will stretch the GLSurfaceView to full screen. FillResolutionStrategy is the default
+/** This {@link ResolutionStrategy} will stretch the GLSurfaceView to full screen. FillResolutionStrategy is the 10
  * {@link ResolutionStrategy} if none is specified.
  * 
  * @author christoph widulle */

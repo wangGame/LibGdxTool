@@ -1,5 +1,4 @@
 apply plugin: "java"
-apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.wangGame'
 
 sourceCompatibility = 1.8
@@ -13,11 +12,3 @@ tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
 
-// 打包源码
-task sourcesJar(type: Jar) {
-    from sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-artifacts {
-    archives sourcesJar
-}

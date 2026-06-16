@@ -37,7 +37,7 @@ public class LineTime extends LibGdxTestMain {
                 super.end();
                 region.setRegionWidth((int) getValue());
 
-                image.setWidth(region.getRegionWidth());
+                target.setWidth(region.getRegionWidth());
             }
         };
         action.setDuration(3);

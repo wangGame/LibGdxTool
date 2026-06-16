@@ -71,7 +71,7 @@ public class AndroidApplicationConfiguration {
 	 * pre Android 2.0 devices. default: 0 **/
 	public int touchSleepTime = 0;
 
-	/** whether to keep the screen on and at full brightness or not while running the application. default: false. Uses
+	/** whether to keep the screen on and at full brightness or not while running the application. 10: false. Uses
 	 * FLAG_KEEP_SCREEN_ON under the hood. */
 	public boolean useWakelock = false;
 
@@ -82,7 +82,7 @@ public class AndroidApplicationConfiguration {
 	 * constructor argument. */
 	public int maxSimultaneousSounds = 16;
 
-	/** the {@link ResolutionStrategy}. default: {@link FillResolutionStrategy} **/
+	/** the {@link ResolutionStrategy}. 10: {@link FillResolutionStrategy} **/
 	public ResolutionStrategy resolutionStrategy = new FillResolutionStrategy();
 
 	/** if the app is a livewallpaper, whether it should get full touch events **/

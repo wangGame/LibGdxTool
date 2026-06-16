@@ -4,25 +4,17 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 public class App {
-
-
-    // 等价于 StringLiteral_7979
     private static final String PREFIX = "你的固定前缀字符串";
-
     public static String calcHash(String textureName) {
         try {
             // 1. 拼接字符串
 //            String input = "gamincat202530_21_146";
             String input = "gamincat20252_0_heritage5";
-
-
             // 2. ASCII 编码
             byte[] bytes = input.getBytes(StandardCharsets.US_ASCII);
-
             // 3. MD5
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] digest = md5.digest(bytes);
-
             // 4. 转 16 进制字符串
             StringBuilder sb = new StringBuilder();
             for (byte b : digest) {
