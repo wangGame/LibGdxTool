@@ -15,7 +15,7 @@ void main() {
 
     float dist = abs(p.y - y);
 
-    float w = fwidth(p.y);   // 🔥关键修复
+    float w = fwidth(p.y);
 
     float line = smoothstep(w * 1.5, 0.0, dist);
 
