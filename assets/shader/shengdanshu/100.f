@@ -10,13 +10,8 @@ float hash(vec2 p) {
 }
 
 void main() {
-
     vec2 uv = gl_FragCoord.xy / u_resolution;
-
-    float n = hash(uv * 20.0 + u_time * 0.5);
-
+    float n = hash(uv + u_time * 0.5);
     vec3 color = vec3(n);
-
-
     gl_FragColor = vec4(color, 1.0);
 }

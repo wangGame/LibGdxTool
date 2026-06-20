@@ -13,7 +13,7 @@ void main() {
 
     vec2 dir = vec2(
         sin(uv.y * 10.0 + t),
-        sin(uv.x * 10.0 + t)
+        cos(uv.x * 10.0 + t)
     );
 
     vec2 distortUV = uv + dir * 0.05;

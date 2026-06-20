@@ -13,7 +13,7 @@ void main() {
     float d = length(p) ;
 
 
-    float ring = step(d,31) - step(d,3);
+    float ring = step(d,31.0) - step(d,3.0);
 
     vec3 color = vec3(ring);
     gl_FragColor = vec4(color, 1.0);

@@ -11,7 +11,11 @@ void main() {
     p.x *= u_resolution.x / u_resolution.y;
     //中心点  step 在内就返回1，在外就返回0
     float d = length(p) ;
-    float circle = step(d,30);
-    vec3 color = vec3(circle);
+
+
+    float ring =
+        smoothstep(30.0, 37.0, d);
+
+    vec3 color = vec3(1.0f - ring);
     gl_FragColor = vec4(color, 1.0);
 }

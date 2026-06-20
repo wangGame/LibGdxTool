@@ -20,8 +20,18 @@ public class SimpleShader1 extends ApplicationAdapter {
 
         shader = new ShaderProgram(
                 Gdx.files.internal("assets/shader/shengdanshu/1.v"),
-                Gdx.files.internal("assets/shader/shengdanshu/1.f")
+//                Gdx.files.internal("assets/shader/shengdanshu/fragment_8.f")
+                Gdx.files.internal("assets/shader/shengdanshu/1005.f")
         );
+//
+//        vec2 colorV2 = gl_FragCoord.xy / u_resolution;
+//        colorV2.x *= u_resolution.x / u_resolution.y;
+//        float len = disten(colorV2);
+//        vec3 color = vec3(0.0);
+//        //vec3 color = vec3(sin(len));
+//        color += 0.5 + 0.5 * cos(len * 10);
+//        gl_FragColor = vec4(color, 1.0);
+
         // 全屏四边形
         mesh = new Mesh(
                 true,
@@ -55,7 +65,7 @@ public class SimpleShader1 extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         shader.bind();
-//        shader.setUniformf("u_time", time * 0.1f);
+        shader.setUniformf("u_time", time * 0.1f);
 //        shader.setUniformf("a", time * 0.1f);
         shader.setUniformf(
                 "u_resolution",
