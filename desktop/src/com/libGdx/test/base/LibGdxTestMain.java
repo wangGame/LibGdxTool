@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.anr.ANRDEMO;
+import com.kw.gdx.constant.Constant;
 import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
 
@@ -76,6 +77,6 @@ public class LibGdxTestMain extends BaseGame {
 
     @Override
     protected void initViewport() {
-        stageViewport = new ExtendViewport(1080,1920);
+        stageViewport = new ExtendViewport(Constant.WIDTH,Constant.HIGHT);
     }
 }

@@ -2,6 +2,7 @@ package com.kw.gdx.action;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
@@ -60,4 +61,32 @@ public class NewActions {
         return action;
     }
 
+    public static NumAction numAction(float start,
+                                      float end,
+                                      float duration) {
+        return numAction(start,end,duration,null,null);
+    }
+
+    public static NumAction numAction(float start,
+                                      float end,
+                                      float duration,
+                                      NumActionListener runListener) {
+        return numAction(start,end,duration,runListener,null);
+    }
+
+    public static NumAction numAction(float start,
+                               float end,
+                               float duration,
+                               NumActionListener runListener,
+                               NumActionListener endListener
+                               ) {
+
+        NumAction action = Actions.action(NumAction.class);
+        action.setStart(start);
+        action.setEnd(end);
+        action.setDuration(duration);
+        action.setNumActionListener(runListener);
+        action.setEndRunable(endListener);
+        return action;
+    }
 }
