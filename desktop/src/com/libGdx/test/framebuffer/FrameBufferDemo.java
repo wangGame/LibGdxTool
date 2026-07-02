@@ -35,7 +35,7 @@ public class FrameBufferDemo extends LibGdxTestMain {
 
         Table table = new Table();
         for (int i = 0; i < 100; i++) {
-            Image image = new Image(Asset.getAsset().getTexture("0_1_41_512.jpg"));
+            Image image = new Image(Asset.getAsset().getTexture("wood.png"));
             table.add(image);
             table.row();
         }
