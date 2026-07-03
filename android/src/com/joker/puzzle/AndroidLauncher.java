@@ -98,9 +98,9 @@ public class AndroidLauncher extends BaseAndroidLauncher {
             }
         }), configuration);
 
-
-        Intent intent = new Intent(this, KeyboardHeightCaseDemoActivity.class);
-        startActivity(intent);
+//
+//        Intent intent = new Intent(this, KeyboardHeightCaseDemoActivity.class);
+//        startActivity(intent);
 
 
 
