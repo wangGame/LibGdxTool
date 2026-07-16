@@ -1,0 +1,635 @@
+{
+  "skeleton": {
+    "hash": "T7M7K4zXkbU",
+    "spine": "4.1.23",
+    "x": -720,
+    "y": -1280,
+    "width": 1439.94,
+    "height": 2560,
+    "images": "./images/",
+    "audio": "F:/XM_jigsolitaire/缎带/images"
+  },
+  "bones": [
+    {
+      "name": "root"
+    },
+    {
+      "name": "bone",
+      "parent": "root"
+    },
+    {
+      "name": "bone2",
+      "parent": "bone",
+      "x": -0.74,
+      "y": 1065.9,
+      "color": "3cff00ff"
+    },
+    {
+      "name": "puzzle1",
+      "parent": "bone2",
+      "x": -427.26,
+      "y": -431.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "puzzle2",
+      "parent": "bone2",
+      "x": 0.74,
+      "y": -431.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "puzzle3",
+      "parent": "bone2",
+      "x": 428.74,
+      "y": -431.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "puzzle4",
+      "parent": "bone2",
+      "x": -427.26,
+      "y": -1071.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "puzzle5",
+      "parent": "bone2",
+      "x": 0.74,
+      "y": -1073.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "puzzle6",
+      "parent": "bone2",
+      "x": 428.74,
+      "y": -1073.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "puzzle7",
+      "parent": "bone2",
+      "x": -427.26,
+      "y": -1711.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "puzzle8",
+      "parent": "bone2",
+      "x": 0.74,
+      "y": -1711.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "puzzle9",
+      "parent": "bone2",
+      "x": 428.74,
+      "y": -1711.9,
+      "color": "32ff00ff"
+    },
+    {
+      "name": "di",
+      "parent": "bone",
+      "x": -9.43,
+      "y": -242.77,
+      "color": "00fbffff"
+    },
+    {
+      "name": "bone7",
+      "parent": "bone",
+      "y": 1184.38
+    },
+    {
+      "name": "bone3",
+      "parent": "bone",
+      "x": -0.74,
+      "y": 1065.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle19",
+      "parent": "bone3",
+      "x": -427.26,
+      "y": -431.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle10",
+      "parent": "puzzle19",
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle20",
+      "parent": "bone3",
+      "x": 0.74,
+      "y": -431.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle11",
+      "parent": "puzzle20",
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle21",
+      "parent": "bone3",
+      "x": 428.74,
+      "y": -431.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle12",
+      "parent": "puzzle21",
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle22",
+      "parent": "bone3",
+      "x": -427.26,
+      "y": -1071.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle13",
+      "parent": "puzzle22",
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle23",
+      "parent": "bone3",
+      "x": 0.74,
+      "y": -1073.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle14",
+      "parent": "puzzle23",
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle24",
+      "parent": "bone3",
+      "x": 428.74,
+      "y": -1073.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle15",
+      "parent": "puzzle24",
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle25",
+      "parent": "bone3",
+      "x": -427.26,
+      "y": -1711.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle16",
+      "parent": "puzzle25",
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle26",
+      "parent": "bone3",
+      "x": 0.74,
+      "y": -1711.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle17",
+      "parent": "puzzle26",
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle27",
+      "parent": "bone3",
+      "x": 428.74,
+      "y": -1711.9,
+      "color": "ff0000ff"
+    },
+    {
+      "name": "puzzle18",
+      "parent": "puzzle27",
+      "color": "ff0000ff"
+    }
+  ],
+  "slots": [
+    {
+      "name": "a",
+      "bone": "bone",
+      "attachment": "a"
+    },
+    {
+      "name": "bg",
+      "bone": "bone",
+      "attachment": "bg"
+    },
+    {
+      "name": "ad",
+      "bone": "bone",
+      "attachment": "ad"
+    },
+    {
+      "name": "topbar_bg",
+      "bone": "bone7",
+      "attachment": "topbar_bg"
+    },
+    {
+      "name": "ic_setting",
+      "bone": "bone7",
+      "attachment": "ic_setting"
+    },
+    {
+      "name": "Level 2",
+      "bone": "bone7",
+      "attachment": "Level 2"
+    },
+    {
+      "name": "puzzle_bg",
+      "bone": "di",
+      "attachment": "puzzle_bg"
+    },
+    {
+      "name": "puzzle9",
+      "bone": "puzzle9",
+      "attachment": "puzzle9"
+    },
+    {
+      "name": "puzzle18",
+      "bone": "puzzle18",
+      "color": "ffffff00",
+      "attachment": "puzzle9"
+    },
+    {
+      "name": "puzzle8",
+      "bone": "puzzle8",
+      "attachment": "puzzle8"
+    },
+    {
+      "name": "puzzle17",
+      "bone": "puzzle17",
+      "color": "ffffff00",
+      "attachment": "puzzle8"
+    },
+    {
+      "name": "puzzle7",
+      "bone": "puzzle7",
+      "attachment": "puzzle7"
+    },
+    {
+      "name": "puzzle16",
+      "bone": "puzzle16",
+      "color": "ffffff00",
+      "attachment": "puzzle7"
+    },
+    {
+      "name": "puzzle6",
+      "bone": "puzzle6",
+      "attachment": "puzzle6"
+    },
+    {
+      "name": "puzzle15",
+      "bone": "puzzle15",
+      "color": "ffffff00",
+      "attachment": "puzzle6"
+    },
+    {
+      "name": "puzzle5",
+      "bone": "puzzle5",
+      "attachment": "puzzle5"
+    },
+    {
+      "name": "puzzle14",
+      "bone": "puzzle14",
+      "color": "ffffff00",
+      "attachment": "puzzle5"
+    },
+    {
+      "name": "puzzle4",
+      "bone": "puzzle4",
+      "attachment": "puzzle4"
+    },
+    {
+      "name": "puzzle13",
+      "bone": "puzzle13",
+      "color": "ffffff00",
+      "attachment": "puzzle4"
+    },
+    {
+      "name": "puzzle3",
+      "bone": "puzzle3",
+      "attachment": "puzzle3"
+    },
+    {
+      "name": "puzzle12",
+      "bone": "puzzle12",
+      "color": "ffffff00",
+      "attachment": "puzzle3"
+    },
+    {
+      "name": "puzzle2",
+      "bone": "puzzle2",
+      "attachment": "puzzle2"
+    },
+    {
+      "name": "puzzle11",
+      "bone": "puzzle11",
+      "color": "ffffff00",
+      "attachment": "puzzle2"
+    },
+    {
+      "name": "puzzle1",
+      "bone": "puzzle1",
+      "attachment": "puzzle1"
+    },
+    {
+      "name": "puzzle10",
+      "bone": "puzzle10",
+      "color": "ffffff00",
+      "attachment": "puzzle1"
+    },
+    {
+      "name": "star",
+      "bone": "bone",
+      "attachment": "star"
+    }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "a": {
+          "a": {
+            "type": "clipping",
+            "end": "a",
+            "vertexCount": 4,
+            "vertices": [
+              -719.96,
+              1280,
+              719.82,
+              1279.9,
+              719.94,
+              -1280.18,
+              -720,
+              -1279.92
+            ],
+            "color": "ce3a3aff"
+          }
+        },
+        "ad": {
+          "ad": {
+            "y": -1168,
+            "width": 1440,
+            "height": 224
+          }
+        },
+        "bg": {
+          "bg": {
+            "width": 1440,
+            "height": 2560
+          }
+        },
+        "ic_setting": {
+          "ic_setting": {
+            "x": -608,
+            "y": -24.38,
+            "width": 72,
+            "height": 76
+          }
+        },
+        "Level 2": {
+          "Level 2": {
+            "x": 0.5,
+            "y": -36.38,
+            "width": 261,
+            "height": 60
+          }
+        },
+        "puzzle1": {
+          "puzzle1": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle2": {
+          "puzzle2": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle3": {
+          "puzzle3": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle4": {
+          "puzzle4": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle5": {
+          "puzzle5": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle6": {
+          "puzzle6": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle7": {
+          "puzzle7": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle8": {
+          "puzzle8": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle9": {
+          "puzzle9": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle10": {
+          "puzzle1": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle11": {
+          "puzzle2": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle12": {
+          "puzzle3": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle13": {
+          "puzzle4": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle14": {
+          "puzzle5": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle15": {
+          "puzzle6": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle16": {
+          "puzzle7": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle17": {
+          "puzzle8": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle18": {
+          "puzzle9": {
+            "width": 424,
+            "height": 636
+          }
+        },
+        "puzzle_bg": {
+          "puzzle_bg": {
+            "x": 9.43,
+            "y": 234.77,
+            "width": 1280,
+            "height": 1920
+          }
+        },
+        "star": {
+          "star": {
+            "x": 8,
+            "y": 416,
+            "width": 970,
+            "height": 482
+          }
+        },
+        "topbar_bg": {
+          "topbar_bg": {
+            "y": -40.38,
+            "width": 1440,
+            "height": 272
+          }
+        }
+      }
+    }
+  ],
+  "animations": {
+    "animation4": {
+      "slots": {
+        "puzzle11": {
+          "rgba": [
+            {
+              "time": 0.9,
+              "color": "ffffffff"
+            }
+          ]
+        },
+        "puzzle_bg": {
+          "rgba": [
+            {
+              "color": "ffffff00",
+              "curve": [
+                0.167,
+                1,
+                0.333,
+                1,
+                0.167,
+                1,
+                0.333,
+                1,
+                0.167,
+                1,
+                0.333,
+                1,
+                0.167,
+                0,
+                0.333,
+                1
+              ]
+            },
+            {
+              "time": 0.5,
+              "color": "ffffffff"
+            }
+          ]
+        }
+      },
+      "bones": {
+        "puzzle11": {
+          "scale": [
+            {
+              "time": 1.7667,
+              "curve": [
+                1.822,
+                1,
+                1.933,
+                0,
+                1.822,
+                1,
+                1.878,
+                1
+              ]
+            },
+            {
+              "time": 1.9333,
+              "x": 0,
+              "curve": [
+                1.933,
+                0,
+                2.061,
+                1,
+                2.006,
+                1,
+                2.061,
+                1
+              ]
+            },
+            {
+              "time": 2.1333
+            }
+          ],
+          "shear": [
+            {
+              "time": 1.7667
+            },
+            {
+              "time": 1.9333,
+              "x": -15.29
+            },
+            {
+              "time": 2.1333
+            }
+          ]
+        },
+      }
+    }
+  }
+}

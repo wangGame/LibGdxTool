@@ -14,8 +14,6 @@ import com.kw.gdx.constant.Constant;
 
 public class BufferBufferUtils extends Group {
    private FrameBuffer buffer;
-   private int type = 1; //0 一直更新    1只更新一次
-   private boolean isBatched;
    private Actor actor;
 
    public BufferBufferUtils(Actor group){
@@ -26,10 +24,6 @@ public class BufferBufferUtils extends Group {
 
    @Override
    public void draw(Batch batch, float parentAlpha) {
-//      if (type == 1&&isBatched){
-//         return;
-//      }
-      isBatched = true;
       batch.flush();
 
       buffer.begin();
