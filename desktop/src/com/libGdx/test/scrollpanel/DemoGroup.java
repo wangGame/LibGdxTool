@@ -14,14 +14,14 @@ import com.kw.gdx.constant.Constant;
  */
 class DemoGroup extends Group {
     private Image image;
-    private float offsetX = 200;
+    private float offsetX = 600;
     private int index;
     public DemoGroup(int i){
         this.index = i;
         image = new Image(Asset.getAsset().getTexture("hand1.png"));
         image.setDebug(true);
         addActor(image);
-        setSize(image.getWidth(),image.getHeight());
+        setSize(image.getWidth()*2,image.getHeight());
         image.setSize(image.getWidth(),image.getHeight());
         image.setPosition(getWidth()/2,getHeight()/2, Align.center);
         setOrigin(Align.center);
@@ -35,8 +35,7 @@ class DemoGroup extends Group {
         this.getParent().localToStageCoordinates(temp);
         if (temp.x > Constant.GAMEWIDTH/2.0f - offsetX && temp.x<Constant.GAMEWIDTH/2.0f + offsetX){
             float v = Math.abs(temp.x - Constant.GAMEWIDTH / 2.0f);
-
-            setScale(1.0f+0.4f*(Math.abs(v - offsetX)/offsetX));
+            setScale(1.0f+1f*(Math.abs(v - offsetX)/offsetX));
         }else{
             setScale(1.0f);
         }

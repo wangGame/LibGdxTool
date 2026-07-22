@@ -32,11 +32,12 @@ public class FrameBufferDemo extends LibGdxTestMain {
         Image bg = new Image(Asset.getAsset().getTexture("white.png"));
         bg.setSize(10000, 10000);
         addActor(bg);
+        bg.setColor(0.5f, 0.5f, 0.5f, 1f);
 
         Table table = new Table();
         for (int i = 0; i < 100; i++) {
             Image image = new Image(Asset.getAsset().getTexture("wood.png"));
-            table.add(image);
+            table.add(image).pad(10);
             table.row();
         }
         table.pack();

@@ -3,6 +3,7 @@ package com.libGdx.test.framebuffer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -14,8 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.Layout;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kw.gdx.constant.Constant;
+
+import java.nio.ByteBuffer;
 
 public class FrameBufferGroup extends Group {
 
@@ -49,7 +53,9 @@ public class FrameBufferGroup extends Group {
          */
         this.fboW = (int) Constant.GAMEWIDTH;
         this.fboH = (int) Constant.GAMEHIGHT;
-
+        pixelBuffer = BufferUtils.newByteBuffer(
+                fboW * fboH * 4
+        );
         /**
          * 真正想截图的区域大小：ScrollPane 原始宽高。
          * 注意：这里不要乘 scale。
@@ -87,6 +93,60 @@ public class FrameBufferGroup extends Group {
          */
         addActor(actor);
     }
+    private void readFrameBufferPixels() {
+
+        pixelBuffer.clear();
+
+
+        Gdx.gl.glReadPixels(
+                0,
+                0,
+                fboW,
+                fboH,
+                GL20.GL_RGBA,
+                GL20.GL_UNSIGNED_BYTE,
+                pixelBuffer
+        );
+
+
+        pixelBuffer.position(0);
+
+
+        System.out.println(
+                "capacity = "
+                        + pixelBuffer.capacity()
+        );
+    }
+    private void saveFrame() {
+
+
+        Pixmap pixmap =
+                new Pixmap(
+                        fboW,
+                        fboH,
+                        Pixmap.Format.RGBA8888
+                );
+
+
+        pixmap.getPixels()
+                .put(pixelBuffer);
+
+
+        pixmap.getPixels().flip();
+
+
+
+
+        xx++;
+        PixmapIO.writePNG(
+                Gdx.files.local("capture"+xx+".png"),
+                pixmap
+        );
+
+
+        pixmap.dispose();
+    }
+    private int xx = 0;
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
@@ -154,9 +214,12 @@ public class FrameBufferGroup extends Group {
         actor.draw(batch, parentAlpha);
 
         batch.flush();
-
+        readFrameBufferPixels();
         frameBuffer.end();
+// GPU -> CPU
 
+
+        saveFrame();
         /**
          * 恢复 actor 状态。
          */
@@ -252,7 +315,7 @@ public class FrameBufferGroup extends Group {
 
         return backup;
     }
-
+    private ByteBuffer pixelBuffer;
     private void restoreViewport(StageViewportBackup backup) {
         if (backup.viewport == null) return;
 
