@@ -173,7 +173,7 @@ public class BaseScreen implements Screen {
         }
     }
 
-    private void initTouch() {
+    protected void initTouch() {
         stage.addListener(BackInputListener());
         touchEnable();
     }

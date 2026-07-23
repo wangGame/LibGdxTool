@@ -33,7 +33,6 @@ public class CanyGame extends BaseGame {
     @Override
     public void create() {
         super.create();
-        Constant.TOUEABLETYPE = 1; //有点击效果
         //增加3D模型加载器
         AssetManager assetManager = Asset.getAsset().getAssetManager();
         assetManager.setLoader(Model.class, new G3dModelLoader(new JsonReader(), assetManager.getFileHandleResolver()));
@@ -66,6 +65,5 @@ public class CanyGame extends BaseGame {
     @Override
     protected void otherDispose() {
         Asset.disposeNull();
-        ModelBatchUtils.disposeAll();
     }
 }

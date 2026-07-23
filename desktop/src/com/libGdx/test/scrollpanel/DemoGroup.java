@@ -35,7 +35,6 @@ class DemoGroup extends Group {
         this.getParent().localToStageCoordinates(temp);
         if (temp.x > Constant.GAMEWIDTH/2.0f - offsetX && temp.x<Constant.GAMEWIDTH/2.0f + offsetX){
             float v = Math.abs(temp.x - Constant.GAMEWIDTH / 2.0f);
-
             setScale(1.0f+0.4f*(Math.abs(v - offsetX)/offsetX));
         }else{
             setScale(1.0f);

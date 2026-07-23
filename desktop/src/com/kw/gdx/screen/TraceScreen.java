@@ -98,7 +98,6 @@ public class TraceScreen extends BaseScreen {
         stage.addListener(new InputListener() {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
-                if (Constant.disAble) return false;
 
                 switch (keycode) {
                     case Input.Keys.R:

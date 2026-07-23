@@ -29,7 +29,7 @@ public class PathBoundingClippingPreviewActor extends Actor {
     public PathBoundingClippingPreviewActor(PathBoundingClippingEditor editor) {
         this.editor = editor;
         this.shapeRenderer = new ShapeRenderer();
-        this.font = Asset.getAsset().loadBitFont();
+        this.font = Asset.getAsset().loadBitFont("");
         setTouchable(com.badlogic.gdx.scenes.scene2d.Touchable.enabled);
     }
 

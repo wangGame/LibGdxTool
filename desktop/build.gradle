@@ -9,6 +9,8 @@ project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
 
 dependencies {
+    implementation 'org.json:json:20210307'
+    implementation 'commons-io:commons-io:2.11.0'
     implementation files('libs/gdx-backend-lwjgl.jar')
     implementation files('libs/gdx-platform-1.13.1-natives-desktop.jar')
     implementation files('libs/gdx-tools.jar')

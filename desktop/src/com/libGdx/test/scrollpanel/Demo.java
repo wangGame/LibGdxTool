@@ -25,7 +25,7 @@ public class Demo extends LibGdxTestMain {
         Table table = new Table(){
             {
                 for (int i = 0; i < 15; i++) {
-                    add(new DemoGroup(i));
+//                    add(new DemoGroup(i)).padLeft().padRight();
                 }
                 pack();
             }

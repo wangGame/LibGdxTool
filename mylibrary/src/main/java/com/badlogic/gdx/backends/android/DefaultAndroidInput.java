@@ -640,7 +640,7 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 
 	@Override
 	public void setOnscreenKeyboardVisible (final boolean visible) {
-		setOnscreenKeyboardVisible(visible, OnscreenKeyboardType.Default);
+		setOnscreenKeyboardVisible(visible, OnscreenKeyboardType.NumberPad);
 	}
 
 	private boolean onscreenVisible = false;

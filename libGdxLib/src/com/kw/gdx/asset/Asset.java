@@ -477,4 +477,8 @@ public class Asset {
         ArrayResult result = assetManager.get(s, ArrayResult.class);
         return result.array;
     }
+
+    public Pixmap getPixmap(String image) {
+        return null;
+    }
 }
