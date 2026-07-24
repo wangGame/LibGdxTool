@@ -1,5 +1,11 @@
 # LibGdxTool
 
+![GitHub Package Version](https://img.shields.io/github/package-json/v/wangGame/LibGdxTool)
+![Release](https://img.shields.io/github/v/release/wangGame/LibGdxTool)
+![License](https://img.shields.io/github/license/wangGame/LibGdxTool)
+![Stars](https://img.shields.io/github/stars/wangGame/LibGdxTool)
+
+
 [![Build Status](https://img.shields.io/github/actions/workflow/status/wangGame/LibGdxTool/gradle.yml?branch=master)](https://github.com/wangGame/LibGdxTool/actions)
 
 [![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool)
