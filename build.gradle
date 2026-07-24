@@ -26,7 +26,8 @@ buildscript {
 
 allprojects {
     apply plugin: "idea"
-    version = '1.0'
+    group = 'com.github.wanggame'
+    version = '2.0.6-test'
     ext {
         appName = "LibGdxTool"
     }
@@ -50,5 +51,82 @@ allprojects {
         gradlePluginPortal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+    }
+}
+
+def githubPackagesOwner = 'wangGame'
+def githubPackagesRepo = 'LibGdxTool'
+
+subprojects {
+    // Publish Java modules as Maven artifacts.
+    pluginManager.withPlugin('java') {
+        apply plugin: 'maven-publish'
+
+        java {
+            withSourcesJar()
+            withJavadocJar()
+        }
+
+        tasks.withType(Javadoc).configureEach {
+            options.encoding = 'UTF-8'
+            if (JavaVersion.current().isJava9Compatible()) {
+                options.addBooleanOption('Xdoclint:none', true)
+            }
+        }
+
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    from components.java
+                    artifactId = project.name.toLowerCase()
+                }
+            }
+            repositories {
+                mavenLocal()
+                maven {
+                    name = 'GitHubPackages'
+                    url = uri("https://maven.pkg.github.com/${githubPackagesOwner}/${githubPackagesRepo}")
+                    credentials {
+                        username = findProperty('gpr.user') ?: System.getenv('GITHUB_ACTOR')
+                        password = findProperty('gpr.key') ?: System.getenv('GITHUB_TOKEN')
+                    }
+                }
+            }
+        }
+    }
+
+    // Publish Android library modules (AAR) from release variant.
+    pluginManager.withPlugin('com.android.library') {
+        apply plugin: 'maven-publish'
+
+        android {
+            publishing {
+                singleVariant('release') {
+                    withSourcesJar()
+                }
+            }
+        }
+
+        afterEvaluate {
+            publishing {
+                publications {
+                    release(MavenPublication) {
+                        from components.release
+                        artifactId = project.name.toLowerCase()
+                    }
+                }
+                repositories {
+                    mavenLocal()
+                    maven {
+                        name = 'GitHubPackages'
+                        url = uri("https://maven.pkg.github.com/${githubPackagesOwner}/${githubPackagesRepo}")
+                        credentials {
+                            username = findProperty('gpr.user') ?: System.getenv('GITHUB_ACTOR')
+                            password = findProperty('gpr.key') ?: System.getenv('GITHUB_TOKEN')
+                        }
+                    }
+                }
+            }
+        }
     }
 }
