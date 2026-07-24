@@ -4,6 +4,45 @@
 
 [![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool)
 
+## 发布状态 (GitHub Packages)
+
+- 状态: 已发布
+- 仓库: `wangGame/LibGdxTool`
+- Maven 地址: `https://maven.pkg.github.com/wangGame/LibGdxTool`
+- 当前版本: `2.0.5`
+- groupId: `com.github.wanggame`
+- artifactId 规则: 模块名全小写
+
+### 已发布模块
+
+- Java/JAR: `core`, `desktop`, `fontgenerator`, `libcommon`, `libgdx`, `libgdxbox2d`, `libgdxevent`, `libgdxjnigenloader`, `libgdxlib`, `libgdxlib3d`, `libgdxlibtool3d`, `libgdxmultdown`
+- Android/AAR: `mylibrary`
+
+### 使用方式 (Gradle)
+
+```groovy
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/wangGame/LibGdxTool")
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.github.wanggame:libcommon:2.0.5"
+}
+```
+
+### 发布说明
+
+- `publish`: 发布到 `mavenLocal` + GitHub Packages
+- `publishToMavenLocal`: 只发布到本地仓库
+- 如果远程返回 `409 Conflict`，通常表示相同坐标版本已存在，需要升级版本号后重发
+
 ## 修改完版本号
 
 执行下面的命令
