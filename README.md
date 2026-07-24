@@ -10,7 +10,7 @@
 - 仓库: `wangGame/LibGdxTool`
 - Maven 地址: `https://maven.pkg.github.com/wangGame/LibGdxTool`
 - 最新 Release: [![Release](https://img.shields.io/github/v/release/wangGame/LibGdxTool?display_name=tag)](https://github.com/wangGame/LibGdxTool/releases)
-- 当前版本: `2.0.8` [auto-sync]
+- 当前版本: `3.0.0` [auto-sync]
 - groupId: `com.github.wanggame`
 - artifactId 规则: 模块名全小写
 
