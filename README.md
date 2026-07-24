@@ -1,6 +1,6 @@
 # LibGdxTool
 
-![Build](https://github.com/wangGame/LibGdxTool/actions/workflows/build.yml/badge.svg)
+![GitHub Package Version](https://img.shields.io/github/package-json/v/wangGame/LibGdxTool)
 ![Release](https://img.shields.io/github/v/release/wangGame/LibGdxTool)
 ![License](https://img.shields.io/github/license/wangGame/LibGdxTool)
 ![Stars](https://img.shields.io/github/stars/wangGame/LibGdxTool)
