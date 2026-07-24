@@ -92,12 +92,17 @@ public class ANRError extends Exception {
 
         return new ANRError(tst, duration);
     }
+    static ANRError NewMainOnly(long duration, Thread targetThread) {
+        final StackTraceElement[] targetStackTrace =
+                targetThread.getStackTrace();
 
-    static ANRError NewMainOnly(long duration) {
-        final Thread mainThread = Thread.currentThread();
-        final StackTraceElement[] mainStackTrace = mainThread.getStackTrace();
-
-        return new ANRError(new StackTraceUtils(getThreadTitle(mainThread), mainStackTrace).new _Thread(null), duration);
+        return new ANRError(
+                new StackTraceUtils(
+                        getThreadTitle(targetThread),
+                        targetStackTrace
+                ).new _Thread(null),
+                duration
+        );
     }
 
     private static String getThreadTitle(Thread thread) {

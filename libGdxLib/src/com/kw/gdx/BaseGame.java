@@ -29,6 +29,7 @@ import com.kw.gdx.resource.annotation.GameInfo;
 import com.kw.gdx.screen.BaseScreen;
 import com.kw.gdx.utils.log.NLog;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -65,16 +66,13 @@ public class BaseGame extends Game {
 
     protected void anrTest() {
         ANRDEMO anrdemo = AnnotationInfo.checkClassAnnotation(this, ANRDEMO.class);
-        if (anrdemo!=null){
-            float delaytime = anrdemo.delaytime();
-            dog = new ANRWatchDog((int) (delaytime ));
-            dog.start();
-            dog.setANRListener(new ANRListener() {
-                @Override
-                public void onAppNotResponding(ANRError error) {
-                    error.printStackTrace();
-                }
-            });
+        if (anrdemo!=null) {
+            long delaytime = anrdemo.delaytime();
+            ANRWatchDog anrWatchDog = new ANRWatchDog(delaytime);
+//            anrWatchDog.setIgnoreDebugger(true); //忽略
+//            anrWatchDog.setReportThreadNamePrefix("main"); //指定线程
+            anrWatchDog.setReportMainThreadOnly(); //
+            anrWatchDog.start();
         }
     }
 

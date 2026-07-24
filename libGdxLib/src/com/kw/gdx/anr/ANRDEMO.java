@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ANRDEMO {
-    float delaytime()default 1000;
+    long delaytime()default 1000;
 }

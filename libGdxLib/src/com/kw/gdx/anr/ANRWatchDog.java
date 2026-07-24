@@ -14,7 +14,7 @@ public class ANRWatchDog extends Thread {
     private ANRListener anrListener = DEFAULT_ANR_LISTENER;
     private ANRInterceptor anrInterceptor = DEFAULT_ANR_INTERCEPTOR;
     private InterruptionListener interruptionListener = DEFAULT_INTERRUPTION_LISTENER;
-    private final int timeoutInterval;
+    private final long timeoutInterval;
     private String namePrefix = "";
     private boolean _logThreadsWithoutStackTrace = false;
     private volatile long tick = 0;
@@ -51,7 +51,7 @@ public class ANRWatchDog extends Thread {
         this(DEFAULT_ANR_TIMEOUT);
     }
 
-    public ANRWatchDog(int timeoutInterval) {
+    public ANRWatchDog(long timeoutInterval) {
         super();
         //多久报告
         this.timeoutInterval = timeoutInterval;
@@ -62,7 +62,7 @@ public class ANRWatchDog extends Thread {
     /**
      * @return The interval the WatchDog
      */
-    public int getTimeoutInterval() {
+    public long getTimeoutInterval() {
         return timeoutInterval;
     }
 
@@ -209,7 +209,7 @@ public class ANRWatchDog extends Thread {
                 if (ignoreDebugger){
                     NLog.i("_ignoreDebugger -------------------");
                     reported = true;
-                    return;
+                    continue;
                 }
                 //noinspection ConstantConditions
                 interval = anrInterceptor.intercept(tick);
@@ -220,7 +220,7 @@ public class ANRWatchDog extends Thread {
                 if (namePrefix != null) {
                     error = ANRError.New(tick, namePrefix, _logThreadsWithoutStackTrace,targetThread);
                 } else {
-                    error = ANRError.NewMainOnly(tick);
+                    error = ANRError.NewMainOnly(tick,targetThread);
                 }
                 anrListener.onAppNotResponding(error);
                 interval = timeoutInterval;
