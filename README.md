@@ -9,7 +9,8 @@
 - 状态: 已发布
 - 仓库: `wangGame/LibGdxTool`
 - Maven 地址: `https://maven.pkg.github.com/wangGame/LibGdxTool`
-- 当前版本: `2.0.5`
+- 最新 Release: [![Release](https://img.shields.io/github/v/release/wangGame/LibGdxTool?display_name=tag)](https://github.com/wangGame/LibGdxTool/releases)
+- 当前版本: `2.0.6` [auto-sync]
 - groupId: `com.github.wanggame`
 - artifactId 规则: 模块名全小写
 
@@ -24,10 +25,6 @@
 repositories {
     maven {
         url = uri("https://maven.pkg.github.com/wangGame/LibGdxTool")
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-        }
     }
     mavenCentral()
 }

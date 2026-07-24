@@ -57,6 +57,32 @@ allprojects {
 def githubPackagesOwner = 'wangGame'
 def githubPackagesRepo = 'LibGdxTool'
 
+tasks.register('syncReadmeVersion') {
+    doLast {
+        def readme = file("${rootDir}/README.md")
+        if (!readme.exists()) {
+            return
+        }
+
+        def markerPattern = /- 当前版本: `[^`]+` \[auto-sync\]/
+        def currentText = readme.getText('UTF-8')
+        def updatedText = currentText.replaceFirst(markerPattern, "- 当前版本: `${version}` [auto-sync]")
+
+        if (currentText != updatedText) {
+            readme.write(updatedText, 'UTF-8')
+            println "README version synced to ${version}"
+        }
+    }
+}
+
+gradle.projectsEvaluated {
+    allprojects {
+        tasks.matching { it.name == 'publish' }.configureEach {
+            dependsOn rootProject.tasks.named('syncReadmeVersion')
+        }
+    }
+}
+
 subprojects {
     // Publish Java modules as Maven artifacts.
     pluginManager.withPlugin('java') {
