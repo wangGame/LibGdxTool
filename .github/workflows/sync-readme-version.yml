@@ -24,36 +24,36 @@ jobs:
         run: |
           set -euo pipefail
           python3 - <<'PY'
-import re
-from pathlib import Path
-build_file = Path('build.gradle')
-readme_file = Path('README.md')
+          import re
+          from pathlib import Path
+          build_file = Path('build.gradle')
+          readme_file = Path('README.md')
 
-build_text = build_file.read_text(encoding='utf-8')
-match = re.search(r"version\s*=\s*'([^']+)'", build_text)
-if not match:
-    raise SystemExit('Cannot find version in build.gradle')
+          build_text = build_file.read_text(encoding='utf-8')
+          match = re.search(r"version\s*=\s*'([^']+)'", build_text)
+          if not match:
+              raise SystemExit('Cannot find version in build.gradle')
 
-version = match.group(1)
-print(f'Detected version: {version}')
+          version = match.group(1)
+          print(f'Detected version: {version}')
 
-readme_text = readme_file.read_text(encoding='utf-8')
-new_readme_text, replaced = re.subn(
-    r"- 当前版本: `[^`]+` \[auto-sync\]",
-    f"- 当前版本: `{version}` [auto-sync]",
-    readme_text,
-    count=1,
-)
+          readme_text = readme_file.read_text(encoding='utf-8')
+          new_readme_text, replaced = re.subn(
+              r"- 当前版本: `[^`]+` \[auto-sync\]",
+              f"- 当前版本: `{version}` [auto-sync]",
+              readme_text,
+              count=1,
+          )
 
-if replaced == 0:
-    raise SystemExit('README.md does not contain the expected version marker line')
+          if replaced == 0:
+              raise SystemExit('README.md does not contain the expected version marker line')
 
-if new_readme_text != readme_text:
-    readme_file.write_text(new_readme_text, encoding='utf-8')
-    print('README.md updated')
-else:
-    print('README.md already up to date')
-PY
+          if new_readme_text != readme_text:
+              readme_file.write_text(new_readme_text, encoding='utf-8')
+              print('README.md updated')
+          else:
+              print('README.md already up to date')
+          PY
 
       - name: Commit README change
         run: |
