@@ -4,6 +4,14 @@
 
 [![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool)
 
+## 修改完版本号
+
+执行下面的命令
+
+```
+gradlew publish
+```
+
 ## 1.13.1
 
 已经更新1.13.1版本，切换分支
