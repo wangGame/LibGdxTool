@@ -9,6 +9,7 @@ on:
       - libgdx1.13.1
     paths:
       - build.gradle
+      - gradle.properties
 
 permissions:
   contents: write
@@ -20,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Sync version from build.gradle to README.md
+      - name: Sync version to README.md
         shell: bash
         run: |
           set -euo pipefail
@@ -28,14 +29,26 @@ jobs:
           import re
           from pathlib import Path
           build_file = Path('build.gradle')
+          props_file = Path('gradle.properties')
           readme_file = Path('README.md')
 
-          build_text = build_file.read_text(encoding='utf-8')
-          match = re.search(r"version\s*=\s*'([^']+)'", build_text)
-          if not match:
-              raise SystemExit('Cannot find version in build.gradle')
+          version = None
+          if build_file.exists():
+              build_text = build_file.read_text(encoding='utf-8')
+              match = re.search(r"version\s*=\s*'([^']+)'", build_text)
+              if match:
+                  version = match.group(1)
 
-          version = match.group(1)
+          # Support dynamic Gradle version assignment: version = findProperty('toolVersion') ?: 'x.y.z'
+          if version is None and props_file.exists():
+              props_text = props_file.read_text(encoding='utf-8')
+              match = re.search(r"(?m)^\s*toolVersion\s*=\s*([^\s#]+)\s*$", props_text)
+              if match:
+                  version = match.group(1).strip()
+
+          if version is None:
+              raise SystemExit('Cannot find version in build.gradle or toolVersion in gradle.properties')
+
           print(f'Detected version: {version}')
 
           readme_text = readme_file.read_text(encoding='utf-8')
