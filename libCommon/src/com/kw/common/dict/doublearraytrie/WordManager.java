@@ -2,10 +2,18 @@ package com.kw.common.dict.doublearraytrie;
 
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileInputStream;
-import java.nio.file.Files;
+import java.io.IOException;
 
 public class WordManager {
+
+    private static final String PRIMARY_DICTIONARY =
+            "assets\\dict\\dictionary.dat";
+
+
+    private static final String LEGACY_DICTIONARY =
+            "dictionary.dat";
 
 
     private DoubleArrayTrie trie;
@@ -18,13 +26,18 @@ public class WordManager {
         try{
 
 
-            FileInputStream inputStream = new FileInputStream("assets\\dict\\word.txt");
+            try(
+                    FileInputStream inputStream =
+                            openDictionaryStream()
+            ){
 
 
-            trie =
-                    new DoubleArrayTrie(
-                            inputStream
-                    );
+                trie =
+                        new DoubleArrayTrie(
+                                inputStream
+                        );
+
+            }
 
 
 
@@ -37,9 +50,49 @@ public class WordManager {
     }
 
 
+    private FileInputStream openDictionaryStream()
+            throws IOException {
+
+
+        File primaryFile =
+                new File(PRIMARY_DICTIONARY);
+
+
+        if(primaryFile.isFile()){
+
+            return new FileInputStream(primaryFile);
+
+        }
+
+
+        File legacyFile =
+                new File(LEGACY_DICTIONARY);
+
+
+        if(legacyFile.isFile()){
+
+            return new FileInputStream(legacyFile);
+
+        }
+
+
+        throw new FileNotFoundException(
+                "Dictionary file not found. Run App to generate " + PRIMARY_DICTIONARY
+        );
+
+    }
+
+
 
 
     public boolean check(String word){
+
+
+        if(trie==null){
+
+            return false;
+
+        }
 
 
         return trie.contains(word);

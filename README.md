@@ -128,16 +128,16 @@ actorAttachment.setActor(group);
 SkeletonData data = actor.getSkeleton().getData();
 Skin defaultSkin = data.getDefaultSkin();
 for (Skin.SkinEntry attachment : defaultSkin.getAttachments()) {
-    if (attachment.getName().equals("xuanq2_00")) {
+        if (attachment.getName().equals("xuanq2_00")) {
         attachment.setAttachment(actorAttachment);
     }
-}
+            }
 ```
 
 ## group tranfrom
 
 - SpriteBatch
- 
+
 ```
 @Override
 public void setTransformMatrix (Matrix4 transform) {
@@ -202,7 +202,7 @@ ESA
 
 ## 加密使用异或运算
 
-简单的异或容易被破解，所以本次使用ESA加密字段  
+简单的异或容易被破解，所以本次使用ESA加密字段
 
 目前暂定加密数值
 - 异或值7

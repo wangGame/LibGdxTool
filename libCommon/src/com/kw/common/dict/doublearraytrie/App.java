@@ -1,10 +1,17 @@
 package com.kw.common.dict.doublearraytrie;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class App {
+
+    private static final String SOURCE_FILE =
+            "assets\\dict\\word.txt";
+
+
+    private static final String OUTPUT_FILE =
+            "assets\\dict\\dictionary.dat";
+
     public static void main(String[] args) throws Exception {
         TrieNode root =
                 new TrieNode();
@@ -14,7 +21,7 @@ public class App {
         BufferedReader br =
                 new BufferedReader(
                         new FileReader(
-                                "assets\\dict\\word.txt"
+                                SOURCE_FILE
                         )
                 );
 
@@ -49,11 +56,14 @@ public class App {
 
 
 
-                cur.children
-                        .putIfAbsent(
-                                code,
-                                new TrieNode()
-                        );
+                if(!cur.children.containsKey(code)){
+
+                    cur.children.put(
+                            code,
+                            new TrieNode()
+                    );
+
+                }
 
 
                 cur =
@@ -82,7 +92,7 @@ public class App {
 
 
         builder.save(
-                "dictionary.dat"
+                OUTPUT_FILE
         );
 
 
