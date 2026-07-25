@@ -12,6 +12,7 @@ def releaseStoreFile = releaseSigningProps.getProperty("storeFile") ?: System.ge
 def releaseStorePassword = releaseSigningProps.getProperty("storePassword") ?: System.getenv("ANDROID_KEYSTORE_PASSWORD")
 def releaseKeyAlias = releaseSigningProps.getProperty("keyAlias") ?: System.getenv("ANDROID_KEY_ALIAS")
 def releaseKeyPassword = releaseSigningProps.getProperty("keyPassword") ?: System.getenv("ANDROID_KEY_PASSWORD")
+def useAliyunMirror = ((rootProject.findProperty('useAliyunMirror') ?: System.getenv('USE_ALIYUN_MIRROR') ?: 'false') as String).toBoolean()
 
 def hasReleaseSigning = releaseStoreFile && releaseStorePassword && releaseKeyAlias && releaseKeyPassword
 
@@ -128,12 +129,16 @@ task runKeyboardDemo(type: Exec) {
 }
 
 repositories{
-    jcenter()
-    mavenCentral()
-    maven { url 'https://maven.aliyun.com/repository/central' }
-    maven { url 'https://maven.aliyun.com/repository/jcenter' }
-    maven { url 'https://maven.aliyun.com/repository/public' }
     mavenLocal()
+    google()
+    mavenCentral()
+
+    if (useAliyunMirror) {
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+    }
+
     flatDir {
         dirs 'libs'
     }

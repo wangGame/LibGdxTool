@@ -1,22 +1,27 @@
 buildscript {
+    def useAliyunMirror = ((findProperty('useAliyunMirror') ?: System.getenv('USE_ALIYUN_MIRROR') ?: 'false') as String).toBoolean()
+
     repositories {
-        maven {
-            url 'https://maven.aliyun.com/repository/central'
-            name 'central'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-            name 'jcenter'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-            name 'Google'
-        }
         mavenLocal()
+        google()
         mavenCentral()
         gradlePluginPortal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        google()
+
+        if (useAliyunMirror) {
+            maven {
+                url 'https://maven.aliyun.com/repository/central'
+                name 'aliyun-central'
+            }
+            maven {
+                url 'https://maven.aliyun.com/repository/jcenter'
+                name 'aliyun-jcenter'
+            }
+            maven {
+                url 'https://maven.aliyun.com/repository/google'
+                name 'aliyun-google'
+            }
+        }
     }
 
     dependencies {
@@ -25,6 +30,8 @@ buildscript {
 }
 
 allprojects {
+    def useAliyunMirror = ((findProperty('useAliyunMirror') ?: System.getenv('USE_ALIYUN_MIRROR') ?: 'false') as String).toBoolean()
+
     apply plugin: "idea"
     group = 'com.github.wanggame'
     version = '3.0.0'
@@ -32,25 +39,28 @@ allprojects {
         appName = "LibGdxTool"
     }
     repositories {
-        maven {
-            url 'https://maven.aliyun.com/repository/central'
-            name 'central'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/jcenter'
-            name 'jcenter'
-        }
-        maven {
-            url 'https://maven.aliyun.com/repository/google'
-            name 'Google'
-        }
-        maven { url 'https://jitpack.io' }
         mavenLocal()
         mavenCentral()
         google()
+        maven { url 'https://jitpack.io' }
         gradlePluginPortal()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+
+        if (useAliyunMirror) {
+            maven {
+                url 'https://maven.aliyun.com/repository/central'
+                name 'aliyun-central'
+            }
+            maven {
+                url 'https://maven.aliyun.com/repository/jcenter'
+                name 'aliyun-jcenter'
+            }
+            maven {
+                url 'https://maven.aliyun.com/repository/google'
+                name 'aliyun-google'
+            }
+        }
     }
 }
 
