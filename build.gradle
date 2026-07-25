@@ -34,7 +34,7 @@ allprojects {
 
     apply plugin: "idea"
     group = 'com.github.wanggame'
-    version = '3.0.0'
+    version = findProperty('toolVersion') ?: '3.0.0'
     ext {
         appName = "LibGdxTool"
     }
@@ -166,3 +166,70 @@ subprojects {
         }
     }
 }
+
+def toolJarStateFile = file("${rootProject.projectDir}/.gradle/tool-packaging/last-jar-version.properties")
+def toolJarBuildTasks = ((findProperty('toolJarBuildTasks') ?: ':desktop:dist') as String)
+        .split(',')
+        .collect { it.trim() }
+        .findAll { !it.isEmpty() }
+
+def readLastPackedToolJarVersion = {
+    if (!toolJarStateFile.exists()) {
+        return null
+    }
+    def props = new Properties()
+    toolJarStateFile.withInputStream { props.load(it) }
+    return props.getProperty('version')
+}
+
+def writeLastPackedToolJarVersion = { String packedVersion ->
+    toolJarStateFile.parentFile.mkdirs()
+    def props = new Properties()
+    props.setProperty('version', packedVersion)
+    toolJarStateFile.withOutputStream { props.store(it, 'Auto-generated. Last packaged tool jar version.') }
+}
+
+tasks.register('packageToolJarIfNeeded') {
+    group = 'build'
+    description = 'Packages tool jar tasks only when project version changed.'
+    dependsOn(toolJarBuildTasks)
+
+    onlyIf {
+        def currentVersion = rootProject.version.toString()
+        def lastPackedVersion = readLastPackedToolJarVersion()
+        def shouldPack = currentVersion != lastPackedVersion
+        if (!shouldPack) {
+            println "Skip tool jar packaging: version ${currentVersion} already packaged."
+        }
+        return shouldPack
+    }
+
+    doFirst {
+        println "Packaging tool jar because version changed to ${rootProject.version}."
+    }
+
+    doLast {
+        writeLastPackedToolJarVersion(rootProject.version.toString())
+        println "Tool jar package state updated: version ${rootProject.version}."
+    }
+}
+
+tasks.register('packageToolJarStatus') {
+    group = 'help'
+    description = 'Prints current and last packaged tool jar versions.'
+    doLast {
+        def currentVersion = rootProject.version.toString()
+        def lastPackedVersion = readLastPackedToolJarVersion() ?: 'none'
+        println "toolJarBuildTasks = ${toolJarBuildTasks}"
+        println "currentVersion   = ${currentVersion}"
+        println "lastPackedVersion= ${lastPackedVersion}"
+    }
+}
+
+tasks.register('packRelease') {
+    group = 'build'
+    description = 'Builds release APK and packages tool jar only when version changes.'
+    dependsOn ':android:assembleRelease'
+    dependsOn tasks.named('packageToolJarIfNeeded')
+}
+

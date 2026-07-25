@@ -54,16 +54,16 @@ final class NetworkStatusUtils {
         if (networkCapabilities == null) {
             return 0;
         }
-        if (networkCapabilities.hasTransport(1)) {
+        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
             return 2;
         }
-        if (networkCapabilities.hasTransport(0)) {
+        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
             return 1;
         }
-        if (networkCapabilities.hasTransport(3)) {
+        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
             return 3;
         }
-        return networkCapabilities.hasTransport(4) ? 4 : 0;
+        return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ? 4 : 0;
     }
 
     static int getNetworkType(NetworkInfo networkInfo) {
@@ -84,7 +84,9 @@ final class NetworkStatusUtils {
     }
 
     static boolean isConnected(NetworkCapabilities networkCapabilities) {
-        return getNetworkType(networkCapabilities) != 0 && networkCapabilities.hasCapability(12) && networkCapabilities.hasCapability(16);
+        return getNetworkType(networkCapabilities) != 0
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
     }
 
     static boolean isConnected(NetworkInfo networkInfo) {
@@ -103,6 +105,6 @@ final class NetworkStatusUtils {
         if (context == null) {
             return null;
         }
-        return (ConnectivityManager) context.getSystemService("connectivity");
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 }

@@ -46,6 +46,8 @@ import android.widget.TextView.OnEditorActionListener;
 import android.window.OnBackInvokedCallback;
 import android.window.OnBackInvokedDispatcher;
 
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
+
 import com.badlogic.gdx.AbstractInput;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
@@ -764,7 +766,7 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 		// Why? Why isn't it working without?
 		relativeLayout.setBackgroundColor(Color.TRANSPARENT);
 
-		final AutoCompleteTextView editText = new AutoCompleteTextView(context) {
+		final AutoCompleteTextView editText = new AppCompatAutoCompleteTextView(context) {
 
 			private int count = 0;
 
