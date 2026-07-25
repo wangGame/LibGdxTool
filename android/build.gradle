@@ -1,4 +1,20 @@
 apply plugin: "com.android.application"
+
+def releaseSigningProps = new Properties()
+def releaseSigningPropsFile = rootProject.file("android/key.properties")
+if (releaseSigningPropsFile.exists()) {
+    releaseSigningPropsFile.withInputStream { stream ->
+        releaseSigningProps.load(stream)
+    }
+}
+
+def releaseStoreFile = releaseSigningProps.getProperty("storeFile") ?: System.getenv("ANDROID_KEYSTORE_FILE")
+def releaseStorePassword = releaseSigningProps.getProperty("storePassword") ?: System.getenv("ANDROID_KEYSTORE_PASSWORD")
+def releaseKeyAlias = releaseSigningProps.getProperty("keyAlias") ?: System.getenv("ANDROID_KEY_ALIAS")
+def releaseKeyPassword = releaseSigningProps.getProperty("keyPassword") ?: System.getenv("ANDROID_KEY_PASSWORD")
+
+def hasReleaseSigning = releaseStoreFile && releaseStorePassword && releaseKeyAlias && releaseKeyPassword
+
 android {
     namespace "com.tony.puzzle"
     compileSdk 35
@@ -25,10 +41,23 @@ android {
         }
 
     }
+    signingConfigs {
+        release {
+            if (hasReleaseSigning) {
+                storeFile file(releaseStoreFile)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
         }
         debug {
             // 显示Log

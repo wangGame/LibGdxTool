@@ -1,0 +1,7 @@
+# Copy this file to android/key.properties and fill values for release signing.
+# Do not commit android/key.properties.
+storeFile=C:/path/to/release.keystore
+storePassword=replace_me
+keyAlias=replace_me
+keyPassword=replace_me
+
