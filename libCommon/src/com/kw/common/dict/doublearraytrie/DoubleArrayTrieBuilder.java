@@ -124,11 +124,9 @@ public class DoubleArrayTrieBuilder {
         List<Integer> result =
                 new ArrayList<>();
 
-        for(int key:
-                node.children.keySet()){
-
-            result.add(key);
-        }
+        result.addAll(
+                node.children.keySet()
+        );
 
         return result;
     }
@@ -144,6 +142,10 @@ public class DoubleArrayTrieBuilder {
         touch(index);
 
 
+        word[index]=
+                nodes.get(0).isWord;
+
+
         List<Integer> siblings =
                 new ArrayList<>();
 
@@ -157,10 +159,8 @@ public class DoubleArrayTrieBuilder {
         }
 
 
-        if(siblings.size()==0){
+        if(siblings.isEmpty()){
 
-            word[index]=
-                    nodes.get(0).isWord;
 
             touch(index);
 
@@ -277,38 +277,38 @@ public class DoubleArrayTrieBuilder {
             throws Exception{
 
 
-        DataOutputStream out =
-                new DataOutputStream(
-                        new BufferedOutputStream(
-                                new FileOutputStream(file)
+        try(
+                DataOutputStream out =
+                        new DataOutputStream(
+                                new BufferedOutputStream(
+                                        new FileOutputStream(file)
+                                )
                         )
-                );
+        ){
 
 
 
-        out.writeInt(
-                DoubleArrayTrie.MAGIC
-        );
+            out.writeInt(
+                    DoubleArrayTrie.MAGIC
+            );
 
 
-        out.writeInt(size);
-
-
-
-        for(int i=0;i<size;i++)
-            out.writeInt(base[i]);
-
-
-        for(int i=0;i<size;i++)
-            out.writeInt(check[i]);
-
-
-        for(int i=0;i<size;i++)
-            out.writeBoolean(word[i]);
+            out.writeInt(size);
 
 
 
-        out.close();
+            for(int i=0;i<size;i++)
+                out.writeInt(base[i]);
+
+
+            for(int i=0;i<size;i++)
+                out.writeInt(check[i]);
+
+
+            for(int i=0;i<size;i++)
+                out.writeBoolean(word[i]);
+
+        }
 
     }
 

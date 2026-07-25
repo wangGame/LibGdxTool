@@ -1,7 +1,4 @@
 package com.kw.common.dict.doublearraytrie;
-
-
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,9 +38,12 @@ public class WordManager {
 
 
 
-        }catch(Exception e){
+        }catch(IOException e){
 
-            e.printStackTrace();
+            throw new IllegalStateException(
+                    "Failed to load dictionary data",
+                    e
+            );
 
         }
 
@@ -54,24 +54,20 @@ public class WordManager {
             throws IOException {
 
 
-        File primaryFile =
-                new File(PRIMARY_DICTIONARY);
+        try{
 
+            return new FileInputStream(PRIMARY_DICTIONARY);
 
-        if(primaryFile.isFile()){
-
-            return new FileInputStream(primaryFile);
+        }catch(FileNotFoundException ignored){
 
         }
 
 
-        File legacyFile =
-                new File(LEGACY_DICTIONARY);
+        try{
 
+            return new FileInputStream(LEGACY_DICTIONARY);
 
-        if(legacyFile.isFile()){
-
-            return new FileInputStream(legacyFile);
+        }catch(FileNotFoundException ignored){
 
         }
 

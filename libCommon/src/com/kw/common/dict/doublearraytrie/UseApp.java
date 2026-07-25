@@ -11,12 +11,12 @@ public class UseApp {
 
 
         System.out.println(
-                manager.check("apple")
+                manager.check("aaapp")
         );
 
 
         System.out.println(
-                manager.check("banana")
+                manager.check("ant")
         );
 
 
