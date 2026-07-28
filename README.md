@@ -34,6 +34,7 @@ dependencies {
 }
 ```
 
+
 ### 发布说明
 
 - `publish`: 发布到 `mavenLocal` + GitHub Packages
@@ -51,6 +52,11 @@ gradlew publish
 ## 1.13.1
 
 已经更新1.13.1版本，切换分支
+
+
+## 最近计划
+
+写一个解析动画的工具
 
 ## 添加忽略
 

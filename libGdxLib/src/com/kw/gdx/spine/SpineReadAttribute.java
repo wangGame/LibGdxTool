@@ -157,8 +157,9 @@ public class SpineReadAttribute {
         transBean.setBaseX(baseX);
         transBean.setBaseY(baseY);
         transBean.setWorldOffX(0);
-        transBean.setWorldOffY(-771f);
+        transBean.setWorldOffY(0);
         transBean.setBone(bone);
+        actor.setPosition(baseX + bone.getWorldX(),baseY + bone.getWorldY(), Align.center);
         transMap.put(actor,transBean);
     }
 

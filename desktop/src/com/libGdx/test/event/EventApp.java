@@ -2,8 +2,7 @@ package com.libGdx.test.event;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.kw.gdx.event.simpleevent.Data;
-import com.kw.gdx.event.simpleevent.DelayEventListener;
+import com.kw.gdx.event.simpleevent.demo.Data;
 import com.kw.gdx.event.simpleevent.EventListener;
 import com.kw.gdx.event.simpleevent.EventManager;
 import com.libGdx.test.base.LibGdxTestMain;
@@ -37,7 +36,7 @@ public class EventApp extends LibGdxTestMain {
         //延迟执行 ，需要考虑后面任务覆盖前面的任务
         {
             EventManager instance = EventManager.getInstance();
-            instance.addEventListener("addCoin2", new DelayEventListener<Data>() {
+            instance.addEventListener("addCoin2", new EventListener<Data>() {
                 @Override
                 public void listener(Data e) {
                     System.out.println(e);

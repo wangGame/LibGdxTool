@@ -1,4 +1,7 @@
-package com.kw.gdx.event.simpleevent;
+package com.kw.gdx.event.simpleevent.demo;
+
+import com.kw.gdx.event.simpleevent.EventListener;
+import com.kw.gdx.event.simpleevent.EventManager;
 
 /**
  * event事件system
@@ -31,7 +34,7 @@ public class App {
 
         {
             EventManager instance = EventManager.getInstance();
-            instance.addEventListener("addCoin1", new DelayEventListener<Data>() {
+            instance.addEventListener("addCoin1", new EventListener<Data>() {
                 @Override
                 public void listener(Data e) {
                     System.out.println(e);

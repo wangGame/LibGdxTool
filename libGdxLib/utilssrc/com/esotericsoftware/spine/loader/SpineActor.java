@@ -21,6 +21,7 @@ import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.esotericsoftware.spine.SkeletonRendererDebug;
 import com.esotericsoftware.spine.Skin;
+import com.esotericsoftware.spine.attachments.ActorAttachment;
 import com.esotericsoftware.spine.attachments.AtlasAttachmentLoader;
 import com.esotericsoftware.spine.attachments.Attachment;
 import com.esotericsoftware.spine.attachments.MeshAttachment;
@@ -326,6 +327,20 @@ public class SpineActor extends Actor {
                         attachment2.resetSize();
                         attachment2.updateRegion();
                     }
+                }
+            }
+        }
+    }
+
+    public void updateAttribute(String name, ActorAttachment actorAttachment) {
+        SkeletonData data = skeleton.getData();
+        Array<Skin> skins = data.getSkins();
+        for (Skin skin1 : skins) {
+            Array<Skin.SkinEntry> attachments = skin1.getAttachments();
+            for (Skin.SkinEntry attachment : attachments) {
+                Attachment attachment1 = attachment.getAttachment();
+                if (attachment1.getName().endsWith(name)) {
+                    attachment.setAttachment(actorAttachment);
                 }
             }
         }

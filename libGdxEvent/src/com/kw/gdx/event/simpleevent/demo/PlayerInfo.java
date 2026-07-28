@@ -1,4 +1,4 @@
-package com.kw.gdx.event.simpleevent;
+package com.kw.gdx.event.simpleevent.demo;
 
 public class PlayerInfo {
     private String name;
