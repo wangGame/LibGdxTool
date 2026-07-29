@@ -37,13 +37,10 @@ public class EventManager {
         }
     }
 
-    public <T> void submit(String name,T t,float time){
-        ArrayList<EventListener> eventListeners = this.delayEventListenerMap.get(name);
+    public <T> void submit(String keyName, SubTaskManager<T> subTaskManager) {
+        ArrayList<EventListener> eventListeners = this.delayEventListenerMap.get(keyName);
         if (eventListeners!=null){
             for (EventListener eventListener : eventListeners) {
-                SubTaskManager subTaskManager = new SubTaskManager();
-                subTaskManager.setTime(time);
-                subTaskManager.setData(t);
                 eventListener.addSubTaskManagers(subTaskManager);
             }
         }
