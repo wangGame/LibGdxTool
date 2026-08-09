@@ -133,7 +133,7 @@ public class BaseDialog extends Group {
             AudioProcess.playSound(openMusic);
         }
     }
-
+B
     protected void playCloseAudio(){
         if (playCloseAudio){
             AudioProcess.playSound(closeMusic);

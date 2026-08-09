@@ -83,10 +83,12 @@ public class BaseGame extends Game {
     }
 
     protected void printInfo() {
-        String version = Gdx.gl.glGetString(GL20.GL_VERSION);
-        String glslVersion = Gdx.gl.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
-        NLog.i("version: %s ,glslVersion : %s",version,glslVersion);
-        NLog.i("LibgdxTool version: %s",Version.VERSION);
+        if (Constant.DEBUG) {
+            String version = Gdx.gl.glGetString(GL20.GL_VERSION);
+            String glslVersion = Gdx.gl.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION);
+            NLog.i("version: %s ,glslVersion : %s",version,glslVersion);
+            NLog.i("LibgdxTool version: %s",Version.VERSION);
+        }
     }
 
     private void initExtends() {
@@ -245,7 +247,6 @@ public class BaseGame extends Game {
 
     }
 
-
     @Override
     public void pause () {
         super.pause();
@@ -261,7 +262,6 @@ public class BaseGame extends Game {
             zhuanCScreen.resume();
         }
     }
-
 
     public void zhuancEnd() {
         if (zhuanCScreen!=null) {

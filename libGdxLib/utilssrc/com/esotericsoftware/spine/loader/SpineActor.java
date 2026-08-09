@@ -73,8 +73,7 @@ public class SpineActor extends Actor {
             assetamnagerinstance.load(path + ".json", SkeletonData.class,mainSkeletonParameter);
             assetamnagerinstance.finishLoading();
         }
-        init(path);
-    }
+        init(path);}
 
     public SpineActor(String path, String atlas,AssetManager assetManager) {
         this.path = path;

@@ -51,7 +51,7 @@ public class BaseScreen implements Screen {
     protected float centerY;
     private InputMultiplexer multiplexer;
     protected float bannerHight;
-    protected boolean activeScreen = false;
+    protected boolean activeScreen;
     protected Vector2 screenSize;
 
     public BaseScreen(BaseGame game){
