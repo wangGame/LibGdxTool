@@ -3,7 +3,9 @@ package com.joker.domos;
 import com.joker.domos.listener.UserInputListener;
 import com.joker.domos.screen.LoadScreen;
 import com.kw.gdx.BaseGame;
+import com.kw.gdx.anr.ANRDEMO;
 
+@ANRDEMO(delaytime = 100)
 public class GameTest extends BaseGame {
     private static UserInputListener userInputListener;
     public GameTest(UserInputListener userInputListener) {

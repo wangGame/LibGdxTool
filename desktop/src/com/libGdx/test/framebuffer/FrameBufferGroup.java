@@ -47,8 +47,10 @@ public class FrameBufferGroup extends Group {
          * 因为 ScrollPane 内部 Scissor 裁剪依赖 Stage viewport，
          * 用全屏 FBO 更不容易出裁剪错位。
          */
-        this.fboW = (int) Constant.GAMEWIDTH;
-        this.fboH = (int) Constant.GAMEHIGHT;
+        // Render in ScrollPane-local coordinates so an enclosing Group's
+        // position cannot offset the FBO viewport or its scissor rectangle.
+        this.fboW = (int) scrollPane.getWidth();
+        this.fboH = (int) scrollPane.getHeight();
 
         /**
          * 真正想截图的区域大小：ScrollPane 原始宽高。
@@ -178,7 +180,7 @@ public class FrameBufferGroup extends Group {
     private void updateRegion() {
         region.setRegion(
                 0,
-                fboH - captureH,
+                0,
                 captureW,
                 captureH
         );

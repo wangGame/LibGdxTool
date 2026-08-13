@@ -44,7 +44,7 @@ public class FrameBufferDemo extends LibGdxTestMain {
         ScrollPane scrollPane = new ScrollPane(table);
         scrollPane.setSize(
                 Constant.GAMEWIDTH,
-                Constant.GAMEHIGHT
+                Constant.GAMEHIGHT - 200
         );
 
         scrollPane.setOrigin(Align.center);
@@ -57,6 +57,7 @@ public class FrameBufferDemo extends LibGdxTestMain {
 
         group = new FrameBufferGroup(scrollPane);
         addActor(group);
+        group.setPosition(100,200);
 
         bufferTexture = group.getBufferTexture(1);
 
@@ -69,17 +70,17 @@ public class FrameBufferDemo extends LibGdxTestMain {
 
             @Override
             public void draw(Batch batch, float parentAlpha) {
-                batch.setShader(program);
-
-                float v = 220f / getHeight();
-                program.setUniformf("u_bottomFade", v);
-                program.setUniformf("u_topFade", v);
-                program.setUniformf("top", bufferTexture.getV());
-                program.setUniformf("u_curve", 0.5f);
+//                batch.setShader(program);
+//
+//                float v = 220f / getHeight();
+//                program.setUniformf("u_bottomFade", v);
+//                program.setUniformf("u_topFade", v);
+//                program.setUniformf("top", bufferTexture.getV());
+//                program.setUniformf("u_curve", 0.5f);
 
                 super.draw(batch, parentAlpha);
 
-                batch.setShader(null);
+//                batch.setShader(null);
             }
 
             @Override
@@ -90,7 +91,7 @@ public class FrameBufferDemo extends LibGdxTestMain {
                 }
             }
         };
-
+        temp.setDebug(true);
         /**
          * 这里控制最终显示大小。
          * 比如显示为原 ScrollPane 的 0.4 倍。

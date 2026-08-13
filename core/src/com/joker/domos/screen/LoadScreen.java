@@ -3,6 +3,7 @@ package com.joker.domos.screen;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -23,6 +24,15 @@ public class LoadScreen extends BaseScreen {
     @Override
     public void initView() {
         super.initView();
+
+        stage.addAction(Actions.forever(Actions.delay(1f, Actions.run(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }))));
+
 //        TextField textField = new TextField("",new TextField.TextFieldStyle(){{
 //            font = Asset.getAsset().loadBitFont("font/Manrope-Bold_56_1.fnt");
 //            cursor = new TextureRegionDrawable(Asset.getAsset().getSprite("textfield/textc.png"));
