@@ -29,18 +29,14 @@ public class PackZip {
         }
         try {
             for (File listFile : file.listFiles()) {
-                NLog.i("deal file %s ",listFile.getPath());
-                long start = System.currentTimeMillis();
                 String targetZipName =zipName + listFile.getName()+".zip";
                 FileOutputStream target = new FileOutputStream(targetZipName);
                 ZipOutputStream out = new ZipOutputStream(target);
                 getZipFile(out, listFile, "");
                 out.close();
-                long end = System.currentTimeMillis();
-                NLog.e(listFile.getName() + " use time " + (end - start) +" ms");
             }
           } catch (IOException e) {
-            throw new RuntimeException("创建zip文件失败", e);
+                throw new RuntimeException("创建zip文件失败", e);
         }
     }
 
@@ -288,18 +284,15 @@ public class PackZip {
         if (inputFile.isDirectory()) {
             String[] childrenFilePath = inputFile.list();
             for (int i = 0; i < childrenFilePath.length; i++) {
-                boolean success = deleteDir(new File(inputFile, childrenFilePath[i]));
-                NLog.i("delate %s is %s",childrenFilePath[i],success);
-                if (!success){
-                    NLog.i(childrenFilePath[i]+"delele error!");
-                }
+                deleteDir(new File(inputFile, childrenFilePath[i]));
             }
         }
         if (inputFile.exists()) {
             if (inputFile.delete()) {
+                NLog.i("delete %s success!",inputFile.getPath());
                 return true;
             } else {
-                NLog.e("dir delete error!");
+                NLog.i("delete %s error!",inputFile.getPath());
                 return false;
             }
         }

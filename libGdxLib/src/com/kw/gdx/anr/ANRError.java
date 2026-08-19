@@ -93,6 +93,11 @@ public class ANRError extends Exception {
         return new ANRError(tst, duration);
     }
 
+    /**
+     * 仅仅主线程  获取栈的信息
+     * @param duration
+     * @return
+     */
     static ANRError NewMainOnly(long duration) {
         final Thread mainThread = Thread.currentThread();
         final StackTraceElement[] mainStackTrace = mainThread.getStackTrace();

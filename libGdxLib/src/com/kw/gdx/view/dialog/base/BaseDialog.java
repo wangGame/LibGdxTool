@@ -42,10 +42,6 @@ public class BaseDialog extends Group {
     protected boolean entered = false;
     protected boolean closeFlag = false;
     protected boolean closed;
-    /**
-     * 立即执行，把等弹窗打开就可以直接关闭
-     */
-    protected boolean executeImmediately;
 
     public void setFont(boolean font) {
         isFont = font;
@@ -133,7 +129,7 @@ public class BaseDialog extends Group {
             AudioProcess.playSound(openMusic);
         }
     }
-B
+
     protected void playCloseAudio(){
         if (playCloseAudio){
             AudioProcess.playSound(closeMusic);
@@ -285,6 +281,4 @@ B
             }
         });
     }
-
-
 }

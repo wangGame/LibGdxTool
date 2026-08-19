@@ -15,7 +15,6 @@ public class BannerView extends Group {
 
     public BannerView(float bannerWidth, float bannerHight) {
         PixmapImage pixmapImage = new PixmapImage((int)bannerWidth,(int)bannerHight);
-//        Image image = new Image(pixmapImage.getPixmap());banner.png
         Image image = new Image(Asset.getAsset().getTexture("banner.png"));
 //        addActor(image);
         image.setSize(bannerWidth,bannerHight);
