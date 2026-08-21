@@ -21,10 +21,12 @@ public class ThreadTest extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
+        //创建一个线程池
         ThreadUtils threadUtils = ThreadUtils.getThreadUtils();
         Image image = new Image(Asset.getAsset().getTexture("assets/7.png"));
         addActor(image);
         image.addAction(Actions.scaleTo(100,100,10));
+        //线程池执行任务
         threadUtils.doTask(new Task<Boolean>() {
             @Override
             public Boolean doRunnable() {

@@ -1,5 +1,8 @@
 .gradle/
 .idea/
+android/key.properties
+*.keystore
+*.jks
 android/build/
 core/build/
 desktop/build/

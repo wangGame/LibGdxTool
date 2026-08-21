@@ -21,7 +21,6 @@ public class ActionDemo extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-
         FileHandle internal = Gdx.files.internal("assets/actorspine/coin.json");
         System.out.println(internal);
         String jsonText = Gdx.files.internal("assets/actorspine/coin.json").readString("UTF-8");

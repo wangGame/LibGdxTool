@@ -92,15 +92,15 @@ public class ANRError extends Exception {
 
         return new ANRError(tst, duration);
     }
+
+    /**
+     * 仅记录被监控线程的栈信息。
+     */
     static ANRError NewMainOnly(long duration, Thread targetThread) {
-        final StackTraceElement[] targetStackTrace =
-                targetThread.getStackTrace();
+        final StackTraceElement[] targetStackTrace = targetThread.getStackTrace();
 
         return new ANRError(
-                new StackTraceUtils(
-                        getThreadTitle(targetThread),
-                        targetStackTrace
-                ).new _Thread(null),
+                new StackTraceUtils(getThreadTitle(targetThread), targetStackTrace).new _Thread(null),
                 duration
         );
     }

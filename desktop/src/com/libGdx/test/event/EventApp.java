@@ -2,8 +2,9 @@ package com.libGdx.test.event;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.kw.gdx.event.simpleevent.Data;
-import com.kw.gdx.event.simpleevent.DelayEventListener;
+import com.kw.gdx.event.simpleevent.EventType;
+import com.kw.gdx.event.simpleevent.SubTaskManager;
+import com.kw.gdx.event.simpleevent.demo.Data;
 import com.kw.gdx.event.simpleevent.EventListener;
 import com.kw.gdx.event.simpleevent.EventManager;
 import com.libGdx.test.base.LibGdxTestMain;
@@ -37,7 +38,7 @@ public class EventApp extends LibGdxTestMain {
         //延迟执行 ，需要考虑后面任务覆盖前面的任务
         {
             EventManager instance = EventManager.getInstance();
-            instance.addEventListener("addCoin2", new DelayEventListener<Data>() {
+            instance.addEventListener("addCoin2", new EventListener<Data>() {
                 @Override
                 public void listener(Data e) {
                     System.out.println(e);
@@ -47,19 +48,31 @@ public class EventApp extends LibGdxTestMain {
                 Data data = new Data();
                 data.setAddr("xxxxxxxxxxx");
                 data.setName("zzzzzzzzzzzzzzzz");
-                instance.submit("addCoin2", data,2);
+                SubTaskManager<Data> subTaskManager = new SubTaskManager<>();
+                subTaskManager.setTime(4);
+                subTaskManager.setData(data);
+                subTaskManager.setEventType(EventType.Once);
+                instance.submit("addCoin2", subTaskManager);
             }
             {
                 Data data = new Data();
                 data.setAddr("xxxxxxxxxxx");
                 data.setName("zzzzzzzzzzzzzzzz");
-                instance.submit("addCoin2", data, 4);
+                SubTaskManager<Data> subTaskManager = new SubTaskManager<>();
+                subTaskManager.setTime(4);
+                subTaskManager.setData(data);
+                subTaskManager.setEventType(EventType.Once);
+                instance.submit("addCoin2",subTaskManager);
             }
             {
                 Data data = new Data();
                 data.setAddr("xxxxxxxxxxx");
                 data.setName("zzzzzzzzzzzzzzzz");
-                instance.submit("addCoin2", data, 6);
+                SubTaskManager<Data> subTaskManager = new SubTaskManager<>();
+                subTaskManager.setTime(4);
+                subTaskManager.setData(data);
+                subTaskManager.setEventType(EventType.Once);
+                instance.submit("addCoin2", subTaskManager);
             }
 
         }

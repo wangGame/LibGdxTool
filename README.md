@@ -4,9 +4,59 @@
 
 [![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool)
 
+## 发布状态 (GitHub Packages)
+
+- 状态: 已发布
+- 仓库: `wangGame/LibGdxTool`
+- Maven 地址: `https://maven.pkg.github.com/wangGame/LibGdxTool`
+- 最新 Release: [![Release](https://img.shields.io/github/v/release/wangGame/LibGdxTool?display_name=tag)](https://github.com/wangGame/LibGdxTool/releases)
+- 当前版本: `3.0.0` [auto-sync]
+- groupId: `com.github.wanggame`
+- artifactId 规则: 模块名全小写
+
+### 已发布模块
+
+- Java/JAR: `core`, `desktop`, `fontgenerator`, `libcommon`, `libgdx`, `libgdxbox2d`, `libgdxevent`, `libgdxjnigenloader`, `libgdxlib`, `libgdxlib3d`, `libgdxlibtool3d`, `libgdxmultdown`
+- Android/AAR: `mylibrary`
+
+### 使用方式 (Gradle)
+
+```groovy
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/wangGame/LibGdxTool")
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.github.wanggame:libcommon:2.0.5"
+}
+```
+
+
+### 发布说明
+
+- `publish`: 发布到 `mavenLocal` + GitHub Packages
+- `publishToMavenLocal`: 只发布到本地仓库
+- 如果远程返回 `409 Conflict`，通常表示相同坐标版本已存在，需要升级版本号后重发
+
+## 修改完版本号
+
+执行下面的命令
+
+```
+gradlew publish
+```
+
 ## 1.13.1
 
 已经更新1.13.1版本，切换分支
+
+
+## 最近计划
+
+写一个解析动画的工具
 
 ## 添加忽略
 
@@ -84,16 +134,16 @@ actorAttachment.setActor(group);
 SkeletonData data = actor.getSkeleton().getData();
 Skin defaultSkin = data.getDefaultSkin();
 for (Skin.SkinEntry attachment : defaultSkin.getAttachments()) {
-    if (attachment.getName().equals("xuanq2_00")) {
+        if (attachment.getName().equals("xuanq2_00")) {
         attachment.setAttachment(actorAttachment);
     }
-}
+            }
 ```
 
 ## group tranfrom
 
 - SpriteBatch
- 
+
 ```
 @Override
 public void setTransformMatrix (Matrix4 transform) {
@@ -158,7 +208,7 @@ ESA
 
 ## 加密使用异或运算
 
-简单的异或容易被破解，所以本次使用ESA加密字段  
+简单的异或容易被破解，所以本次使用ESA加密字段
 
 目前暂定加密数值
 - 异或值7

@@ -1,12 +1,16 @@
 package com.kw.gdx.event.simpleevent;
 
-public abstract class EventListener<T> {
-    private EventType eventType = EventType.Once; //立即
+import java.util.ArrayList;
 
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
+public abstract class EventListener<T> {
+    protected ArrayList<SubTaskManager<T>> subTaskManagers = new ArrayList<>();
+    public void listener(T t){}
+
+    public void addSubTaskManagers(SubTaskManager<T> subTaskManager) {
+        this.subTaskManagers.add(subTaskManager);
     }
 
-    public void listener(T t){}
-    public void listener(){}
+    public void update(float dt){
+
+    }
 }

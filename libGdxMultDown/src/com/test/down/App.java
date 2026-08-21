@@ -11,19 +11,11 @@ public class App {
     String basePath = "D:/img";
 
     public static void main(String[] args) {
-        String strUrl[] = {
-                "video1.f4v",
-                "video2.f4v",
-                "video1.f4v",
-                "video2.f4v",
-                "video1.f4v",
-                "video2.f4v"
-        };
         App app = new App();
         DownFileManager instance = DownFileManager.getInstance();
-        for (String s : strUrl) {
-            String downLoadUrl = "http://192.168.1.59/ceshi/"+s;
-            instance.download(downLoadUrl, app.basePath, s);
+        for (int i = 0; i < 10; i++) {
+            String downLoadUrl = "http://127.0.0.1/2.mp4";
+            instance.download(downLoadUrl, app.basePath, "2.mp4");
         }
     }
 }

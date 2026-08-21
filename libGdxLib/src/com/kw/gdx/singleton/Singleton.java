@@ -14,14 +14,17 @@ public class Singleton {
 
     @SuppressWarnings("unchecked")
     public static synchronized <T> T getInstance(Class<T> clazz) {
-        return (T) instances.computeIfAbsent(clazz, key -> {
+        Object o = instances.get(clazz);
+        if (o != null) {
             try {
-                Constructor<?> constructor = key.getDeclaredConstructor();
+                Constructor<?> constructor = clazz.getDeclaredConstructor();
                 constructor.setAccessible(true);
-                return constructor.newInstance();
+                instances.put(clazz, constructor.newInstance());
+                return (T) constructor.newInstance();
             } catch (Exception e) {
-                throw new RuntimeException("Singleton create failed: " + key.getName(), e);
+                throw new RuntimeException("Singleton create failed: " + clazz.getName(), e);
             }
-        });
+        }
+        return (T) instances.get(clazz);
     }
 }

@@ -12,6 +12,9 @@ import com.kw.gdx.constant.Constant;
 import com.kw.gdx.view.dialog.base.BaseDialog;
 import com.kw.gdx.utils.Layer;
 
+/**
+ * 遮罩只在第一层存在，如果后续的页面也需要需要自己去实现
+ */
 public class DialogManager {
     private Stage stage;
     private Image shadow;
@@ -32,7 +35,6 @@ public class DialogManager {
         hasShadow = true;
         shadow = Layer.getShadow();
         shadow.setColor(0,0,0,0.0F);
-//        #000000B3
         shadow.addAction(Actions.alpha(a,time));
         stage.addActor(shadow);
         stage.getRoot().findActor("stg");

@@ -941,6 +941,7 @@ public class TextField extends Widget implements Disableable {
 					break;
 				}
 
+
 				selection:
 				{
 					int temp = cursor;

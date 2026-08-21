@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 public class DownLoadTask {
+    private String taskId;
 
     private static final int DEFAULT_THREAD_NUM = 3;
     private static final long PROGRESS_INTERVAL_MS = 500;
@@ -23,6 +24,10 @@ public class DownLoadTask {
     private Array<SplitTask> downLoadThreads = new Array<>();
     private String url;
     private DownloadListener downloadListener;
+
+    public DownLoadTask(String md5) {
+        this.taskId = md5;
+    }
 
     public void down(String url, String saveDir, String saveFile) throws IOException, IllegalAccessException {
 
@@ -162,5 +167,9 @@ public class DownLoadTask {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getTaskId() {
+        return taskId;
     }
 }

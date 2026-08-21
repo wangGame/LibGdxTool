@@ -8,6 +8,22 @@ sourceCompatibility = 1.8
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
 
+
+def methodTimeAgent = file(
+        'libs/method-time-desktop-agent-1.1.0.jar'
+)
+
+
+// 给所有通过 Gradle 启动的 Java main 方法添加 Agent
+tasks.withType(JavaExec).configureEach {
+    jvmArgs "-javaagent:${methodTimeAgent.absolutePath}"
+
+    doFirst {
+        println "[MethodTime] agent=${methodTimeAgent.absolutePath}"
+    }
+}
+
+
 dependencies {
     implementation 'org.json:json:20210307'
     implementation 'commons-io:commons-io:2.11.0'
@@ -19,6 +35,10 @@ dependencies {
     implementation project (':libGdxLib')
     implementation project (':libGdx')
     implementation project(":libCommon")
+    implementation 'org.aspectj:aspectjrt:1.9.25.1'
+
+    implementation files("libs/method-time-desktop-agent-1.1.0.jar")
+
     implementation project(":libGdxLib3D")
     implementation 'junit:junit:4.12'
     implementation "com.badlogicgames.gdx:gdx-freetype-platform:1.9.8:natives-desktop"

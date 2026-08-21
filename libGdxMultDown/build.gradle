@@ -1,6 +1,4 @@
 apply plugin: "java"
-apply plugin: 'maven-publish'
-group='com.github.wangGame'
 
 sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [

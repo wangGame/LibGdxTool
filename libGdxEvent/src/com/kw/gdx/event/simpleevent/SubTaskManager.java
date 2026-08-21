@@ -3,6 +3,7 @@ package com.kw.gdx.event.simpleevent;
 public class SubTaskManager<T> {
     public float time = 0;
     private T data;
+    private EventType eventType = EventType.Once;
 
     public void setTime(float time) {
         this.time = time;
@@ -23,5 +24,17 @@ public class SubTaskManager<T> {
 
     public T getData() {
         return data;
+    }
+
+    public void setEventType(EventType eventType) {
+        this.eventType = eventType;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+    public boolean condiction(){
+        return true;
     }
 }
