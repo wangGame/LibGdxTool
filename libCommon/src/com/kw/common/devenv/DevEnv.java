@@ -39,4 +39,9 @@ public class DevEnv {
                 ", os_version='" + os_version + '\'' +
                 '}';
     }
+
+    public static void main(String[] args) {
+        DevEnv env = new DevEnv();
+        System.out.println(env);
+    }
 }

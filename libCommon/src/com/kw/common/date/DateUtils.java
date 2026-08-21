@@ -13,25 +13,14 @@ public class DateUtils {
 
     @Deprecated
     public void getCurrentInfoFromDate(){
-        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
         DateInfo info = new DateInfo();
-        info.setYear(date.getYear());
-        info.setMonth(date.getMonth());
-        info.setDay(date.getDay());
-        info.setHour(date.getHours());
-        info.setMinutes(date.getMinutes());
-        info.setSecond(date.getSeconds());
-    }
-
-    public void getCurrentInfoFromCalendar(){
-        Calendar date = Calendar.getInstance();
-        DateInfo info = new DateInfo();
-        info.setYear(date.get(Calendar.YEAR));
-        info.setMonth(date.get(Calendar.MONTH));
-        info.setDay(date.get(Calendar.DAY_OF_MONTH));
-        info.setHour(date.get(Calendar.HOUR));
-        info.setMinutes(date.get(Calendar.MINUTE));
-        info.setSecond(date.get(Calendar.SECOND));
+        info.setYear(calendar.get(Calendar.YEAR));
+        info.setMonth(calendar.get(Calendar.MONTH));
+        info.setDay(calendar.get(Calendar.DAY_OF_MONTH));
+        info.setHour(calendar.get(Calendar.HOUR_OF_DAY));
+        info.setMinutes(calendar.get(Calendar.MINUTE));
+        info.setSecond(calendar.get(Calendar.SECOND));
     }
 
     /**
@@ -80,23 +69,6 @@ public class DateUtils {
 
     public static void main(String[] args) {
         System.out.println(getETAString(System.currentTimeMillis()));
-
-
-        long now = System.currentTimeMillis();
-
-        // 时间戳 -> 本地时间
-        LocalDateTime dateTime = LocalDateTime.ofInstant(
-                Instant.ofEpochMilli(now),
-                ZoneId.systemDefault()
-        );
-
-        System.out.println("年: " + dateTime.getYear());
-        System.out.println("月: " + dateTime.getMonthValue());
-        System.out.println("日: " + dateTime.getDayOfMonth());
-
-        System.out.println("时: " + dateTime.getHour());
-        System.out.println("分: " + dateTime.getMinute());
-        System.out.println("秒: " + dateTime.getSecond());
 
 
     }
