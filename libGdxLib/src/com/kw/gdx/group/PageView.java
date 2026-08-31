@@ -148,6 +148,7 @@ public class PageView extends Group {
             return;
         }
 
+
         pane.setFlingTime(0);
         snapping = true;
 //        pane.validate();
