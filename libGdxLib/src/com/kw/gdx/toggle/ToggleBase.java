@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public abstract class ToggleBase extends Group {
+public class ToggleBase extends Group {
     private ToggleContainer toggleContainer;
     protected boolean isSelected;
     public ToggleBase() {

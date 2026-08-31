@@ -1,6 +1,7 @@
 package com.kw.gdx.toggle;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Value;
 import com.badlogic.gdx.utils.Array;
@@ -14,6 +15,9 @@ public class ToggleContainer extends Table {
     private int column;
     private boolean multSelect;
     private ToggleBase selectedToggle;
+    private float startEmpty;
+    private float endEmpty;
+
     private final Value padTopValue = new Value() {
         @Override
         public float get(Actor context) {
@@ -121,5 +125,59 @@ public class ToggleContainer extends Table {
             }
         }
         return selectedToggles;
+    }
+
+    public void TopEmpty(int emptyHeight, boolean isV) {
+        this.startEmpty = emptyHeight;
+        ToggleBase empty = new ToggleBase() {
+            {
+                setSize(10, emptyHeight);
+            }
+        };
+        empty.setToggleContainer(this);
+        toggleButtons.add(empty);
+        add(empty);
+        empty.setDebug(true);
+        if (isV){
+            row();
+        }
+    }
+
+    public void bottomEmpty(int emptyHeight, boolean isV) {
+        this.endEmpty = emptyHeight;
+        ToggleBase empty = new ToggleBase() {
+            {
+                setSize(10, emptyHeight);
+            }
+        };
+        empty.setToggleContainer(this);
+        toggleButtons.add(empty);
+        add(empty);
+        empty.setDebug(true);
+        if (isV){
+            row();
+        }
+    }
+
+    public void scrollPointX(ScrollPane scrollPane,float scrollX){
+        scrollPane.validate();
+        scrollPane.setScrollX(scrollX);
+        scrollPane.updateVisualScroll();
+    }
+
+    public float caluHeight(int position){
+        float height = 0;
+        if (toggleButtons.size>0) {
+            ToggleBase toggleBase = toggleButtons.get(1);
+            height = toggleBase.getWidth() * position + startEmpty + paddLeft * (position+1) + paddRight * (position+1);
+        }
+        System.out.println(height);
+        return height;
+    }
+
+    public void scrollPointY(ScrollPane scrollPane){
+        scrollPane.validate();
+        scrollPane.setScrollY(100);
+        scrollPane.updateVisualScroll();
     }
 }
