@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class ToggleBase extends Group {
+public class  ToggleBase extends Group {
     private ToggleContainer toggleContainer;
     protected boolean isSelected;
     public ToggleBase() {
@@ -17,7 +17,8 @@ public class ToggleBase extends Group {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                if (toggleContainer.isMultSelect()){
+                if (toggleContainer!=null&&
+                        toggleContainer.isMultSelect()){
                     if (isSelected){
                         unSelect();
                     }else {
@@ -36,7 +37,8 @@ public class ToggleBase extends Group {
 
     public void select(){
         this.isSelected = true;
-        if (!toggleContainer.isMultSelect()){
+        if (toggleContainer!=null&&
+                !toggleContainer.isMultSelect()){
             toggleContainer.unSelectedOld(this);
         }
     }

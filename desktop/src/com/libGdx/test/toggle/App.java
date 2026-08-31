@@ -19,7 +19,9 @@ public class App extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
 //        toggleUsed();
-        tiggleUseScrolle();
+//        tiggleUseScrolle();
+        ItemToggle itemToggle = new ItemToggle(1);
+        addActor(itemToggle);
     }
 
     private void tiggleUseScrolle() {
