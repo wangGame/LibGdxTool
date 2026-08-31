@@ -3,6 +3,8 @@ package com.libGdx.test.wiget;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.group.PageView;
@@ -24,16 +26,22 @@ public class AppDemo extends LibGdxTestMain {
         group.setPosition(Constant.GAMEWIDTH/2f,Constant.GAMEHIGHT/2f, Align.center);
 
 
-        PageView pageView = new PageView(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
-        pageView.setSize(Constant.GAMEWIDTH-100, Constant.GAMEHIGHT-100);
+        PageView pageView = new PageView(Constant.GAMEWIDTH-100,Constant.GAMEHIGHT-100);
         group.addActor(pageView);
         for (int i = 0; i < 100; i++) {
             pageView.add(new ItemGroup());
         }
 
+        pageView.layout();
 
-
-
+//        ScrollPane scrollPane = new ScrollPane(new Group(){
+//            {
+//                setSize(1100,100);
+//                setDebug(true);
+//            }
+//        });
+//        addActor(scrollPane);
+//        scrollPane.setSize(Constant.GAMEWIDTH-100, Constant.GAMEHIGHT-100);
 
 
 //        Widget widget = new Widget();

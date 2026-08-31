@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Align;
 public class PageView extends Group {
 
     private final ScrollPane pane;
-    private final Table table;
+    private final LayoutGroup table;
 
     private float lastScrollY;
     private float lastScrollX;
@@ -48,8 +48,10 @@ public class PageView extends Group {
     public PageView(float width, float height, boolean vertical) {
         this.isVerticalScrolling = vertical;
 
-        table = new Table();
-
+        table = new LayoutGroup();
+        table.setPadding(20);
+        table.setWidth(0);
+        table.setHeight(height);
         pane = new ScrollPane(table) {
 
             @Override
@@ -83,6 +85,8 @@ public class PageView extends Group {
             pane.setScrollingDisabled(false, true);
         }
         addActor(pane);
+        table.setY(pane.getHeight() / 2f,Align.center);
+        pane.setDebug(true);
     }
     private float actorBaseHight= 0;
     private float actorBaseWidth = 0;
@@ -97,15 +101,7 @@ public class PageView extends Group {
                 actor.getWidth() / 2f,
                 actor.getHeight() / 2f
         );
-
-        if (isVerticalScrolling) {
-            table.add(actor);
-            table.row();
-        } else {
-            table.add(actor);
-        }
-
-        table.invalidateHierarchy();
+        table.add(actor);
     }
 
     /**
@@ -142,6 +138,7 @@ public class PageView extends Group {
 
             applyScale(actor, distance, distanceRange);
         }
+        layout();
     }
 
     /**
@@ -176,6 +173,7 @@ public class PageView extends Group {
 
             applyScale(actor, distance, distanceRange);
         }
+        layout();
     }
 
     /**
@@ -189,11 +187,13 @@ public class PageView extends Group {
 
         // 0 = 正中心
         // 1 = 达到缩放影响范围边缘
+
         float progress = MathUtils.clamp(
                 distance / distanceRange,
                 0f,
                 1f
         );
+
 
         /*
          * 中心：
@@ -209,13 +209,12 @@ public class PageView extends Group {
                 minScale,
                 progress
         );
-
-//        actor.setScale(scale);
         actor.setWidth(scale * actorBaseWidth);
         actor.setHeight(scale * actorBaseHight);
-        table.align(Align.center);
-        table.pack();
+    }
 
+    public void layout(){
+        table.layoutChild();
     }
 
     // =========================
@@ -247,7 +246,7 @@ public class PageView extends Group {
         return pane;
     }
 
-    public Table getTable() {
+    public LayoutGroup getTable() {
         return table;
     }
 }
