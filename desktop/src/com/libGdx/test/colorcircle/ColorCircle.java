@@ -16,7 +16,7 @@ public class ColorCircle extends Widget {
     private final static int BORDER = 4;
 
     public ColorCircle(int color) {
-        Texture texture = Asset.getAsset().getTexture("textures/colors.png");
+        Texture texture = Asset.getAsset().getTexture("assets/textures/colors.png");
         this.chip = new TextureRegion(texture, color * SIZE +SIZE, 0, SIZE,SIZE);
     }
 
