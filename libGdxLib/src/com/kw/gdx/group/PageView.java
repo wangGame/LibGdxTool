@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
+import com.kw.gdx.action.NumAction;
+import com.kw.gdx.action.NumActionListener;
 
 public class PageView extends Group {
 
@@ -15,7 +17,8 @@ public class PageView extends Group {
 
     private float lastScrollY;
     private float lastScrollX;
-
+    private boolean wasScrolling = false;
+    private boolean snapping = false;
     /**
      * true  = 纵向滑动
      * false = 横向滑动
@@ -40,14 +43,14 @@ public class PageView extends Group {
 
     private final Vector2 actorCenter = new Vector2();
     private final Vector2 paneCenter = new Vector2();
-
+    private float widthView;
     public PageView(float width, float height) {
         this(width, height, false);
     }
 
     public PageView(float width, float height, boolean vertical) {
         this.isVerticalScrolling = vertical;
-
+        this.widthView = width;
         table = new LayoutGroup();
         table.setPadding(20);
         table.setWidth(0);
@@ -57,21 +60,65 @@ public class PageView extends Group {
             @Override
             public void act(float delta) {
                 super.act(delta);
+                if (isFlickScrollTouchUp()) {
+                    if (isVerticalScrolling) {
+                        float scrollY = getVisualScrollY();
 
-                if (isVerticalScrolling) {
-                    float scrollY = getVisualScrollY();
+                        if (!MathUtils.isEqual(lastScrollY, scrollY)) {
+                            lastScrollY = scrollY;
+                            updateVisualScrollY();
+                            wasScrolling = true;
+                        }
 
-                    if (!MathUtils.isEqual(lastScrollY, scrollY)) {
-                        lastScrollY = scrollY;
-                        updateVisualScrollY();
+                    } else {
+                        float scrollX = getVisualScrollX();
+
+                        if (!MathUtils.isEqual(lastScrollX, scrollX)) {
+                            lastScrollX = scrollX;
+                            updateVisualScrollX();
+                            wasScrolling = true;
+                        }
                     }
+                }
+//                if (wasScrolling
+//                        && !isPanning()
+//                        && !isFlinging()
+//                        && !snapping) {
+//
+//                    wasScrolling = false;
+//
+//                    snapToNearest();
+//                }
 
-                } else {
-                    float scrollX = getVisualScrollX();
+                if (wasScrolling && !isFlickScrollTouchUp()){
+                    wasScrolling = false;
+                    snapToNearest();
+                }
 
-                    if (!MathUtils.isEqual(lastScrollX, scrollX)) {
-                        lastScrollX = scrollX;
-                        updateVisualScrollX();
+                /*
+                 * 判断自动吸附是否完成
+                 */
+                if (snapping) {
+
+                    if (isVerticalScrolling) {
+
+                        if (MathUtils.isEqual(
+                                getVisualScrollY(),
+                                getScrollY(),
+                                0.5f
+                        )) {
+                            snapping = false;
+                        }
+
+                    } else {
+
+                        if (MathUtils.isEqual(
+                                getVisualScrollX(),
+                                getScrollX(),
+                                0.5f
+                        )) {
+                            snapping = false;
+                        }
                     }
                 }
             }
@@ -88,6 +135,86 @@ public class PageView extends Group {
         table.setY(pane.getHeight() / 2f,Align.center);
         pane.setDebug(true);
     }
+
+    private void snapToNearest() {
+
+        if (table.getChildren().isEmpty()) {
+            return;
+        }
+
+        Actor nearest = findNearestActor();
+
+        if (nearest == null) {
+            return;
+        }
+
+        pane.setFlingTime(0);
+        snapping = true;
+//        pane.validate();
+        System.out.println(nearest.getX());
+        pane.setScrollX(nearest.getX()-widthView/2f + nearest.getWidth()/2f);
+//        pane.updateVisualScroll();
+
+//        NumAction action = new NumAction();
+//        action.setNumActionListener(new NumActionListener() {
+//            @Override
+//            public void update(float value) {
+//                pane.validate();
+//                pane.setScrollX(value);
+//                pane.updateVisualScroll();
+//            }
+//        });
+//        pane.addAction(action);
+
+    }
+
+    private Actor findNearestActor() {
+
+        paneCenter.set(
+                pane.getWidth() / 2f,
+                pane.getHeight() / 2f
+        );
+
+        pane.localToStageCoordinates(paneCenter);
+
+        Actor nearest = null;
+
+        float minDistance = Float.MAX_VALUE;
+
+        for (Actor actor : table.getChildren()) {
+
+            actorCenter.set(
+                    actor.getWidth() / 2f,
+                    actor.getHeight() / 2f
+            );
+
+            actor.localToStageCoordinates(actorCenter);
+
+            float distance;
+
+            if (isVerticalScrolling) {
+
+                distance = Math.abs(
+                        actorCenter.y - paneCenter.y
+                );
+
+            } else {
+
+                distance = Math.abs(
+                        actorCenter.x - paneCenter.x
+                );
+            }
+
+            if (distance < minDistance) {
+
+                minDistance = distance;
+                nearest = actor;
+            }
+        }
+
+        return nearest;
+    }
+
     private float actorBaseHight= 0;
     private float actorBaseWidth = 0;
     /**
