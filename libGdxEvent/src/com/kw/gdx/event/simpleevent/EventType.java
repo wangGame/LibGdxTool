@@ -1,7 +1,9 @@
 package com.kw.gdx.event.simpleevent;
 
+/**
+ * 这种主要处理延迟事件
+ */
 public enum EventType {
-    CONDITION,    // 条件执行
-    Once,
-    continuous //持续的
+    None,
+    Once
 }

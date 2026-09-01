@@ -1,7 +1,7 @@
 package com.kw.gdx.event.simpleevent;
 
 public class SubTaskManager<T> {
-    public float time = 0;
+    private float time = 0;
     private T data;
     private EventType eventType = EventType.Once;
 
@@ -34,6 +34,9 @@ public class SubTaskManager<T> {
         return eventType;
     }
 
+    /**
+     * 这里有两种方式处理：一种复写， 一种是调用一个方法  返回一个bool值
+     */
     public boolean condiction(){
         return true;
     }

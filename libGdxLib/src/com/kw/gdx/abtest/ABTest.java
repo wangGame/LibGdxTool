@@ -1,7 +1,11 @@
 package com.kw.gdx.abtest;
 
 public class ABTest {
-    public static String currentV = "A";
+    private static String currentV = "A";
+
+    public static void setCurrentV(String currentV) {
+        ABTest.currentV = currentV;
+    }
 
     public static boolean isVersion(String name){
         if (name==null)return false;
@@ -31,15 +35,10 @@ public class ABTest {
     }
 
     public static void main(String[] args) {
-        ABTest abTest = new ABTest();
-        abTest.currentV = "BA";
-
+        ABTest.setCurrentV("A");
         System.out.println(isVersion("A"));
         System.out.println(isVersion("B"));
-
         System.out.println(subVersion("A"));
         System.out.println(subVersion("B"));
-
-
     }
 }
