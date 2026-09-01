@@ -18,7 +18,7 @@ def hasReleaseSigning = releaseStoreFile && releaseStorePassword && releaseKeyAl
 
 android {
     namespace "com.tony.puzzle"
-    compileSdk 35
+    compileSdk 36
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -33,7 +33,7 @@ android {
     defaultConfig {
         applicationId "com.tony.puzzle"
         minSdkVersion 23
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode 23
         versionName "1.4.9"
         multiDexEnabled true

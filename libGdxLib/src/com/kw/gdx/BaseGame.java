@@ -38,6 +38,7 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class BaseGame extends Game {
     private Screen zhuanCScreen;
+    private Screen persistentScreen;
     private Batch batch;
     protected Viewport stageViewport;
     protected ANRWatchDog dog;
@@ -129,6 +130,9 @@ public class BaseGame extends Game {
         if (zhuanCScreen!=null){
             zhuanCScreen.resize(width, height);
         }
+        if (persistentScreen!=null){
+            persistentScreen.resize(width, height);
+        }
     }
 
     private void viewPortResize(int width, int height) {
@@ -147,13 +151,13 @@ public class BaseGame extends Game {
             NLog.i("FramesPerSecond %s",Gdx.app.getGraphics().getFramesPerSecond());
         }
         super.render();
-        if (Constant.SHOWRENDERCALL) {
-            if (batch instanceof com.esotericsoftware.spine.utils.TwoColorPolygonBatch){
-//                System.out.println(((TwoColorPolygonBatch) (batch)).renderCalls);
-            }
-        }
+
         if (zhuanCScreen!=null){
             zhuanCScreen.render(Gdx.graphics.getDeltaTime());
+        }
+
+        if (persistentScreen!=null){
+            persistentScreen.render(Gdx.graphics.getDeltaTime());
         }
     }
 
@@ -186,6 +190,10 @@ public class BaseGame extends Game {
         if (zhuanCScreen!=null){
             zhuanCScreen.dispose();
         }
+
+        if (persistentScreen!=null){
+            persistentScreen.dispose();
+        }
         otherDispose();
     }
 
@@ -203,6 +211,21 @@ public class BaseGame extends Game {
             }else {
                 setScreen(baseScreen);
             }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setPersistentScreen(Class<? extends BaseScreen> t,boolean isGc) {
+        Constructor<?> constructor = t.getConstructors()[0];
+        try {
+            BaseScreen baseScreen = (BaseScreen) constructor.newInstance(this);
+            persistentScreen = baseScreen;
+            persistentScreen.show();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -251,6 +274,10 @@ public class BaseGame extends Game {
         if (zhuanCScreen!=null) {
             zhuanCScreen.pause();
         }
+
+        if (persistentScreen!=null){
+            persistentScreen.pause();
+        }
     }
 
     @Override
@@ -258,6 +285,10 @@ public class BaseGame extends Game {
         super.resume();
         if (zhuanCScreen!=null){
             zhuanCScreen.resume();
+        }
+
+        if (persistentScreen!=null){
+            persistentScreen.resume();
         }
     }
 
@@ -268,4 +299,13 @@ public class BaseGame extends Game {
             zhuanCScreen = null;
         }
     }
+
+    public void removePersistentScreen() {
+        if (persistentScreen!=null) {
+            persistentScreen.hide();
+            persistentScreen.dispose();
+            persistentScreen = null;
+        }
+    }
 }
+
