@@ -54,7 +54,7 @@ public class ScrollPane extends WidgetGroup {
 	final Rectangle vScrollBounds = new Rectangle(), vKnobBounds = new Rectangle();
 	private final Rectangle actorCullingArea = new Rectangle();
 	private ActorGestureListener flickScrollListener;
-
+	private boolean flickScrollTouchUp = false;
 	boolean scrollX, scrollY;
 	boolean vScrollOnRight = true, hScrollOnBottom = true;
 	float amountX, amountY;
@@ -206,13 +206,22 @@ public class ScrollPane extends WidgetGroup {
 
 			public boolean handle (Event event) {
 				if (super.handle(event)) {
-					if (((InputEvent)event).getType() == InputEvent.Type.touchDown) flingTimer = 0;
+					if (((InputEvent)event).getType() == InputEvent.Type.touchDown) {
+						flingTimer = 0;
+						flickScrollTouchUp = true;
+					}else if ((((InputEvent)event).getType() == InputEvent.Type.touchUp)){
+						flickScrollTouchUp = false;
+					}
 					return true;
 				} else if (event instanceof InputEvent && ((InputEvent)event).isTouchFocusCancel()) //
 					cancel();
 				return false;
 			}
 		};
+	}
+
+	public boolean isFlickScrollTouchUp() {
+		return flickScrollTouchUp;
 	}
 
 	protected void addScrollListener () {
