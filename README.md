@@ -49,6 +49,59 @@ dependencies {
 gradlew publish
 ```
 
+## 升级sdk 36
+
+```text
+变更
+对于以 Android 16（API 级别 36）为目标平台且在大屏设备上运行的应用，系统会忽略以下清单属性和 API：
+
+属性或 API	忽略的值
+screenOrientation	portrait，landscape，reversePortrait，reverseLandscape，sensorPortrait，sensorLandscape，userPortrait，userLandscape
+resizeableActivity	全部
+minAspectRatio	全部
+maxAspectRatio	全部
+setRequestedOrientation()
+
+getRequestedOrientation()	portrait，landscape，reversePortrait，reverseLandscape，sensorPortrait，sensorLandscape，userPortrait，userLandscape
+例外情况
+Android 16 变更的例外情况包括：
+
+显示屏尺寸小于 sw600dp（大多数手机、可翻转设备和大屏可折叠设备的外屏）
+
+基于 android:appCategory 标志的游戏
+
+使用 Android App Bundle 和 Play 应用签名发布游戏，让 Google Play 管理该标志并自动提供 app bundle 的优势。另请参阅应用清单概览。
+
+用户在宽高比设置中选择启用应用的默认行为
+
+选择停用
+如需选择停用 API 级别 36 行为，请声明 PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY 清单属性。
+
+如需为特定 activity 选择停用，请在 <activity> 元素中设置该属性：
+
+
+<activity ...>
+<property
+android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY"
+android:value="true" />
+...
+</activity>
+如需为整个应用选择停用，请在 <application> 元素中设置该属性：
+
+
+<application ...>
+<property
+android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY"
+android:value="true" />
+...
+</application>
+如果您的应用以 Android 16（API 级别 36）或更高版本为目标平台，则此 属性 不会锁定显示屏屏幕方向或阻止在大显示屏上旋转屏幕。
+
+警告 ：Android 框架将在 API 级别 37 中取消选择停用功能。对于以目标 API 级别 37 或更高版本为目标平台的应用，在至少为 sw600dp 的显示屏上，系统将始终忽略屏幕方向、宽高比和可调整大小性限制。
+测试
+```
+
+
 ## 1.13.1
 
 已经更新1.13.1版本，切换分支
