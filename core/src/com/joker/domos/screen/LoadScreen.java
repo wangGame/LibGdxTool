@@ -15,6 +15,7 @@ import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
 import com.kw.gdx.listener.OrdinaryButtonListener;
 import com.kw.gdx.screen.BaseScreen;
+import com.kw.gdx.view.dialog.base.BaseDialog;
 
 public class LoadScreen extends BaseScreen {
     public LoadScreen(BaseGame game) {
@@ -69,5 +70,12 @@ public class LoadScreen extends BaseScreen {
                 });
             }
         });
+    }
+
+    @Override
+    protected BaseDialog back() {
+        System.out.println("----------------------------xxxxxxxxxxxxxxback ");
+        return null;
+//        return super.back();
     }
 }

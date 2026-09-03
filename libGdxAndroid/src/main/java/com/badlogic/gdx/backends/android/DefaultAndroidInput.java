@@ -34,6 +34,7 @@ import android.text.*;
 import android.text.InputFilter.LengthFilter;
 import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.*;
 import android.view.View.OnGenericMotionListener;
 import android.view.View.OnKeyListener;
@@ -62,6 +63,7 @@ import com.badlogic.gdx.input.NativeInputConfiguration;
 import com.badlogic.gdx.input.TextInputWrapper;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Pool;
+import com.kw.gdx.utils.ThreadStackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -550,6 +552,11 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 
 	@Override
 	public boolean onKey (View v, int keyCode, android.view.KeyEvent e) {
+
+
+		Log.d("DefaultAndroidInput", "onKey: keyCode=" + keyCode + ", action=" + e.getAction() + ", repeatCount=" + e.getRepeatCount());
+
+
 		for (int i = 0, n = keyListeners.size(); i < n; i++)
 			if (keyListeners.get(i).onKey(v, keyCode, e)) return true;
 
@@ -1465,7 +1472,8 @@ public class DefaultAndroidInput extends AbstractInput implements AndroidInput, 
 					event.keyChar = 0;
 					keyEvents.add(event);
 				}
-
+				Log.d("AndroidInput", "Predictive back gesture invoked, dispatching BACK key event");
+				ThreadStackInfo.printStackInfo(100);
 			}
 		};
 

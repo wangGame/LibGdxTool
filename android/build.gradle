@@ -17,7 +17,7 @@ def useAliyunMirror = ((rootProject.findProperty('useAliyunMirror') ?: System.ge
 def hasReleaseSigning = releaseStoreFile && releaseStorePassword && releaseKeyAlias && releaseKeyPassword
 
 android {
-    namespace "com.tony.puzzle"
+    namespace "com.joker.puzzle"
     compileSdk 36
     sourceSets {
         main {
@@ -31,7 +31,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.tony.puzzle"
+        applicationId "com.joker.puzzle"
         minSdkVersion 23
         targetSdkVersion 36
         versionCode 23

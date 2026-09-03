@@ -54,16 +54,16 @@ public final class NetworkStatusUtils {
         if (networkCapabilities == null) {
             return 0;
         }
-        if (networkCapabilities.hasTransport(1)) {
+        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
             return 2;
         }
-        if (networkCapabilities.hasTransport(0)) {
+        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
             return 1;
         }
-        if (networkCapabilities.hasTransport(3)) {
+        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
             return 3;
         }
-        return networkCapabilities.hasTransport(4) ? 4 : 0;
+        return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN) ? 4 : 0;
     }
 
     static int getNetworkType(NetworkInfo networkInfo) {

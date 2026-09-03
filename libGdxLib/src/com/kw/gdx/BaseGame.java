@@ -102,7 +102,7 @@ public class BaseGame extends Game {
     protected void loadingView(){}
 
     protected void initInstance(){
-        Gdx.input.setCatchKey(Input.Keys.BUTTON_CIRCLE,true);
+        Gdx.input.setCatchKey(Input.Keys.BACK,true);
     }
 
     protected void initViewport() {
