@@ -343,11 +343,13 @@ public class Asset {
         return label;
     }
 
-    public void loadCsv(String name, CsvBeanParamter csvBeanParamter){
-        if (assetManager!=null) {
-            assetManager.load(name, ArrayResult.class,csvBeanParamter);
-            assetManager.finishLoading();
-        }
+    @SuppressWarnings("unchecked")
+    public <T> void loadCsv(String name, CsvBeanParamter<T> csvBeanParamter){
+        AssetManager manager = getAssetManager();
+        // Java has no ArrayResult<T>.class; keep the erased class conversion here.
+        Class<ArrayResult<T>> resultType = (Class<ArrayResult<T>>) (Class<?>) ArrayResult.class;
+        manager.load(name, resultType, csvBeanParamter);
+        manager.finishLoading();
     }
 
     public Image getImage(String path){
@@ -473,9 +475,15 @@ public class Asset {
 
     }
 
-    public <T> Array<? extends CsvBean> getCsv(String s) {
-        ArrayResult result = assetManager.get(s, ArrayResult.class);
-        return result.array;
+    public <T> Array<T> getCsv(String s, Class<T> clazz) {
+        AssetManager manager = getAssetManager();
+        if (!manager.isLoaded(s)){
+            CsvBeanParamter<T> parameter = new CsvBeanParamter<>();
+            parameter.csvBean = clazz;
+            loadCsv(s, parameter);
+        }
+        ArrayResult<?> result = manager.get(s, ArrayResult.class);
+        return result.getArray();
     }
 
     public Pixmap getPixmap(String image) {

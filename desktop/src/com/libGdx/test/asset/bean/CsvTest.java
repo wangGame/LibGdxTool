@@ -1,8 +1,7 @@
 package com.libGdx.test.asset.bean;
 
-import com.kw.gdx.loader.bean.CsvBean;
 
-public class CsvTest extends CsvBean {
+public class CsvTest {
     private int game_sort;
     private String level_id;
     private String level_num;
