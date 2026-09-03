@@ -47,12 +47,8 @@ public class AndroidLauncher extends BaseAndroidLauncher {
         //加速度
         configuration.useAccelerometer = true;
         configuration.useWakelock = true;
-        configuration.numSamples = 2;
+        configuration.numSamples = 4;
         Constant.realseDebug = isDebug;
-        if (Build.MODEL.equals("MediaPad 10 FHD")) {
-            configuration.numSamples = 0;
-        }
-
         ViewCompat.setOnApplyWindowInsetsListener(getWindow().getDecorView(), (v, insets) -> {
             Insets systemBars = insets.getInsets(
                     WindowInsetsCompat.Type.systemBars()
