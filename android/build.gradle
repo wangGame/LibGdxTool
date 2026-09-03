@@ -34,8 +34,8 @@ android {
         applicationId "com.joker.puzzle"
         minSdkVersion 23
         targetSdkVersion 36
-        versionCode 23
-        versionName "1.4.9"
+        versionCode 1
+        versionName "1.0.0"
         multiDexEnabled true
         ndk{
             abiFilters "armeabi-v7a","arm64-v8a"

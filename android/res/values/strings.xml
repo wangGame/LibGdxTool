@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Libgdx Tool Android</string>
+    <string name="app_name">Joker</string>
     <string name="keyboard_case_title">Keyboard Height Callback Demo</string>
     <string name="keyboard_case_status_idle">Tap \"Show Keyboard\" to start.</string>
     <string name="keyboard_case_show">Show Keyboard</string>

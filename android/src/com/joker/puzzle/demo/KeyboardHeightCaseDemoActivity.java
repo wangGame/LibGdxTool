@@ -14,7 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.tony.puzzle.R;
+import com.joker.puzzle.R;
 
 /**
  * Runnable Android demo for keyboard-height behavior.
