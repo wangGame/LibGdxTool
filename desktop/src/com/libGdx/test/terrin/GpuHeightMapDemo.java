@@ -12,32 +12,21 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector3;
 
 public class GpuHeightMapDemo extends ApplicationAdapter {
-
     private PerspectiveCamera camera;
-
     private ShaderProgram shader;
-
     private Mesh mesh;
-
     private Texture heightTexture;
-
     private float yaw = 45;
     private float pitch = -30;
-
     private float lastX;
     private float lastY;
 
     @Override
     public void create() {
-
         initCamera();
-
         initShader();
-
         buildMesh();
-
-        heightTexture =
-                new Texture("000.png");
+        heightTexture = new Texture("000.png");
     }
 
     private void initCamera() {
