@@ -1,0 +1,92 @@
+Configuring project ':tools' without an existing directory is deprecated. The configured projectDirectory 'D:\github\LibGdxTool\tools' does not exist, can't be written to or is not a directory. This behavior has been deprecated. This will fail with an error in Gradle 9.0. Make sure the project directory exists and can be written. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#deprecated_missing_project_directory
+
+> Configure project :core
+Build file 'D:\github\LibGdxTool\core\build.gradle': line 5
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_7g4et4a1l1somro9l6zxi3gl5.run(D:\github\LibGdxTool\core\build.gradle:5)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :desktop
+Build file 'D:\github\LibGdxTool\desktop\build.gradle': line 6
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_32vnk6f6asweexyta6r61jbd1.run(D:\github\LibGdxTool\desktop\build.gradle:6)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :FontGenerator
+Build file 'D:\github\LibGdxTool\FontGenerator\build.gradle': line 5
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_az2pzori9m726ipch7wfprgyw.run(D:\github\LibGdxTool\FontGenerator\build.gradle:5)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libCommon
+Build file 'D:\github\LibGdxTool\libCommon\build.gradle': line 3
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_9z851oenhrwpmidjpeeenzu9y.run(D:\github\LibGdxTool\libCommon\build.gradle:3)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libGdx
+Build file 'D:\github\LibGdxTool\libGdx\build.gradle': line 4
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_9ex0pxzgkqm6vx4qvuwi3j6kp.run(D:\github\LibGdxTool\libGdx\build.gradle:4)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libgdxbox2d
+Build file 'D:\github\LibGdxTool\libgdxbox2d\build.gradle': line 4
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_5ogwrry942n1vl7ya5yhnsxe6.run(D:\github\LibGdxTool\libgdxbox2d\build.gradle:4)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libGdxEvent
+Build file 'D:\github\LibGdxTool\libGdxEvent\build.gradle': line 5
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_eavdafnqdigyherg6du1mux8k.run(D:\github\LibGdxTool\libGdxEvent\build.gradle:5)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libGdxJnigenLoader
+Build file 'D:\github\LibGdxTool\libGdxJnigenLoader\build.gradle': line 5
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_92prc6rofpcwvh6i0n2b156d8.run(D:\github\LibGdxTool\libGdxJnigenLoader\build.gradle:5)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libGdxLib
+Build file 'D:\github\LibGdxTool\libGdxLib\build.gradle': line 5
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_2cfum8q1rwbdzlncn6sjt3k5w.run(D:\github\LibGdxTool\libGdxLib\build.gradle:5)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libGdxLib3D
+Build file 'D:\github\LibGdxTool\libGdxLib3D\build.gradle': line 4
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_6z9w4fqvxdns6l1ys3zxfkpp4.run(D:\github\LibGdxTool\libGdxLib3D\build.gradle:4)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libGdxLibTool3D
+Build file 'D:\github\LibGdxTool\libGdxLibTool3D\build.gradle': line 4
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_af5d058vv2ieiv0bxygnz9ioa.run(D:\github\LibGdxTool\libGdxLibTool3D\build.gradle:4)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Configure project :libGdxMultDown
+Build file 'D:\github\LibGdxTool\libGdxMultDown\build.gradle': line 3
+The org.gradle.api.plugins.JavaPluginConvention type has been deprecated. This is scheduled to be removed in Gradle 9.0. Consult the upgrading guide for further information: https://docs.gradle.org/8.7/userguide/upgrading_version_8.html#java_convention_deprecation
+	at build_mh45edgjfztoher3xtrxtpaq.run(D:\github\LibGdxTool\libGdxMultDown\build.gradle:3)
+	(Run with --stacktrace to get the full stack trace of this deprecation warning.)
+
+> Task :help
+
+Welcome to Gradle 8.7.
+
+To run a build, run gradlew <task> ...
+
+To see a list of available tasks, run gradlew tasks
+
+To see more detail about a task, run gradlew help --task <task>
+
+To see a list of command-line options, run gradlew --help
+
+For more detail on using Gradle, see https://docs.gradle.org/8.7/userguide/command_line_interface.html
+
+For troubleshooting, visit https://help.gradle.org
+
+BUILD SUCCESSFUL in 1s
+1 actionable task: 1 executed

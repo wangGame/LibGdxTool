@@ -1,0 +1,83 @@
+> Task :libGdxAndroid:preBuild UP-TO-DATE
+> Task :libGdxAndroid:preDebugBuild UP-TO-DATE
+> Task :libGdxLib:processResources NO-SOURCE
+> Task :libGdx:processResources NO-SOURCE
+> Task :libGdxAndroid:mergeDebugJniLibFolders UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugNativeLibs NO-SOURCE
+> Task :libGdxAndroid:stripDebugDebugSymbols NO-SOURCE
+> Task :libGdxJnigenLoader:compileJava UP-TO-DATE
+> Task :libGdxJnigenLoader:processResources NO-SOURCE
+> Task :libGdxAndroid:copyDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :libGdxJnigenLoader:classes UP-TO-DATE
+> Task :libGdxAndroid:generateDebugResValues UP-TO-DATE
+> Task :libGdxAndroid:generateDebugResources UP-TO-DATE
+> Task :libGdxJnigenLoader:jar UP-TO-DATE
+> Task :libGdxAndroid:packageDebugResources UP-TO-DATE
+> Task :libGdxAndroid:parseDebugLocalResources UP-TO-DATE
+> Task :libGdxAndroid:generateDebugRFile UP-TO-DATE
+> Task :libGdxAndroid:extractDeepLinksForAarDebug UP-TO-DATE
+> Task :libGdxAndroid:javaPreCompileDebug UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugShaders UP-TO-DATE
+> Task :libGdxAndroid:compileDebugShaders NO-SOURCE
+> Task :libGdxAndroid:generateDebugAssets UP-TO-DATE
+> Task :libGdxAndroid:packageDebugAssets UP-TO-DATE
+> Task :libGdxAndroid:prepareDebugArtProfile UP-TO-DATE
+> Task :libGdxAndroid:prepareLintJarForPublish UP-TO-DATE
+> Task :libGdx:compileJava UP-TO-DATE
+> Task :libGdx:classes UP-TO-DATE
+> Task :libGdxAndroid:processDebugManifest UP-TO-DATE
+> Task :libGdxAndroid:processDebugJavaRes NO-SOURCE
+> Task :libGdx:jar UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugJavaResource UP-TO-DATE
+> Task :libGdxAndroid:writeDebugAarMetadata UP-TO-DATE
+> Task :libGdxAndroid:preDebugAndroidTestBuild UP-TO-DATE
+> Task :libGdxAndroid:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :libGdxAndroid:writeDebugLintModelMetadata UP-TO-DATE
+> Task :libGdxAndroid:extractProguardFiles UP-TO-DATE
+> Task :libGdxAndroid:preDebugUnitTestBuild UP-TO-DATE
+> Task :libGdxLib:compileJava UP-TO-DATE
+> Task :libGdxLib:classes UP-TO-DATE
+> Task :libGdxLib:jar UP-TO-DATE
+> Task :libGdxAndroid:extractDebugAnnotations
+
+> Task :libGdxAndroid:compileDebugJavaWithJavac
+Java compiler version 21 has deprecated support for compiling with source/target version 8.
+Try one of the following options:
+    1. [Recommended] Use Java toolchain with a lower language version
+    2. Set a higher source/target version
+    3. Use a lower version of the JDK running the build (if you're not using Java toolchain)
+For more details on how to configure these settings, see https://developer.android.com/build/jdks.
+To suppress this warning, set android.javaCompile.suppressSourceTargetDeprecationWarning=true in gradle.properties.
+����: [options] Դֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ŀ��ֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ҫ�����й��ѹ�ʱѡ��ľ���, ��ʹ�� -Xlint:-options��
+ע: D:\github\LibGdxTool\libGdxAndroid\src\main\java\com\joker\net\NetworkStatusUtils.javaʹ�û򸲸����ѹ�ʱ�� API��
+ע: �й���ϸ��Ϣ, ��ʹ�� -Xlint:deprecation ���±��롣
+
+3 ������
+> Task :libGdxAndroid:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :libGdxAndroid:syncDebugLibJars
+> Task :libGdxAndroid:bundleDebugLocalLintAar
+> Task :libGdxAndroid:generateDebugLintReportModel
+> Task :libGdxAndroid:bundleLibRuntimeToJarDebug
+> Task :libGdxAndroid:createFullJarDebug
+> Task :libGdxAndroid:generateDebugAndroidTestLintModel
+> Task :libGdxAndroid:generateDebugUnitTestLintModel
+> Task :libGdxAndroid:lintAnalyzeDebugAndroidTest
+> Task :libGdxAndroid:lintAnalyzeDebugUnitTest
+> Task :libGdxAndroid:lintAnalyzeDebug
+
+> Task :libGdxAndroid:lintReportDebug
+Wrote HTML report to file:///D:/github/LibGdxTool/libGdxAndroid/build/reports/lint-results-debug.html
+
+> Task :libGdxAndroid:lintDebug
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.7/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 22s
+41 actionable tasks: 14 executed, 27 up-to-date

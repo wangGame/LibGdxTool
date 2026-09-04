@@ -1,0 +1,5 @@
+Generator: built-in image_gen
+Prompt:
+Use case: stylized-concept. Asset type: Android launcher icon. Create one polished, friendly cartoon clown head icon, not frightening: round red nose, cheerful expressive eyes, warm mischievous smile, colorful clown hair and a playful small clown hat. Bold clean silhouette, simple chunky shapes, polished game-icon illustration, readable at 48 pixels. Square 1024x1024 full-bleed image with a simple unobtrusive contrasting background, no frame and no rounded square border. Keep the entire head including hair and hat within the central 60% of the square so Android adaptive circle/squircle masks do not crop important features. No body, no extra objects, no text, no letters, no logos, no watermark.
+
+Export: legacy launcher PNGs at 48, 72, 96, 144, 192 pixels; adaptive foreground at 432 pixels with the source scaled to 82% for mask safety. Original launcher resources backed up outside android/res in .icon-backups.

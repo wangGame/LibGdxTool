@@ -1,0 +1,121 @@
+> Task :android:preBuild UP-TO-DATE
+> Task :libGdxAndroid:preBuild UP-TO-DATE
+> Task :libGdxAndroid:preDebugBuild UP-TO-DATE
+> Task :android:preDebugBuild UP-TO-DATE
+> Task :libGdxLib:processResources NO-SOURCE
+> Task :libGdx:processResources NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :libGdxAndroid:generateDebugResValues
+> Task :android:generateDebugResValues
+> Task :libGdxAndroid:writeDebugAarMetadata
+> Task :libGdxAndroid:generateDebugResources
+> Task :android:javaPreCompileDebug
+> Task :android:generateDebugResources
+> Task :libGdxAndroid:packageDebugResources
+> Task :libGdxAndroid:extractDeepLinksDebug
+> Task :libGdxJnigenLoader:compileJava
+> Task :libGdxJnigenLoader:processResources NO-SOURCE
+> Task :libGdxJnigenLoader:classes
+> Task :libGdxAndroid:preReleaseBuild UP-TO-DATE
+> Task :android:checkDebugAarMetadata
+> Task :libGdxAndroid:writeReleaseAarMetadata
+> Task :libGdxAndroid:parseDebugLocalResources
+> Task :android:mapDebugSourceSetPaths
+> Task :libGdxAndroid:javaPreCompileDebug
+> Task :libGdxJnigenLoader:jar
+> Task :libGdxAndroid:generateReleaseResValues
+> Task :libGdxAndroid:compileDebugLibraryResources
+> Task :libGdxAndroid:generateReleaseResources
+> Task :libGdxAndroid:generateDebugRFile
+> Task :libGdxAndroid:processDebugManifest
+> Task :libGdxAndroid:packageReleaseResources
+> Task :libGdxAndroid:extractDeepLinksRelease
+> Task :libGdxAndroid:processReleaseManifest
+> Task :libGdxAndroid:javaPreCompileRelease
+> Task :libGdxAndroid:parseReleaseLocalResources
+> Task :libGdxAndroid:compileReleaseLibraryResources
+> Task :libGdxAndroid:generateReleaseRFile
+> Task :libCommon:compileJava
+> Task :libCommon:processResources NO-SOURCE
+> Task :libCommon:classes
+> Task :libCommon:jar
+> Task :android:packageDebugResources
+> Task :android:createDebugCompatibleScreenManifests
+> Task :android:parseDebugLocalResources
+> Task :android:extractDeepLinksDebug
+> Task :android:processDebugMainManifest
+> Task :android:processDebugManifest
+> Task :android:preReleaseBuild UP-TO-DATE
+> Task :android:javaPreCompileRelease
+> Task :android:processDebugManifestForPackage
+> Task :android:generateReleaseResValues
+> Task :android:checkReleaseAarMetadata
+> Task :android:mapReleaseSourceSetPaths
+> Task :android:generateReleaseResources
+> Task :android:mergeDebugResources
+> Task :android:packageReleaseResources
+> Task :android:createReleaseCompatibleScreenManifests
+> Task :android:extractDeepLinksRelease
+> Task :android:processReleaseMainManifest
+> Task :android:processReleaseManifest
+> Task :android:processReleaseManifestForPackage
+> Task :android:parseReleaseLocalResources
+> Task :android:processDebugResources
+> Task :android:mergeReleaseResources
+> Task :android:processReleaseResources
+
+> Task :libGdx:compileJava
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+注: 某些输入文件使用了未经检查或不安全的操作。
+注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+
+> Task :libGdx:classes
+> Task :libGdx:jar
+
+> Task :libGdxLib:compileJava
+D:\github\LibGdxTool\libGdxLib\src\com\kw\gdx\resource\csvanddata\CsvReader.java:1457: 警告: [removal] Object 中的 finalize() 已过时, 且标记为待删除
+    protected void finalize() {
+                   ^
+D:\github\LibGdxTool\libGdxLib\src\com\kw\gdx\utils\Timer.java:13: 警告: [removal] Object 中的 finalize() 已过时, 且标记为待删除
+        protected void finalize() throws Throwable {
+                       ^
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+注: 某些输入文件使用了未经检查或不安全的操作。
+注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+2 个警告
+
+> Task :libGdxLib:classes
+> Task :libGdxLib:jar
+> Task :core:compileJava
+> Task :core:classes
+> Task :core:jar
+
+> Task :libGdxAndroid:compileDebugJavaWithJavac
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+注: D:\github\LibGdxTool\libGdxAndroid\src\main\java\com\badlogic\gdx\backends\android\DefaultAndroidInput.java使用了未经检查或不安全的操作。
+注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+
+> Task :libGdxAndroid:bundleLibCompileToJarDebug
+
+> Task :libGdxAndroid:compileReleaseJavaWithJavac
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+注: D:\github\LibGdxTool\libGdxAndroid\src\main\java\com\badlogic\gdx\backends\android\DefaultAndroidInput.java使用了未经检查或不安全的操作。
+注: 有关详细信息, 请使用 -Xlint:unchecked 重新编译。
+
+> Task :libGdxAndroid:bundleLibCompileToJarRelease
+
+> Task :android:compileDebugJavaWithJavac
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+
+> Task :android:compileReleaseJavaWithJavac
+注: 某些输入文件使用或覆盖了已过时的 API。
+注: 有关详细信息, 请使用 -Xlint:deprecation 重新编译。
+[Incubating] Problems report is available at: file:///D:/github/LibGdxTool/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 25s
+64 actionable tasks: 64 executed

@@ -1,0 +1,402 @@
+> Task :libGdxAndroid:preBuild UP-TO-DATE
+> Task :libGdxAndroid:preDebugBuild UP-TO-DATE
+> Task :core:processResources NO-SOURCE
+> Task :libGdxLib:processResources NO-SOURCE
+> Task :libGdxAndroid:writeDebugAarMetadata UP-TO-DATE
+> Task :libgdxbox2d:processResources NO-SOURCE
+> Task :libGdxAndroid:generateDebugResValues UP-TO-DATE
+> Task :libGdxAndroid:generateDebugResources UP-TO-DATE
+> Task :libGdxLib3D:processResources NO-SOURCE
+> Task :core:sourcesJar UP-TO-DATE
+> Task :libGdxAndroid:packageDebugResources UP-TO-DATE
+> Task :core:processTestResources NO-SOURCE
+> Task :libGdxAndroid:extractDeepLinksDebug UP-TO-DATE
+> Task :desktop:processResources NO-SOURCE
+> Task :libGdxLibTool3D:processResources NO-SOURCE
+> Task :FontGenerator:processResources NO-SOURCE
+> Task :libGdxAndroid:processDebugManifest UP-TO-DATE
+> Task :libGdxAndroid:compileDebugLibraryResources UP-TO-DATE
+> Task :libCommon:compileJava UP-TO-DATE
+> Task :libCommon:processResources NO-SOURCE
+> Task :libGdxJnigenLoader:compileJava UP-TO-DATE
+> Task :FontGenerator:sourcesJar UP-TO-DATE
+> Task :libCommon:classes UP-TO-DATE
+> Task :libGdxJnigenLoader:processResources NO-SOURCE
+> Task :libGdxJnigenLoader:classes UP-TO-DATE
+> Task :FontGenerator:processTestResources NO-SOURCE
+> Task :libGdxJnigenLoader:jar UP-TO-DATE
+> Task :libCommon:jar UP-TO-DATE
+> Task :libGdx:processResources NO-SOURCE
+> Task :libGdxAndroid:parseDebugLocalResources UP-TO-DATE
+> Task :libGdxAndroid:generateDebugRFile UP-TO-DATE
+> Task :libGdxEvent:compileJava UP-TO-DATE
+> Task :libGdxAndroid:javaPreCompileDebug UP-TO-DATE
+> Task :libGdxEvent:processResources NO-SOURCE
+> Task :libGdxEvent:classes UP-TO-DATE
+> Task :libGdx:compileJava UP-TO-DATE
+> Task :libGdx:classes UP-TO-DATE
+> Task :libGdx:jar UP-TO-DATE
+> Task :libGdxLib:compileJava UP-TO-DATE
+> Task :libGdxLib:classes UP-TO-DATE
+> Task :libGdxLib:jar UP-TO-DATE
+> Task :libGdxEvent:jar UP-TO-DATE
+> Task :desktop:sourcesJar UP-TO-DATE
+> Task :desktop:processTestResources NO-SOURCE
+> Task :libgdxbox2d:compileJava UP-TO-DATE
+> Task :libgdxbox2d:classes UP-TO-DATE
+> Task :libgdxbox2d:jar UP-TO-DATE
+> Task :libGdxLib3D:compileJava UP-TO-DATE
+> Task :libGdxLib3D:classes UP-TO-DATE
+> Task :libCommon:javadoc UP-TO-DATE
+> Task :libCommon:javadocJar UP-TO-DATE
+> Task :FontGenerator:compileJava UP-TO-DATE
+> Task :FontGenerator:classes UP-TO-DATE
+> Task :libCommon:sourcesJar UP-TO-DATE
+> Task :libCommon:assemble UP-TO-DATE
+> Task :FontGenerator:jar UP-TO-DATE
+> Task :libCommon:compileTestJava NO-SOURCE
+> Task :libCommon:processTestResources NO-SOURCE
+> Task :libCommon:testClasses UP-TO-DATE
+> Task :libCommon:test NO-SOURCE
+> Task :libCommon:check UP-TO-DATE
+> Task :libCommon:build UP-TO-DATE
+> Task :libGdx:javadoc UP-TO-DATE
+> Task :libGdxLib3D:jar UP-TO-DATE
+> Task :libGdxLibTool3D:compileJava UP-TO-DATE
+> Task :libGdxLibTool3D:classes UP-TO-DATE
+> Task :libGdxLibTool3D:jar UP-TO-DATE
+> Task :core:compileJava UP-TO-DATE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugShaders
+> Task :libGdx:javadocJar UP-TO-DATE
+> Task :libGdxEvent:javadoc UP-TO-DATE
+> Task :core:javadoc UP-TO-DATE
+> Task :libGdx:sourcesJar UP-TO-DATE
+> Task :libGdx:assemble UP-TO-DATE
+> Task :core:javadocJar UP-TO-DATE
+> Task :libGdx:compileTestJava NO-SOURCE
+> Task :core:assemble UP-TO-DATE
+> Task :core:compileTestJava NO-SOURCE
+> Task :FontGenerator:javadoc UP-TO-DATE
+> Task :libGdxAndroid:compileDebugJavaWithJavac UP-TO-DATE
+> Task :libGdxAndroid:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :libGdxAndroid:compileDebugShaders NO-SOURCE
+> Task :libGdxAndroid:generateDebugAssets UP-TO-DATE
+> Task :libgdxbox2d:javadoc UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugAssets
+> Task :libGdxAndroid:processDebugJavaRes NO-SOURCE
+> Task :android:preBuild UP-TO-DATE
+> Task :android:preDebugBuild UP-TO-DATE
+> Task :android:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :android:javaPreCompileDebug UP-TO-DATE
+> Task :android:checkDebugAarMetadata UP-TO-DATE
+> Task :android:generateDebugResValues UP-TO-DATE
+> Task :android:mapDebugSourceSetPaths UP-TO-DATE
+> Task :android:generateDebugResources UP-TO-DATE
+> Task :android:mergeDebugResources UP-TO-DATE
+> Task :android:packageDebugResources UP-TO-DATE
+> Task :android:parseDebugLocalResources UP-TO-DATE
+> Task :android:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :android:extractDeepLinksDebug UP-TO-DATE
+> Task :android:processDebugMainManifest UP-TO-DATE
+> Task :android:processDebugManifest UP-TO-DATE
+> Task :android:processDebugManifestForPackage UP-TO-DATE
+> Task :desktop:compileJava UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugJniLibFolders
+> Task :libGdxAndroid:mergeDebugNativeLibs NO-SOURCE
+> Task :libGdxAndroid:copyDebugJniLibsProjectOnly
+> Task :libGdxAndroid:preReleaseBuild UP-TO-DATE
+> Task :libGdxAndroid:mergeReleaseJniLibFolders
+> Task :libGdxAndroid:mergeReleaseNativeLibs NO-SOURCE
+> Task :libGdxAndroid:copyReleaseJniLibsProjectOnly
+> Task :libGdxAndroid:generateReleaseResValues UP-TO-DATE
+> Task :libGdxAndroid:generateReleaseResources UP-TO-DATE
+> Task :libGdxAndroid:packageReleaseResources UP-TO-DATE
+> Task :libGdxAndroid:parseReleaseLocalResources UP-TO-DATE
+> Task :libGdxAndroid:generateReleaseRFile UP-TO-DATE
+> Task :libGdxAndroid:javaPreCompileRelease UP-TO-DATE
+> Task :libGdxAndroid:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :android:processDebugResources UP-TO-DATE
+> Task :android:compileDebugJavaWithJavac UP-TO-DATE
+> Task :android:mergeDebugShaders
+> Task :android:compileDebugShaders NO-SOURCE
+> Task :android:generateDebugAssets UP-TO-DATE
+> Task :libGdxAndroid:bundleLibRuntimeToJarDebug
+> Task :libGdxAndroid:bundleLibRuntimeToJarRelease
+> Task :libGdxAndroid:writeReleaseAarMetadata UP-TO-DATE
+> Task :libGdxAndroid:extractDeepLinksRelease UP-TO-DATE
+> Task :libGdxAndroid:processReleaseManifest UP-TO-DATE
+> Task :libGdxAndroid:compileReleaseLibraryResources UP-TO-DATE
+> Task :libGdxAndroid:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :libGdxAndroid:prepareReleaseArtProfile UP-TO-DATE
+> Task :core:testClasses UP-TO-DATE
+> Task :core:test NO-SOURCE
+> Task :core:check UP-TO-DATE
+> Task :core:build UP-TO-DATE
+> Task :desktop:classes UP-TO-DATE
+> Task :desktop:jar UP-TO-DATE
+> Task :desktop:javadoc UP-TO-DATE
+> Task :desktop:javadocJar UP-TO-DATE
+> Task :desktop:assemble UP-TO-DATE
+> Task :desktop:compileTestJava NO-SOURCE
+> Task :desktop:testClasses UP-TO-DATE
+> Task :desktop:test NO-SOURCE
+> Task :desktop:check UP-TO-DATE
+> Task :desktop:build UP-TO-DATE
+> Task :FontGenerator:javadocJar UP-TO-DATE
+> Task :FontGenerator:assemble UP-TO-DATE
+> Task :FontGenerator:compileTestJava NO-SOURCE
+> Task :FontGenerator:testClasses UP-TO-DATE
+> Task :FontGenerator:test NO-SOURCE
+> Task :FontGenerator:check UP-TO-DATE
+> Task :FontGenerator:build UP-TO-DATE
+> Task :libGdx:processTestResources NO-SOURCE
+> Task :libGdx:testClasses UP-TO-DATE
+> Task :libGdx:test NO-SOURCE
+> Task :libGdx:check UP-TO-DATE
+> Task :libGdx:build UP-TO-DATE
+> Task :libgdxbox2d:javadocJar UP-TO-DATE
+> Task :libgdxbox2d:sourcesJar UP-TO-DATE
+> Task :libgdxbox2d:assemble UP-TO-DATE
+> Task :libgdxbox2d:compileTestJava NO-SOURCE
+> Task :libgdxbox2d:processTestResources NO-SOURCE
+> Task :libgdxbox2d:testClasses UP-TO-DATE
+> Task :libgdxbox2d:test NO-SOURCE
+> Task :libgdxbox2d:check UP-TO-DATE
+> Task :libgdxbox2d:build UP-TO-DATE
+> Task :libGdxEvent:javadocJar UP-TO-DATE
+> Task :libGdxEvent:sourcesJar UP-TO-DATE
+> Task :libGdxEvent:assemble UP-TO-DATE
+> Task :libGdxEvent:compileTestJava NO-SOURCE
+> Task :libGdxEvent:processTestResources NO-SOURCE
+> Task :libGdxEvent:testClasses UP-TO-DATE
+> Task :libGdxEvent:test NO-SOURCE
+> Task :libGdxEvent:check UP-TO-DATE
+> Task :libGdxEvent:build UP-TO-DATE
+> Task :libGdxJnigenLoader:javadoc UP-TO-DATE
+> Task :libGdxJnigenLoader:javadocJar UP-TO-DATE
+> Task :libGdxJnigenLoader:sourcesJar UP-TO-DATE
+> Task :libGdxJnigenLoader:assemble UP-TO-DATE
+> Task :libGdxJnigenLoader:compileTestJava NO-SOURCE
+> Task :libGdxJnigenLoader:processTestResources NO-SOURCE
+> Task :libGdxJnigenLoader:testClasses UP-TO-DATE
+> Task :libGdxJnigenLoader:test NO-SOURCE
+> Task :libGdxJnigenLoader:check UP-TO-DATE
+> Task :libGdxJnigenLoader:build UP-TO-DATE
+> Task :libGdxLib:javadoc UP-TO-DATE
+> Task :libGdxLib:javadocJar UP-TO-DATE
+> Task :libGdxLib:sourcesJar UP-TO-DATE
+> Task :libGdxLib:assemble UP-TO-DATE
+> Task :libGdxLib:compileTestJava NO-SOURCE
+> Task :libGdxLib:processTestResources NO-SOURCE
+> Task :libGdxLib:testClasses UP-TO-DATE
+> Task :libGdxLib:test NO-SOURCE
+> Task :libGdxLib:check UP-TO-DATE
+> Task :libGdxLib:build UP-TO-DATE
+> Task :libGdxLib3D:javadoc UP-TO-DATE
+> Task :libGdxLib3D:javadocJar UP-TO-DATE
+> Task :libGdxLib3D:sourcesJar UP-TO-DATE
+> Task :libGdxLib3D:assemble UP-TO-DATE
+> Task :libGdxLib3D:compileTestJava NO-SOURCE
+> Task :libGdxLib3D:processTestResources NO-SOURCE
+> Task :libGdxLib3D:testClasses UP-TO-DATE
+> Task :libGdxLib3D:test NO-SOURCE
+> Task :libGdxLib3D:check UP-TO-DATE
+> Task :libGdxLib3D:build UP-TO-DATE
+> Task :libGdxLibTool3D:javadoc UP-TO-DATE
+> Task :libGdxLibTool3D:javadocJar UP-TO-DATE
+> Task :libGdxLibTool3D:sourcesJar UP-TO-DATE
+> Task :libGdxLibTool3D:assemble UP-TO-DATE
+> Task :libGdxLibTool3D:compileTestJava NO-SOURCE
+> Task :libGdxLibTool3D:processTestResources NO-SOURCE
+> Task :libGdxLibTool3D:testClasses UP-TO-DATE
+> Task :libGdxLibTool3D:test NO-SOURCE
+> Task :libGdxLibTool3D:check UP-TO-DATE
+> Task :libGdxLibTool3D:build UP-TO-DATE
+> Task :libGdxMultDown:compileJava UP-TO-DATE
+> Task :libGdxMultDown:processResources NO-SOURCE
+> Task :libGdxMultDown:classes UP-TO-DATE
+> Task :libGdxMultDown:jar UP-TO-DATE
+> Task :libGdxMultDown:javadoc UP-TO-DATE
+> Task :libGdxMultDown:javadocJar UP-TO-DATE
+> Task :libGdxMultDown:sourcesJar UP-TO-DATE
+> Task :libGdxMultDown:assemble UP-TO-DATE
+> Task :libGdxMultDown:compileTestJava NO-SOURCE
+> Task :libGdxMultDown:processTestResources NO-SOURCE
+> Task :libGdxMultDown:testClasses UP-TO-DATE
+> Task :libGdxMultDown:test NO-SOURCE
+> Task :libGdxMultDown:check UP-TO-DATE
+> Task :libGdxMultDown:build UP-TO-DATE
+> Task :libGdxAndroid:mergeReleaseShaders
+> Task :libGdxAndroid:compileReleaseShaders NO-SOURCE
+> Task :libGdxAndroid:generateReleaseAssets UP-TO-DATE
+> Task :libGdxAndroid:mergeReleaseAssets
+> Task :libGdxAndroid:processReleaseJavaRes NO-SOURCE
+> Task :libGdxAndroid:stripDebugDebugSymbols NO-SOURCE
+> Task :libGdxAndroid:copyDebugJniLibsProjectAndLocalJars
+> Task :libGdxAndroid:extractDebugAnnotations
+> Task :libGdxAndroid:extractDeepLinksForAarDebug UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugConsumerProguardFiles
+> Task :libGdxAndroid:prepareDebugArtProfile UP-TO-DATE
+> Task :libGdxAndroid:prepareLintJarForPublish UP-TO-DATE
+> Task :libGdxAndroid:mergeDebugJavaResource
+> Task :libGdxAndroid:createFullJarDebug
+> Task :libGdxAndroid:syncDebugLibJars
+> Task :libGdxAndroid:bundleDebugLocalLintAar
+> Task :libGdxAndroid:writeDebugLintModelMetadata
+> Task :libGdxAndroid:extractProguardFiles
+> Task :libGdxAndroid:generateDebugLintModel
+> Task :libGdxAndroid:preDebugAndroidTestBuild UP-TO-DATE
+> Task :libGdxAndroid:generateDebugAndroidTestResValues
+> Task :libGdxAndroid:generateDebugAndroidTestLintModel
+> Task :libGdxAndroid:preDebugUnitTestBuild UP-TO-DATE
+> Task :libGdxAndroid:generateDebugUnitTestLintModel
+> Task :libGdxAndroid:bundleDebugAar
+> Task :libGdxAndroid:assembleDebug
+> Task :libGdxAndroid:stripReleaseDebugSymbols NO-SOURCE
+> Task :libGdxAndroid:copyReleaseJniLibsProjectAndLocalJars
+> Task :libGdxAndroid:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :android:mergeDebugAssets
+> Task :libGdxAndroid:extractReleaseAnnotations
+> Task :libGdxAndroid:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :libGdxAndroid:mergeReleaseConsumerProguardFiles
+> Task :libGdxAndroid:mapReleaseSourceSetPaths
+> Task :android:processDebugJavaRes NO-SOURCE
+> Task :libGdxAndroid:mergeReleaseJavaResource
+> Task :libGdxAndroid:lintAnalyzeDebugAndroidTest
+> Task :android:desugarDebugFileDependencies
+> Task :android:checkDebugDuplicateClasses
+> Task :android:dexBuilderDebug
+> Task :android:mergeDebugJniLibFolders
+> Task :android:mergeProjectDexDebug
+> Task :android:mergeDebugNativeLibs
+> Task :android:validateSigningDebug
+> Task :android:writeDebugAppMetadata
+> Task :android:writeDebugSigningConfigVersions
+> Task :android:preReleaseBuild UP-TO-DATE
+> Task :android:mergeReleaseJniLibFolders
+
+> Task :android:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libgdx.so. Run with --info option to learn more.
+
+> Task :android:checkReleaseDuplicateClasses
+> Task :android:javaPreCompileRelease UP-TO-DATE
+> Task :android:mergeLibDexDebug
+> Task :android:mergeReleaseNativeLibs
+> Task :android:checkReleaseAarMetadata UP-TO-DATE
+> Task :android:generateReleaseResValues UP-TO-DATE
+> Task :android:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :android:generateReleaseResources UP-TO-DATE
+> Task :android:mergeReleaseResources UP-TO-DATE
+> Task :android:packageReleaseResources UP-TO-DATE
+> Task :android:parseReleaseLocalResources UP-TO-DATE
+> Task :android:createReleaseCompatibleScreenManifests UP-TO-DATE
+> Task :android:extractDeepLinksRelease UP-TO-DATE
+> Task :android:processReleaseMainManifest UP-TO-DATE
+> Task :android:processReleaseManifest UP-TO-DATE
+> Task :android:processReleaseManifestForPackage UP-TO-DATE
+> Task :android:processReleaseResources UP-TO-DATE
+> Task :android:compileReleaseJavaWithJavac UP-TO-DATE
+
+> Task :android:stripReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libgdx.so. Run with --info option to learn more.
+
+> Task :android:dexBuilderRelease
+> Task :android:extractReleaseNativeSymbolTables
+> Task :android:desugarReleaseFileDependencies
+> Task :android:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :android:mergeReleaseStartupProfile UP-TO-DATE
+> Task :android:mergeExtDexDebug
+> Task :android:mergeReleaseArtProfile UP-TO-DATE
+> Task :android:mergeReleaseShaders
+> Task :android:compileReleaseShaders NO-SOURCE
+> Task :android:generateReleaseAssets UP-TO-DATE
+> Task :android:mergeDebugJavaResource
+> Task :android:mergeReleaseGlobalSynthetics
+> Task :android:mergeExtDexRelease
+> Task :android:mergeReleaseAssets
+> Task :libGdxAndroid:mergeReleaseResources
+> Task :android:extractReleaseVersionControlInfo
+> Task :android:processReleaseJavaRes NO-SOURCE
+> Task :android:compressDebugAssets
+> Task :android:collectReleaseDependencies
+> Task :android:mergeDexRelease
+> Task :android:sdkReleaseDependencyData
+> Task :android:compileReleaseArtProfile
+> Task :android:writeReleaseAppMetadata
+> Task :android:writeReleaseSigningConfigVersions
+> Task :android:bundleDebugClassesToCompileJar
+> Task :android:preDebugAndroidTestBuild SKIPPED
+> Task :android:generateDebugAndroidTestResValues
+> Task :libGdxAndroid:syncReleaseLibJars
+> Task :android:generateDebugAndroidTestLintModel
+> Task :android:extractProguardFiles
+> Task :libGdxAndroid:bundleReleaseAar
+> Task :android:generateDebugLintReportModel
+> Task :android:preDebugUnitTestBuild UP-TO-DATE
+> Task :android:generateDebugUnitTestLintModel
+> Task :android:optimizeReleaseResources
+> Task :libGdxAndroid:lintAnalyzeDebug
+> Task :android:javaPreCompileDebugUnitTest
+> Task :android:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :android:processDebugUnitTestJavaRes NO-SOURCE
+> Task :android:bundleDebugClassesToRuntimeJar
+> Task :libGdxAndroid:lintAnalyzeDebugUnitTest
+> Task :libGdxAndroid:generateDebugLintReportModel
+> Task :android:bundleReleaseClassesToRuntimeJar
+> Task :libGdxAndroid:javaPreCompileDebugUnitTest
+> Task :libGdxAndroid:processDebugUnitTestJavaRes NO-SOURCE
+> Task :libGdxAndroid:preReleaseUnitTestBuild UP-TO-DATE
+> Task :libGdxAndroid:generateReleaseUnitTestStubRFile
+
+> Task :libGdxAndroid:lintReportDebug
+Wrote HTML report to file:///D:/github/LibGdxTool/libGdxAndroid/build/reports/lint-results-debug.html
+
+> Task :libGdxAndroid:lintDebug
+> Task :libGdxAndroid:lint
+> Task :libGdxAndroid:processReleaseUnitTestJavaRes NO-SOURCE
+> Task :libGdxAndroid:javaPreCompileReleaseUnitTest
+> Task :libGdxAndroid:compileReleaseUnitTestJavaWithJavac
+> Task :android:mergeReleaseJavaResource
+> Task :libGdxAndroid:generateDebugUnitTestStubRFile
+> Task :android:compressReleaseAssets
+> Task :android:testDebugUnitTest NO-SOURCE
+> Task :libGdxAndroid:testReleaseUnitTest
+> Task :libGdxAndroid:compileDebugUnitTestJavaWithJavac
+> Task :android:packageDebug
+> Task :android:createDebugApkListingFileRedirect
+> Task :android:assembleDebug
+> Task :android:preReleaseUnitTestBuild UP-TO-DATE
+> Task :android:processReleaseUnitTestJavaRes NO-SOURCE
+> Task :android:bundleReleaseClassesToCompileJar
+> Task :android:javaPreCompileReleaseUnitTest
+> Task :android:compileReleaseUnitTestJavaWithJavac NO-SOURCE
+> Task :android:testReleaseUnitTest NO-SOURCE
+> Task :android:test UP-TO-DATE
+> Task :libGdxAndroid:testDebugUnitTest
+> Task :libGdxAndroid:test
+> Task :libGdxAndroid:check
+> Task :android:packageRelease
+> Task :android:createReleaseApkListingFileRedirect
+> Task :android:assembleRelease
+> Task :android:assemble
+> Task :android:lintAnalyzeDebugAndroidTest
+> Task :android:lintAnalyzeDebug
+> Task :libGdxAndroid:verifyReleaseResources
+> Task :libGdxAndroid:assembleRelease
+> Task :libGdxAndroid:assemble
+> Task :libGdxAndroid:build
+> Task :android:lintAnalyzeDebugUnitTest
+
+> Task :android:lintReportDebug
+Wrote HTML report to file:///D:/github/LibGdxTool/android/build/reports/lint-results-debug.html
+
+> Task :android:lintDebug
+> Task :android:lint
+> Task :android:check
+> Task :android:build
+
+BUILD SUCCESSFUL in 51s
+227 actionable tasks: 104 executed, 123 up-to-date

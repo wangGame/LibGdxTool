@@ -25,7 +25,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.6.1'
+        classpath 'com.android.tools.build:gradle:8.10.1'
     }
 }
 
@@ -94,11 +94,18 @@ gradle.projectsEvaluated {
 }
 
 subprojects {
+    tasks.withType(JavaCompile).configureEach {
+        // Keep Java 8 bytecode compatibility without JDK 21's obsolete-option noise.
+        options.compilerArgs.add('-Xlint:-options')
+    }
+
     // Publish Java modules as Maven artifacts.
     pluginManager.withPlugin('java') {
         apply plugin: 'maven-publish'
 
         java {
+            sourceCompatibility = JavaVersion.VERSION_1_8
+            targetCompatibility = JavaVersion.VERSION_1_8
             withSourcesJar()
             withJavadocJar()
         }

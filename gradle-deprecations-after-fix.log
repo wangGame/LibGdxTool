@@ -1,0 +1,22 @@
+Downloading https://mirrors.cloud.tencent.com/gradle/gradle-8.11.1-bin.zip
+.............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
+Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details
+
+> Task :help
+
+Welcome to Gradle 8.11.1.
+
+To run a build, run gradlew <task> ...
+
+To see a list of available tasks, run gradlew tasks
+
+To see more detail about a task, run gradlew help --task <task>
+
+To see a list of command-line options, run gradlew --help
+
+For more detail on using Gradle, see https://docs.gradle.org/8.11.1/userguide/command_line_interface.html
+
+For troubleshooting, visit https://help.gradle.org
+
+BUILD SUCCESSFUL in 2m 4s
+1 actionable task: 1 executed
