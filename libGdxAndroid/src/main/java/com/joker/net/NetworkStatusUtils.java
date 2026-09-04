@@ -84,7 +84,8 @@ public final class NetworkStatusUtils {
     }
 
     static boolean isConnected(NetworkCapabilities networkCapabilities) {
-        return getNetworkType(networkCapabilities) != 0 && networkCapabilities.hasCapability(12) && networkCapabilities.hasCapability(16);
+        return getNetworkType(networkCapabilities) != 0 && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
     }
 
     static boolean isConnected(NetworkInfo networkInfo) {
@@ -103,6 +104,6 @@ public final class NetworkStatusUtils {
         if (context == null) {
             return null;
         }
-        return (ConnectivityManager) context.getSystemService("connectivity");
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 }
