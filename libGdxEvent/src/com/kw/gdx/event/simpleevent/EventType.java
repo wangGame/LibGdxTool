@@ -5,5 +5,5 @@ package com.kw.gdx.event.simpleevent;
  */
 public enum EventType {
     None,
-    Once
+    OneRemove
 }

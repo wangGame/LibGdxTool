@@ -4,6 +4,17 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 目前事件包括延迟和单词，如果有需要在进行添加
+ *
+ * 还不支持跨screen的事件， 目前只支持单个screen的事件
+ *
+ * 有需要在添加
+ *
+ * TODO 下来要添加单个事件   和   多个事件
+ *
+ * 也就是eventName 只对应一个listener  和  eventName 对应多个listener
+ */
 public class EventManager {
     private Map<String, ArrayList<EventListener>> delayEventListenerMap = new ConcurrentHashMap<>();
 
