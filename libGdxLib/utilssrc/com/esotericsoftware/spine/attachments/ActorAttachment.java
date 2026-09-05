@@ -5,6 +5,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class ActorAttachment extends Attachment{
 
     private Actor actor;
+    /**
+     * 用来是不是属性也进行跟随
+     */
     private boolean flower;
     private float offsetX;
     private float offsetY;

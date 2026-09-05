@@ -51,7 +51,7 @@ public class EventApp extends LibGdxTestMain {
                 SubTaskManager<Data> subTaskManager = new SubTaskManager<>();
                 subTaskManager.setTime(4);
                 subTaskManager.setData(data);
-                subTaskManager.setEventType(EventType.Once);
+                subTaskManager.setEventType(EventType.None);
                 instance.submit("addCoin2", subTaskManager);
             }
             {
@@ -61,7 +61,7 @@ public class EventApp extends LibGdxTestMain {
                 SubTaskManager<Data> subTaskManager = new SubTaskManager<>();
                 subTaskManager.setTime(4);
                 subTaskManager.setData(data);
-                subTaskManager.setEventType(EventType.Once);
+                subTaskManager.setEventType(EventType.OneRemove);
                 instance.submit("addCoin2",subTaskManager);
             }
             {
@@ -71,7 +71,7 @@ public class EventApp extends LibGdxTestMain {
                 SubTaskManager<Data> subTaskManager = new SubTaskManager<>();
                 subTaskManager.setTime(4);
                 subTaskManager.setData(data);
-                subTaskManager.setEventType(EventType.Once);
+                subTaskManager.setEventType(EventType.OneRemove);
                 instance.submit("addCoin2", subTaskManager);
             }
 

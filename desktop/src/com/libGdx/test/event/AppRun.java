@@ -37,7 +37,7 @@ public class AppRun extends LibGdxTestMain {
         SubTaskManager subTaskManager = new SubTaskManager();
         subTaskManager.setTime(4);
         subTaskManager.setData("延迟执行！");
-        subTaskManager.setEventType(EventType.Once);
+        subTaskManager.setEventType(EventType.OneRemove);
         EventManager.getInstance().submit("delayAddCoin",subTaskManager);
 
 
