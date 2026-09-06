@@ -31,19 +31,19 @@ public class ImageTest extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
 
-        Texture texture = Asset.getAsset().getTexture("assets/shuoming.png");
-
-        PageFlipDrawable drawable = new PageFlipDrawable(texture);
-        drawable.setFromRight(true);
-
-        PageFlipImage image = new PageFlipImage(drawable);
-        image.setSize(500, 500);
-        image.setPosition(400, 200);
-        image.setDuration(11.8f);
-
-        stage.addActor(image);
-
-        image.playFlip();
+//        Texture texture = Asset.getAsset().getTexture("assets/shuoming.png");
+//
+//        PageFlipDrawable drawable = new PageFlipDrawable(texture);
+//        drawable.setFromRight(true);
+//
+//        PageFlipImage image = new PageFlipImage(drawable);
+//        image.setSize(500, 500);
+//        image.setPosition(400, 200);
+//        image.setDuration(11.8f);
+//
+//        stage.addActor(image);
+//
+//        image.playFlip();
 //        Texture texture = Asset.getAsset().getTexture("assets/shuoming.png");
 //
 //        PageFlipDrawable drawable = new PageFlipDrawable(texture);
@@ -58,7 +58,7 @@ public class ImageTest extends LibGdxTestMain {
 //
 //        stage.addActor(image);
 
-//        showNewShear();
+        showNewShear();
 //        showImage(stage);
     }
 

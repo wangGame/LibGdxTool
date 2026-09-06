@@ -32,13 +32,13 @@ public class ClipActor extends Actor {
     private void drawForeground(Batch batchPara, int clipX, int clipY, int clipWidth, int clipHeight) {
         Gdx.gl.glColorMask(true, true, true, true);
         batchPara.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ONE_MINUS_DST_ALPHA);
-        img.draw(batchPara, 1f);
+        img.draw(batchPara, 0f);
         batchPara.flush();
 
     }
 
     private void drawAlphaMask(Batch batch) {
-        Gdx.gl.glColorMask(true, true, true, true);
+        Gdx.gl.glColorMask(false, false, false, false);
         mask.draw(batch, 1);
         batch.flush();
     }

@@ -25,7 +25,14 @@ public class ClipTest extends LibGdxTestMain {
 //        ClipActor actor = new ClipActor(region,region1);
 //        stage.addActor(actor);
 
-        ClipDemo clipDemo = new ClipDemo();
-        addActor(clipDemo);
+//        ClipDemo clipDemo = new ClipDemo();
+//        addActor(clipDemo);
+
+
+        ClipActor clipActor = new ClipActor(
+                new TextureRegion(new Texture("assets/ad_progress.png")),
+                new TextureRegion(new Texture("assets/board1.png")));
+        clipActor.setPosition(100, 100);
+        stage.addActor(clipActor);
     }
 }
