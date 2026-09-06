@@ -29,7 +29,7 @@ public class EnCodeUtils {
 
     private static void andOperationFile(String inputFile,String outputFile) {
         try (FileOutputStream outStream = new FileOutputStream(inputFile);
-             FileInputStream stream = new FileInputStream(outputFile);){
+             FileInputStream stream = new FileInputStream(outputFile)){
             int c = -1;
             while ((c = stream.read()) != -1) {
                 outStream.write(c^25);

@@ -220,6 +220,21 @@ public class BaseGame extends Game {
         }
     }
 
+    //TODO  目前没遇到这种场景
+    public void setScreenTo(Class<? extends BaseScreen> t){
+        Constructor<?> constructor = t.getConstructors()[0];
+        try {
+            BaseScreen baseScreen = (BaseScreen) constructor.newInstance(this);
+            setScreen(baseScreen);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setPersistentScreen(Class<? extends BaseScreen> t,boolean isGc) {
         Constructor<?> constructor = t.getConstructors()[0];
         try {
