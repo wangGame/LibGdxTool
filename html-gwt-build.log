@@ -1,0 +1,72 @@
+
+> Configure project :android
+WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
+
+> Task :html:processResources NO-SOURCE
+> Task :core:processResources NO-SOURCE
+> Task :libGdxLib:processResources NO-SOURCE
+> Task :libGdx:processResources NO-SOURCE
+
+> Task :libCommon:compileJava
+����: [options] Դֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ŀ��ֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ҫ�����й��ѹ�ʱѡ��ľ���, ��ʹ�� -Xlint:-options��
+
+> Task :libGdxJnigenLoader:compileJava
+����: [options] Դֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ŀ��ֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+
+����: [options] Ҫ�����й��ѹ�ʱѡ��ľ���, ��ʹ�� -Xlint:-options��
+> Task :libGdxJnigenLoader:processResources NO-SOURCE
+> Task :libGdxJnigenLoader:classes
+3 ������
+> Task :libGdxJnigenLoader:jar
+
+> Task :libCommon:compileJava
+3 ������
+
+> Task :libCommon:processResources NO-SOURCE
+> Task :libCommon:classes
+> Task :libCommon:jar
+����: [options] Դֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+
+> Task :libGdx:compileJava
+����: [options] Ŀ��ֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ҫ�����й��ѹ�ʱѡ��ľ���, ��ʹ�� -Xlint:-options��
+ע: ĳЩ�����ļ�ʹ�û򸲸����ѹ�ʱ�� API��
+ע: �й���ϸ��Ϣ, ��ʹ�� -Xlint:deprecation ���±��롣
+ע: ĳЩ�����ļ�ʹ����δ�����򲻰�ȫ�Ĳ�����
+ע: �й���ϸ��Ϣ, ��ʹ�� -Xlint:unchecked ���±��롣
+3 ������
+
+> Task :libGdx:classes
+> Task :libGdx:jar
+
+> Task :libGdxLib:compileJava
+����: [options] Դֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ŀ��ֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ҫ�����й��ѹ�ʱѡ��ľ���, ��ʹ�� -Xlint:-options��
+D:\github\LibGdxTool\libGdxLib\src\com\kw\gdx\resource\csvanddata\CsvReader.java:1457: ����: [removal] Object �е� finalize() �ѹ�ʱ, �ұ��Ϊ��ɾ��
+    protected void finalize() {
+                   ^
+D:\github\LibGdxTool\libGdxLib\src\com\kw\gdx\utils\Timer.java:13: ����: [removal] Object �е� finalize() �ѹ�ʱ, �ұ��Ϊ��ɾ��
+        protected void finalize() throws Throwable {
+                       ^
+ע: ĳЩ�����ļ�ʹ�û򸲸����ѹ�ʱ�� API��
+ע: �й���ϸ��Ϣ, ��ʹ�� -Xlint:deprecation ���±��롣
+ע: ĳЩ�����ļ�ʹ����δ�����򲻰�ȫ�Ĳ�����
+ע: �й���ϸ��Ϣ, ��ʹ�� -Xlint:unchecked ���±��롣
+5 ������
+
+> Task :libGdxLib:classes
+> Task :libGdxLib:jar
+
+> Task :core:compileJava
+����: [options] Դֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ŀ��ֵ 8 �ѹ�ʱ������δ�����а���ɾ��
+����: [options] Ҫ�����й��ѹ�ʱѡ��ľ���, ��ʹ�� -Xlint:-options��
+3 ������
+
+> Task :core:classes
+> Task :core:jar
+> Task :html:compileJava

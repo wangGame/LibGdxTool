@@ -1,0 +1,28 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :android
+WARNING: Using flatDir should be avoided because it doesn't support any meta-data formats.
+
+> Task :core:processResources NO-SOURCE
+> Task :html:processResources NO-SOURCE
+> Task :libGdx:processResources NO-SOURCE
+> Task :libGdxLib:processResources NO-SOURCE
+> Task :libGdxJnigenLoader:compileJava UP-TO-DATE
+> Task :libCommon:compileJava UP-TO-DATE
+> Task :libCommon:processResources NO-SOURCE
+> Task :libGdxJnigenLoader:processResources NO-SOURCE
+> Task :libGdxJnigenLoader:classes UP-TO-DATE
+> Task :libCommon:classes UP-TO-DATE
+> Task :libCommon:jar UP-TO-DATE
+> Task :libGdxJnigenLoader:jar UP-TO-DATE
+> Task :libGdx:compileJava UP-TO-DATE
+> Task :libGdx:classes UP-TO-DATE
+> Task :libGdx:jar UP-TO-DATE
+> Task :libGdxLib:compileJava UP-TO-DATE
+> Task :libGdxLib:classes UP-TO-DATE
+> Task :libGdxLib:jar UP-TO-DATE
+> Task :core:compileJava UP-TO-DATE
+> Task :core:classes UP-TO-DATE
+> Task :core:jar UP-TO-DATE
+> Task :html:compileJava

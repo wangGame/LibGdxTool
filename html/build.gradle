@@ -1,0 +1,71 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'org.wisepersist:gwt-gradle-plugin:1.1.19'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'gwt'
+apply plugin: 'war'
+
+def gdxVersion = '1.13.1'
+def gwtVersion = '2.11.0'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+sourceSets.main.java.srcDirs = ['src/main/java']
+sourceSets.main.resources.srcDirs = ['src/main/resources']
+
+dependencies {
+    implementation(project(':core')) {
+        transitive = false
+    }
+    implementation(project(':libGdxLib')) {
+        transitive = false
+    }
+
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+    implementation "org.gwtproject:gwt-user:$gwtVersion"
+    implementation "org.gwtproject:gwt-dev:$gwtVersion"
+
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+}
+
+gwt {
+    gwtVersion = gwtVersion
+    maxHeapSize = '2G'
+    minHeapSize = '512M'
+    modules 'com.joker.domos.GdxDefinition'
+
+    src = files(
+            'src/main/java',
+            project(':core').file('src'),
+            project(':libGdxLib').file('src')
+    )
+
+    compiler {
+        strict = true
+        disableCastChecking = true
+    }
+}
+
+tasks.register('dist') {
+    group = 'build'
+    description = 'Builds the optimized GWT web distribution.'
+    dependsOn tasks.named('compileGwt')
+
+    doLast {
+        copy {
+            from 'src/main/webapp'
+            from compileGwt.outputs
+            into layout.buildDirectory.dir('dist').get().asFile
+        }
+    }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to="html">
+    <inherits name="com.badlogic.gdx.backends.gdx_backends_gwt"/>
+    <inherits name="com.joker.domos.Core"/>
+    <inherits name="com.kw.gdx.LibGdxLib"/>
+
+    <source path="client"/>
+    <entry-point class="com.joker.domos.client.HtmlLauncher"/>
+
+    <set-configuration-property name="gdx.assetpath" value="../android/assets"/>
+</module>

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -53,7 +54,7 @@ public class LoadScreen extends BaseScreen {
         label.setText("new player ");
         label.setDebug(true);
         label.setAlignment(Align.left);
-        label.addListener(new OrdinaryButtonListener(){
+        label.addListener(new OrdinaryButtonListener(1){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
@@ -68,6 +69,17 @@ public class LoadScreen extends BaseScreen {
 
                     }
                 });
+            }
+        });
+
+        Image image = new Image(Asset.getAsset().getSprite("7.png"));
+        addActor(image);
+        stage.addListener(new ClickListener(){
+            @Override
+            public void touchDragged(InputEvent event, float x, float y, int pointer) {
+                super.touchDragged(event, x, y, pointer);
+                image.clearActions();
+                image.addAction(Actions.moveToAligned(x,y,Align.center,0.1f));
             }
         });
     }
