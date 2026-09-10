@@ -12,7 +12,6 @@ public class PersistentApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        setPersistentScreen(ProfileScreen.class);
         setScreen(ShowMainScreen.class);
     }
 }

@@ -8,6 +8,7 @@ dependencies {
     implementation project (':libGdxLib')
     implementation project (':libGdx')
     implementation project(":libCommon")
+    implementation project(":libGdxEvent")
     implementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
