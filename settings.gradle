@@ -17,4 +17,5 @@ include 'libGdxLib',
         "libGdxJnigenLoader",
         "FontGenerator",
         "libGdxEvent",
-        "tools"
+        "tools",
+        "libFreetype"

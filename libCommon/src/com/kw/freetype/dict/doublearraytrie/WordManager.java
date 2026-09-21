@@ -1,4 +1,4 @@
-package com.kw.common.dict.doublearraytrie;
+package com.kw.freetype.dict.doublearraytrie;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 import java.io.IOException;

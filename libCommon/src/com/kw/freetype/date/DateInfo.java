@@ -1,4 +1,4 @@
-package com.kw.common.date;
+package com.kw.freetype.date;
 
 public class DateInfo {
     private int year;

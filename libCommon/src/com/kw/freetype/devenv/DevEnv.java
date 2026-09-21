@@ -1,4 +1,4 @@
-package com.kw.common.devenv;
+package com.kw.freetype.devenv;
 
 import java.nio.charset.Charset;
 import java.util.Locale;

@@ -1,6 +1,6 @@
 package com.libGdx.test.common;
 
-import com.kw.common.string.StringUtils;
+import com.kw.freetype.string.StringUtils;
 
 public class StringUtilsTest {
     public static void main(String[] args) {

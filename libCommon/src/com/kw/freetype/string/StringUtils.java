@@ -1,4 +1,4 @@
-package com.kw.common.string;
+package com.kw.freetype.string;
 
 import java.util.IllegalFormatException;
 

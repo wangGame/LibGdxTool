@@ -1,4 +1,4 @@
-package com.kw.common.dict.radix;
+package com.kw.freetype.dict.radix;
 
 import java.util.ArrayList;
 

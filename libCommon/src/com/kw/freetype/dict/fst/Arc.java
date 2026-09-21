@@ -1,4 +1,4 @@
-package com.kw.common.dict.fst;
+package com.kw.freetype.dict.fst;
 
 public class Arc {
 

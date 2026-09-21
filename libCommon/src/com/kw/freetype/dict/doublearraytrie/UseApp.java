@@ -1,4 +1,4 @@
-package com.kw.common.dict.doublearraytrie;
+package com.kw.freetype.dict.doublearraytrie;
 
 public class UseApp {
     public static void main(String[] args) {
