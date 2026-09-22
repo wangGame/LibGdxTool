@@ -29,6 +29,7 @@ import java.util.Random;
 
 public class AndroidLauncher extends BaseAndroidLauncher {
     public static boolean isDebug = false;
+    private AndroidUpdateChecker updateChecker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,9 @@ public class AndroidLauncher extends BaseAndroidLauncher {
             }
         }), configuration);
 
+        updateChecker = new AndroidUpdateChecker(this);
+        updateChecker.checkForUpdate();
+
 //
 //        Intent intent = new Intent(this, KeyboardHeightCaseDemoActivity.class);
 //        startActivity(intent);
@@ -101,6 +105,18 @@ public class AndroidLauncher extends BaseAndroidLauncher {
 
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (updateChecker != null) updateChecker.onSettingsResult(requestCode);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (updateChecker != null) updateChecker.cancelDownload();
+        super.onDestroy();
     }
 
 

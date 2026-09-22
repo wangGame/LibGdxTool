@@ -10,6 +10,12 @@
 - 仓库: `wangGame/LibGdxTool`
 - Maven 地址: `https://maven.pkg.github.com/wangGame/LibGdxTool`
 - 最新 Release: [![Release](https://img.shields.io/github/v/release/wangGame/LibGdxTool?display_name=tag)](https://github.com/wangGame/LibGdxTool/releases)
+
+### Android APK 自动更新
+
+Android 应用启动时会检查 `wangGame/LibGdxTool` 的最新 GitHub Release。只有当 Release 的版本号高于 `android/build.gradle` 中的 `versionName`，且 Release 附带 `.apk` 文件时，才会提示下载；用户可以选择稍后或取消下载。下载完成后由 Android 系统安装器安装。
+
+发布时请同步更新 `versionCode`、`versionName`，使用 `release2.0.3`、`v2.0.3` 或 `2.0.3` 格式的 tag，并将与当前应用相同 `applicationId`、相同签名的 APK 上传为 Release asset。仅创建 GitHub Release、没有上传 APK，不会触发更新提示。
 - 当前版本: `3.0.0` [auto-sync]
 - groupId: `com.github.wanggame`
 - artifactId 规则: 模块名全小写
