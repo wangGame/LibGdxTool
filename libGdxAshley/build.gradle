@@ -1,0 +1,33 @@
+apply plugin: "java"
+
+sourceCompatibility = 1.8
+sourceSets.main.java.srcDirs = [
+        "src/","utilssrc",
+]
+
+dependencies {
+    implementation project(":libGdx")
+    implementation project(":libGdxLib")
+    implementation("com.badlogicgames.ashley:ashley:1.7.4")
+}
+
+// 指定编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+
+buildscript {
+    ext.kotlin_version = '2.0.20'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+
+ 

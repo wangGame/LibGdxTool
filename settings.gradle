@@ -18,4 +18,5 @@ include 'libGdxLib',
         "FontGenerator",
         "libGdxEvent",
         "tools",
-        "libFreetype"
+        "libFreetype",
+        "libGdxAshley"
