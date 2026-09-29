@@ -17,7 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.BaseGame;
@@ -44,11 +46,21 @@ public class BlurScreen extends BaseScreen {
         addActor(background);
         Image image = new Image(Asset.getAsset().getTexture("0_1_41_512.jpg"));
         background.addActor(image);
-        image.setScale(19);
+        image.addListener(new DragListener() {
+            @Override
+            public void drag(InputEvent event, float x, float y, int pointer) {
+                float maxX = Math.max(0f, background.getWidth() - image.getWidth());
+                float maxY = Math.max(0f, background.getHeight() - image.getHeight());
+                image.setPosition(
+                        MathUtils.clamp(image.getX() + x - getTouchDownX(), 0f, maxX),
+                        MathUtils.clamp(image.getY() + y - getTouchDownY(), 0f, maxY));
+            }
+        });
         blurGlass = new BlurGlass(background);
         blurGlass.setSize(430, 430);
         blurGlass.setPosition((Constant.GAMEWIDTH - blurGlass.getWidth()) / 2f,
                 (Constant.GAMEHIGHT - blurGlass.getHeight()) / 2f);
+        blurGlass.setTouchable(Touchable.disabled);
         addActor(blurGlass);
 
         parameterPanel = new ParameterPanel(blurGlass);

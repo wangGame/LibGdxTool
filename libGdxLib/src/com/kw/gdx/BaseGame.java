@@ -146,6 +146,8 @@ public class BaseGame extends Game {
         if (Constant.SHOWFRAMESPERSECOND){
             NLog.i("FramesPerSecond %s",Gdx.app.getGraphics().getFramesPerSecond());
         }
+
+        System.out.println(Gdx.app.getGraphics().getFramesPerSecond());
         super.render();
 
         if (zhuanCScreen!=null){
