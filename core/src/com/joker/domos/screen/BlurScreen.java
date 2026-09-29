@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Align;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
@@ -29,6 +30,7 @@ public class BlurScreen extends BaseScreen {
     private DemoBackground background;
     private BlurGlass blurGlass;
     private ParameterPanel parameterPanel;
+    private FpsDisplay fpsDisplay;
 
     public BlurScreen(BaseGame game) {
         super(game);
@@ -52,6 +54,10 @@ public class BlurScreen extends BaseScreen {
         parameterPanel = new ParameterPanel(blurGlass);
         parameterPanel.setBounds(110, 50, Constant.GAMEWIDTH - 220, 390);
         addActor(parameterPanel);
+
+        fpsDisplay = new FpsDisplay();
+        fpsDisplay.setBounds(Constant.GAMEWIDTH - 330, Constant.GAMEHIGHT - 110, 290, 80);
+        addActor(fpsDisplay);
     }
 
     @Override
@@ -59,6 +65,7 @@ public class BlurScreen extends BaseScreen {
         if (blurGlass != null) blurGlass.dispose();
         if (background != null) background.dispose();
         if (parameterPanel != null) parameterPanel.dispose();
+        if (fpsDisplay != null) fpsDisplay.dispose();
         super.dispose();
     }
 
@@ -340,6 +347,26 @@ public class BlurScreen extends BaseScreen {
         public void dispose() {
             font.dispose();
             pixel.dispose();
+        }
+    }
+
+    private static final class FpsDisplay extends Actor implements Disposable {
+        private final BitmapFont font = Asset.getAsset().loadBitFont("font/Cali_75.fnt");
+
+        private FpsDisplay() {
+            font.getData().setScale(2f);
+        }
+
+        @Override
+        public void draw(Batch batch, float parentAlpha) {
+            font.setColor(1f, 1f, 1f, parentAlpha);
+            font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(),
+                    getX(), getY() + getHeight(), getWidth(), Align.right, false);
+        }
+
+        @Override
+        public void dispose() {
+            font.dispose();
         }
     }
 
