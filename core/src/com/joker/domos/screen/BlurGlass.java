@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Disposable;
 public class BlurGlass extends Actor implements Disposable {
     private static final String VERTEX = "attribute vec4 a_position;\nattribute vec4 a_color;\nattribute vec2 a_texCoord0;\n" + "uniform mat4 u_projTrans;\nvarying vec4 v_color;\nvarying vec2 v_uv;\n" + "void main(){v_color=a_color;v_uv=a_texCoord0;gl_Position=u_projTrans*a_position;}\n";
 
-    private static final String FRAGMENT = "#ifdef GL_ES\nprecision mediump float;\n#endif\n" + "uniform sampler2D u_texture;uniform sampler2D u_scene;uniform vec2 u_resolution;uniform vec2 u_size;\n" + "uniform float u_corner;uniform vec4 u_overlay;\n" + "varying vec4 v_color;varying vec2 v_uv;\n" + "float roundBox(vec2 p,vec2 b,float r){vec2 q=abs(p)-b+r;return min(max(q.x,q.y),0.0)+length(max(q,0.0))-r;}\n" + "void main(){vec2 p=(v_uv-0.5)*u_size;float edge=roundBox(p,u_size*0.5,u_corner);if(edge>1.0)discard;\n" + "vec2 uv=gl_FragCoord.xy/u_resolution;vec4 c=texture2D(u_scene,uv);\n" + "c=mix(c,u_overlay,u_overlay.a);float aa=1.0-smoothstep(0.0,1.0,edge);gl_FragColor=vec4(c.rgb,aa)*v_color;}\n";
+    private static final String FRAGMENT = "#ifdef GL_ES\nprecision mediump float;\n#endif\n" + "uniform sampler2D u_texture;uniform sampler2D u_scene;uniform vec2 u_size;\n" + "uniform float u_corner;uniform vec4 u_overlay;\n" + "varying vec4 v_color;varying vec2 v_uv;\n" + "float roundBox(vec2 p,vec2 b,float r){vec2 q=abs(p)-b+r;return min(max(q.x,q.y),0.0)+length(max(q,0.0))-r;}\n" + "void main(){vec2 p=(v_uv-0.5)*u_size;float edge=roundBox(p,u_size*0.5,u_corner);if(edge>1.0)discard;\n" + "vec4 c=texture2D(u_scene,vec2(v_uv.x,1.0-v_uv.y));\n" + "c=mix(c,u_overlay,u_overlay.a);float aa=1.0-smoothstep(0.0,1.0,edge);gl_FragColor=vec4(c.rgb,aa)*v_color;}\n";
 
     private static final String PASS_FRAGMENT = "#ifdef GL_ES\nprecision mediump float;\n#endif\n" + "uniform sampler2D u_texture;uniform sampler2D u_source;uniform vec2 u_resolution;\n" + "uniform vec2 u_direction;uniform float u_radius;\n" + "void main(){vec2 uv=gl_FragCoord.xy/u_resolution;vec2 stepv=u_direction*u_radius/(8.0*u_resolution);" + "vec4 c=vec4(0.0);float total=0.0;" + "for(int i=-8;i<=8;i++){float fi=float(i);float w=9.0-abs(fi);" + "c+=texture2D(u_source,uv+stepv*fi)*w;total+=w;}gl_FragColor=c/total;}\n";
 
@@ -37,6 +37,7 @@ public class BlurGlass extends Actor implements Disposable {
 
     public BlurGlass(DemoBackground background) {
         this.background = background;
+        background.setCaptureActor(this);
         ShaderProgram.pedantic = false;
         shader = new ShaderProgram(VERTEX, FRAGMENT);
         if (!shader.isCompiled()) {
@@ -59,7 +60,6 @@ public class BlurGlass extends Actor implements Disposable {
         ShaderProgram previous = batch.getShader();
         batch.setShader(shader);
         shader.setUniformi("u_scene", 1);
-        shader.setUniformf("u_resolution", sceneWidth, sceneHeight);
         shader.setUniformf("u_size", getWidth(), getHeight());
         shader.setUniformf("u_corner", cornerRadius);
         shader.setUniformf("u_overlay", 1f, 1f, 1f, overlayAlpha);
@@ -75,7 +75,7 @@ public class BlurGlass extends Actor implements Disposable {
         int width = Math.max(1, Math.round(sceneWidth / downsample));
         int height = Math.max(1, Math.round(sceneHeight / downsample));
         ensureBlurBuffers(width, height);
-        float stageToFramebuffer = sceneWidth / getStage().getViewport().getWorldWidth();
+        float stageToFramebuffer = sceneWidth / getWidth();
         float radius = Math.min(25f, blurRadius * stageToFramebuffer / downsample);
 
         stageBatch.end();

@@ -56,7 +56,7 @@ public class BlurScreen extends BaseScreen {
             }
         });
         blurGlass = new BlurGlass(background);
-        blurGlass.setSize(430, 430);
+        blurGlass.setSize(1430, 1430);
         blurGlass.setPosition((Constant.GAMEWIDTH - blurGlass.getWidth()) / 2f, (Constant.GAMEHIGHT - blurGlass.getHeight()) / 2f);
         blurGlass.setTouchable(Touchable.disabled);
         addActor(blurGlass);
