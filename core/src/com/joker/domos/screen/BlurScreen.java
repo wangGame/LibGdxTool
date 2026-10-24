@@ -24,6 +24,8 @@ import com.badlogic.gdx.utils.Disposable;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.constant.Constant;
+import com.kw.gdx.crash.ShowCarsh;
+import com.kw.gdx.listener.OrdinaryButtonListener;
 import com.kw.gdx.screen.BaseScreen;
 
 /**
@@ -68,6 +70,35 @@ public class BlurScreen extends BaseScreen {
         fpsDisplay = new FpsDisplay();
         fpsDisplay.setBounds(Constant.GAMEWIDTH - 330, Constant.GAMEHIGHT - 110, 290, 80);
         addActor(fpsDisplay);
+
+        {
+            Image image1 = new Image(Asset.getAsset().getTexture("theme_305.png"));
+            image1.setPosition(100,300);
+            addActor(image1);
+            image1.addListener(new OrdinaryButtonListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    int i = 3/0;
+                }
+            });
+        }
+        {
+            Image image1 = new Image(Asset.getAsset().getTexture("theme_305.png"));
+            image1.setPosition(100,100);
+            addActor(image1);
+            image1.addListener(new OrdinaryButtonListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    ShowCarsh crashPanel = new ShowCarsh(Asset.getAsset().loadBitFont("font/inter-bold-20.fnt"));
+                    crashPanel.setPosition(40, 100);
+                    crashPanel.setSize(1000, 650);
+                    stage.addActor(crashPanel);
+                }
+            });
+        }
+
     }
 
     @Override

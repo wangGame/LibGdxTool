@@ -57,7 +57,6 @@ public class BaseGame extends Game {
         Gdx.app.postRunnable(()->{
             // 目前的问题是，需要存储权限
             if (Constant.crashlog){
-                Constant.SDPATH = Gdx.files.local("/").file().getAbsolutePath();
                 new CrashUtils();
             }
             loadingView();
@@ -147,7 +146,6 @@ public class BaseGame extends Game {
             NLog.i("FramesPerSecond %s",Gdx.app.getGraphics().getFramesPerSecond());
         }
 
-        System.out.println(Gdx.app.getGraphics().getFramesPerSecond());
         super.render();
 
         if (zhuanCScreen!=null){

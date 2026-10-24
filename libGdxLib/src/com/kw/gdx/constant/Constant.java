@@ -8,7 +8,7 @@ import com.kw.gdx.screen.BaseScreen;
 
 public class Constant {
     public static boolean crashlog;
-    public static String SDPATH = "/";
+
     public static boolean SHOWRENDERCALL = false; //render call
     public static boolean SHOWFRAMESPERSECOND = false; //展示fps
     public static boolean DEBUG = false;
