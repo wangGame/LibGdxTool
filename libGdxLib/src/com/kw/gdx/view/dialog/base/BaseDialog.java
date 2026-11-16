@@ -65,11 +65,17 @@ public class BaseDialog extends Group {
         closeBg = new Actor();
         debugAll();
         if (annotation!=null){
-            viewpath = annotation.value();
-            if (useTemp()) {
-                viewpath = annotation.tempV();
+            if (annotation.userMain()) {
+                viewpath = annotation.mainValue();
+            }else {
+                viewpath = annotation.subValue();
             }
-            dialogGroup = CocosResource.loadFile(viewpath);
+            if (viewpath == null){
+                dialogGroup = new Group();
+                dialogGroup.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
+            }else {
+                dialogGroup = CocosResource.loadFile(viewpath);
+            }
         }else {
             dialogGroup = new Group();
             dialogGroup.setSize(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
@@ -258,7 +264,7 @@ public class BaseDialog extends Group {
     protected void hideRootView() {
         ScreenResource annotation = AnnotationInfo.checkClassAnnotation(this, ScreenResource.class);
         if (annotation!=null){
-            viewpath = annotation.value();
+            viewpath = annotation.mainValue();
             if (Configuration.device_state == Configuration.DeviceState.good) {
                 CocosResource.unLoadFile(viewpath);
             }

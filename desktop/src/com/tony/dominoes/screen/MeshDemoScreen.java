@@ -15,6 +15,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
+import com.kw.gdx.constant.Constant;
+import com.kw.gdx.resource.annotation.ScreenResource;
 import com.kw.gdx.screen.BaseScreen;
 import com.tony.dominoes.mesh.EditableMesh;
 import com.tony.dominoes.mesh.MeshEdge;
@@ -25,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@ScreenResource(mainValue = "MeshDemoScreen.json", subValue = "MeshDemoScreen.json")
 public class MeshDemoScreen extends BaseScreen {
     private final EditableMesh mesh = EditableMesh.grid(620.0f, 460.0f, 4, 3);
     private final Vector2 pointerWorld = new Vector2();

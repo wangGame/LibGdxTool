@@ -27,12 +27,14 @@ public class PetGroup extends Group {
         SpineActor smallPeople = new SpineActor("spine/idle2","spine/idle.atlas");
         addActor(smallPeople);
 //        actor.setAnimation("animation",true);
-        smallPeople.setAnimation("5", false);
+        smallPeople.setAnimation(1,"5", true);
+        smallPeople.setAnimation(2,"4", true);
+
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (false){
+        if (true){
             super.draw(batch, parentAlpha);
         }else {
             batch.setShader(program);

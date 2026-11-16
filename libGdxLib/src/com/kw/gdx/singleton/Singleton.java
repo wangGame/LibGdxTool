@@ -15,7 +15,7 @@ public class Singleton {
     @SuppressWarnings("unchecked")
     public static synchronized <T> T getInstance(Class<T> clazz) {
         Object o = instances.get(clazz);
-        if (o != null) {
+        if (o == null) {
             try {
                 Constructor<?> constructor = clazz.getDeclaredConstructor();
                 constructor.setAccessible(true);
