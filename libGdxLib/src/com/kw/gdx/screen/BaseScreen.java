@@ -161,7 +161,11 @@ public class BaseScreen implements Screen {
     private void initRootView() {
         ScreenResource annotation = AnnotationInfo.checkClassAnnotation(this, ScreenResource.class);
         if (annotation!=null){
-            viewpath = annotation.value();
+            if (annotation.userMain()){
+                viewpath = annotation.mainValue();
+            }else {
+                viewpath = annotation.subValue();
+            }
             rootView = CocosResource.loadFile(viewpath);
             stage.addActor(rootView);
             rootView.setPosition(Constant.GAMEWIDTH/2,Constant.GAMEHIGHT/2, Align.center);
@@ -331,7 +335,7 @@ public class BaseScreen implements Screen {
     private void hideRootView() {
         ScreenResource annotation = AnnotationInfo.checkClassAnnotation(this, ScreenResource.class);
         if (annotation!=null){
-            viewpath = annotation.value();
+            viewpath = annotation.mainValue();
             CocosResource.unLoadFile(viewpath);
         }
     }

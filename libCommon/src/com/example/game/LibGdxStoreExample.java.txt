@@ -1,0 +1,31 @@
+// LibGDX-side usage example (adapt the package names to your project):
+
+// In your Game subclass:
+// private final ViewModelStore store = new ViewModelStore();
+// private ViewModelProvider provider;
+//
+// @Override public void create() {
+//     Executor gdxUiExecutor = command -> Gdx.app.postRunnable(command);
+//     ViewModelProvider.Factory factory = new ViewModelProvider.Factory() {
+//         @Override public <T extends ViewModel> T create(Class<T> type) {
+//             if (type == ScoreViewModel.class) {
+//                 return type.cast(new ScoreViewModel(gdxUiExecutor));
+//             }
+//             throw new IllegalArgumentException("Unknown ViewModel: " + type.getName());
+//         }
+//     };
+//     provider = new ViewModelProvider(store, factory);
+// }
+//
+// public ScoreViewModel getScoreViewModel() {
+//     return provider.get(ScoreViewModel.class);
+// }
+//
+// @Override public void dispose() {
+//     store.clear(); // calls ScoreViewModel.onCleared()
+//     super.dispose();
+// }
+//
+// Any Screen belonging to this Game can call game.getScoreViewModel() and receive
+// the same ScoreViewModel instance. Remove its Observer in Screen.hide() when the
+// Screen is no longer visible.

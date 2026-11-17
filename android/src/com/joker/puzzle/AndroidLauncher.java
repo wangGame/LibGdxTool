@@ -68,6 +68,7 @@ public class AndroidLauncher extends BaseAndroidLauncher {
 
             return insets;
         });
+        Constant.crashlog = true;
         initialize(new GameTest(new UserInputListener() {
             @Override
             public void showHandleInput(String hint, Input.TextInputListener callback) {

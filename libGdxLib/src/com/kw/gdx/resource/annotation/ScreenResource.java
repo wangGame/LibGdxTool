@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ScreenResource {
-    String value() default "null";
-    String tempV() default "null";
-
+    String mainValue() default "null";
+    String subValue() default "null";
+    boolean userMain() default true;
 }

@@ -11,6 +11,13 @@
 - Maven 地址: `https://maven.pkg.github.com/wangGame/LibGdxTool`
 - 最新 Release: [![Release](https://img.shields.io/github/v/release/wangGame/LibGdxTool?display_name=tag)](https://github.com/wangGame/LibGdxTool/releases)
 
+## 使用本地gradle
+
+```xml
+file:///D:/xxxxx
+```
+
+
 ### Android APK 自动更新
 
 Android 应用启动时会检查 `wangGame/LibGdxTool` 的最新 GitHub Release。只有当 Release 的版本号高于 `android/build.gradle` 中的 `versionName`，且 Release 附带 `.apk` 文件时，才会提示下载；用户可以选择稍后或取消下载。下载完成后由 Android 系统安装器安装。

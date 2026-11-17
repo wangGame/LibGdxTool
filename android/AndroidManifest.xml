@@ -5,6 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
+
+
+
+<!-- 支持http 或者ip地址需要这个配置  sdk28之后的-->
+<!--    android:usesCleartextTraffic="true"-->
+
     <application
         android:name="com.joker.puzzle.BaseApplication"
         android:enableOnBackInvokedCallback="true"

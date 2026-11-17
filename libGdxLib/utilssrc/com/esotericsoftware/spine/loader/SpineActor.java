@@ -131,6 +131,10 @@ public class SpineActor extends Actor {
         state.setAnimation(0,name,loop);
     }
 
+    public void setAnimation(int trackIndex,String name, boolean loop){
+        state.setAnimation(trackIndex,name,loop);
+    }
+
     public void setSpineOffset(float offsetX,float offsetY){
         this.offsetX = offsetX;
         this.offsetY = offsetY;
