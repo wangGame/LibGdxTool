@@ -94,6 +94,11 @@ gradle.projectsEvaluated {
 }
 
 subprojects {
+    // Share JUnit across modules that support unit tests.
+    configurations.matching { it.name == 'testImplementation' }.configureEach {
+        project.dependencies.add(name, 'junit:junit:4.13.2')
+    }
+
     // Publish Java modules as Maven artifacts.
     pluginManager.withPlugin('java') {
         apply plugin: 'maven-publish'
