@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.constant.Configuration;
@@ -53,9 +54,11 @@ public class BaseScreen implements Screen {
     protected float bannerHight;
     protected boolean activeScreen;
     protected Vector2 screenSize;
+    protected Array<ScreenLife> screenLifes;
 
     public BaseScreen(BaseGame game){
         activeScreen = true;
+        this.screenLifes = new Array<>();
         this.game = game;
         this.screenSize = new Vector2(Constant.GAMEWIDTH,Constant.GAMEHIGHT);
         this.stage = new Stage(getStageViewport(), getBatch());
@@ -225,12 +228,21 @@ public class BaseScreen implements Screen {
 
     @Override
     public void pause() {
-
+        if (screenLifes!=null) {
+            for (ScreenLife screenLife : screenLifes) {
+                screenLife.pause();
+            }
+        }
     }
 
     @Override
     public void resume() {
 
+        if (screenLifes!=null) {
+            for (ScreenLife screenLife : screenLifes) {
+                screenLife.resume();
+            }
+        }
     }
 
     @Override
@@ -243,6 +255,11 @@ public class BaseScreen implements Screen {
                 }
             });
         }
+
+        if (screenLifes!=null) {
+            screenLifes.clear();
+            screenLifes = null;
+        }
     }
 
     @Override
@@ -250,6 +267,11 @@ public class BaseScreen implements Screen {
         stage.dispose();
         if (viewpath!=null) {
             CocosResource.unLoadFile(viewpath);
+        }
+
+        if (screenLifes!=null) {
+            screenLifes.clear();
+            screenLifes = null;
         }
     }
 
