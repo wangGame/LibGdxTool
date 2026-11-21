@@ -1,6 +1,7 @@
 package com.joker.domos;
 
 import com.joker.domos.listener.UserInputListener;
+import com.joker.domos.screen.AshleyScreen;
 import com.joker.domos.screen.BlurScreen;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.anr.ANRDEMO;
@@ -14,7 +15,8 @@ public class GameTest extends BaseGame {
     @Override
     protected void loadingView() {
         super.loadingView();
-        setScreen(new BlurScreen(this));
+//        setScreen(new BlurScreen(this));
+        setScreen(new AshleyScreen(this));
     }
 
     public static UserInputListener getUserInputListener() {
