@@ -1,8 +1,7 @@
 package com.libGdx.test.action;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.kw.gdx.action.NumAction;
-import com.kw.property.FloatProperty;
+import com.joker.property.FloatProperty;
 import com.libGdx.test.net.LibGdxTest;
 
 public class NumberActionTest2 extends LibGdxTest {

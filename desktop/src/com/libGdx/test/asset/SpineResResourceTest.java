@@ -1,13 +1,16 @@
 package com.libGdx.test.asset;
 
 import com.kw.gdx.asset.Asset;
+import com.kw.gdx.resource.AssetRes;
+import com.kw.gdx.resource.annotation.AssetFlag;
 import com.kw.gdx.resource.annotation.SpineResource;
 
 /**
  * @Auther jian xian si qi
  * @Date 2023/6/27 15:01
  */
-public class SpineResResourceTest {
+@AssetFlag
+public class SpineResResourceTest extends AssetRes {
     private static SpineResResourceTest instance;
 
     @SpineResource(isSpine = true)
@@ -18,13 +21,5 @@ public class SpineResResourceTest {
             instance = new SpineResResourceTest();
         }
         return instance;
-    }
-
-    public void loadRes(){
-        Asset.getAsset().loadAsset(this);
-    }
-
-    public void getRes(){
-        Asset.getAsset().getResource(this);
     }
 }

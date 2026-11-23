@@ -2,12 +2,10 @@ package com.libGdx.test.livedata;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.example.game.ScoreViewModel;
-import com.example.mvvm.Observer;
-import com.example.mvvm.ViewModel;
-import com.example.mvvm.ViewModelProvider;
-import com.example.mvvm.ViewModelStore;
-import com.libGdx.test.action.ActionDemo;
+import com.joker.mvvm.ScoreViewModel;
+import com.joker.mvvm.ViewModel;
+import com.joker.mvvm.ViewModelProvider;
+import com.joker.mvvm.ViewModelStore;
 import com.libGdx.test.base.LibGdxTestMain;
 
 import java.util.concurrent.Executor;
