@@ -4,10 +4,18 @@ sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [
         "src"
 ]
+sourceSets.test.java.srcDirs = [
+        "test"
+]
+
 
 // 指定编码
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+}
+
+dependencies {
+    implementation(project(":libGdxEvent"))
 }
 
 

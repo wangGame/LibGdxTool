@@ -10,6 +10,7 @@ dependencies {
     implementation project(":libCommon")
     implementation project(":libGdxEvent")
     implementation 'junit:junit:4.12'
+    implementation project(":libModelView")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "com.badlogicgames.ashley:ashley:1.7.0"
 }

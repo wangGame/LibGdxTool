@@ -21,3 +21,4 @@ include 'libGdxLib',
         "libFreetype",
         "libGdxAshley",
         "libModelView"
+include ':playreview'
