@@ -1,0 +1,64 @@
+apply plugin: "java"
+dependencies {
+    implementation project(':core')
+    implementation project (':libGdxLib')
+    implementation project (':libGdx')
+    implementation project(":libCommon")
+    implementation project(":libGdxEvent")
+    implementation 'com.github.xpenatan.gdx-teavm:backend-teavm:1.0.0'
+}
+
+tasks.register('prepareAssets', Sync) {
+    from rootProject.file('assets')
+    exclude 'assets.txt'
+    into layout.buildDirectory.dir('assets')
+    // TeaVM checks the bundle's extensionless base path before calling I18NBundleLoader.
+    // Supply that path as well as the normal localized .properties files.
+    doLast {
+        copy {
+            from rootProject.file('assets/i8n/Bundle.properties')
+            into layout.buildDirectory.dir('assets/i8n')
+            rename 'Bundle.properties', 'Bundle'
+        }
+    }
+}
+
+tasks.register('dist', JavaExec) {
+    group = 'build'
+    description = 'Compile the game to JavaScript and package the website.'
+    dependsOn classes, 'prepareAssets'
+    mainClass = 'ogz.tripeaks.html.HtmlBuilder'
+    classpath = sourceSets.main.runtimeClasspath
+    workingDir = rootProject.projectDir
+    args layout.buildDirectory.dir('assets').get().asFile.absolutePath,
+            layout.buildDirectory.dir('dist').get().asFile.absolutePath
+    maxHeapSize = '1G'
+    doLast {
+        copy {
+            from 'webapp'
+            exclude 'single-file-runtime.js'
+            into layout.buildDirectory.dir('dist/webapp')
+        }
+    }
+}
+
+tasks.register('singleHtml', JavaExec) {
+    group = 'build'
+    description = 'Build a single offline tripeaks.html containing the game and all assets.'
+    dependsOn 'dist'
+    mainClass = 'ogz.tripeaks.html.HtmlSingleFilePacker'
+    classpath = sourceSets.main.runtimeClasspath
+    args layout.buildDirectory.dir('dist/webapp').get().asFile.absolutePath,
+            layout.buildDirectory.file('dist/tripeaks.html').get().asFile.absolutePath,
+            file('webapp/single-file-runtime.js').absolutePath
+}
+
+tasks.register('run', JavaExec) {
+    group = 'application'
+    description = 'Build and serve the HTML game at http://localhost:8080.'
+    dependsOn 'dist'
+    mainClass = 'ogz.tripeaks.html.HtmlServer'
+    classpath = sourceSets.main.runtimeClasspath
+    args layout.buildDirectory.dir('dist/webapp').get().asFile.absolutePath,
+            providers.gradleProperty('htmlPort').getOrElse('8080')
+}

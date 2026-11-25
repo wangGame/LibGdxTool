@@ -22,3 +22,4 @@ include 'libGdxLib',
         "libGdxAshley",
         "libModelView"
 include ':playreview'
+include ':html'
