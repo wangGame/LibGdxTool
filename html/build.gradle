@@ -48,6 +48,7 @@ tasks.register('singleHtml', JavaExec) {
     dependsOn 'dist'
     mainClass = 'ogz.tripeaks.html.HtmlSingleFilePacker'
     classpath = sourceSets.main.runtimeClasspath
+    workingDir = rootProject.projectDir
     args layout.buildDirectory.dir('dist/webapp').get().asFile.absolutePath,
             layout.buildDirectory.file('dist/tripeaks.html').get().asFile.absolutePath,
             file('webapp/single-file-runtime.js').absolutePath

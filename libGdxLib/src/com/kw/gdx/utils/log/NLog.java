@@ -95,8 +95,14 @@ public class NLog {
     }
 
     private static String getCallerMethod() {
+        final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        final int callerIndex = sStackDepth + 3;
+        // TeaVM may return an empty or shortened Java stack trace.
+        if (sStackDepth < 0 || callerIndex >= stackTrace.length) {
+            return "NLog";
+        }
         final StackTraceElement stackTraceElement =
-                Thread.currentThread().getStackTrace()[sStackDepth + 3];
+                stackTrace[callerIndex];
         final String fullClassName = stackTraceElement.getClassName();
         final String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
         final String method = stackTraceElement.getMethodName();
@@ -104,8 +110,13 @@ public class NLog {
     }
 
     private static String getCallerInfoMethod() {
+        final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        final int callerIndex = sStackDepth + 4;
+        if (sStackDepth < 0 || callerIndex >= stackTrace.length) {
+            return "NLog";
+        }
         final StackTraceElement stackTraceElement =
-                Thread.currentThread().getStackTrace()[sStackDepth + 4];
+                stackTrace[callerIndex];
         final String fullClassName = stackTraceElement.getClassName();
         final String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);
         final String method = stackTraceElement.getMethodName();

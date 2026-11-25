@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 /** Packages a TeaVM website as an offline HTML file. Runs only on the JVM. */
@@ -19,13 +21,17 @@ public final class HtmlSingleFilePacker {
 //        "D:\Android\tripeaks-gdx\html\webapp\single-file-runtime.js"
 
 //        "html/build/dist/webapp" "html/build/dist/tripeaks.html" "html/webapp/single-file-runtime.js"
-        Path root = Path.of("html/build/dist/webapp").toRealPath();
-        Path output = Path.of("html/build/dist/tripeaks.html").toAbsolutePath();
+        Path root = Path.of(args.length > 0 ? args[0] : "html/build/dist/webapp").toRealPath();
+        Path output = Path.of(args.length > 1 ? args[1] : "html/build/dist/tripeaks.html").toAbsolutePath();
         String html = Files.readString(root.resolve("index.html"));
-        String entry = "<script src=\"teavm/app.js\"></script>";
-        if (!html.contains(entry)) {
+        Pattern scriptPattern = Pattern.compile(
+                "<script\\b[^>]*\\s+src\\s*=\\s*([\"'])(?:\\./)?teavm/app\\.js\\1[^>]*>\\s*</script\\s*>",
+                Pattern.CASE_INSENSITIVE);
+        Matcher scriptMatcher = scriptPattern.matcher(html);
+        if (!scriptMatcher.find()) {
             throw new IllegalStateException("Cannot find the TeaVM script in index.html.");
         }
+        String entry = scriptMatcher.group();
 
         StringBuilder assets = new StringBuilder("{");
         List<Path> files;
@@ -44,13 +50,16 @@ public final class HtmlSingleFilePacker {
         }
         assets.append('}');
         String app = Base64.getEncoder().encodeToString(Files.readAllBytes(root.resolve("teavm/app.js")));
-        String runtime = Files.readString(Path.of("html/webapp/single-file-runtime.js"));
+        String runtime = Files.readString(Path.of(args.length > 2 ? args[2] : "html/webapp/single-file-runtime.js"));
         runtime = runtime.replace("/*__EMBEDDED_FILES__*/", assets)
                 .replace("/*__APPLICATION__*/", '"' + app + '"');
         html = html.replace(entry, "<script>\n" + runtime + "\n</script>");
         // The favicon is the only asset directly referenced by the HTML template.
-        html = html.replace("href=\"assets/images/dark_title.png\"", "href=\"data:image/png;base64,"
-                + Base64.getEncoder().encodeToString(Files.readAllBytes(root.resolve("assets/images/dark_title.png"))) + "\"");
+        String favicon = "href=\"assets/images/dark_title.png\"";
+        if (html.contains(favicon)) {
+            html = html.replace(favicon, "href=\"data:image/png;base64,"
+                    + Base64.getEncoder().encodeToString(Files.readAllBytes(root.resolve("assets/images/dark_title.png"))) + "\"");
+        }
         Files.createDirectories(output.getParent());
         Files.writeString(output, html, StandardCharsets.UTF_8);
         System.out.printf("Single HTML: %s%nEmbedded %d files; %.2f MiB. Open directly in a browser.%n",
