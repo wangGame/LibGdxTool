@@ -24,10 +24,10 @@ public final class HtmlBuilder {
         TeaBuildConfiguration config = new TeaBuildConfiguration();
         // The desktop asset list has a different format; TeaVM generates its own manifest.
         config.assetFilter = (path, directory) -> !path.endsWith("/assets.txt");
-        config.assetsPath.add(new AssetFileHandle(args[0]));
-        config.webappPath = args[1];
+        config.assetsPath.add(new AssetFileHandle("assets"));
+        config.webappPath = "html/build/dist";
         config.mainClass = HtmlLauncher.class.getName();
-        config.htmlTitle = "TriPeaks";
+        config.htmlTitle = "Demo";
         config.showLoadingLogo = false;
         TeaVMTool tool = TeaBuilder.config(config);
         tool.setObfuscated(true);

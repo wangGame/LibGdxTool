@@ -27,7 +27,7 @@ public class ClassType {
     }
 
     public static boolean feildBoolean(Field field, String type){
-        return field.getGenericType().toString().equals(type);
+        return field.getType().getName().equals(type);
     }
 
 }

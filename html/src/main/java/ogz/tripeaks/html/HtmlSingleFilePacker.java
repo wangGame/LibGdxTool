@@ -18,9 +18,9 @@ public final class HtmlSingleFilePacker {
 //        "D:\Android\tripeaks-gdx\html\build\dist\tripeaks.html"
 //        "D:\Android\tripeaks-gdx\html\webapp\single-file-runtime.js"
 
-
-        Path root = Path.of(args[0]).toRealPath();
-        Path output = Path.of(args[1]).toAbsolutePath();
+//        "html/build/dist/webapp" "html/build/dist/tripeaks.html" "html/webapp/single-file-runtime.js"
+        Path root = Path.of("html/build/dist/webapp").toRealPath();
+        Path output = Path.of("html/build/dist/tripeaks.html").toAbsolutePath();
         String html = Files.readString(root.resolve("index.html"));
         String entry = "<script src=\"teavm/app.js\"></script>";
         if (!html.contains(entry)) {
@@ -44,7 +44,7 @@ public final class HtmlSingleFilePacker {
         }
         assets.append('}');
         String app = Base64.getEncoder().encodeToString(Files.readAllBytes(root.resolve("teavm/app.js")));
-        String runtime = Files.readString(Path.of(args[2]));
+        String runtime = Files.readString(Path.of("html/webapp/single-file-runtime.js"));
         runtime = runtime.replace("/*__EMBEDDED_FILES__*/", assets)
                 .replace("/*__APPLICATION__*/", '"' + app + '"');
         html = html.replace(entry, "<script>\n" + runtime + "\n</script>");
