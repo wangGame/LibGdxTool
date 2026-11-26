@@ -36,7 +36,7 @@ tasks.register('dist', JavaExec) {
     doLast {
         copy {
             from 'webapp'
-            exclude 'single-file-runtime.js'
+            exclude 'single-file-runtime.js', 'single-file-lazy-runtime.js'
             into layout.buildDirectory.dir('dist/webapp')
         }
     }
@@ -62,4 +62,34 @@ tasks.register('run', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     args layout.buildDirectory.dir('dist/webapp').get().asFile.absolutePath,
             providers.gradleProperty('htmlPort').getOrElse('8080')
+}
+
+tasks.register('lazyDist', JavaExec) {
+    group = 'build'
+    description = 'Build the on-demand HTML variant in its own directory.'
+    dependsOn classes, 'prepareAssets'
+    mainClass = 'ogz.tripeaks.html.LazyHtmlBuilder'
+    classpath = sourceSets.main.runtimeClasspath
+    workingDir = rootProject.projectDir
+    args layout.buildDirectory.dir('assets').get().asFile.absolutePath,
+            layout.buildDirectory.dir('dist-lazy').get().asFile.absolutePath
+    maxHeapSize = '1G'
+    doLast {
+        copy {
+            from 'webapp/index.html'
+            into layout.buildDirectory.dir('dist-lazy/webapp')
+        }
+    }
+}
+
+tasks.register('lazySingleHtml', JavaExec) {
+    group = 'build'
+    description = 'Package the on-demand variant as a separate single HTML file.'
+    dependsOn 'lazyDist'
+    mainClass = 'ogz.tripeaks.html.HtmlSingleFilePacker'
+    classpath = sourceSets.main.runtimeClasspath
+    workingDir = rootProject.projectDir
+    args layout.buildDirectory.dir('dist-lazy/webapp').get().asFile.absolutePath,
+            layout.buildDirectory.file('dist-lazy/tripeaks-lazy.html').get().asFile.absolutePath,
+            file('webapp/single-file-lazy-runtime.js').absolutePath
 }
