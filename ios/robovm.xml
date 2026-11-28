@@ -1,0 +1,36 @@
+<config>
+    <executableName>${app.executable}</executableName>
+    <mainClass>${app.mainclass}</mainClass>
+    <os>ios</os>
+    <target>ios</target>
+    <iosInfoPList>Info.plist.xml</iosInfoPList>
+    <treeShaker>conservative</treeShaker>
+    <resources>
+        <resource>
+            <directory>../assets</directory>
+            <includes><include>**</include></includes>
+            <skipPngCrush>true</skipPngCrush>
+        </resource>
+        <resource><directory>data</directory></resource>
+    </resources>
+    <forceLinkClasses>
+        <!-- libGDX Json and Skin instantiate these classes by reflection. -->
+        <pattern>com.joker.**</pattern>
+        <pattern>com.kw.gdx.**</pattern>
+        <pattern>com.esotericsoftware.spine.**</pattern>
+        <pattern>com.badlogic.ashley.**</pattern>
+        <pattern>com.badlogic.gdx.scenes.scene2d.**</pattern>
+        <pattern>com.badlogic.gdx.graphics.**</pattern>
+        <pattern>com.badlogic.gdx.utils.**</pattern>
+    </forceLinkClasses>
+    <libs><lib>z</lib></libs>
+    <frameworks>
+        <framework>UIKit</framework>
+        <framework>QuartzCore</framework>
+        <framework>CoreGraphics</framework>
+        <framework>OpenAL</framework>
+        <framework>AudioToolbox</framework>
+        <framework>AVFoundation</framework>
+        <framework>GameController</framework>
+    </frameworks>
+</config>

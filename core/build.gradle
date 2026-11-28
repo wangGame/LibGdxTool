@@ -11,7 +11,7 @@ dependencies {
     implementation project(":libGdxEvent")
     implementation 'junit:junit:4.12'
     implementation project(":libModelView")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${findProperty('kotlin_version') ?: '1.8.22'}"
     implementation "com.badlogicgames.ashley:ashley:1.7.0"
 }
 

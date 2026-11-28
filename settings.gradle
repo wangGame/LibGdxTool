@@ -23,3 +23,5 @@ include 'libGdxLib',
         "libModelView"
 include ':playreview'
 include ':html'
+include ':ios'
+include ':ios-moe'

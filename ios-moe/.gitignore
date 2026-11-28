@@ -1,0 +1,5 @@
+/build/
+/xcode/ios-moe.xcodeproj/xcuserdata/
+/xcode/ios-moe.xcodeproj/project.xcworkspace/xcuserdata/
+__pycache__/
+*.pyc

@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.mobidevelop.robovm:robovm-gradle-plugin:$robovmVersion"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'robovm'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+// Match the libGDX sources maintained in :libGdx (Version.VERSION).
+def gdxVersion = '1.13.1'
+
+configurations.configureEach {
+    // Use the project's modified libGDX and JNI loader, not duplicate Maven classes.
+    exclude group: 'com.badlogicgames.gdx', module: 'gdx'
+    exclude group: 'com.badlogicgames.gdx', module: 'gdx-jnigen-loader'
+}
+
+
+dependencies {
+    implementation project(':core')
+    implementation project(':libGdx')
+    implementation project(':libGdxLib')
+    implementation "com.mobidevelop.robovm:robovm-rt:$robovmVersion"
+    implementation "com.mobidevelop.robovm:robovm-cocoatouch:$robovmVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-robovm-metalangle:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+}
+
+robovm {
+    archs = 'arm64'
+    // RoboVM 3 defaults to build/robovm-build/robovm. Keep a stable output path.
+    installDir = layout.buildDirectory.dir('robovm').get().asFile.absolutePath
+    // Read signing values from the runner environment, never from tracked files.
+    iosSignIdentity = System.getenv('IOS_SIGN_IDENTITY')
+    iosProvisioningProfile = System.getenv('IOS_PROFILE_UUID')
+}

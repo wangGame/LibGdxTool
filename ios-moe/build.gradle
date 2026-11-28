@@ -1,0 +1,102 @@
+buildscript {
+    repositories { mavenCentral() }
+    dependencies {
+        def javaOnly = (gradle.startParameter.projectProperties['iosJavaOnly']
+                ?: System.getProperty('os.name').toLowerCase().contains('windows').toString()).toBoolean()
+        if (!javaOnly) {
+            classpath 'org.multi-os-engine:moe-gradle:1.10.1'
+        }
+    }
+}
+def javaOnly = (findProperty('iosJavaOnly')
+        ?: System.getProperty('os.name').toLowerCase().contains('windows').toString()).toBoolean()
+if (javaOnly) {
+    apply plugin: 'java'
+    configurations { moeSdk }
+    dependencies { moeSdk 'org.multi-os-engine:moe-sdk:1.10.1@zip' }
+    def sdkDir = layout.buildDirectory.dir('moe-java-sdk')
+    tasks.register('prepareJavaSdk', Sync) {
+        from { zipTree(configurations.moeSdk.singleFile) }
+        include 'sdk/moe-core.jar', 'sdk/moe-ios.jar'
+        into sdkDir
+    }
+    dependencies {
+        compileOnly files(sdkDir.map { it.file('sdk/moe-core.jar') },
+                          sdkDir.map { it.file('sdk/moe-ios.jar') })
+    }
+    tasks.named('compileJava') { dependsOn 'prepareJavaSdk' }
+} else {
+    apply plugin: 'moe'
+}
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+sourceSets.main.java.srcDirs = ['src']
+tasks.withType(JavaCompile).configureEach {
+    options.release = 8
+    options.encoding = 'UTF-8'
+}
+dependencies {
+    implementation project(':core')
+    implementation project(':libGdx')
+    implementation project(':libGdxLib')
+    implementation project(':libGdxJnigenLoader')
+    implementation('io.github.berstanio:gdx-backend-moe:1.13.1') {
+        exclude group: 'com.badlogicgames.gdx', module: 'gdx'
+        if (javaOnly) exclude group: 'multi-os-engine'
+    }
+}
+
+configurations.configureEach {
+    // Keep the project's modified libGDX and JNI loader on the classpath.
+    exclude group: 'com.badlogicgames.gdx', module: 'gdx'
+    exclude group: 'com.badlogicgames.gdx', module: 'gdx-jnigen-loader'
+}
+tasks.register('prepareAssets', Sync) {
+    from(rootProject.file('assets')) {
+        exclude '**/.DS_Store', '**/._*', '**/*.jar', '**/*.ogg'
+    }
+    from('media') { include '**/*.mp3' }
+    into layout.buildDirectory.dir('assets')
+    doLast {
+        rootProject.fileTree('assets').matching { include '**/*.ogg' }.each { original ->
+            def relative = rootProject.file('assets').toPath().relativize(original.toPath()).toString()
+            def converted = new File(layout.buildDirectory.dir('assets').get().asFile,
+                    relative.replaceFirst(/(?i)\.ogg$/, '.mp3'))
+            if (!converted.isFile() || converted.length() == 0) {
+                throw new GradleException("Missing iOS audio: $relative. Run python ios-moe/convert-audio.py.")
+            }
+        }
+    }
+}
+tasks.register('prepareNatives') {
+    doLast {
+        ['gdx', 'ObjectAL', 'MetalANGLE'].each { name ->
+            if (!file("xcode/Native/ios/${name}.xcframework/Info.plist").isFile()) {
+                throw new GradleException("Missing iOS native framework: $name")
+            }
+        }
+    }
+}
+if (!javaOnly) moe {
+    xcode {
+        project 'xcode/ios-moe.xcodeproj'
+        mainTarget 'ios-moe'
+        mainScheme 'ios-moe'
+    }
+    proguardLevel 'all'
+}
+tasks.matching { it.name.endsWith('XcodeBuild') || it.name == 'moeXcodeInternal' }.configureEach {
+    dependsOn 'prepareAssets', 'prepareNatives'
+}
+
+// The custom Xcode project reads native MOE frameworks from build/moe/sdk.
+// The plugin itself downloads its SDK into ~/.moe, so stage just the frameworks.
+if (!javaOnly) {
+    tasks.register('prepareMoeFrameworks', Sync) {
+        from(moe.sdk.root) {
+            include 'sdk/iphoneos/**', 'sdk/iphonesimulator/**'
+        }
+        into layout.buildDirectory.dir('moe/sdk')
+    }
+    tasks.named('prepareNatives') { dependsOn 'prepareMoeFrameworks' }
+}
